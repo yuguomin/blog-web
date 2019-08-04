@@ -1133,6 +1133,14 @@ pre .javascript .function {
   -o-transform: rotate(30deg);
   transform: rotate(30deg);
 }
+.post-body p a {
+  color: #0593d3;
+  border-bottom: none;
+}
+.post-body p a:hover {
+  color: #ff106c;
+  text-decoration: underline;
+}
 .posts-expand {
   padding-top: 40px;
 }
@@ -1327,8 +1335,6 @@ pre .javascript .function {
 }
 .posts-expand .post-title-link {
   display: inline-block;
-  position: relative;
-  color: #555;
   border-bottom: none;
   line-height: 1.2;
   vertical-align: top;
@@ -1679,26 +1685,31 @@ pre .javascript .function {
 .feed-link a:hover i {
   color: #fff;
 }
-.links-of-author {
-  margin-top: 20px;
-}
-.links-of-author a {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  border-bottom-color: #555;
-  font-size: 13px;
-}
-.links-of-author a:before {
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 3px;
-  content: " ";
-  width: 4px;
-  height: 4px;
+.site-author-image {
+  display: block;
+  margin: 0 auto;
+  padding: 2px;
+  max-width: 96px;
+  height: auto;
+  border: site-author-image-border-color;
+/* start*/
   border-radius: 50%;
-  background: #73e5ff;
+  webkit-transition: 1.4s all;
+  moz-transition: 1.4s all;
+  ms-transition: 1.4s all;
+  transition: 1.4s all;
+/* end */
+}
+.site-author-image:hover {
+  background-color: #55dae1;
+  webkit-transform: rotate(360deg) scale(1.1);
+  moz-transform: rotate(360deg) scale(1.1);
+  ms-transform: rotate(360deg) scale(1.1);
+  -webkit-transform: rotate(360deg) scale(1.1);
+  -moz-transform: rotate(360deg) scale(1.1);
+  -ms-transform: rotate(360deg) scale(1.1);
+  -o-transform: rotate(360deg) scale(1.1);
+  transform: rotate(360deg) scale(1.1);
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2620,4 +2631,11 @@ embed {
 }
 .links-of-blogroll-inline .links-of-blogroll-item {
   display: inline-block;
+}
+.post {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  padding: 25px;
+  -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
+  -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
 }
