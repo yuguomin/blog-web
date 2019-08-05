@@ -2686,7 +2686,7 @@ a {
 }
 .header-inner {
   padding: 45px 0 25px;
-  width: 700px;
+  width: 100%;
 }
 .site-author-name {
   font-family: 'Comic Sans MS', sans-serif;
