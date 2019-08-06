@@ -69,7 +69,7 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。 目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-05T16:27:08.923Z">
+<meta property="og:updated_time" content="2019-08-06T08:26:21.600Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速使用Hexo搭建个人博客">
 <meta name="twitter:description" content="前言 搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。 目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。">
@@ -346,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">258(字)</span>
+                  <span class="post-count">498(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
+            <span class="post-count">2(分)</span>
             
           </span>
 
@@ -380,21 +380,59 @@
 <li>搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。</li>
 <li>目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。<a id="more"></a> </li>
 <li>大致流程:<br>本地环境配置 =&gt; 服务器环境配置 =&gt; github配置 =&gt; 发布部署</li>
-<li>使用到的相关环境版本<br>local OS: macOS<br>server OS: CentOS7<br>hexo: 3.9.0<br>nvm: 0.34.0<br>Node.js: 8.11.4<br>git: 2.18.0</li>
+<li>使用到的相关环境版本<br>local OS: macOS Mojave 10.14.5<br>server OS: CentOS7.4.1708<br>hexo: 3.9.0<br>nvm: 0.34.0<br>Node.js: 8.11.4<br>git: 2.18.0</li>
 </ul>
 <hr>
 <h1 id="本地环境配置"><a href="#本地环境配置" class="headerlink" title="本地环境配置"></a>本地环境配置</h1><p>本地配置包括: Node.js, git, Hexo</p>
 <h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>这里使用的是安装nvm管理node版本的方式，所以先安装<a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure>
+<h3 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure>
 
-<p>使用上面的命令运行安装nvm，安装完成后需要配置全局变量才可以使用。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR="$HOME/.nvm"</span><br><span class="line">[ -s "$NVM_DIR/nvm.sh" ] &amp;&amp; \. "$NVM_DIR/nvm.sh"</span><br></pre></td></tr></table></figure>
+<p>使用上面的命令运行安装nvm，安装完成后需要重新执行全局变量文件才可以使用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
 <p>在输入完成后输入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm</span><br></pre></td></tr></table></figure>
 
-<p>会收到 Node Version Manager, 即为成功。<br>如果关闭终端后nvm指令又不存在了，则通过如下方案解决:</p>
+<p>会收到 Node Version Manager, 即为成功。<br>如果有提示找不到nvm命令或者没有.bash_profile文件，可以手动添加环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
+<p>把这一段内容加入到文件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;</span><br></pre></td></tr></table></figure>
+
+<p>保存之后再次执行一次</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<h3 id="通过nvm安装node-js"><a href="#通过nvm安装node-js" class="headerlink" title="通过nvm安装node.js"></a>通过nvm安装node.js</h3><p>在安装完毕nvm并配置好环境变量后，就可以通过nvm控制node版本。<br>查看node版本列表命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm list-remote</span><br></pre></td></tr></table></figure>
+
+<p>可以选择任意一个需要的版本去安装，我这里使用的是v8.11.4，使用安装命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install v8.11.4</span><br></pre></td></tr></table></figure>
+
+<p>可以通过nvm命令查看已经安装的node版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm list</span><br></pre></td></tr></table></figure>
+
+<p>得到输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-&gt;  v8.11.4</span><br><span class="line">      system</span><br></pre></td></tr></table></figure>
+
+<p>可以通过nvm命令去切换成想要使用的版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm use v8.11.4</span><br></pre></td></tr></table></figure>
+
+<p>得到输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Now using node v8.11.4</span><br></pre></td></tr></table></figure>
+
+<p>将此版本设置为默认版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm alias default v8.11.4</span><br></pre></td></tr></table></figure>
+
+<p>得到输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default -&gt; v8.11.4</span><br></pre></td></tr></table></figure>
+
+<p>通过命令验证是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node --version</span><br></pre></td></tr></table></figure>
+
+<p>得到输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v8.11.4</span><br></pre></td></tr></table></figure>
+
+<h2 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h2>
       
     </div>
     <div>
@@ -634,7 +672,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地环境配置"><span class="nav-number">2.</span> <span class="nav-text">本地环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">2.1.</span> <span class="nav-text">安装Node.js</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地环境配置"><span class="nav-number">2.</span> <span class="nav-text">本地环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">2.1.</span> <span class="nav-text">安装Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nvm"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装nvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过nvm安装node-js"><span class="nav-number">2.1.2.</span> <span class="nav-text">通过nvm安装node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git安装"><span class="nav-number">2.2.</span> <span class="nav-text">git安装</span></a></li></ol></li></ol></div>
             
 
           </div>
