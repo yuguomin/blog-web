@@ -2645,6 +2645,10 @@ embed {
   font-size: 14px;
   margin-top: 15px;
 }
+.site-nav-toggle button {
+  position: relative;
+  z-index: 99;
+}
 .site-subtitle {
   font-size: 15px;
   color: #000;

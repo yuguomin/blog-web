@@ -71,7 +71,16 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-start.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-done.jpg">
-<meta property="og:updated_time" content="2019-08-07T08:59:46.426Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-set.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-cmd.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-page.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post-web.png">
+<meta property="og:updated_time" content="2019-08-07T16:52:14.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速使用Hexo搭建个人博客">
 <meta name="twitter:description" content="前言 搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。 目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。">
@@ -349,7 +358,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">972(字)</span>
+                  <span class="post-count">1.9k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -358,10 +367,15 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
+            <span class="post-count">7(分)</span>
             
           </span>
 
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
           
 
           
@@ -388,25 +402,25 @@
 <hr>
 <h1 id="本地环境配置"><a href="#本地环境配置" class="headerlink" title="本地环境配置"></a>本地环境配置</h1><p>本地配置包括: Node.js, git, Hexo</p>
 <h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p><a href="https://nodejs.org/zh-cn/docs/" target="_blank" rel="noopener">node.js</a>是一个后端的JavaScript运行环境，拥有它，就可以编写系统级或者服务器端的 Javascript 代码，交给node去解释执行。为什么要装node？Hexo本身就是一个JS框架，里面有很多JS脚本，需要node环境去执行。<br>这里使用的是安装nvm管理node版本的方式，所以先安装nvm<br><a href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener">nvm</a>是针对node产生的一个版本控制工具，使用它可以下载和切换不同版本的node。<br><a href="https://www.npmjs.com/" target="_blank" rel="noopener">npm</a>是一种包管理工具，通过npm可以安装各种在npm上传的工具包。在安装node的时候npm会同时安装。后面会需要使用npm安装如hexo等工具。</p>
-<h3 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure>
+<h3 id="安装nvm"><a href="#安装nvm" class="headerlink" title="安装nvm"></a>安装nvm</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash</span><br></pre></td></tr></table></figure>
 
 <p>使用上面的命令运行安装nvm，安装完成后需要重新执行全局变量文件才可以使用。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
 <p>在输入完成后输入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm</span><br></pre></td></tr></table></figure>
 
 <p>会收到 Node Version Manager, 即为成功。<br>如果有提示找不到nvm命令或者没有.bash_profile文件，可以手动添加环境变量</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
 <p>把这一段内容加入到文件中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export NVM_DIR=&quot;$HOME/.nvm&quot;</span><br><span class="line">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;</span><br></pre></td></tr></table></figure>
 
 <p>保存之后再次执行一次</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bash_profile</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
 
 <h3 id="通过nvm安装node-js"><a href="#通过nvm安装node-js" class="headerlink" title="通过nvm安装node.js"></a>通过nvm安装node.js</h3><p>在安装完毕nvm并配置好环境变量后，就可以通过nvm控制node版本。<br>查看node版本列表命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm list-remote</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm list-remote</span><br></pre></td></tr></table></figure>
 
 <p>可以选择任意一个需要的版本去安装，我这里使用的是v8.11.4，使用安装命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm install v8.11.4</span><br></pre></td></tr></table></figure>
@@ -424,7 +438,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Now using node v8.11.4</span><br></pre></td></tr></table></figure>
 
 <p>将此版本设置为默认版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm alias default v8.11.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvm <span class="built_in">alias</span> default v8.11.4</span><br></pre></td></tr></table></figure>
 
 <p>得到输出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">default -&gt; v8.11.4</span><br></pre></td></tr></table></figure>
@@ -443,14 +457,59 @@
 
 <h2 id="git安装"><a href="#git安装" class="headerlink" title="git安装"></a>git安装</h2><p>git是一个分布式版本控制系统，简单点说就是可以远端存储代码，并且多端协同开发同步代码的系统。<br>安装git的目的，通过git的hooks进行本地和服务器的代码同步，部署发布。<br>安装方法来自<a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank" rel="noopener">git官方文档</a></p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>安装Git的最简单方法是安装Git附带的Xcode命令行工具。在Mavericks（10.9）或更高版本上，只需尝试从终端运行git命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
 
 <p>如果未安装git会提示，阅读并同意协议，安装即可使用。已安装会提示版本信息。</p>
 <h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>在该地址<a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git官方下载地址</a>下载git<br>下载完成后打开文件进行安装即可。<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-start.png" width="60%" style="margin:0;"><br>完成<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-done.jpg" width="60%" style="margin:0;"><br>再次使用 git –version 进行确认</p>
-<h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>Hexo是一个博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章生成静态网页。并且有方便的发布系统和各种插件。<br>这里主要是安装hexo-cli及如何生成博客的基本模版，<font color="red" size="3"><strong>确保安装Hexo时已经安装node和git</strong></font></p>
-<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>这里使用npm在全局安装hexo-cli, </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+<h3 id="配置git-ssh"><a href="#配置git-ssh" class="headerlink" title="配置git ssh"></a>配置git ssh</h3><p>做好ssh的配置目的是为了之后部署好代码，上传时不需要每次都输入用户名密码。<a href="https://help.github.com/cn/articles/connecting-to-github-with-ssh" target="_blank" rel="noopener">官方文档</a><br>第一次需要配置你的user name和email</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">"xxxxxx"</span> <span class="comment"># 自行替换</span></span><br><span class="line">git config --global user.email <span class="string">"xxxxxx@xx.com"</span> <span class="comment"># 自行替换</span></span><br></pre></td></tr></table></figure>
 
+<p>执行生成密钥命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">"your_email@example.com"</span> <span class="comment"># 替需要换为你的 GitHub 电子邮件地址</span></span><br></pre></td></tr></table></figure>
+
+<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png" width="40%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+
+<p>下一步打开github账号，点击右上角小头像，选择setting入口<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-set.png" width="30%" style="margin:0;"><br>点击左侧边栏的SSH and GPG keys（SSH 和 GPG 密钥）选项<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png" width="30%" style="margin:0;"><br>然后点击New SSH key（新 SSH 密钥）或 Add SSH key（添加 SSH 密钥）<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png" width="50%" style="margin:0;"><br>“Title” 标题中写入一个标示，提示下你这个ssh的用处，然后把刚才复制的内容粘贴到 “Key”（密钥）中<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png" width="50%" style="margin:0;"><br>完成后点击下面的 Add SSH key（添加 SSH 密钥）按钮，如有提示输入密码按要求输入即可<br>测试下是否配置成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>将会看到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &apos;github.com (207.97.227.239)&apos; can&apos;t be established.</span><br><span class="line">    RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</span><br><span class="line">    Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure>
+
+<p>输入回程或者yes，收到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxxxxx! You&apos;ve successfully authenticated, but GitHub does not provide bash access.</span><br></pre></td></tr></table></figure>
+
+<p>完成配置～</p>
+<h3 id="新建一个git仓库"><a href="#新建一个git仓库" class="headerlink" title="新建一个git仓库"></a>新建一个git仓库</h3><h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>Hexo是一个博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章生成静态网页。并且有方便的发布系统和各种插件。<br>这里主要是安装hexo-cli及如何生成博客的基本模版，<font color="red" size="3"><strong>确保安装Hexo时已经安装node和git</strong></font></p>
+<h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>这里使用npm在全局安装hexo-cli</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕已经可以使用hexo命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用hexo"><a href="#使用hexo" class="headerlink" title="使用hexo"></a>使用hexo</h3><p>hexo已经安装成功了，那么接下来需要的是在本地创建一个hexo的代码库<br>进入一个文件夹，执行命令在当前文件夹生成网站所需要的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
+
+<p>安装代码仓库所需要的第依赖包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>安装成功之后，就可以执行命令本地启动预览页面效果了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate # 也可以简写hexo g，效果相同，生成public文件夹下的静态文件</span><br><span class="line">hexo server # 也可以简写hexo s，效果相同，在本地启动一个访问服务</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-cmd.png" width="60%" style="margin:0;">
+点击 http://localhost:4000 打开页面，可以看到一个hexo的模版效果
+<img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-page.png" width="60%" style="margin:0;">
+回到命令行使用命令
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &quot;first blog&quot; # 注意标题中有空格需要用双引号包起来</span><br></pre></td></tr></table></figure>
+
+<p>此时会在source/_post路径下创建一个first-blog.md文件，有对应的标题和生成时间。<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post.png" width="60%" style="margin:0;"><br>再刷新一下刚才本地服务启动打开的页面，可以看到一篇新的文章已经生成<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post-web.png" width="60%" style="margin:0;"><br>通过对md文件进行修改就可以编写博客啦～<br>上面在创建新文章的命令，使用的是new post代表新建文章,也可以new page代表新建页面，new draft代表草稿。</p>
+<h3 id="配置hexo的发布"><a href="#配置hexo的发布" class="headerlink" title="配置hexo的发布"></a>配置hexo的发布</h3><p>每一次hexo g之后生成的public代码，我们需要把它同步到git上，然后再通过git webhooks同步到服务器<br>此时需要先安装hexo的git部署插件，在我们的hexo项目打开终端，输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>打开项目下的<font color="red" size="3"><strong>_config.yml文件，该文件是整个站点的配置文件</strong></font>，在文件的最下方，修改deploy配置</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@github.com:your_name/blog-web.git</span> <span class="comment"># 替换为刚才新建git代码库的ssh链接</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>hexo的一些主题配置和一些其他使用方法将在之后的博客中写，本篇只讲环境配置快速搭建</strong></p>
 
       
     </div>
@@ -495,22 +554,6 @@
         
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2019/08/02/title/" rel="next" title="Start My Blog Trip — Power By Hexo">
-                <i class="fa fa-chevron-left"></i> Start My Blog Trip — Power By Hexo
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
       
 
       
@@ -613,7 +656,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -631,7 +674,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -691,7 +734,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地环境配置"><span class="nav-number">2.</span> <span class="nav-text">本地环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">2.1.</span> <span class="nav-text">安装Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nvm"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装nvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过nvm安装node-js"><span class="nav-number">2.1.2.</span> <span class="nav-text">通过nvm安装node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git安装"><span class="nav-number">2.2.</span> <span class="nav-text">git安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">2.2.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">2.2.2.</span> <span class="nav-text">方法二</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo安装"><span class="nav-number">2.3.</span> <span class="nav-text">Hexo安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方法"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装方法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地环境配置"><span class="nav-number">2.</span> <span class="nav-text">本地环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Node-js"><span class="nav-number">2.1.</span> <span class="nav-text">安装Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装nvm"><span class="nav-number">2.1.1.</span> <span class="nav-text">安装nvm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过nvm安装node-js"><span class="nav-number">2.1.2.</span> <span class="nav-text">通过nvm安装node.js</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git安装"><span class="nav-number">2.2.</span> <span class="nav-text">git安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法一"><span class="nav-number">2.2.1.</span> <span class="nav-text">方法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法二"><span class="nav-number">2.2.2.</span> <span class="nav-text">方法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置git-ssh"><span class="nav-number">2.2.3.</span> <span class="nav-text">配置git ssh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建一个git仓库"><span class="nav-number">2.2.4.</span> <span class="nav-text">新建一个git仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo安装"><span class="nav-number">2.3.</span> <span class="nav-text">Hexo安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装方法"><span class="nav-number">2.3.1.</span> <span class="nav-text">安装方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用hexo"><span class="nav-number">2.3.2.</span> <span class="nav-text">使用hexo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置hexo的发布"><span class="nav-number">2.3.3.</span> <span class="nav-text">配置hexo的发布</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -732,6 +775,22 @@ show_date_time();
 
 
         
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
 
         
       </div>
