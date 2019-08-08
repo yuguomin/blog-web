@@ -76,11 +76,14 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png">
+<meta property="og:image" content="https://www.yuguomin.com/images/Build-blog-hexp-base/git-rep-new.png">
+<meta property="og:image" content="https://www.yuguomin.com/images/Build-blog-hexp-base/git-rep-form.png">
+<meta property="og:image" content="https://www.yuguomin.com/images/Build-blog-hexp-base/git-rep-init.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-cmd.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-page.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post-web.png">
-<meta property="og:updated_time" content="2019-08-07T16:52:14.836Z">
+<meta property="og:updated_time" content="2019-08-08T09:23:36.343Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速使用Hexo搭建个人博客">
 <meta name="twitter:description" content="前言 搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。 目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。">
@@ -358,7 +361,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">1.9k(字)</span>
+                  <span class="post-count">2.1k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -367,7 +370,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">8(分)</span>
             
           </span>
 
@@ -395,7 +398,10 @@
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
 <li>搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。</li>
-<li>目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。<a id="more"></a> </li>
+<li>目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。</li>
+</ul>
+<a id="more"></a> 
+<ul>
 <li>大致流程:<br>本地环境配置 =&gt; 服务器环境配置 =&gt; github配置 =&gt; 发布部署</li>
 <li>使用到的相关环境版本<br>local OS: macOS Mojave 10.14.5<br>server OS: CentOS7.4.1708<br>hexo: 3.9.0<br>nvm: 0.34.0<br>Node.js: 8.11.4<br>npm: 5.6.0<br>git: 2.18.0<br>pm2: 3.5.1</li>
 </ul>
@@ -467,10 +473,10 @@
 <p>执行生成密钥命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C <span class="string">"your_email@example.com"</span> <span class="comment"># 替需要换为你的 GitHub 电子邮件地址</span></span><br></pre></td></tr></table></figure>
 
-<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png" width="40%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
+<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png" width="50%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
 
-<p>下一步打开github账号，点击右上角小头像，选择setting入口<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-set.png" width="30%" style="margin:0;"><br>点击左侧边栏的SSH and GPG keys（SSH 和 GPG 密钥）选项<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png" width="30%" style="margin:0;"><br>然后点击New SSH key（新 SSH 密钥）或 Add SSH key（添加 SSH 密钥）<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png" width="50%" style="margin:0;"><br>“Title” 标题中写入一个标示，提示下你这个ssh的用处，然后把刚才复制的内容粘贴到 “Key”（密钥）中<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png" width="50%" style="margin:0;"><br>完成后点击下面的 Add SSH key（添加 SSH 密钥）按钮，如有提示输入密码按要求输入即可<br>测试下是否配置成功</p>
+<p>下一步打开github账号，点击右上角小头像，选择setting入口<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-set.png" width="40%" style="margin:0;"><br>点击左侧边栏的SSH and GPG keys（SSH 和 GPG 密钥）选项<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png" width="40%" style="margin:0;"><br>然后点击New SSH key（新 SSH 密钥）或 Add SSH key（添加 SSH 密钥）<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png" width="60%" style="margin:0;"><br>“Title” 标题中写入一个标示，提示下你这个ssh的用处，然后把刚才复制的内容粘贴到 “Key”（密钥）中<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png" width="60%" style="margin:0;"><br>完成后点击下面的 Add SSH key（添加 SSH 密钥）按钮，如有提示输入密码按要求输入即可<br>测试下是否配置成功</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
 <p>将会看到</p>
@@ -480,7 +486,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxxxxx! You&apos;ve successfully authenticated, but GitHub does not provide bash access.</span><br></pre></td></tr></table></figure>
 
 <p>完成配置～</p>
-<h3 id="新建一个git仓库"><a href="#新建一个git仓库" class="headerlink" title="新建一个git仓库"></a>新建一个git仓库</h3><h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>Hexo是一个博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章生成静态网页。并且有方便的发布系统和各种插件。<br>这里主要是安装hexo-cli及如何生成博客的基本模版，<font color="red" size="3"><strong>确保安装Hexo时已经安装node和git</strong></font></p>
+<h3 id="新建一个git仓库"><a href="#新建一个git仓库" class="headerlink" title="新建一个git仓库"></a>新建一个git仓库</h3><p>git账号和本地ssh配对完成，那么就新建一个仓库，用于之后保存博客站的代码。<br>同样 点击刚才设置时的小头像，选择<strong>your repositories</strong> 然后选择点击 New按钮<br><img src="/images/Build-blog-hexp-base/git-rep-new.png" width="60%" style="margin:0;"><br>点击之后会看到一个仓库详情填写<br><img src="/images/Build-blog-hexp-base/git-rep-form.png" width="70%" style="margin:0;"><br>Repository name（仓库名）填对应的你想要的仓库名<br>Description（描述）是对于项目的描述<br>Public和Private一般使用默认Public就可以了<br>Initialize this repository with a README（是否需要初始化一个README文件？）这里可以初始化也可以不初始化，我一般不初始化，仓库上传时会写一个<br>然后点击底部 create repository 按钮即可完成创建<br><img id="ssh_url" src="/images/Build-blog-hexp-base/git-rep-init.png" width="70%" style="margin:0;"><br><font color="red" size="3"><strong>这里的ssh地址在之后配置hexo的发布时是需要用到的</strong></font><br>完成创建</p>
+<h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>Hexo是一个博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章生成静态网页。并且有方便的发布系统和各种插件。<br>这里主要是安装hexo-cli及如何生成博客的基本模版，<font color="red" size="3"><strong>确保安装Hexo时已经安装node和git</strong></font></p>
 <h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>这里使用npm在全局安装hexo-cli</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
@@ -506,8 +513,8 @@
 <h3 id="配置hexo的发布"><a href="#配置hexo的发布" class="headerlink" title="配置hexo的发布"></a>配置hexo的发布</h3><p>每一次hexo g之后生成的public代码，我们需要把它同步到git上，然后再通过git webhooks同步到服务器<br>此时需要先安装hexo的git部署插件，在我们的hexo项目打开终端，输入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
-<p>打开项目下的<font color="red" size="3"><strong>_config.yml文件，该文件是整个站点的配置文件</strong></font>，在文件的最下方，修改deploy配置</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@github.com:your_name/blog-web.git</span> <span class="comment"># 替换为刚才新建git代码库的ssh链接</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>打开项目下的<font color="red" size="3"><strong>_config.yml文件，该文件是整个站点的配置文件</strong></font>，在文件的最下方，修改deploy配置，这里需要用的之前生成的<a href="#ssh_url">ssh地址</a></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="string">git@github.com:your_name/blog-web.git</span> <span class="comment"># 替换为刚才新建git代码库的ssh链接 </span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>hexo的一些主题配置和一些其他使用方法将在之后的博客中写，本篇只讲环境配置快速搭建</strong></p>
 
