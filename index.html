@@ -201,12 +201,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
-            Archives
+            Categories
           </a>
         </li>
       
@@ -221,12 +221,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-guestbook">
-          <a href="/guestbook" rel="section">
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-sticky-note"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
-            Guestbook
+            Archives
           </a>
         </li>
       
@@ -282,7 +282,7 @@
               
                 
                 <a class="post-title-link" href="/2019/08/05/Build-blog-Hexo-base/" itemprop="url">
-                  快速使用Hexo搭建个人博客
+                  快速使用Hexo搭建个人博客-环境篇
                 </a>
               
             
@@ -377,7 +377,7 @@
         
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
 <li>搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。</li>
-<li>目的：记录一下在搭建这个博客站点的过程以及遇到的一些问题。</li>
+<li>目的：完成博客站环境的搭建，访问，部署。记录一下在搭建这个博客站点的过程以及遇到的一些问题。</li>
 </ul>
           <!--noindex-->
           <div class="post-button text-center">
@@ -464,10 +464,10 @@
 
           
             <div class="site-state-item site-state-categories">
-              
+              <a href="/categories">
                 <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">categories</span>
-              
+              </a>
             </div>
           
 
@@ -675,20 +675,18 @@ show_date_time();
 
 
 
-
   
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
     </script>
   
-
 
 
   
