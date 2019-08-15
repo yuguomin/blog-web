@@ -1,0 +1,937 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="CSS,layout,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言 正在编辑中 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; BFC的使用注意">
+<meta name="keywords" content="CSS,layout">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS-BFC">
+<meta property="og:url" content="https://www.yuguomin.com/2019/08/12/What-is-BFC/index.html">
+<meta property="og:site_name" content="SuperFish&#39;s Blog">
+<meta property="og:description" content="前言 正在编辑中 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; BFC的使用注意">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/flow-root-use.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/bfc-feature.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-one.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-two.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png">
+<meta property="og:updated_time" content="2019-08-15T06:26:45.397Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS-BFC">
+<meta name="twitter:description" content="前言 正在编辑中 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; BFC的使用注意">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/What-is-BFC/flow-root-use.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.yuguomin.com/2019/08/12/What-is-BFC/">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #3385ff; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #3385ff, 0 0 5px #3385ff; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #3385ff;    /*上边框颜色*/
+        border-left-color: #3385ff;    /*左边框颜色*/
+    }
+</style>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <title> CSS-BFC | SuperFish's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+  <a href="https://github.com/yuguomin/blog-web"><img style="position:absolute;top:0;left:0;border:0;z-index:1;" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuperFish's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Study for myself.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/08/12/What-is-BFC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YGM">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/head-portrait.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperFish's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS-BFC
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-12T14:06:23+08:00">
+                2019-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+          
+            
+          
+
+          
+          
+          <span class="post-time">
+            &nbsp; | &nbsp;
+                  <span class="post-meta-item-icon">
+                    <i class="fa fa-calendar-o"></i>
+                  </span>
+                  <span class="post-meta-item-text">字数统计:</span>
+                  <span class="post-count">2k(字)</span>
+                </span>
+            
+              <span class="post-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">7(分)</span>
+            
+          </span>
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">
+            Visitors<span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li><strong>正在编辑中</strong></li>
+<li>目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。</li>
+<li>内容：<a href="#BFC是什么">BFC是什么</a> =&gt; <a href="#如何形成BFC">如何形成BFC</a> =&gt; <a href="#BFC的特性及应用场景">BFC的特性及应用场景</a> =&gt; <a href="#BFC的使用注意">BFC的使用注意</a></li>
+</ul>
+<a id="more"></a>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+<h1 id="BFC是什么"><a href="#BFC是什么" class="headerlink" title="BFC是什么"></a>BFC是什么</h1><ol>
+<li>定位方案<br><a href="(https://www.w3.org/TR/CSS2/visuren.html#positioning-scheme)">在css2.1中</a>，一个盒子有三种定位方案。</li>
+</ol>
+<ul>
+<li>普通流：一个萝卜一个坑，元素按着在html中的顺序来，块级box从上到下依次排列，两个box直接的垂直距离由box的垂直margin计算得到，是行内元素就和其他元素共处一行知道占满一行再换行。除另外指定，否则所有元素默认都是普通流定位。</li>
+<li>浮动：在浮动模型中，首先根据普通流布置盒子，然后根据浮动的方向尽可能向左或向右移动。内容可能沿着浮动的元素的一侧围绕排序(如文本环绕)。</li>
+<li>绝对定位流：元素完全脱离普通流，也就是说它与之后的兄弟姐妹元素再无瓜葛，并且按照指定的位置进行定位。</li>
+</ul>
+<ol start="2">
+<li><p>Formatting Context<br>格式化上下文相当于页面的一个渲染区域，有自己特定的渲染规则，决定子元素如何定位，以及与其它元素的关系和相互作用。</p>
+<p id="div-border-left-green">Boxes in the normal flow belong to a formatting context.</p>
+
+<p>w3c文档中写到，普通流中的一个盒子都属于格式化上下文。<strong>我的理解是普通流排序的一个盒子，父级都有一个格式化的上下文，对这个子元素进行规则渲染。而这个构成格式化上下文的容器可能是上一级格式化上下文中的普通流，也或是浮动、绝对定位流。</strong></p>
+</li>
+<li><p>BFC<br>BFC就是一种属性，触发了这个属性的容器生成了一种特殊的格式化上下文，块级格式化上下文。在这个容器中，子元素都是以普通流进行渲染。容器内的所有元素可以说是一个独立的上下文关系，无论在里面做什么都不会影响到容易外的元素结构。并且容器本身有一些普通容器所没有的一些<a href="#BFC带来的影响">特性</a>。</p>
+</li>
+</ol>
+<h1 id="如何触发BFC"><a href="#如何触发BFC" class="headerlink" title="如何触发BFC"></a>如何触发BFC</h1><p>不同的格式化上下文需要特定的方式去触发，<a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">在css2.1中</a>，有这么一段话：</p>
+<p id="div-border-left-green">
+Floats, absolutely positioned elements, block containers (such as inline-blocks, table-cells, and table-captions) that are not block boxes, and block boxes with 'overflow' other than 'visible' (except when that value has been propagated to the viewport) establish new block formatting contexts for their contents.
+</p>
+
+<p>按照这个规则，可以得出触发BFC的条件是：</p>
+<ol>
+<li>浮动元素：float 除 none 以外的值</li>
+<li>绝对定位元素：position (absolute、fixed)</li>
+<li>display 为 inline-block、table-cells、table-captions中的任意一个</li>
+<li>overflow 除了 visible 以外的值 (hidden、auto、scroll)</li>
+<li>以及我们的根元素html，是最大的一个BFC容器</li>
+</ol>
+<p>可以发现，<strong>这些属性触发BFC的同时，也会有自身的一些属性特性，</strong>所以在选择触发BFC的时候，需要根据使用场景确认一个最佳属性。例如，我们常用overflow去触发BFC，但是可能会导致内容裁切、不需要的滚动条等。这里推荐一个属性：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">display</span>: <span class="selector-tag">flow-root</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这个属性的作用，就是建立新的块级格式化上下文。但是兼容性现在不太好。如果符合场景可以使用。<br><img src="https://cdn.yuguomin.com/images/What-is-BFC/flow-root-use.png" width="90%" style="margin:0;"></p>
+<h1 id="BFC的特性及应用场景"><a href="#BFC的特性及应用场景" class="headerlink" title="BFC的特性及应用场景"></a>BFC的特性及应用场景</h1><p>BFC不仅有自己的渲染规则，而且会有一些自我特性，通过这些点可以灵活运用于实际开发中。</p>
+<h2 id="特定的子元素排序对齐规则"><a href="#特定的子元素排序对齐规则" class="headerlink" title="特定的子元素排序对齐规则"></a>特定的子元素排序对齐规则</h2><p>w3c中有规范</p>
+<p id="div-border-left-green">
+In a block formatting context, each box’s left outer edge touches the left edge of the containing block (for right-to-left formatting, right edges touch). This is true even in the presence of floats (although a box’s line boxes may shrink due to the floats), unless the box establishes a new block formatting context (in which case the box itself may become narrower due to the floats)
+</p>
+<img src="https://cdn.yuguomin.com/images/What-is-BFC/bfc-feature.png" width="70%" style="border:none;">
+
+<p>通过上图，我们可以得出结论，属于块级格式上下文的box都是左对齐(从左到右格式化)，每个元素的<strong>margin-box的左边缘</strong>与包含块<strong>left-padding-box的右边</strong>相接触。通过图中的最后一个盒子中有一个棕色的浮动元素，另一个元素（绿色）仍然触及包含块的左边距。关于浮动元素导致的这个覆盖问题在后面防止文本环绕功能时再说。</p>
+<h2 id="解决外边距合并"><a href="#解决外边距合并" class="headerlink" title="解决外边距合并"></a>解决外边距合并</h2><h3 id="什么是外边距塌陷"><a href="#什么是外边距塌陷" class="headerlink" title="什么是外边距塌陷"></a>什么是外边距塌陷</h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing" target="_blank" rel="noopener">外边距塌陷</a>，在块级元素的上外边距和下外边距有时会合并为一个外边距，通常取值于其中的最大者，这种情况就是外边距塌陷。<strong>浮动元素和绝对定位元素的外边距不会折叠。</strong>一般发生在一下三种情况:</p>
+<ol>
+<li>两个相邻的外边距会被折叠，上面一个块元素的 margin-bottom 和下面一个元素的 margin-top 会被折叠成其中的最大者。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box one"</span>&gt;</span>这是第一个块级盒子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box two"</span>&gt;</span>这是第二个块级盒子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: Lightcoral;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: Peru;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.one</span> &#123;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">30px</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.two</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-one.png" width="70%" style="margin: 0;">
+
+<ol start="2">
+<li>如果父元素与第一个子元素之间，不存在上边框、上内边距、行内内容、这个父元素也没有创建BFC，或者清除浮动将两者的 margin-top 分开；或者在父元素与其最后一个子元素之间不存在下边框、下边距、行内内容height、min-height、max-height(不足该子元素展示时)将两者的 margin-bottom 分开，那么这两对外边距之间会产生折叠。此时子元素的外边距会 <strong>“溢出”</strong> 到父元素的外面。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box one"</span>&gt;</span>这是第一个块级盒子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box two"</span>&gt;</span>这是第二个块级盒子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: Lightcoral;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: Peru;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.one</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">20px</span>;  </span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.two</span> &#123;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-two.png" width="70%" style="margin: 0;">
+
+<ol start="3">
+<li>如果存在一个空的块级元素，里面没有边框、内边距、行内内容分割 margin-top 和 margin-bottom，那么这个 margin-top 和 margin-bottom 会产生合并，这个合并的效果需要通过它的相邻元素位置去发现。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> &gt;</span>这是第一个块级盒子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"void-box"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"box"</span> &gt;</span>这是第二个块级盒子<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: Lightcoral;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: Peru;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.void-box</span> &#123;</span><br><span class="line">  <span class="attribute">margin-top</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png" width="70%" style="margin: 0;">
+
+<p><strong>margin collapse的存在并不是一个bug，是为了解决p标签自带的上下margin值造成的视觉上的较大间隔问题。但是也造成了不符合逻辑上的结果。</strong></p>
+<h3 id="如何使用BFC解决外边距塌陷"><a href="#如何使用BFC解决外边距塌陷" class="headerlink" title="如何使用BFC解决外边距塌陷"></a>如何使用BFC解决外边距塌陷</h3><ol>
+<li>解决上面的块级元素 margin-bottom 与下面的块级元素 margin-top 折叠问题的方式<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="html,result" data-user="super_fish" data-slug-hash="NWKNWWB" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="NWKNWWB">
+<span>See the Pen <a href="https://codepen.io/super_fish/pen/NWKNWWB/" target="_blank" rel="noopener">
+NWKNWWB</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+通过为其中一个盒子添加一个容器，并触发这个容器的BFC，可以看到通过点击按钮切换BFC属性，展示出的上下元素margin间隔。
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>解决块级父元素与其第一个或最后一个子元素margin塌陷问题</p>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="js,result" data-user="super_fish" data-slug-hash="zYOqNeo" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决margin塌陷第二种情况-父子">
+<span>See the Pen <a href="https://codepen.io/super_fish/pen/zYOqNeo/" target="_blank" rel="noopener">
+解决margin塌陷第二种情况-父子</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+为最外层的容器触发BFC，就可以解决这个问题。
+</li>
+<li><p>空元素造成的外边距塌陷</p>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="js,result" data-user="super_fish" data-slug-hash="QWLNpod" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决margin塌陷第三种  空元素">
+<span>See the Pen <a href="https://codepen.io/super_fish/pen/QWLNpod/" target="_blank" rel="noopener">
+解决margin塌陷第三种  空元素</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+为空盒子触发BFC即可解决问题。
+
+</li>
+</ol>
+<h1 id="BFC的使用注意"><a href="#BFC的使用注意" class="headerlink" title="BFC的使用注意"></a>BFC的使用注意</h1>
+      
+    </div>
+    <div>
+      
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  <div>
+        <p id="div-border-left-red">
+      <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <span>
+        <b>本文地址: </b><a href="/2019/08/12/What-is-BFC/" title="CSS-BFC">https://www.yuguomin.com/2019/08/12/What-is-BFC/</a><br><b>转载请注明出处, 谢谢！</b>
+        </span>
+        </p>
+  </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
+          
+            <a href="/tags/layout/" rel="tag"><i class="fa fa-tag"> layout</i></a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/05/Build-blog-Hexo-base/" rel="next" title="快速使用Hexo搭建个人博客-环境篇">
+                <i class="fa fa-chevron-left"></i> 快速使用Hexo搭建个人博客-环境篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-hoofoo-share-title">分享到: </div>
+<div class="-hoofoo-share-buttons">
+    <div class="-mob-share-weibo -hoofoo-share-weibo -hoofoo-share-ui-button"><i class="fa fa-weibo" aria-hidden="true"></i></div>
+    <div class="-mob-share-weixin -hoofoo-share-weixin -hoofoo-share-ui-button"><i class="fa fa-weixin" aria-hidden="true"></i></div>
+    <div class="-mob-share-qq -hoofoo-share-qq -hoofoo-share-ui-button"><i class="fa fa-qq" aria-hidden="true"></i></div>
+    <div class="-mob-share-twitter -hoofoo-share-twitter -hoofoo-share-ui-button"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+    <div class="-hoofoo-share-more -hoofoo-share-ui-button -mob-share-open"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk4MC8yMjQ5MQ=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/head-portrait.jpeg" alt="YGM">
+          <p class="site-author-name" itemprop="name">YGM</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+<div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("08/03/2019 12:34:56");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC是什么"><span class="nav-number">2.</span> <span class="nav-text">BFC是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何触发BFC"><span class="nav-number">3.</span> <span class="nav-text">如何触发BFC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC的特性及应用场景"><span class="nav-number">4.</span> <span class="nav-text">BFC的特性及应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特定的子元素排序对齐规则"><span class="nav-number">4.1.</span> <span class="nav-text">特定的子元素排序对齐规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决外边距合并"><span class="nav-number">4.2.</span> <span class="nav-text">解决外边距合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是外边距塌陷"><span class="nav-number">4.2.1.</span> <span class="nav-text">什么是外边距塌陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用BFC解决外边距塌陷"><span class="nav-number">4.2.2.</span> <span class="nav-text">如何使用BFC解决外边距塌陷</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC的使用注意"><span class="nav-number">5.</span> <span class="nav-text">BFC的使用注意</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YGM</span>
+</div>
+
+
+<div class="powered-by">
+   个人专属
+</div>
+
+<div class="theme-info">
+  博客 - Super fish
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+<script type="text/javascript">
+    //微信二维码点击背景关闭
+    $('body').delegate('.-mob-share-weixin-qrcode-bg','click', function(){
+         $(".-mob-share-weixin-qrcode-close").trigger("click");
+    }); 
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+
+
+<script type="text/javascript" color="255,0,204" opacity="0.5" zindex="-2" count="60" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+
+</html>
