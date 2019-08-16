@@ -61,23 +61,25 @@
 
 
 
-<meta name="description" content="前言 正在编辑中 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; BFC的使用注意">
+<meta name="description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
 <meta name="keywords" content="CSS,layout">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CSS-BFC">
 <meta property="og:url" content="https://www.yuguomin.com/2019/08/12/What-is-BFC/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 正在编辑中 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; BFC的使用注意">
+<meta property="og:description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/flow-root-use.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/bfc-feature.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-one.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-two.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png">
-<meta property="og:updated_time" content="2019-08-15T06:26:45.397Z">
+<meta property="og:image" content="https://www.yuguomin.com/images/What-is-BFC/float-example.png">
+<meta property="og:image" content="https://www.yuguomin.com/images/What-is-BFC/float-text.png">
+<meta property="og:updated_time" content="2019-08-16T09:48:22.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS-BFC">
-<meta name="twitter:description" content="前言 正在编辑中 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; BFC的使用注意">
+<meta name="twitter:description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/What-is-BFC/flow-root-use.png">
 
 
@@ -349,7 +351,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2k(字)</span>
+                  <span class="post-count">3k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -358,7 +360,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">11(分)</span>
             
           </span>
 
@@ -385,9 +387,8 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li><strong>正在编辑中</strong></li>
 <li>目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。</li>
-<li>内容：<a href="#BFC是什么">BFC是什么</a> =&gt; <a href="#如何形成BFC">如何形成BFC</a> =&gt; <a href="#BFC的特性及应用场景">BFC的特性及应用场景</a> =&gt; <a href="#BFC的使用注意">BFC的使用注意</a></li>
+<li>内容：<a href="#BFC是什么">BFC是什么</a> =&gt; <a href="#如何形成BFC">如何形成BFC</a> =&gt; <a href="#BFC的特性及应用场景">BFC的特性及应用场景</a> =&gt; <a href="#总结">总结</a></li>
 </ul>
 <a id="more"></a>
 <script async src="https://static.codepen.io/assets/embed/ei.js"></script>
@@ -463,7 +464,7 @@ In a block formatting context, each box’s left outer edge touches the left edg
 
 <p><strong>margin collapse的存在并不是一个bug，是为了解决p标签自带的上下margin值造成的视觉上的较大间隔问题。但是也造成了不符合逻辑上的结果。</strong></p>
 <h3 id="如何使用BFC解决外边距塌陷"><a href="#如何使用BFC解决外边距塌陷" class="headerlink" title="如何使用BFC解决外边距塌陷"></a>如何使用BFC解决外边距塌陷</h3><ol>
-<li>解决上面的块级元素 margin-bottom 与下面的块级元素 margin-top 折叠问题的方式<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="html,result" data-user="super_fish" data-slug-hash="NWKNWWB" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="NWKNWWB">
+<li>解决上面的块级元素 margin-bottom 与下面的块级元素 margin-top 折叠问题的方式<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="NWKNWWB" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="NWKNWWB">
 <span>See the Pen <a href="https://codepen.io/super_fish/pen/NWKNWWB/" target="_blank" rel="noopener">
 NWKNWWB</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
 on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
@@ -475,7 +476,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
 </ol>
 <ol start="2">
 <li><p>解决块级父元素与其第一个或最后一个子元素margin塌陷问题</p>
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="js,result" data-user="super_fish" data-slug-hash="zYOqNeo" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决margin塌陷第二种情况-父子">
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="zYOqNeo" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决margin塌陷第二种情况-父子">
 <span>See the Pen <a href="https://codepen.io/super_fish/pen/zYOqNeo/" target="_blank" rel="noopener">
 解决margin塌陷第二种情况-父子</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
 on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
@@ -483,7 +484,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
 为最外层的容器触发BFC，就可以解决这个问题。
 </li>
 <li><p>空元素造成的外边距塌陷</p>
-<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="js,result" data-user="super_fish" data-slug-hash="QWLNpod" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决margin塌陷第三种  空元素">
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="QWLNpod" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决margin塌陷第三种  空元素">
 <span>See the Pen <a href="https://codepen.io/super_fish/pen/QWLNpod/" target="_blank" rel="noopener">
 解决margin塌陷第三种  空元素</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
 on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
@@ -492,7 +493,62 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
 
 </li>
 </ol>
-<h1 id="BFC的使用注意"><a href="#BFC的使用注意" class="headerlink" title="BFC的使用注意"></a>BFC的使用注意</h1>
+<h2 id="清除浮动元素带来的高度塌陷"><a href="#清除浮动元素带来的高度塌陷" class="headerlink" title="清除浮动元素带来的高度塌陷"></a>清除浮动元素带来的高度塌陷</h2><p>浮动会使元素脱离文档流，元素的高度无法撑起父元素的高度。<br>通常的解决方法是通过添加伪元素设置 clear: both 让父元素自动获取到高度，这里介绍的是<strong>通过 BFC 解决这个问题。</strong><br><img src="/images/What-is-BFC/float-example.png" width="80%"></p>
+<p>实际使用BFC解决这个问题：</p>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="eYOZogB" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="BFC解决浮动">
+  <span>See the Pen <a href="https://codepen.io/super_fish/pen/eYOZogB/" target="_blank" rel="noopener">
+  BFC解决浮动</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+  on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+
+<p>为浮动的元素触发BFC，就可以实现期望的效果，让父元素包含子元素的高度。<strong>清除浮动一般情况下还是建议使用伪元素清除的方法</strong></p>
+<h2 id="防止文本环绕浮动元素实现自适应布局"><a href="#防止文本环绕浮动元素实现自适应布局" class="headerlink" title="防止文本环绕浮动元素实现自适应布局"></a>防止文本环绕浮动元素实现自适应布局</h2><h3 id="文本环绕的场景及原因"><a href="#文本环绕的场景及原因" class="headerlink" title="文本环绕的场景及原因"></a>文本环绕的场景及原因</h3><p>在<a href="#特定的子元素排序对齐规则">BFC子元素排序</a>中有浮动元素覆盖问题，这也是造成文本环绕的场景及原因。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"float-box"</span>&gt;</span></span><br><span class="line">    我是一个浮动的盒子我是一个浮动的盒子</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">    我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容我是p元素的行内内容</span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.float-box</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background</span>: peru;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<img src="/images/What-is-BFC/float-text.png" width="80%">
+
+<p>上图就是一个浮动盒子周边文本环绕的效果，<strong>个人</strong>分析一下造成这个结果的原因：</p>
+<ul>
+<li>首先，最外层的container是一个BFC，其内的元素应该按照普通流进行排序，拥有<a href="#特定的子元素排序对齐规则">BFC自己的对其规则</a>。子元素的margin-box的左边缘与包含块left-padding-box的右边相接触。</li>
+<li>按照<a href="#BFC是什么">css规范中的定位方案</a>，浮动元素先按照普通流进行排序，然后根据浮动的方向尽可能向左或向右移动，这里是左浮动，所以向左靠。浮动元素脱离文档流后，<strong>虽然不占据普通流的空间，但是会占据普通流中文本的空间。</strong></li>
+<li>浮动元素排序完成，子元素p，要保证对齐规则，所以p元素不会移动仍在浮动元素下方。而浮动元素仍然占据普通流中的文本空间，所以形成了文字围绕着浮动元素存在的场景。</li>
+</ul>
+<h3 id="解决文本环绕"><a href="#解决文本环绕" class="headerlink" title="解决文本环绕"></a>解决文本环绕</h3><p>分析了形成文本环绕的原因，对这个现象使用 BFC 进行解决</p>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="oNvxRPN" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="解决float带来的文本环绕">
+  <span>See the Pen <a href="https://codepen.io/super_fish/pen/oNvxRPN/" target="_blank" rel="noopener">
+  解决float带来的文本环绕</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+  on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+
+<p>通过p标签触发一个BFC容器，隔绝p标签与浮动元素，就可以解决对应的浮动文字环绕问题。<br>这里可以总结一句 <font color="red" size="3"><strong>BFC的区域不会与float的元素区域重叠</strong></font></p>
+<h3 id="实现多栏自适应布局"><a href="#实现多栏自适应布局" class="headerlink" title="实现多栏自适应布局"></a>实现多栏自适应布局</h3><p>通过上面解决文本环绕的方法，也可以用来实现多栏自适应布局</p>
+<ol>
+<li><p>两栏自适应布局</p>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="PoYNrmE" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="BFC实现两栏自适应">
+<span>See the Pen <a href="https://codepen.io/super_fish/pen/PoYNrmE/" target="_blank" rel="noopener">
+BFC实现两栏自适应</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+实现左边浮动元素大小任意变化，右边一栏元素自适应剩余宽度。
+</li>
+<li><p>三栏自适应布局</p>
+<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="LYPNKOb" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="BFC实现三栏自适应布局">
+<span>See the Pen <a href="https://codepen.io/super_fish/pen/LYPNKOb/" target="_blank" rel="noopener">
+BFC实现三栏自适应布局</a> by super fish (<a href="https://codepen.io/super_fish" target="_blank" rel="noopener">@super_fish</a>)
+on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</span>
+</p>
+实现左右两边浮动，中间一栏自适应两边剩余宽度。
+
+</li>
+</ol>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>触发BFC的方法有很多，本篇主要是说明BFC的特性和应用场景，使用的都是 overflow: hidde; 其他触发 BFC 的属性也可以达成效果，但是需要注意，每一个属性都带有自身的副作用，使用时需要考量一下场景。</li>
+<li><strong>BFC就是一个独立容器，包裹的子元素无论在里面做什么都不会影响到容器外的元素，反之亦然。</strong></li>
+</ol>
+<p>参考相关文章链接：<br><a href="https://www.w3.org/TR/CSS2/visuren.html#normal-flow" target="_blank" rel="noopener">CSS2规范</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="noopener">MDN: Block formatting context</a><br><a href="https://www.sitepoint.com/understanding-block-formatting-contexts-in-css/" target="_blank" rel="noopener">Understanding Block Formatting Contexts in CSS</a><br><a href="https://juejin.im/post/5aebd1e4f265da0b715621d3" target="_blank" rel="noopener">深度剖析Margin塌陷，BFC，Containing Block之间的关系</a></p>
+
       
     </div>
     <div>
@@ -730,7 +786,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC是什么"><span class="nav-number">2.</span> <span class="nav-text">BFC是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何触发BFC"><span class="nav-number">3.</span> <span class="nav-text">如何触发BFC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC的特性及应用场景"><span class="nav-number">4.</span> <span class="nav-text">BFC的特性及应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特定的子元素排序对齐规则"><span class="nav-number">4.1.</span> <span class="nav-text">特定的子元素排序对齐规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决外边距合并"><span class="nav-number">4.2.</span> <span class="nav-text">解决外边距合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是外边距塌陷"><span class="nav-number">4.2.1.</span> <span class="nav-text">什么是外边距塌陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用BFC解决外边距塌陷"><span class="nav-number">4.2.2.</span> <span class="nav-text">如何使用BFC解决外边距塌陷</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC的使用注意"><span class="nav-number">5.</span> <span class="nav-text">BFC的使用注意</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC是什么"><span class="nav-number">2.</span> <span class="nav-text">BFC是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何触发BFC"><span class="nav-number">3.</span> <span class="nav-text">如何触发BFC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC的特性及应用场景"><span class="nav-number">4.</span> <span class="nav-text">BFC的特性及应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特定的子元素排序对齐规则"><span class="nav-number">4.1.</span> <span class="nav-text">特定的子元素排序对齐规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决外边距合并"><span class="nav-number">4.2.</span> <span class="nav-text">解决外边距合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是外边距塌陷"><span class="nav-number">4.2.1.</span> <span class="nav-text">什么是外边距塌陷</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用BFC解决外边距塌陷"><span class="nav-number">4.2.2.</span> <span class="nav-text">如何使用BFC解决外边距塌陷</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#清除浮动元素带来的高度塌陷"><span class="nav-number">4.3.</span> <span class="nav-text">清除浮动元素带来的高度塌陷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防止文本环绕浮动元素实现自适应布局"><span class="nav-number">4.4.</span> <span class="nav-text">防止文本环绕浮动元素实现自适应布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文本环绕的场景及原因"><span class="nav-number">4.4.1.</span> <span class="nav-text">文本环绕的场景及原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决文本环绕"><span class="nav-number">4.4.2.</span> <span class="nav-text">解决文本环绕</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现多栏自适应布局"><span class="nav-number">4.4.3.</span> <span class="nav-text">实现多栏自适应布局</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
