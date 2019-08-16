@@ -76,7 +76,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png">
 <meta property="og:image" content="https://www.yuguomin.com/images/What-is-BFC/float-example.png">
 <meta property="og:image" content="https://www.yuguomin.com/images/What-is-BFC/float-text.png">
-<meta property="og:updated_time" content="2019-08-16T09:48:22.531Z">
+<meta property="og:updated_time" content="2019-08-16T09:58:04.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS-BFC">
 <meta name="twitter:description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
@@ -406,7 +406,7 @@
 
 <p>w3c文档中写到，普通流中的一个盒子都属于格式化上下文。<strong>我的理解是普通流排序的一个盒子，父级都有一个格式化的上下文，对这个子元素进行规则渲染。而这个构成格式化上下文的容器可能是上一级格式化上下文中的普通流，也或是浮动、绝对定位流。</strong></p>
 </li>
-<li><p>BFC<br>BFC就是一种属性，触发了这个属性的容器生成了一种特殊的格式化上下文，块级格式化上下文。在这个容器中，子元素都是以普通流进行渲染。容器内的所有元素可以说是一个独立的上下文关系，无论在里面做什么都不会影响到容易外的元素结构。并且容器本身有一些普通容器所没有的一些<a href="#BFC带来的影响">特性</a>。</p>
+<li><p>BFC<br>BFC就是一种属性，触发了这个属性的容器生成了一种特殊的格式化上下文，块级格式化上下文。在这个容器中，子元素都是以普通流进行渲染。容器内的所有元素可以说是一个独立的上下文关系，无论在里面做什么都不会影响到容易外的元素结构。并且容器本身有一些普通容器所没有的一些<a href="#BFC的特性及应用场景">特性</a>。</p>
 </li>
 </ol>
 <h1 id="如何触发BFC"><a href="#如何触发BFC" class="headerlink" title="如何触发BFC"></a>如何触发BFC</h1><p>不同的格式化上下文需要特定的方式去触发，<a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">在css2.1中</a>，有这么一段话：</p>
