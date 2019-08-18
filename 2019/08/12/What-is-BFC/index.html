@@ -74,9 +74,9 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-one.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-two.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png">
-<meta property="og:image" content="https://www.yuguomin.com/images/What-is-BFC/float-example.png">
-<meta property="og:image" content="https://www.yuguomin.com/images/What-is-BFC/float-text.png">
-<meta property="og:updated_time" content="2019-08-16T09:58:04.070Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/float-example.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/float-text.png">
+<meta property="og:updated_time" content="2019-08-17T05:50:20.113Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS-BFC">
 <meta name="twitter:description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
@@ -493,7 +493,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
 
 </li>
 </ol>
-<h2 id="清除浮动元素带来的高度塌陷"><a href="#清除浮动元素带来的高度塌陷" class="headerlink" title="清除浮动元素带来的高度塌陷"></a>清除浮动元素带来的高度塌陷</h2><p>浮动会使元素脱离文档流，元素的高度无法撑起父元素的高度。<br>通常的解决方法是通过添加伪元素设置 clear: both 让父元素自动获取到高度，这里介绍的是<strong>通过 BFC 解决这个问题。</strong><br><img src="/images/What-is-BFC/float-example.png" width="80%"></p>
+<h2 id="清除浮动元素带来的高度塌陷"><a href="#清除浮动元素带来的高度塌陷" class="headerlink" title="清除浮动元素带来的高度塌陷"></a>清除浮动元素带来的高度塌陷</h2><p>浮动会使元素脱离文档流，元素的高度无法撑起父元素的高度。<br>通常的解决方法是通过添加伪元素设置 clear: both 让父元素自动获取到高度，这里介绍的是<strong>通过 BFC 解决这个问题。</strong><br><img src="https://cdn.yuguomin.com/images/What-is-BFC/float-example.png" width="80%"></p>
 <p>实际使用BFC解决这个问题：</p>
 <p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="eYOZogB" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="BFC解决浮动">
   <span>See the Pen <a href="https://codepen.io/super_fish/pen/eYOZogB/" target="_blank" rel="noopener">
@@ -507,7 +507,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.float-box</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">200px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background</span>: peru;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.5</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="/images/What-is-BFC/float-text.png" width="80%">
+<img src="https://cdn.yuguomin.com/images/What-is-BFC/float-text.png" width="80%">
 
 <p>上图就是一个浮动盒子周边文本环绕的效果，<strong>个人</strong>分析一下造成这个结果的原因：</p>
 <ul>
@@ -601,6 +601,10 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/17/repaint-and-reflow/" rel="prev" title="repaint and reflow/重绘与回流">
+                repaint and reflow/重绘与回流 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -708,7 +712,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -726,7 +730,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -2938,3 +2938,12 @@ p#div-border-top-purple {
   border-radius: 3px;
   border-top-color: #9954bb;
 }
+font.red-code {
+  margin: 0 3px;
+  padding: 0 3px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  color: #e6006b;
+  font-size: 16px;
+  background: #fff;
+}
