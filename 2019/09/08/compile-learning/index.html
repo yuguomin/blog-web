@@ -64,7 +64,7 @@
 <meta name="description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
 <meta name="keywords" content="Compile">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编译技术学习：一&#x2F;学前准备">
+<meta property="og:title" content="编译技术学习：第一章 知识概述">
 <meta property="og:url" content="https://www.yuguomin.com/2019/09/08/compile-learning/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
@@ -74,9 +74,9 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/statement-parse-cn.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png">
-<meta property="og:updated_time" content="2019-09-09T15:49:40.641Z">
+<meta property="og:updated_time" content="2019-09-10T03:31:27.164Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="编译技术学习：一&#x2F;学前准备">
+<meta name="twitter:title" content="编译技术学习：第一章 知识概述">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png">
 
@@ -130,15 +130,15 @@
 
 <script>
     (function(){
-        if('630831'){
-            if (prompt('请输入文章密码') !== '630831'){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
                 alert('密码错误！');
                 history.back();
             }
         }
     })();
 </script>
-  <title> 编译技术学习：一/学前准备 | SuperFish's Blog </title>
+  <title> 编译技术学习：第一章 知识概述 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -289,7 +289,7 @@
             
             
               
-                编译技术学习：一/学前准备
+                编译技术学习：第一章 知识概述
               
             
           </h1>
@@ -349,7 +349,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.2k(字)</span>
+                  <span class="post-count">2.6k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -358,7 +358,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">9(分)</span>
             
           </span>
 
@@ -419,6 +419,14 @@
 <p>程序同样有自己的语法结构，经过语法分析后，也是创造这样一个树状结构，这个树状结构叫做<strong>AST</strong>(Abstract Syntax Tree) 抽象语法树，例如代码 <code>99 + 88 * 77</code>可以生成出这样一个AST<br><img src="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png" style="border:0;" width="80%"><br>计算机在拿到这样一段AST后，从根节点进行遍历，通过一些处理，就可以拿到表达式的值。如果再将<code>if for =</code>等语法添加进AST，并解释执行实际上就实现了一个脚本语言。</p>
 <p>语法分析的目的已经清楚，那么如何实现这个构建过程，以代码 <code>const abc = 99</code>为例子，假设我们已经经过了词法分析。这个时候可以开始语法分析，首先构造整个的根节点program，然后从token序列中按照顺序分析，遇到的第一个token是const，是常量声明标识符，这个时候构建一个常量声明节点，下一个token是abc，则为变量声明节点创建一个子节点 常量名标识符abc，再接着一个token是<code>=</code>赋值操作，说明这个常量有初始化，建立初始化子节点，再下面一个token是99，得到字面量子节点。<br>完成了这一个常量声明语句，退回到根节点，进行下一段代码的扫描构建其下一个子节点。<br><img src="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png" width="80%"></p>
 <p>这个生成算法是递归下降算法，这个算法是从顶部的根节点开始打造整个AST，是一种自顶向下的算法，与之对应的是自底向上算法，先从最底部的叶子节点开始，像搭积木一样构造AST。</p>
+<h2 id="语义解析"><a href="#语义解析" class="headerlink" title="语义解析"></a>语义解析</h2><p>处理完词法解析和语法解析后，前端技术还剩下语义解析，目的是检查程序上下文是否和语言所定义的语义一致，比如类型检查，作用域检查。说的白话点，就是告诉计算机我们的真实意图，通过语法解析得到的语法树有时没办法清晰的说明一个变量是否重复定义等等。同时在这一步会进行一些类型收集放入到语法树中。<br>例如：</p>
+<ul>
+<li>JavaScript使用 <code>==</code> 代表非严格比较相等操作，那么设计到两个不同类型的变量对比，到底是如何进行类型转化？</li>
+<li>同一个作用域下，是否重复声明了一个变量？</li>
+<li>“这只鸟唱了首很好听的歌”，鸟是哪一只鸟？变量到底引用的哪一个，需要上下文分析。</li>
+</ul>
+<p>语义分析更像是一个检查阶段，生成的语法树便于后续中间代码生成。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过这一篇记录编译器的的结构，已经着重说明了前端技术的细节，后续会一步步实现整个编译器。后端技术方面也会补全。<br>大体流程：<br>代码 =&gt; 词法分析 =&gt; Token序列 =&gt; 语法解析 =&gt; AST语法树 =&gt; 语义分析 =&gt; 带有类型等信息的语法树<br>=&gt; 中间代码生成 =&gt; 中间代码 =&gt; 语法树优化 =&gt; 更易生成目标代码的中间代码 =&gt; codegen =&gt; 目标代码</p>
 
       
     </div>
@@ -440,7 +448,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/09/08/compile-learning/" title="编译技术学习：一/学前准备">https://www.yuguomin.com/2019/09/08/compile-learning/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/09/08/compile-learning/" title="编译技术学习：第一章 知识概述">https://www.yuguomin.com/2019/09/08/compile-learning/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -655,7 +663,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器概述"><span class="nav-number">2.</span> <span class="nav-text">编译器概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要学习编译器"><span class="nav-number">3.</span> <span class="nav-text">为什么要学习编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器的具体过程"><span class="nav-number">4.</span> <span class="nav-text">编译器的具体过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器前端技术概述"><span class="nav-number">5.</span> <span class="nav-text">编译器前端技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法分析"><span class="nav-number">5.1.</span> <span class="nav-text">词法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法解析"><span class="nav-number">5.2.</span> <span class="nav-text">语法解析</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器概述"><span class="nav-number">2.</span> <span class="nav-text">编译器概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要学习编译器"><span class="nav-number">3.</span> <span class="nav-text">为什么要学习编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器的具体过程"><span class="nav-number">4.</span> <span class="nav-text">编译器的具体过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器前端技术概述"><span class="nav-number">5.</span> <span class="nav-text">编译器前端技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法分析"><span class="nav-number">5.1.</span> <span class="nav-text">词法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法解析"><span class="nav-number">5.2.</span> <span class="nav-text">语法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义解析"><span class="nav-number">5.3.</span> <span class="nav-text">语义解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
