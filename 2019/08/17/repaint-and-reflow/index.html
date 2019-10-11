@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
-<meta property="og:updated_time" content="2019-08-18T07:09:02.913Z">
+<meta property="og:updated_time" content="2019-10-11T03:46:38.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="repaint and reflow&#x2F;重绘与回流">
 <meta name="twitter:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
@@ -450,7 +450,7 @@
 <ol>
 <li>浏览器将每次reflow的操作放在了一个缓存队列当中，知道达到了一定的规模或者特定的时间，再将这个结果反馈给 Render Tree，从而将多次的reflow简化成一次。</li>
 <li>JS中的样式合并，在JS很多操作<code>DOM</code>进行<code>CSS</code>的修改，也会进行一次合并更新，减少reflow和repaint的次数。</li>
-<li>浏览器的这个行为很棒，但是架不住一些场景，如果代码需要在一次 reflow 后实时获取元素的属性，那么就会造成浏览器的 reflow 缓存队列提前合并。造成性能损失。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newEle = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    newEle.innerText = i;</span><br><span class="line">    <span class="built_in">document</span>.body.offsetHeight; <span class="comment">// 获取实时高度，强行将回流缓存队列合并到 Render Tree</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(newEle); <span class="comment">// 会触发回流缓存进队列</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>浏览器的这个行为很棒，但是架不住一些场景，如果代码需要在一次 reflow 后实时获取元素的属性，那么就会造成浏览器的 reflow 缓存队列提前合并。造成性能损失。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newEle = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    newEle.innerText = i;</span><br><span class="line">    <span class="built_in">document</span>.body.offsetHeight; <span class="comment">// 获取实时高度，强行将回流缓存队列合并到 Render Tree</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(newEle); <span class="comment">// 会触发回流缓存进队列</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -636,7 +636,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -654,7 +654,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
