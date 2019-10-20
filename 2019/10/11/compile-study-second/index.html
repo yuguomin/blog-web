@@ -61,15 +61,21 @@
 
 
 
+<meta name="description" content="前言 本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 词法分析 的过程，以及实现。">
 <meta name="keywords" content="Compile,Computer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译技术学习：第二章 词法分析">
 <meta property="og:url" content="https://www.yuguomin.com/2019/10/11/compile-study-second/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
+<meta property="og:description" content="前言 本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 词法分析 的过程，以及实现。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-11T03:48:55.695Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-second/keyword-error.png">
+<meta property="og:updated_time" content="2019-10-20T08:24:20.483Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第二章 词法分析">
+<meta name="twitter:description" content="前言 本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 词法分析 的过程，以及实现。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png">
 
 
 
@@ -121,8 +127,8 @@
 
 <script>
     (function(){
-        if('666'){
-            if (prompt('请输入文章密码') !== '666'){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
                 alert('密码错误！');
                 history.back();
             }
@@ -340,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">0(字)</span>
+                  <span class="post-count">2.9k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -349,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
+            <span class="post-count">11(分)</span>
             
           </span>
 
@@ -375,7 +381,78 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 <strong>词法分析</strong> 的过程，以及实现。</li>
+</ul>
+<a id="more"></a>
+<h1 id="词法分析的概念"><a href="#词法分析的概念" class="headerlink" title="词法分析的概念"></a>词法分析的概念</h1><p>在上一篇中，大体讲过了词法分析的概念，这个做下回顾。词法分析可以说就是一个<strong>分词</strong>的过程。他的整个执行都是为了把一段代码中，每一个词(也就是<code>token</code>)识别出来，标记上类型，然后放到一个token序列当中。在自然语言中，之前的举例<code>what is your name</code>，听到这么一句话，自然而然的会把每一个单词识别出来，因为脑袋中有一个词汇对照，<code>what</code>是“什么”的意思，它是由w、h、a、t组成··· 但是<code>age &gt;= 45;</code>，或者说<code>age&gt;=45</code>对于编译器而言，它在词法分析阶段需要做什么呢？ 很简单，识别出 <code>age</code> 这个标识符、<code>&gt;=</code> 这个操作符 以及 <code>45</code> 这个数字字面量。</p>
+<p>那么编译器是如何做到的呢？在这篇中，将编写一个词法分析器，而这个编译器至少能识别以下三种类型的JavaScript代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">45</span>;</span><br><span class="line">age &gt;= <span class="number">45</span>;</span><br><span class="line"><span class="number">2</span> + <span class="number">3</span> * <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
+
+<p>分别是JavaScript语法中的变量声明和初始化语句、关系表达式，以及算术表达式。<br>我将这整个代码过程描述为 <strong>使用正则表达式扩展有限状态自动机</strong>。<br>何为正则文法，有限状态自动机将在后面一一解答。</p>
+<h1 id="有限状态自动机"><a href="#有限状态自动机" class="headerlink" title="有限状态自动机"></a>有限状态自动机</h1><p>有限状态自动机，就好比电灯的开关，它不是开那就是关。而在编译器里，它不止开关两种状态，但同样在任何时间点它只会处于一种状态。电灯开关通过按压改变状态，而有限状态自动机通过制定的规则从一个状态改变到另一个状态。<br>例如：<br><strong>解析 <code>age &gt;= 45</code></strong><br>这个关系表达式有三个token，标识符<code>age</code>，比较操作符<code>&gt;=</code>和数字字面量<code>45</code>，我们先用语言描述一下词法分析器通过什么样的规则识别出三种<strong>类型</strong></p>
+<ul>
+<li>标识符：第一个字符为字母、下划线、$符号，后面的字符可以是字母、下划线、$符号及数字。</li>
+<li>比较操作符：为<code>&gt;=</code>或<code>&gt;</code>（这里对比示例先只考虑这两种）。</li>
+<li>数字字面量：全部为数字（只考虑整数）。</li>
+</ul>
+<p>图形说明状态的迁移关系<br><img src="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png" style="margin:0;border:none;"></p>
+<p>文字描述这个状态的迁移<br><strong>1. 初始状态：</strong>刚开始启动词法分析的时候，程序所处的状态。</p>
+<p><strong>2. 标识符状态：</strong>在初始化状态时，当第一个字符为字母、下划线、$符号，进入标识符状态，后面的字符是字母、下划线、$符号及数字则继续扫描，保留在该状态，当不符时，将读取的内容保存为一个token，退出该状态回到初始化状态。</p>
+<p><strong>3. 大于操作符状态：</strong>在初始化状态时，匹配到第一个字符时 <code>&gt;</code> 时，进入该状态，但该状态有一个延展可能，继续匹配是否符合状态4规则。</p>
+<p><strong>4. 大于等于操作符状态：</strong>在状态3 大于操作符状态下，匹配第一个字符是否为 <code>=</code>，如果是则进入该状态匹配为大于等于操作符，记录<code>&gt;=</code>token后退出该状态回到初始化状态。否则对应 大于操作符，记录<code>&gt;</code>token，完成匹配，退出该状态回到初始化状态。</p>
+<p><strong>5. 数字字面量状态：</strong>在初始化状态时，匹配第一个字符为数字，进入该状态，后面字符仍为数字，则保留该状态。当不符时，将读取的内容保存为一个token，退出该状态回到初始化状态。</p>
+<p>按照这个规则对<code>age &gt;= 45</code>代入进行思考解析，有限状态自动机就是这样的一个功能。</p>
+<p>当然上面的描述都是用自然语言进行表示的，这里将这个变化过程使用代码（TypeScript语言）进行编写。<br>首先，需要处理的是当处于状态1初始化状态时，在处理不同的首字符进入到状态2、3、5的规则：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> newState = DfaState.Initial; <span class="comment">// 拿到初始化状态</span></span><br><span class="line"><span class="keyword">if</span> (isVariableStart(ch)) &#123; <span class="comment">// 判断是否为字母、下划线、$符号，ch是上下文拿到的第一个字符</span></span><br><span class="line">  newState = DfaState.Id; <span class="comment">// 进入标识符ID状态</span></span><br><span class="line">  <span class="keyword">this</span>.changeTokenType(TokenType.Identifier);</span><br><span class="line">  <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (ch === <span class="string">'&gt;'</span>) &#123;</span><br><span class="line">  newState = DfaState.GT; <span class="comment">// 进入大于操作符状态 greater than</span></span><br><span class="line">  <span class="keyword">this</span>.changeTokenType(TokenType.GT);</span><br><span class="line">  <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDigit(ch)) &#123; <span class="comment">// 判断是否为数字</span></span><br><span class="line">  newState = DfaState.NumberLiteral; <span class="comment">// 进入数字状态</span></span><br><span class="line">  <span class="keyword">this</span>.changeTokenType(TokenType.NumberLiteral);</span><br><span class="line">  <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这一段代码中，<code>DfaState</code>是一个枚举类型，里面列举了不同有限状态机会处于的状态。<br>自定义了一个数据结构token，token有两个属性，枚举属性<code>type</code>，用于每次匹配完成保存token时存储对应的token类型；还有一个属性<code>text</code>，用于保存token的文本值。每次匹配完成后会把该token放入一个序列中，根据接下来的匹配规则重置token。<br><code>changeTokenType</code>方法封装修改token数据的type属性。<br><code>append2TokenText</code>方法用于将读取的字符添加进当前token匹配成功的缓存数据中。</p>
+<p>完成了初始化中的首字母状态判断，接着处理进入了2、3、5状态后的状态迁移。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> DfaState.Initial:</span><br><span class="line">  state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> DfaState.Id:</span><br><span class="line">  <span class="keyword">if</span> (isVariableFollow(ch)) &#123; <span class="comment">// 判断是否为字母、下划线、$符号、数字</span></span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    state = <span class="keyword">this</span>.initToken(ch); <span class="comment">// initToken方法退出对应状态，保存token，进入初始化状态</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> DfaState.NumberLiteral:</span><br><span class="line">  <span class="keyword">if</span> (isDigit(ch)) &#123;</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> DfaState.GT:</span><br><span class="line">  <span class="keyword">if</span> (ch === SPECIAL_TOKEN.ASSIGNMENT) &#123; <span class="comment">// 当进入状态3判断后面一个字符是否为 '='</span></span><br><span class="line">    <span class="keyword">this</span>.changeTokenType(TokenType.GE);</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">    state = DfaState.GE;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> DfaState.GE:</span><br><span class="line">  state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用编写好的代码去解析<code>age &gt;= 45</code>，输出最终拿到的token序列</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">text    type</span><br><span class="line">age     Identifier</span><br><span class="line">&gt;=      GreaterThanOrEqual</span><br><span class="line">45      NumberLiteral</span><br></pre></td></tr></table></figure>
+
+<p>通过这个例子的解析，可以体会到词法分析，就是有限状态自动机在不同状态中迁移，解析出每一个token，最终拿到token序列。而通过扩展这个有限自动机的状态和迁移规则，就可以实现一个完整的词法分析。</p>
+<h1 id="正则表达式描述迁移规则"><a href="#正则表达式描述迁移规则" class="headerlink" title="正则表达式描述迁移规则"></a>正则表达式描述迁移规则</h1><p>在上面有限自动机的状态迁移中，每一种迁移都有各自的规则，这些规则我们都是通过自然语言进行描述的。比如 标识符的第一个字符必须是字母、下划线、$符。但是到了计算机语言中，我们则需要用代码表示出这些规则。而这个代码使用的就是<strong>正则表达式</strong><br>首先添加两个 判断数字和字母的方法</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">判断是否为数字 isDigit: <span class="regexp">/[0-9]/</span>.test(ch);</span><br><span class="line"></span><br><span class="line">判断是否为字母 isAlpha: <span class="regexp">/[a-zA-Z]/</span>.test(ch);</span><br></pre></td></tr></table></figure>
+
+<p>然后处理对应的字符类型场景</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">判断是否为 ID 第一个字母: isAlpha(ch) ||</span><br><span class="line">[SPECIAL_TOKEN.DOLLAR_SIGN, SPECIAL_TOKEN.UNDER_LINE].includes(ch);</span><br><span class="line"></span><br><span class="line">判断是否为 ID 后的内容: isAlpha(ch) || isDigit(ch) ||</span><br><span class="line">[SPECIAL_TOKEN.DOLLAR_SIGN, SPECIAL_TOKEN.UNDER_LINE].includes(ch);</span><br><span class="line"></span><br><span class="line">判断NumberLiteral: isDigit(ch);</span><br><span class="line"></span><br><span class="line">大于操作符 GT: <span class="string">'&gt;'</span></span><br><span class="line"></span><br><span class="line">大于等于操作符 GE: <span class="string">'&gt;='</span></span><br></pre></td></tr></table></figure>
+
+<p>这里判断ID我将整个表达式分成了两部分去处理，正则表达式可以使用一个完成。<br>通过以上的代码就可以完善有限状态自动机在迁移时的各个匹配规则，当需要其他状态时，再添加新的匹配规则。完善整个词法分析。</p>
+<h1 id="处理标识符与关键字保留字冲突问题"><a href="#处理标识符与关键字保留字冲突问题" class="headerlink" title="处理标识符与关键字保留字冲突问题"></a>处理标识符与关键字保留字冲突问题</h1><p>关键字，语言设计中定义的一些本身具有特殊作用的词汇，例如 <code>var if else null</code>。<br>保留字，和关键字一样，但是目前未在语言中用到，将来可能用到的词汇，如<code>enum export long double</code>。</p>
+<p>在上面的正则表达式表示出每一种迁移规则后，我们再代入变量声明和初始化语句 <code>var age = 45</code>，对于这一段代码，我们需要添加出处理 <code>=</code> 赋值操作符，也需要处理 <code>var</code>这个变量声明的关键字。这个时候规则就出现冲突了：<br><code>var</code>这个变量声明关键字固定匹配的’var’字符串完全符合标识符的匹配规则，以字母开头，后续字符也是字母。但是在我们的语言中，关键字的优先级肯定要比标识符要高，是不允许标识符与关键字重名的。那么我们需要做的就是在标识符规则中 独立出变量声明关键字规则。</p>
+<p>将有限状态自动机处理的规则修改一下<br><img src="https://cdn.yuguomin.com/images/compile-study-second/keyword-error.png" style="margin:0; border: none;"></p>
+<p>解读一下这张图的意思：</p>
+<p id="div-border-left-green">
+在初始化状态下，如果第一个字符是v，那么进入特殊处理状态。在这个状态下，如果后续分别是a、r那么进入状态4 关键字var状态。那么继续判断后面的字符如果仍属于标示符规则，那么则进入标识符状态，反之保存 关键字`var`token。这里的状态4后的处理是防止出现`varNn`等类似的标识符，这种以关键字为开头但又不重叠的词汇不会产生冲突。
+</p>
+
+<p>对应代码修改</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化状态首字母判断逻辑</span></span><br><span class="line"><span class="keyword">let</span> newState = DfaState.Initial;</span><br><span class="line"><span class="keyword">if</span> (isVariableStart(ch)) &#123;</span><br><span class="line">  newState = ch === <span class="string">'v'</span> ? DfaState.Id_variable1 : DfaState.Id;</span><br><span class="line">  <span class="keyword">this</span>.changeTokenType(TokenType.Identifier);</span><br><span class="line">  <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ... 后续代码</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对应状态下的代码逻辑加入</span></span><br><span class="line"><span class="keyword">case</span> DfaState.Id_variable1:</span><br><span class="line">  <span class="keyword">if</span> (ch === <span class="string">'a'</span>) &#123;</span><br><span class="line">    state = DfaState.Id_variable2;</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isAlpha(ch) || isDigit(ch)) &#123;</span><br><span class="line">    state = DfaState.Id;</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> DfaState.Id_variable2:</span><br><span class="line">  <span class="keyword">if</span> (ch === <span class="string">'r'</span>) &#123;</span><br><span class="line">    state = DfaState.Id_variable3;</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isAlpha(ch) || isDigit(ch)) &#123;</span><br><span class="line">    state = DfaState.Id;</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">break</span>;</span><br><span class="line"><span class="keyword">case</span> DfaState.Id_variable3:</span><br><span class="line">  <span class="keyword">if</span> (isBlank(ch)) &#123;</span><br><span class="line">    <span class="keyword">this</span>.changeTokenType(TokenType.VariableIdentifier);</span><br><span class="line">    state = <span class="keyword">this</span>.initToken(ch);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    state = DfaState.Id;</span><br><span class="line">    <span class="keyword">this</span>.append2TokenText(ch);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>接着运行<code>var age = 45</code>输出token序列是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">text    type</span><br><span class="line">var     VariableIdentifier</span><br><span class="line">age     Identifier</span><br><span class="line">=       Assignment</span><br><span class="line">45      NumberLiteral</span><br></pre></td></tr></table></figure>
+
+<p>而如果把代码修改一下<code>varage = 45</code>输出结果是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">text    type</span><br><span class="line">varage  Identifier</span><br><span class="line">=       Assignment</span><br><span class="line">45      NumberLiteral</span><br></pre></td></tr></table></figure>
+
+<p>到此，通过解决关键字和保留字的冲突问题也将词法解析处理了目的中的变量声明和初始化语句。</p>
+<h1 id="处理算术表达式等特殊字符"><a href="#处理算术表达式等特殊字符" class="headerlink" title="处理算术表达式等特殊字符"></a>处理算术表达式等特殊字符</h1><p>想要处理<code>2 + 3 * 5</code>这样的算术表达式，只需要扩展一下有限状态自动机就可以了。<br>添加几种状态匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Plus : &apos;+&apos;</span><br><span class="line">Minus : &apos;-&apos;</span><br><span class="line">Star : &apos;*&apos;</span><br><span class="line">Slash: &apos;/&apos;</span><br></pre></td></tr></table></figure>
+
+<p>完成后输出<code>2 + 3 * 5</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">text    type</span><br><span class="line">2       NumberLiteral</span><br><span class="line">+       Plus</span><br><span class="line">3       NumberLiteral</span><br><span class="line">*       Star</span><br><span class="line">5       NumberLiteral</span><br></pre></td></tr></table></figure>
+
+<p>对于算术表达式的处理很容易就可以扩展完成。那么本节一个小型的词法解析器就完成了。随着代码的扩展它可以解析更多的词汇。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇第二张用代码实现了一个简单的词法分析，但主要目的是为了从中间体会到词法分析的原理，<strong>它是通过一个个正则表达式来描绘有限状态机的状态迁移。</strong>理解到这一点实际上只是处理字符的复杂性了。下一章，进入编译器前端技术第二步 语法解析。</p>
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a><br><a href="https://hackernoon.com/lexical-analysis-861b8bfe4cb0" target="_blank" rel="noopener">Lexical Analysis</a></p>
+<hr>
+<p><a href="https://github.com/yuguomin/my-compiler" target="_blank" rel="noopener">代码地址</a></p>
+
       
     </div>
     <div>
@@ -512,8 +589,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/head-portrait.jpeg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
@@ -594,6 +680,22 @@ show_date_time();
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#词法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">词法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#有限状态自动机"><span class="nav-number">3.</span> <span class="nav-text">有限状态自动机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式描述迁移规则"><span class="nav-number">4.</span> <span class="nav-text">正则表达式描述迁移规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理标识符与关键字保留字冲突问题"><span class="nav-number">5.</span> <span class="nav-text">处理标识符与关键字保留字冲突问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理算术表达式等特殊字符"><span class="nav-number">6.</span> <span class="nav-text">处理算术表达式等特殊字符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

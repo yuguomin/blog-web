@@ -74,7 +74,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/statement-parse-cn.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png">
-<meta property="og:updated_time" content="2019-10-10T06:25:25.341Z">
+<meta property="og:updated_time" content="2019-10-20T08:18:44.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第一章 知识概述">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
@@ -411,7 +411,7 @@
 <li>识别<code>===</code>，在js中，一个<code>=</code>代表的 Assignment(赋值)操作符，两个代表NSC(Nonstrict comparison)非严格相等比较，即比较两者存在隐式类型转换，三个<code>=</code>代表的是SC(Strict comparison)严格匹配。那么在处理<code>===</code>的时候，会有一个判断，如果第一个是<code>=</code>，后面不是则为 Assignment，第一个和第二个都是 <code>=</code> 则为NSC，连续三个字符都是<code>=</code> 则为 SC。</li>
 <li>识别<code>99</code>数字字面量：扫描到以数字开头，就把这个token开始记录，直到遇到不是数字字符，结束这个token。</li>
 </ul>
-<p>上面的这些匹配规则实际上可以用正则表达式来进行描述，通过这些正则表达式规则，完成一个叫做 <strong>“有限自动机的”</strong> 的算法，实现词法分析。</p>
+<p>上面的这些匹配规则实际上可以用正则表达式来进行描述，通过这些正则表达式规则，完成一个叫做 <strong>“有限自动机”</strong> 的算法，实现词法分析。</p>
 <p><strong>有限自动机</strong>是有限数量状态的自动机器，在这里是通过读取一个个字符，根据规则切换到不同的状态，而这些状态的个数是固定的。<br>例如，在处理 <code>abc = 396</code>时，处理到字符<code>a</code>，进入”标识符“状态，处理到<code>=</code>进入”赋值操作“状态，处理到数字 3，进入”数字字面量“状态。<br><img src="https://cdn.yuguomin.com/images/compile-learning/token-parse-demo.png" style="margin:0;"></p>
 <p>词法分析通过一个个状态的转换，每次转换就将识别的token推入到token序列中，完成整个代码字串的分词。</p>
 <h2 id="语法解析"><a href="#语法解析" class="headerlink" title="语法解析"></a>语法解析</h2><p>执行完词法分析后进入到了语法分析，词法分析扫描代码字串，将得到的token序列传递给语法分析，语法分析扫描token序列，识别出程序的语法结构。这个语法结构是计算机便于执行和理解的树状结构。</p>
@@ -427,6 +427,7 @@
 </ul>
 <p>语义分析更像是一个检查阶段，生成的语法树便于后续中间代码生成。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过这一篇记录编译器的的结构，已经着重说明了前端技术的细节，后续会一步步实现整个编译器。后端技术方面也会补全。<br>大体流程：<br>代码 =&gt; 词法分析 =&gt; Token序列 =&gt; 语法解析 =&gt; AST语法树 =&gt; 语义分析 =&gt; 带有类型等信息的语法树<br>=&gt; 中间代码生成 =&gt; 中间代码 =&gt; 语法树优化 =&gt; 更易生成目标代码的中间代码 =&gt; codegen =&gt; 目标代码</p>
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a></p>
 
       
     </div>
