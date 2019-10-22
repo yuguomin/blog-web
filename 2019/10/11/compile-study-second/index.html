@@ -71,7 +71,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-second/keyword-error.png">
-<meta property="og:updated_time" content="2019-10-20T08:24:20.483Z">
+<meta property="og:updated_time" content="2019-10-21T08:58:00.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第二章 词法分析">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 词法分析 的过程，以及实现。">
@@ -177,7 +177,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">Study for myself.</p>
+        <p class="site-subtitle">day day up~</p>
       
   </div>
 
@@ -385,7 +385,7 @@
 <li>本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 <strong>词法分析</strong> 的过程，以及实现。</li>
 </ul>
 <a id="more"></a>
-<h1 id="词法分析的概念"><a href="#词法分析的概念" class="headerlink" title="词法分析的概念"></a>词法分析的概念</h1><p>在上一篇中，大体讲过了词法分析的概念，这个做下回顾。词法分析可以说就是一个<strong>分词</strong>的过程。他的整个执行都是为了把一段代码中，每一个词(也就是<code>token</code>)识别出来，标记上类型，然后放到一个token序列当中。在自然语言中，之前的举例<code>what is your name</code>，听到这么一句话，自然而然的会把每一个单词识别出来，因为脑袋中有一个词汇对照，<code>what</code>是“什么”的意思，它是由w、h、a、t组成··· 但是<code>age &gt;= 45;</code>，或者说<code>age&gt;=45</code>对于编译器而言，它在词法分析阶段需要做什么呢？ 很简单，识别出 <code>age</code> 这个标识符、<code>&gt;=</code> 这个操作符 以及 <code>45</code> 这个数字字面量。</p>
+<h1 id="词法分析的概念"><a href="#词法分析的概念" class="headerlink" title="词法分析的概念"></a>词法分析的概念</h1><p>在上一篇中，大体讲过了词法分析的概念，这里做下回顾。词法分析可以说就是一个<strong>分词</strong>的过程。他的整个执行都是为了把一段代码中，每一个词(也就是<code>token</code>)识别出来，标记上类型，然后放到一个token序列当中。在自然语言中，之前的举例<code>what is your name</code>，听到这么一句话，自然而然的会把每一个单词识别出来，因为脑袋中有一个词汇对照，<code>what</code>是“什么”的意思，它是由w、h、a、t组成··· 但是<code>age &gt;= 45;</code>，或者说<code>age&gt;=45</code>对于编译器而言，它在词法分析阶段需要做什么呢？ 很简单，识别出 <code>age</code> 这个标识符、<code>&gt;=</code> 这个操作符 以及 <code>45</code> 这个数字字面量。</p>
 <p>那么编译器是如何做到的呢？在这篇中，将编写一个词法分析器，而这个编译器至少能识别以下三种类型的JavaScript代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age = <span class="number">45</span>;</span><br><span class="line">age &gt;= <span class="number">45</span>;</span><br><span class="line"><span class="number">2</span> + <span class="number">3</span> * <span class="number">5</span>;</span><br></pre></td></tr></table></figure>
 
@@ -506,6 +506,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/10/21/compile-study-third/" rel="prev" title="编译技术学习：第三章 语法分析">
+                编译技术学习：第三章 语法分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -612,7 +616,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
