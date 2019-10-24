@@ -61,18 +61,18 @@
 
 
 
-<meta name="description" content="前言语法分析的概念递归下降算法">
+<meta name="description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta name="keywords" content="Compile,Computer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译技术学习：第三章 语法分析">
 <meta property="og:url" content="https://www.yuguomin.com/2019/10/21/compile-study-third/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言语法分析的概念递归下降算法">
+<meta property="og:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-22T14:38:36.984Z">
+<meta property="og:updated_time" content="2019-10-24T15:17:51.858Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析">
-<meta name="twitter:description" content="前言语法分析的概念递归下降算法">
+<meta name="twitter:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 
 
 
@@ -343,7 +343,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">15(字)</span>
+                  <span class="post-count">276(字)</span>
                 </span>
             
               <span class="post-time">
@@ -378,7 +378,13 @@
       
 
       
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="语法分析的概念"><a href="#语法分析的概念" class="headerlink" title="语法分析的概念"></a>语法分析的概念</h1><h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 <strong>语法分析</strong> 的过程，以及简单的代码实现。</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="语法分析的概念"><a href="#语法分析的概念" class="headerlink" title="语法分析的概念"></a>语法分析的概念</h1><p>如果说词法分析是一个<strong>分词</strong>的过程，那么语法分析可以说是一个分句的过程。分句，如果是汉语，我们可能通过标点符号来分句，但是实际上自然语言也有它特定的规则，一句话的主谓宾、主系表等。计算机语言同样有这样的结构，<code>var age = 45;</code>这样一个变量声明表达式，<code>2 + 3 * 5</code>这样的算术表达式等等。我们都需要通过语法分析，解析出一条条语句。并最终以结构树的形式表达。这一篇文章主要讲述用递归下降算法实现一个能识别变量声明语句、变量赋值语句及加减乘除表达式的简易语法分析器。通过这个实现过程理解语法分析的原理。</p>
+<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1>
       
     </div>
     <div>
