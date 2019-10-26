@@ -69,12 +69,13 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://www.yuguomin.com/images/compile-study-third/var-sta-img.png">
-<meta property="og:updated_time" content="2019-10-26T03:52:02.367Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
+<meta property="og:updated_time" content="2019-10-26T09:07:54.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
-<meta name="twitter:image" content="https://www.yuguomin.com/images/compile-study-third/var-sta-img.png">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
 
 
 
@@ -126,8 +127,8 @@
 
 <script>
     (function(){
-        if('666'){
-            if (prompt('请输入文章密码') !== '666'){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
                 alert('密码错误！');
                 history.back();
             }
@@ -345,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">1.3k(字)</span>
+                  <span class="post-count">2.8k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -354,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">4(分)</span>
+            <span class="post-count">10(分)</span>
             
           </span>
 
@@ -401,20 +402,64 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A : &#123; ε, a, aa, aaa...&#125;</span><br><span class="line">S : &#123; b, ab, aab, aaab, aaaab...&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上下文无关文法的之所以为上下文无关，就是S无论在任何形式下都可以被Ab所替换，而不用考虑所在的上下文，它是与上下文无关的。<br>刚才产生式规则使用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">巴科斯范式</a>，接下来的书写中会用<code>:</code>代替<code>::=</code>，意义是相同的。</p>
-<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1><p>刚才介绍了文法的相关概念，下面介绍的是如何具体的实现对文法的推导过程，从而生成出AST。这里使用的是递归下降算法。<br>我们从 <code>var age = 45</code> 来入手理解，该语句语法分析的流程图<br><img src="/images/compile-study-third/var-sta-img.png" style="margin:0;border:none;"></p>
+<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1><p>刚才介绍了文法的相关概念，下面介绍的是如何具体的实现对文法的推导过程，从而生成出AST。这里使用的是自顶向下算法中的递归下降算法。<br>我们从 <code>var age = 45</code> 来入手理解，该语句语法分析的流程图<br><img src="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png" style="margin:0;border:none;"></p>
 <p>这是当我们在语法分析该语句的时候的一个处理过程，那么如果用上下文无关文法来进行形式化表达</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variableDeclare: Var Identifier (&apos;=&apos; additiveExpression)?;</span><br></pre></td></tr></table></figure>
 
 <p>通过这个形式化的描述，我们可以知道，一个变量声明语句，由一个<code>Var</code>的token，和一边<code>Identifier</code>的变量标识符，跟一个可选的赋值表达式。伪代码如下:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//伪代码</span><br><span class="line">MatchVariableDeclare()&#123;</span><br><span class="line">  MatchToken(var);        //匹配var关键字</span><br><span class="line">  MatchIdentifier();       //匹配标识符</span><br><span class="line">  MatchToken(equal);       //匹配等号</span><br><span class="line">  MatchExpression();       //匹配表达式</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line">matchVariableDeclare()&#123;</span><br><span class="line">  MatchToken(<span class="string">'var'</span>);        <span class="comment">//匹配var关键字</span></span><br><span class="line">  MatchIdentifier();       <span class="comment">//匹配标识符</span></span><br><span class="line">  MatchToken(<span class="string">'='</span>);       <span class="comment">//匹配等号</span></span><br><span class="line">  MatchExpression();       <span class="comment">//匹配表达式</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>真实的实现代码(代码库的<a href="https://github.com/yuguomin/my-compiler/blob/master/src/syntaxAnalysis/SimpleParser.ts" target="_blank" rel="noopener">SimpleParser.ts</a>文件variableDeclare方法)如下：</p>
+<p>真实的代码(代码库的<a href="https://github.com/yuguomin/my-compiler/blob/master/src/syntaxAnalysis/SimpleParser.ts" target="_blank" rel="noopener">SimpleParser.ts</a>variableDeclare方法)实现如下：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> node: IASTNode | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> token = tokenReader.peek(); <span class="comment">// 预先读取token</span></span><br><span class="line"><span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.VariableIdentifier) &#123; <span class="comment">// 匹配是否为Var</span></span><br><span class="line">  tokenReader.read(); <span class="comment">// 消耗掉var token</span></span><br><span class="line">  token = tokenReader.peek(); <span class="comment">// 预读下一个token</span></span><br><span class="line">  <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.Identifier) &#123; <span class="comment">// 判断是否是标识符</span></span><br><span class="line">    token = tokenReader.read(); <span class="comment">// 消耗token</span></span><br><span class="line">    <span class="keyword">const</span> nodeText = token ? token.getText() : <span class="literal">null</span>; <span class="comment">// 拿到标识符的内容</span></span><br><span class="line">    node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.VariableDeclare, nodeText); <span class="comment">// 创建一个变量声明节点</span></span><br><span class="line">    token = tokenReader.peek(); <span class="comment">// 预读</span></span><br><span class="line">    <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.Assignment) &#123; <span class="comment">// 判断是否为等号</span></span><br><span class="line">      tokenReader.read(); <span class="comment">// 消耗掉等号</span></span><br><span class="line">      <span class="keyword">const</span> child = <span class="keyword">this</span>.additive(tokenReader); <span class="comment">// 匹配是否为一个表达式</span></span><br><span class="line">      <span class="keyword">if</span> (child) &#123;</span><br><span class="line">        node.append2Child(child); <span class="comment">// 匹配到表达式 添加进变量声明节点的子节点</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalide variable initialization, expecting an expression'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`variable name expected`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>用自然语言描述一下上面做的事情</p>
+<p>用自然语言描述代码的内容</p>
 <p id="div-border-left-green">
-语法分析首先创建一个根节点，然后去扫描词法分析拿到的token序列，当遇到的第一个token为`var`时，创建一个字节点，
+语法分析首先创建一个根节点，然后去扫描词法分析拿到的token序列，当遇到的第一个token为`var`时，去判断下一个token是否为标识符，然后使用标识符名称创建一个变量声明节点。然后看跟随的是否有初始化部分，判断是否有等号，以及一个表达式，如果有，再创建一个初始化节点作为变量声明的字节点。
 </p>
+
+<p>通常对于产生式的每一个部分都会创建一个子节点，例如上面的这条产生式规则，会创建一个<code>var</code>关键字、变量标识符、等号、表达式四个节点。示例中，只创建了一个子节点，变量标识符子节点，通过设置节点的type类型来指明是变量声明；然后又把变量初始化子节点作为变量标识符的子节点表示他们的连接关系。<code>var</code>关键字和等号节点两个通过特殊方式表达出来，因此被舍弃掉了。</p>
+<p>代码中的<code>peek</code>方法，是用来预读token的，表示预先查看下一个token，但并不把它从token的流中移除。这种预读的操作可以减少回溯的次数，比如说，在执行到判断是否带有初始化效果的判断时，下一个token是<code>=</code>，那么我们就在这个流中移除<code>=</code>（使用<code>read</code>方法），进而匹配表达式节点；但如果不是<code>=</code>，我们可以继续处理其它的语句语法即可。</p>
+<p>重点来了，我们可以针对要产生的变量声明节点和表达式节点分别写成函数来进行匹配，匹配上了，返回对应的AST节点，否则<code>null</code>，如果有语法错误，则进行报错。这正是递归下降算法的<strong>核心思想:</strong></p>
+<p id="div-border-left-red">
+对每一个非终结符构造一个分析函数，由于上下文无关文法中所有的产生式左边只有一个非终结符。所以在调用对应终结符的分析函数后，得到的结果可能会有终结符，非终结符。<br>
+1. 终结符则直接匹配对应位置的token，判断是否符合，符合继续，不符合返回。<br>
+2. 非终结符则继续调用对应非终结符的分析函数，直到为对应的句子。而这里的非终结符常常可能是其自身，则会产生“递归”。<br>
+在这整个过程中，上级算法生成上级节点，下级算法生成下级节点。也就是“下降”。
+</p>
+
+<p>由此，代码输出这一段的AST是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Program pwc</span><br><span class="line">        VariableDeclare age</span><br><span class="line">                NumberLiteral 45</span><br></pre></td></tr></table></figure>
+
+<p>变量声明初始化语句，看起来仍可以使用正则方式进行处理，后面我们来处理一下算术表达式。</p>
+<h1 id="如何处理算术表达式"><a href="#如何处理算术表达式" class="headerlink" title="如何处理算术表达式"></a>如何处理算术表达式</h1><p>算术表达式通常包括加、减、乘、除，由于优先级相同，方便起见这里把加减等同看待统称加法，乘除也等同看待统称乘法。而加法和乘法的优先级不同。我们的文法规则要匹配多种表达式，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">2+3*5</span><br><span class="line">2*3+5</span><br><span class="line">2*3</span><br><span class="line">.......</span><br></pre></td></tr></table></figure>
+
+<p>我们把这两种规则分为两级，把乘法规则作为加法规则的子规则。通过文法的推导，那么最终生成的AST，乘法节点就会是加法节点的子节点，从而优先计算。由此得出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression</span><br><span class="line">    :   multiplicativeExpression</span><br><span class="line">    |   additiveExpression Plus multiplicativeExpression</span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">multiplicativeExpression</span><br><span class="line">    :   number</span><br><span class="line">    |   multiplicativeExpression Star number</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
+
+<p>使用这样的产生式规则，我们在解析<code>2 + 3 * 5</code>的时候会生成这样的AST<br><img src="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png" style="border:none;"></p>
+<p>当我们需要求得整个表达式的值时，只需要通过递归求值，从最下级节点往上计算即可。所以会先完成<code>3 * 5</code>，再计算<code>2 + 15</code>。这种通过文法的嵌套便处理了算术表达式的<strong>优先级</strong>问题。<br>我们根据产生式规则写出推导过程</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2 + 3 * 5</span><br><span class="line">-&gt; multiplicativeExpression // 不符合</span><br><span class="line">-&gt; additiveExpression + multiplicativeExpression</span><br><span class="line">-&gt; multiplicativeExpression + multiplicativeExpression</span><br><span class="line">-&gt; number + multiplicativeExpression</span><br><span class="line">-&gt; number + number // 不符合</span><br><span class="line">-&gt; number + multiplicativeExpression * number</span><br><span class="line">-&gt; number + number * number</span><br></pre></td></tr></table></figure>
+
+<p>这里我们可以看到，在推导的过程中，会递归的调用了加法推导规则，这种递归的定义使我们能展开。处理各种算术表达式。而这种文法已经没法用正则去处理了。这里体现出了上下文无关文法的特点，算术表达式的推导语法都一样，与上下文无关，无论在变量初始化时，还是在任何地方。我们只需要按照它对应的推导规则处理，保证其优先级。</p>
+<h1 id="左递归"><a href="#左递归" class="headerlink" title="左递归"></a>左递归</h1><p>在上面的文法规则中，产生了文法的递归调用。实际我们在使用算法来表示文法时，递归很容易陷入死循环。<br>写一个简单的文法例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression</span><br><span class="line">    :   number</span><br><span class="line">    |   additiveExpression Plus number</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
+
+<p>当使用该文法来解析<code>2+3</code>的时候，翻译成算法会遇到如下情况</p>
+<ol>
+<li>匹配是不是一个数字字面量，发现不是；</li>
+<li>再次匹配是不是加法表达式，也就是递归调用自身；</li>
+<li>重复以上两步，死循环。</li>
+</ol>
+<p>我们之前写的算术表达式<code>additiveExpression: additiveExpression Plus multiplicativeExpression</code>便在文法规则的第一部分便递归的调用了自己。这种情况称之为“左递归”。<strong>左递归就是产生式产生的第一个符号可能就是该产生式本身的非终结符</strong>。所以，如果我们把递归项放到产生式的右边呢。也就是这样</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression</span><br><span class="line">    :   multiplicativeExpression</span><br><span class="line">    |   multiplicativeExpression Plus additiveExpression</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
+
+<p>然后用代码实现</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> additive: <span class="function">(<span class="params">tokenReader: ITokenReader</span>) =&gt;</span> IASTNode | <span class="literal">null</span> = <span class="function">(<span class="params">tokenReader</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> child1 = <span class="keyword">this</span>.multiplicative(tokenReader);</span><br><span class="line">  <span class="keyword">let</span> node = child1;</span><br><span class="line">  <span class="keyword">let</span> token = tokenReader.peek();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (child1 != <span class="literal">null</span> &amp;&amp; token != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (token.getType() === TokenType.Plus) &#123;</span><br><span class="line">          token = tokenReader.read();</span><br><span class="line">          <span class="keyword">const</span> child2 = <span class="keyword">this</span>.additive(tokenReader); <span class="comment">//递归地解析第二个节点</span></span><br><span class="line">          <span class="keyword">if</span> (child2) &#123;</span><br><span class="line">              <span class="keyword">const</span> tokenText = token ? token.getText() : <span class="literal">null</span>;</span><br><span class="line">              node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.Additive, tokenText);</span><br><span class="line">              node.append2Child(child1);</span><br><span class="line">              node.append2Child(child2);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"invalid additive expression, expecting the right part."</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>尚未完结</p>
+
       
     </div>
     <div>
@@ -652,7 +697,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">初识上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">初识上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何处理算术表达式"><span class="nav-number">5.</span> <span class="nav-text">如何处理算术表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#左递归"><span class="nav-number">6.</span> <span class="nav-text">左递归</span></a></li></ol></div>
             
 
           </div>
