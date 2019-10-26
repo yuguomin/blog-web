@@ -69,10 +69,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-24T15:17:51.858Z">
+<meta property="og:image" content="https://www.yuguomin.com/images/compile-study-third/var-sta-img.png">
+<meta property="og:updated_time" content="2019-10-26T03:52:02.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
+<meta name="twitter:image" content="https://www.yuguomin.com/images/compile-study-third/var-sta-img.png">
 
 
 
@@ -343,7 +345,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">276(字)</span>
+                  <span class="post-count">1.3k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -352,7 +354,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
+            <span class="post-count">4(分)</span>
             
           </span>
 
@@ -383,8 +385,36 @@
 </ul>
 <a id="more"></a>
 
-<h1 id="语法分析的概念"><a href="#语法分析的概念" class="headerlink" title="语法分析的概念"></a>语法分析的概念</h1><p>如果说词法分析是一个<strong>分词</strong>的过程，那么语法分析可以说是一个分句的过程。分句，如果是汉语，我们可能通过标点符号来分句，但是实际上自然语言也有它特定的规则，一句话的主谓宾、主系表等。计算机语言同样有这样的结构，<code>var age = 45;</code>这样一个变量声明表达式，<code>2 + 3 * 5</code>这样的算术表达式等等。我们都需要通过语法分析，解析出一条条语句。并最终以结构树的形式表达。这一篇文章主要讲述用递归下降算法实现一个能识别变量声明语句、变量赋值语句及加减乘除表达式的简易语法分析器。通过这个实现过程理解语法分析的原理。</p>
-<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1>
+<h1 id="语法分析的概念"><a href="#语法分析的概念" class="headerlink" title="语法分析的概念"></a>语法分析的概念</h1><p>如果说词法分析是一个<strong>分词</strong>的过程，那么语法分析可以说是一个分句的过程。分句，如果是汉语，我们可能通过标点符号来分句，但是实际上自然语言也有它特定的规则，一句话的主谓宾、主系表等。计算机语言同样有这样的结构，<code>var age = 45;</code>这样一个变量声明赋值表达式，<code>2 + 3 * 5</code>这样的算术表达式等等。我们都需要通过语法分析，解析出一条条语句。并最终以结构树的形式表达。这一篇文章主要讲述用递归下降算法实现一个能识别变量声明语句、变量赋值语句及加减乘除表达式的简易语法分析器。通过这个实现过程理解语法分析的原理。</p>
+<h1 id="初识上下文无关文法"><a href="#初识上下文无关文法" class="headerlink" title="初识上下文无关文法"></a>初识上下文无关文法</h1><p>语法分析器的实现也是靠语言规则来实现的，一般代码都有一些形式化的表达方式。我们称之为文法，文法使用有限的规则将无限的语言描述出来，这里介绍的其中一种是上下文无关文法。下面介绍上下文无关文法中的几个概念</p>
+<ul>
+<li>终结符：本质上就是token，不能单独出现在推导式左边的符号，无法再进行推导，是不可拆分的最小元素。</li>
+<li>非终结符：是可拆分的元素，可以被它的产生式所替代。在上下文无关文法中，每个推导规则的左边只能有一个非终结符而不能有两个以上的非终结符或终结符。</li>
+<li>产生式：能够替换到推导规则左边的非终结符的式子。</li>
+<li>起始符号：一个形式文法中必须有一个起始符号；这个起始符号属于非终结符的集合。</li>
+<li>句子：只有终结符的符号串</li>
+</ul>
+<p>看一个文法例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S ::= Ab</span><br><span class="line">A ::= aA | ε</span><br></pre></td></tr></table></figure>
+
+<p>我们可以说S、A是两个非终结符，a、b、ε是终结符(ε代表是空句子)。Ab是S的产生式，aA | ε是A的产生式；S是起始符号。在执行的过程中，从起始符号开始，被替换成它的产生式，如果产生式中仍然有非终结符，那么继续非终结符的替换过程，直到全部都是终结符为止。这个过程称为推导，从例子中看，S被推导成Ab，而A是一个非终结符，接着被推导成<code>a，aa，aaa...</code>这个文法能被推导出的所有句子集合是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A : &#123; ε, a, aa, aaa...&#125;</span><br><span class="line">S : &#123; b, ab, aab, aaab, aaaab...&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上下文无关文法的之所以为上下文无关，就是S无论在任何形式下都可以被Ab所替换，而不用考虑所在的上下文，它是与上下文无关的。<br>刚才产生式规则使用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">巴科斯范式</a>，接下来的书写中会用<code>:</code>代替<code>::=</code>，意义是相同的。</p>
+<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1><p>刚才介绍了文法的相关概念，下面介绍的是如何具体的实现对文法的推导过程，从而生成出AST。这里使用的是递归下降算法。<br>我们从 <code>var age = 45</code> 来入手理解，该语句语法分析的流程图<br><img src="/images/compile-study-third/var-sta-img.png" style="margin:0;border:none;"></p>
+<p>这是当我们在语法分析该语句的时候的一个处理过程，那么如果用上下文无关文法来进行形式化表达</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variableDeclare: Var Identifier (&apos;=&apos; additiveExpression)?;</span><br></pre></td></tr></table></figure>
+
+<p>通过这个形式化的描述，我们可以知道，一个变量声明语句，由一个<code>Var</code>的token，和一边<code>Identifier</code>的变量标识符，跟一个可选的赋值表达式。伪代码如下:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//伪代码</span><br><span class="line">MatchVariableDeclare()&#123;</span><br><span class="line">  MatchToken(var);        //匹配var关键字</span><br><span class="line">  MatchIdentifier();       //匹配标识符</span><br><span class="line">  MatchToken(equal);       //匹配等号</span><br><span class="line">  MatchExpression();       //匹配表达式</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>真实的实现代码(代码库的<a href="https://github.com/yuguomin/my-compiler/blob/master/src/syntaxAnalysis/SimpleParser.ts" target="_blank" rel="noopener">SimpleParser.ts</a>文件variableDeclare方法)如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> node: IASTNode | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">let</span> token = tokenReader.peek(); <span class="comment">// 预先读取token</span></span><br><span class="line"><span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.VariableIdentifier) &#123; <span class="comment">// 匹配是否为Var</span></span><br><span class="line">  tokenReader.read(); <span class="comment">// 消耗掉var token</span></span><br><span class="line">  token = tokenReader.peek(); <span class="comment">// 预读下一个token</span></span><br><span class="line">  <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.Identifier) &#123; <span class="comment">// 判断是否是标识符</span></span><br><span class="line">    token = tokenReader.read(); <span class="comment">// 消耗token</span></span><br><span class="line">    <span class="keyword">const</span> nodeText = token ? token.getText() : <span class="literal">null</span>; <span class="comment">// 拿到标识符的内容</span></span><br><span class="line">    node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.VariableDeclare, nodeText); <span class="comment">// 创建一个变量声明节点</span></span><br><span class="line">    token = tokenReader.peek(); <span class="comment">// 预读</span></span><br><span class="line">    <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.Assignment) &#123; <span class="comment">// 判断是否为等号</span></span><br><span class="line">      tokenReader.read(); <span class="comment">// 消耗掉等号</span></span><br><span class="line">      <span class="keyword">const</span> child = <span class="keyword">this</span>.additive(tokenReader); <span class="comment">// 匹配是否为一个表达式</span></span><br><span class="line">      <span class="keyword">if</span> (child) &#123;</span><br><span class="line">        node.append2Child(child); <span class="comment">// 匹配到表达式 添加进变量声明节点的子节点</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalide variable initialization, expecting an expression'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">`variable name expected`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用自然语言描述一下上面做的事情</p>
+<p id="div-border-left-green">
+语法分析首先创建一个根节点，然后去扫描词法分析拿到的token序列，当遇到的第一个token为`var`时，创建一个字节点，
+</p>
       
     </div>
     <div>
@@ -622,7 +652,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">3.</span> <span class="nav-text">递归下降算法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">初识上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li></ol></div>
             
 
           </div>
