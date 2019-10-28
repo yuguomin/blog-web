@@ -71,7 +71,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
-<meta property="og:updated_time" content="2019-10-26T09:07:54.020Z">
+<meta property="og:updated_time" content="2019-10-28T09:24:49.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
@@ -346,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.8k(字)</span>
+                  <span class="post-count">3.7k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">10(分)</span>
+            <span class="post-count">13(分)</span>
             
           </span>
 
@@ -445,9 +445,13 @@
 <h1 id="左递归"><a href="#左递归" class="headerlink" title="左递归"></a>左递归</h1><p>在上面的文法规则中，产生了文法的递归调用。实际我们在使用算法来表示文法时，递归很容易陷入死循环。<br>写一个简单的文法例子</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression</span><br><span class="line">    :   number</span><br><span class="line">    |   additiveExpression Plus number</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
 
-<p>当使用该文法来解析<code>2+3</code>的时候，翻译成算法会遇到如下情况</p>
+<p>用代码基本实现</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> additive: <span class="function">(<span class="params">tokenReader: ITokenReader</span>) =&gt;</span> IASTNode | <span class="literal">null</span> = <span class="function">(<span class="params">tokenReader</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> child1: IASTNode | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> node: IASTNode | <span class="literal">null</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> token = tokenReader.peek();</span><br><span class="line">  <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.NumberLiteral) &#123;</span><br><span class="line">    child1 = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.Additive, token.getText());</span><br><span class="line">    tokenReader.read();</span><br><span class="line">    token = tokenReader.peek();</span><br><span class="line">    <span class="keyword">if</span> (token) &#123; <span class="comment">// 如果后续仍有token</span></span><br><span class="line">      tokenReader.unRead(); <span class="comment">// 取消上一次的read</span></span><br><span class="line">      child1 = <span class="keyword">this</span>.additive(tokenReader); <span class="comment">// 递归调用自身得到第一个子节点</span></span><br><span class="line">      token = tokenReader.peek();</span><br><span class="line">      <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.Plus) &#123;</span><br><span class="line">        node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.Additive, token.getText());</span><br><span class="line">        tokenReader.read();</span><br><span class="line">        token = tokenReader.peek();</span><br><span class="line">        <span class="keyword">if</span> (token &amp;&amp; token.getType() === TokenType.NumberLiteral) &#123;</span><br><span class="line">          <span class="keyword">let</span> child2 = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.NumberLiteral, token.getText());</span><br><span class="line">          node.append2Child(child1);</span><br><span class="line">          node.append2Child(child2);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          node = <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      node = child1;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>描述一下代码的实现逻辑：<br>首先判断第一个token是否是数字，成功后若后续没有其他的token，匹配成功返回数字的node。后续仍有token，说明<code>additiveExpression: number</code>并不满足推导，那么使用<code>additiveExpression: additiveExpression Plus number</code>产生式推导，首先递归调用自身，则继续判断<code>additiveExpression: number</code>…</p>
+<p>比如当使用该文法来解析<code>2+3</code>的时候，会遇到如下情况</p>
 <ol>
-<li>匹配是不是一个数字字面量，发现不是；</li>
+<li><code>2+3</code>匹配是不是一个数字字面量，发现2后有加号，不是；</li>
 <li>再次匹配是不是加法表达式，也就是递归调用自身；</li>
 <li>重复以上两步，死循环。</li>
 </ol>
@@ -457,8 +461,28 @@
 <p>然后用代码实现</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> additive: <span class="function">(<span class="params">tokenReader: ITokenReader</span>) =&gt;</span> IASTNode | <span class="literal">null</span> = <span class="function">(<span class="params">tokenReader</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> child1 = <span class="keyword">this</span>.multiplicative(tokenReader);</span><br><span class="line">  <span class="keyword">let</span> node = child1;</span><br><span class="line">  <span class="keyword">let</span> token = tokenReader.peek();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (child1 != <span class="literal">null</span> &amp;&amp; token != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (token.getType() === TokenType.Plus) &#123;</span><br><span class="line">          token = tokenReader.read();</span><br><span class="line">          <span class="keyword">const</span> child2 = <span class="keyword">this</span>.additive(tokenReader); <span class="comment">//递归地解析第二个节点</span></span><br><span class="line">          <span class="keyword">if</span> (child2) &#123;</span><br><span class="line">              <span class="keyword">const</span> tokenText = token ? token.getText() : <span class="literal">null</span>;</span><br><span class="line">              node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.Additive, tokenText);</span><br><span class="line">              node.append2Child(child1);</span><br><span class="line">              node.append2Child(child2);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"invalid additive expression, expecting the right part."</span>);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>描述一下这段代码的思路：<br>可以看到加法表达式的两种可能都是以乘法表达式为开头的，所以先尝试匹配一个乘法表达式，匹配不成功直接返回null。匹配成功，就匹配加号及加号右边的部分，递归的调用加法的匹配产生式。匹配成功后，返回一个加法的AST节点。</p>
+<p>用同样的方式修改乘法的产生式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">multiplicativeExpression</span><br><span class="line">    :   number</span><br><span class="line">    |   number Star multiplicativeExpression</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
+
+<p>现在看起来似乎已经解决掉左递归的问题，运行之前的案例<code>2 + 3 * 5</code>，输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Program pwc</span><br><span class="line">        Additive +</span><br><span class="line">                NumberLiteral 2</span><br><span class="line">                Multiplicative *</span><br><span class="line">                        NumberLiteral 3</span><br><span class="line">                        NumberLiteral 5</span><br></pre></td></tr></table></figure>
+
+<p>ok，表现的很好，那么在试一试<code>2+3+5</code>，输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Program pwc</span><br><span class="line">        Additive +</span><br><span class="line">                NumberLiteral 2</span><br><span class="line">                Additive +</span><br><span class="line">                        NumberLiteral 3</span><br><span class="line">                        NumberLiteral 5</span><br></pre></td></tr></table></figure>
+
+<p>问题又出现了，这里产生的问题是，计算顺序出错了，前面说过，按照期望的AST，获取这个表达式的值只需要递归的从最底字节点计算即可，很明显，这里<code>2+3+5</code>的AST，会先计算<code>3+5=8</code>，然后再计算<code>2+8=10</code>。这是在我们修改了文法之后造成的问题，那么我们来分析一下<code>2+3+5</code>的推导过程：</p>
+<ol>
+<li><code>2+3+5</code>首先尝试匹配 <code>additiveExpression: multiplicativeExpression</code> 匹配失败，发现后续仍有token；</li>
+<li><code>2+3+5</code>尝试匹配<code>additiveExpression: multiplicativeExpression Plus additiveExpression</code>；</li>
+<li>匹配到一个2对应multiplicativeExpression形成了第一个子节点；</li>
+<li>Plus与<code>+</code>对应，之后继续匹配<code>additiveExpression</code>，匹配到了3+5，得到第二个子节点；</li>
+</ol>
+<p>通过这个推导，可以看到3+5一定会被结合称为一个子节点，导致被优先计算。所以我们知道<strong>目前这种方式并没有完全的解决掉左递归的问题</strong>。具体如何处理将在语法分析第二篇中继续。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>语法分析就是一个单词组合成句子的过程，通过上下文无关文法描述句子的组合规则，并且利用文法的嵌套可以解决优先级问题，通过递归下降算法匹配每一个节点。在这个过程中，如果按照文法的推导，很容易进入左递归的问题。如何解决这个问题通过后置递归项是解决不掉的。<br>下一篇中主要解决左递归问题并实现对算术表达式的求值。</p>
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a><br><a href="https://www.cnblogs.com/Ninputer/archive/2011/06/21/2085527.html" target="_blank" rel="noopener">自己动手开发编译器（七）递归下降的语法分析器</a><br><a href="https://www.nosuchfield.com/2017/07/30/Talk-about-compilation-principles-2/#2-__u9012_u5F52_u4E0B_u964D_u5206_u6790_u7B97_u6CD5" target="_blank" rel="noopener">聊聊编译原理（二） - 语法分析</a></p>
 <hr>
-<p>尚未完结</p>
+<p><a href="https://github.com/yuguomin/my-compiler" target="_blank" rel="noopener">代码地址</a></p>
 
       
     </div>
@@ -697,7 +721,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">初识上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何处理算术表达式"><span class="nav-number">5.</span> <span class="nav-text">如何处理算术表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#左递归"><span class="nav-number">6.</span> <span class="nav-text">左递归</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">初识上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何处理算术表达式"><span class="nav-number">5.</span> <span class="nav-text">如何处理算术表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#左递归"><span class="nav-number">6.</span> <span class="nav-text">左递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
