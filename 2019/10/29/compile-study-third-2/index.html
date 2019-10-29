@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="CSS,layout,DOM,">
+  <meta name="keywords" content="Compile,Computer,">
 
 
 
@@ -61,20 +61,21 @@
 
 
 
-<meta name="description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="keywords" content="CSS,layout,DOM">
+<meta name="description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
+<meta name="keywords" content="Compile,Computer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="repaint and reflow&#x2F;重绘与回流">
-<meta property="og:url" content="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/index.html">
+<meta property="og:title" content="编译技术学习：第三章 语法分析（二）">
+<meta property="og:url" content="https://www.yuguomin.com/2019/10/29/compile-study-third-2/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
+<meta property="og:description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
-<meta property="og:updated_time" content="2019-10-20T08:23:13.546Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-right.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-left.png">
+<meta property="og:updated_time" content="2019-10-29T15:14:56.606Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="repaint and reflow&#x2F;重绘与回流">
-<meta name="twitter:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
+<meta name="twitter:title" content="编译技术学习：第三章 语法分析（二）">
+<meta name="twitter:description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-right.png">
 
 
 
@@ -102,7 +103,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/10/29/compile-study-third-2/">
 
 
 
@@ -134,7 +135,7 @@
         }
     })();
 </script>
-  <title> repaint and reflow/重绘与回流 | SuperFish's Blog </title>
+  <title> 编译技术学习：第三章 语法分析（二） | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -264,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/10/29/compile-study-third-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -285,7 +286,7 @@
             
             
               
-                repaint and reflow/重绘与回流
+                编译技术学习：第三章 语法分析（二）
               
             
           </h1>
@@ -300,8 +301,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T11:13:16+08:00">
-                2019-08-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-10-29T21:13:36+08:00">
+                2019-10-29
               </time>
             
 
@@ -323,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/Compile-Study/" itemprop="url" rel="index">
+                    <span itemprop="name">Compile Study</span>
                   </a>
                 </span>
 
@@ -345,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.1k(字)</span>
+                  <span class="post-count">1.1k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -354,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">4(分)</span>
             
           </span>
 
@@ -381,95 +382,45 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。</li>
-<li>内容：<a href="#浏览器的渲染过程">了解浏览器的渲染过程</a> =&gt; <a href="#重绘与回流是什么">重绘与回流是什么</a> =&gt; <a href="#什么会触发重绘与回流">什么会触发重绘与回流</a> =&gt; <a href="#浏览器的自我优化">浏览器的自我优化</a> =&gt; <a href="#如何避免重绘与回流">如何避免重绘与回流</a></li>
+<li>本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 <strong>语法分析</strong> ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。</li>
 </ul>
 <a id="more"></a>
+<h1 id="文法的书写"><a href="#文法的书写" class="headerlink" title="文法的书写"></a>文法的书写</h1><p>前面对上下文无关文法进行了介绍，后续的文法书写都采用的是<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">巴科斯范式</a>（BNF），这里要介绍的是<a href="https://zh.wikipedia.org/zh-hans/%E6%89%A9%E5%B1%95%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">扩展巴科斯范式</a>（EBNF）。从名字就可以知道它是基本巴科斯范式(BNF)元语法符号表示法的一种扩展。</p>
+<p>扩展巴科斯范式和BNF的区别，主要是严格了书写的规范，<strong>终结符使用引号进行包裹</strong>；还提供了定义重复次数，排除法选择(比如除了引号的所有字符)和注释等的增强机制。EBNF语言意义上不比BNF要强大，但是可以节省很多不必要的规则书写。这种功能和正则表达式的一些书写很相似。比如<code>*</code>，表示repetition-symbol，重复0次或0次以上。<br>使用EBNF写一段文法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E: F (&apos;+&apos; F)*</span><br></pre></td></tr></table></figure>
 
-<h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><p>重绘与回流是浏览器的渲染过程的一部分，在弄清楚之前，<font color="red"><strong>必须</strong></font>先大致了解浏览器的渲染过程。浏览器是如何将我们的HTML，CSS和JavaScript到屏幕上的渲染像素的。</p>
-<img src="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png" width="80%">
+<p>那么再使用BNF写这一段文法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E: E + F | F</span><br></pre></td></tr></table></figure>
 
-<p>如上图，大致可以得出一个流程</p>
-<ol>
-<li><p>首先处理HTML标记构建出<font class="red-code">DOM Tree</font></p>
-<ul>
-<li>在处理HTML标记时，将每一个HTML的原始字节转换为字符，然后识别出标记，并将标记转换成节点，然后将节点根据每一个自身属性和规则构建出DOM Tree，整个DOM Tree的根部就是 documentElement 即<code>&lt;html&gt;</code>标签。</li>
-</ul>
-</li>
-<li><p>接着处理CSS层叠样式表构建出<font class="red-code">CSSOM Tree</font></p>
-<ul>
-<li>CSSOM Tree的构建主要需要处理：每个浏览器自带的样式、 CSS样式表可以通过外链<code>&lt;link&gt;</code>进行引入、css中的<code>@import</code>引入、行内样式的写入。</li>
-<li>处理时会根据对应的层叠关系、权重规则产生覆盖作用。</li>
-<li>处理的流程与HTML一样，将CSS字节转换成字符，然后识别出标记，标记转换成节点，进而构造一个CSSOM Tree。</li>
-</ul>
-</li>
-<li><p>然后将<font class="red-code">DOM Tree</font>和<font class="red-code">CSSOM Tree</font>组合成<font class="red-code">Render Tree</font></p>
-<ul>
-<li>通过上面两步拿到的DOM Tree和CSSOM Tree，一个描述内容，一个描述需要应用于文档的样式规则。</li>
-<li>通过特定的规则开始进行组合：从DOM Tree根节点开始遍历，如果是脚本标记这种或者是通过CSS隐藏如 <code>display: none;</code> 进行隐藏的节点将会被忽略。找到匹配的CSSOM Tree的规则并组合，最终构造出一个 Render Tree。</li>
-<li>Render Tree的结构和 DOM Tree 很相似，但是它的每一个节点有对应节点的样式属性，记录着如<code>height、width、color</code> </li>
-</ul>
-</li>
-<li><p>在<font class="red-code">Render Tree</font>上进行布局，计算出每个节点的几何</p>
-<ul>
-<li>在Render Tree构建阶段，我们已经拿到了每一个节点的内容已经样式，但是我们还没有在展示设备的视口中计算出它们的确切位置和大小，这就是“布局”阶段。这个阶段的触发往往就叫做<font color="red"><strong>“回流”</strong></font>。</li>
-<li>在这个布局的过程中，浏览器从 Render Tree 的根节点开始遍历。通过样式计算和布局规则拿到每一个节点的确切位置和大小，所有相对测量值都转换为屏幕上的绝对像素。</li>
-<li>Render Tree最终将在屏幕上如何展示就取决于这个过程，通过一些节点的变化，需要不断的遍历自己生成一个新的布局。</li>
-</ul>
-</li>
-<li><p>最后将各个节点绘制到屏幕上</p>
-<ul>
-<li>把计算后的每个节点转换成屏幕上的实际像素。这个就是绘制过程了。</li>
-</ul>
-</li>
-</ol>
-<h1 id="重绘与回流是什么"><a href="#重绘与回流是什么" class="headerlink" title="重绘与回流是什么"></a>重绘与回流是什么</h1><p>理清楚浏览器的大致渲染流程，我们可以思考一点，每次通过浏览器打开一个页面都会有一个从无到有的过程。这个过程就是一次页面的渲染。根据渲染规则，那么可以说<font color="red"><strong>浏览器在每次打开页面必将触发一个页面的回流</strong></font>。而在渲染完成后，对<font class="red-code">Render Tree</font>的任何改变都会触发回流或者重绘。</p>
-<ol>
-<li>回流(reflow)：当 Render Tree 中的部分或者全部元素的结构、尺寸、或者某些属性发生变化，以及JS获取一些节点特定属性时，会导致浏览器从新进行“布局”计算。这个过程就是回流。</li>
-<li>重绘(repaint)：当 Render Tree 中的变化不会影响到布局，如<code>color、background-color</code>，浏览器会去更新这个节点的样式，重新绘制这个节点，这个过程叫做重绘。</li>
-<li>关系：每一次回流会触发重新布局，然后重新绘制。那么可以说 <strong>回流必将触发重绘，而重绘不一定触发回流</strong>。</li>
-<li>每一次回流和重绘，都可能会造成性能影响，大部分的回流甚至会造成页面重新渲染。因此要避免造成页面的回流和重绘，特别是回流。</li>
-</ol>
-<h1 id="什么会触发重绘与回流"><a href="#什么会触发重绘与回流" class="headerlink" title="什么会触发重绘与回流"></a>什么会触发重绘与回流</h1><p>在明白了重绘与回流的过程，那么来知道什么场景下会触发重绘与回流，进而思考如何避免产生他们。</p>
-<h2 id="触发回流的场景"><a href="#触发回流的场景" class="headerlink" title="触发回流的场景"></a>触发回流的场景</h2><p><a href="https://csstriggers.com/" target="_blank" rel="noopener">CSS trigglers</a>列出了所有css属性在不同内核下对回流和重绘的影响。</p>
-<ol>
-<li>页面首次渲染。</li>
-<li>调整窗口大小，布局规则和相对属性值都是根据窗口大小进行计算的。</li>
-<li>样式表的变动。</li>
-<li>节点内容发生变化，如input控件中输入的内容。</li>
-<li>改变字体大小。</li>
-<li>添加或者删除可见<code>DOM</code>。</li>
-<li>使用CSS伪类元素。</li>
-<li>一些JS的查询属性或方法：<code>clientWidth、offsetWidth、scrollWidth、getComputedStyle()、scrollTo()</code>等等，在得出这些计算属性时浏览器希望给到实时的最准确的数据。</li>
-</ol>
-<h2 id="触发重绘的场景"><a href="#触发重绘的场景" class="headerlink" title="触发重绘的场景"></a>触发重绘的场景</h2><ol>
-<li>回流必将触发重绘。</li>
-<li>如隐藏节点(<code>visibility: hidden</code>)、背景图、颜色修改等样式操作。</li>
-</ol>
-<h1 id="浏览器的自我优化"><a href="#浏览器的自我优化" class="headerlink" title="浏览器的自我优化"></a>浏览器的自我优化</h1><p>面对这么多的触发场景，浏览器本身也采取了一些措施避免造成过大的性能损耗。</p>
-<ol>
-<li>浏览器将每次reflow的操作放在了一个缓存队列当中，知道达到了一定的规模或者特定的时间，再将这个结果反馈给 Render Tree，从而将多次的reflow简化成一次。</li>
-<li>JS中的样式合并，在JS很多操作<code>DOM</code>进行<code>CSS</code>的修改，也会进行一次合并更新，减少reflow和repaint的次数。</li>
-<li>浏览器的这个行为很棒，但是架不住一些场景，如果代码需要在一次 reflow 后实时获取元素的属性，那么就会造成浏览器的 reflow 缓存队列提前合并。造成性能损失。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newEle = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    newEle.innerText = i;</span><br><span class="line">    <span class="built_in">document</span>.body.offsetHeight; <span class="comment">// 获取实时高度，强行将回流缓存队列合并到 Render Tree</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(newEle); <span class="comment">// 会触发回流缓存进队列</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这两段在推导结果上是完全等同的。但是可以看出，EBNF在写法上和给人理解上来讲都要清晰一些。</p>
+<h1 id="确保优先级"><a href="#确保优先级" class="headerlink" title="确保优先级"></a>确保优先级</h1><p>在语法分析的第一部分，在对算术表达式乘法和加法的优先级上，通过文法的嵌套，利用加法规则推导出乘法规则，那么乘法规则匹配到的节点肯定是加法规则的子节点，从而实现了乘法的优先计算。</p>
+<p>同理，如果我们把关系运算（&gt;、&lt;）作为加法运算的上级文法，把and、or作为关系运算的上级文法，如此，就可以实现很多代码的运算优先级。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">exp: or | or <span class="string">'='</span> exp   </span><br><span class="line">or: and | or <span class="string">'||'</span> and</span><br><span class="line">and: equal | and <span class="string">'&amp;&amp;'</span> equal</span><br><span class="line">equal: rel | equal <span class="string">'=='</span> rel | equal <span class="string">'!='</span> rel | equal <span class="string">'==='</span> rel | equal <span class="string">'!=='</span> rel</span><br><span class="line">rel: add | rel <span class="string">'&gt;'</span> add | rel <span class="string">'&lt;'</span> add | rel <span class="string">'&gt;='</span> add | rel <span class="string">'&lt;='</span> add</span><br><span class="line">add: mul | add <span class="string">'+'</span> mul | add <span class="string">'-'</span> mul </span><br><span class="line">mul: pri | mul <span class="string">'*'</span> pri | mul <span class="string">'/'</span> pri </span><br><span class="line">pri: Id | Literal | <span class="string">'('</span>exp<span class="string">')'</span></span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<p>这段代码在每次添加新节点之后，立即获取实时高度，就会结束浏览器的 reflow 缓存，造成了性能损耗。</p>
-<h1 id="如何避免重绘与回流"><a href="#如何避免重绘与回流" class="headerlink" title="如何避免重绘与回流"></a>如何避免重绘与回流</h1><p>浏览器以及针对repaint和reflow采取了措施，那么作为开发者也需要根据造成repaint和reflow的场景进行避免。</p>
-<ol>
-<li>避免使用<code>table</code>布局方式。表格在完全渲染之前，后面的单元格都有可能影响到之前的元素，试想最后一列的最后一个单元格内容过多导致过宽，是会影响到整列的宽度。</li>
-<li>修改DOM样式时，尽量直接修改className，避免分别设置单独的样式。这样相当于合并修改为一次，减少回流重绘次数的可能。</li>
-<li>动画尽量使用在 <code>position</code> 为 <code>absolute</code> 或 <code>fixed</code> 值，绝对定位的元素，脱离文档流，不会影响到其他元素的布局，这样可以减少很多原素的重排。</li>
-<li>避免使用css表达式，如<code>calc()</code>。</li>
-<li>尽量在DOM树的最末端修改样式，每一个DOM节点的修改，可能都会造成页面部分或全部的布局重排(回流)，最顶部的元素造成页面全部重排的可能最大，最底部往往影响范围会更小。</li>
-<li>让操作的元素进行类似浏览器的缓存处理，处理完后一次更新。<ul>
-<li>利用DocumentFragment，缓存要操作的元素，操作完了在进行替换。</li>
-<li>对要进行回流的最外层元素先<code>dislay: none;</code>会造成一次 reflow 和 一次 repaint，隐藏之后在进行需要的操作，完成了这些操作后，再恢复它的<code>display</code>属性。</li>
-</ul>
-</li>
-<li>避免过多的获取DOM的样式信息，对于这种场景，尽量使用变量保存重复利用。</li>
-</ol>
-<p>参考相关文章链接：<br><a href="https://csstriggers.com/" target="_blank" rel="noopener">css-triggers</a><br><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction" target="_blank" rel="noopener">Render-tree Construction, Layout, and Paint</a><br><a href="https://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">Rendering: repaint, reflow/relayout, restyle</a></p>
+<p>这段文法的优先级从低到高是赋值运算、逻辑运算（or）、逻辑运算（and）、相等比较（equal）、大小比较（rel）、加法运算（add）、乘法运算（mul）和基础表达式（pri）。基础表达式中又可以被解析成三种情况，其中一种是利用括号包裹起来的。这种就是用于解决语法中<code>()</code>改变运算级的处理。通过阅读<a href="http://www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="noopener">语言的语法规则</a>了解优先级等特性。</p>
+<h1 id="正确的结合性"><a href="#正确的结合性" class="headerlink" title="正确的结合性"></a>正确的结合性</h1><p>结合性，是当处于相同优先级的运算符时，该从左往右计算还是从右往左计算。在前一篇中，最后为了消除左递归，把递归项改到运算符的右边最终导致<code>2+3+5</code>是先计算的<code>3+5</code>，这就是结合性出现了错误。</p>
+<p>在语法中，大多数都是从左往右计算的，比如<code>2+3+5</code>和<code>2*3*5</code>，点语法的<code>a.b.c</code>。当然也有从右往左，比较常见的就是赋值操作，如<code>a=b+c</code>。<br>如果按照之前的修改后的文法<code>additiveExpression: multiplicativeExpression Plus additiveExpression</code>会得到简易AST：</p>
+<!-- <img src="/images/compile-study-third/add-right.png" style="margin:0;border:none;" /> -->
+<img src="https://cdn.yuguomin.com/images/compile-study-third/add-right.png" style="margin:0;border:none;">
+
+<p>如果按照修改前的左递归文法<code>additiveExpression: additiveExpression Plus multiplicativeExpression</code>得到的简易AST：</p>
+<!-- <img src="/images/compile-study-third/add-left.png" style="margin:0;border:none;" /> -->
+<img src="https://cdn.yuguomin.com/images/compile-study-third/add-left.png" style="margin:0;border:none;">
+
+<p>根据这两张图可以得出一个结论，如果是左结合的运算符，那么就把递归项放在左边；如果是有右结合的运算符那么就把递归项放在右边。</p>
+<p>所以根据优先级，并且为了保证正确的结合性，我们的加法表达式的产生式是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression: multiplicativeExpression | additiveExpression Plus multiplicativeExpression</span><br></pre></td></tr></table></figure>
+
+<p>但是如此以来，就将会面对左递归的问题。那么接着，来消除掉左递归。</p>
+<h1 id="消除左递归"><a href="#消除左递归" class="headerlink" title="消除左递归"></a>消除左递归</h1><p>左递归就是产生式产生的第一个符号可能就是该产生式本身的非终结符，如<code>E: E + F</code>递归下降算法是没法处理左递归的。前面通过将递归项后置虽然能解决但是会导致结合性问题。这里介绍一种能处理大部分场景下的左递归的公式。<br>加法左递归的文法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add: mul | add + mul</span><br></pre></td></tr></table></figure>
+
+<p>把左递归修改为等价的右递归形式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add: mul add&apos;</span><br><span class="line">add&apos;: + mul add&apos; | ε</span><br></pre></td></tr></table></figure>
+
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a></p>
+<hr>
+<p><a href="https://github.com/yuguomin/my-compiler" target="_blank" rel="noopener">代码地址</a></p>
 
       
     </div>
@@ -491,7 +442,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/08/17/repaint-and-reflow/" title="repaint and reflow/重绘与回流">https://www.yuguomin.com/2019/08/17/repaint-and-reflow/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/10/29/compile-study-third-2/" title="编译技术学习：第三章 语法分析（二）">https://www.yuguomin.com/2019/10/29/compile-study-third-2/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -499,11 +450,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
+            <a href="/tags/Compile/" rel="tag"><i class="fa fa-tag"> Compile</i></a>
           
-            <a href="/tags/layout/" rel="tag"><i class="fa fa-tag"> layout</i></a>
-          
-            <a href="/tags/DOM/" rel="tag"><i class="fa fa-tag"> DOM</i></a>
+            <a href="/tags/Computer/" rel="tag"><i class="fa fa-tag"> Computer</i></a>
           
         </div>
       
@@ -516,8 +465,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/12/What-is-BFC/" rel="next" title="CSS-BFC">
-                <i class="fa fa-chevron-left"></i> CSS-BFC
+              <a href="/2019/10/21/compile-study-third/" rel="next" title="编译技术学习：第三章 语法分析（一）">
+                <i class="fa fa-chevron-left"></i> 编译技术学习：第三章 语法分析（一）
               </a>
             
           </div>
@@ -525,10 +474,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/08/compile-learning/" rel="prev" title="编译技术学习：第一章 知识概述">
-                编译技术学习：第一章 知识概述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -714,7 +659,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的渲染过程"><span class="nav-number">2.</span> <span class="nav-text">浏览器的渲染过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重绘与回流是什么"><span class="nav-number">3.</span> <span class="nav-text">重绘与回流是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么会触发重绘与回流"><span class="nav-number">4.</span> <span class="nav-text">什么会触发重绘与回流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发回流的场景"><span class="nav-number">4.1.</span> <span class="nav-text">触发回流的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发重绘的场景"><span class="nav-number">4.2.</span> <span class="nav-text">触发重绘的场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的自我优化"><span class="nav-number">5.</span> <span class="nav-text">浏览器的自我优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何避免重绘与回流"><span class="nav-number">6.</span> <span class="nav-text">如何避免重绘与回流</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文法的书写"><span class="nav-number">2.</span> <span class="nav-text">文法的书写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#确保优先级"><span class="nav-number">3.</span> <span class="nav-text">确保优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确的结合性"><span class="nav-number">4.</span> <span class="nav-text">正确的结合性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消除左递归"><span class="nav-number">5.</span> <span class="nav-text">消除左递归</span></a></li></ol></div>
             
 
           </div>

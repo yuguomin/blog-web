@@ -61,20 +61,20 @@
 
 
 
-<meta name="description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
+<meta name="description" content="前言 本篇学习编译技术的第三篇上半部分，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta name="keywords" content="Compile,Computer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译技术学习：第三章 语法分析（一）">
 <meta property="og:url" content="https://www.yuguomin.com/2019/10/21/compile-study-third/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
+<meta property="og:description" content="前言 本篇学习编译技术的第三篇上半部分，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
-<meta property="og:updated_time" content="2019-10-28T10:55:16.409Z">
+<meta property="og:updated_time" content="2019-10-29T10:48:56.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析（一）">
-<meta name="twitter:description" content="前言 本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
+<meta name="twitter:description" content="前言 本篇学习编译技术的第三篇上半部分，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
 
 
@@ -355,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">13(分)</span>
+            <span class="post-count">14(分)</span>
             
           </span>
 
@@ -382,22 +382,23 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇学习编译技术的第三篇，主要讲述编译器前端技术第二步 <strong>语法分析</strong> 的过程，以及简单的代码实现。</li>
+<li>本篇学习编译技术的第三篇上半部分，主要讲述编译器前端技术第二步 <strong>语法分析</strong> 的过程，以及简单的代码实现。</li>
 </ul>
 <a id="more"></a>
 <h1 id="语法分析的概念"><a href="#语法分析的概念" class="headerlink" title="语法分析的概念"></a>语法分析的概念</h1><p>如果说词法分析是一个<strong>分词</strong>的过程，那么语法分析可以说是一个<strong>分句</strong>的过程。分句，如果是汉语，我们可能通过标点符号来分句，但是实际上自然语言也有它特定的规则，一句话的主谓宾、主系表等。计算机语言同样有这样的结构，<code>var age = 45;</code>这样一个变量声明赋值表达式，<code>2 + 3 * 5</code>这样的算术表达式等等。我们都需要通过语法分析，解析出一条条语句。并最终以结构树的形式表达。语法分析篇主要讲述用递归下降算法实现一个能识别变量声明语句、变量赋值语句及加减乘除表达式的简易语法分析器。通过这个实现过程理解语法分析的原理。</p>
-<h1 id="初识上下文无关文法"><a href="#初识上下文无关文法" class="headerlink" title="初识上下文无关文法"></a>初识上下文无关文法</h1><p>语法分析器的实现也是靠语言规则来实现的，一般代码都有一些形式化的表达方式。我们称之为<strong>文法</strong>，<strong>文法使用有限的规则将无限的语言描述出来</strong>，这里介绍的其中一种是上下文无关文法。下面介绍上下文无关文法中的几个概念：</p>
+<h1 id="上下文无关文法"><a href="#上下文无关文法" class="headerlink" title="上下文无关文法"></a>上下文无关文法</h1><p>语法分析器的实现也是靠语言规则来实现的，一般代码都有一些形式化的表达方式。我们称之为<strong>文法</strong>，<strong>文法使用有限的规则将无限的语言描述出来</strong>，这里介绍的其中一种是上下文无关文法。下面介绍上下文无关文法中的几个概念：</p>
 <ul>
 <li>终结符：本质上就是token，不能单独出现在推导式左边的符号，无法再进行推导，是<strong>不可拆分</strong>的最小元素。</li>
 <li>非终结符：是<strong>可拆分</strong>的元素，可以被它的产生式所替代。<strong>在上下文无关文法中，每个推导规则的左边只能有一个非终结符而不能有两个以上的非终结符或终结符。</strong></li>
 <li>产生式：能够替换到推导规则左边的非终结符的式子。</li>
 <li>起始符号：一个形式文法中必须有一个起始符号；这个起始符号属于非终结符的集合。</li>
 <li>句子：只有终结符的符号串。</li>
+<li><code>|</code>：该符号相当于或，非左边的整个产生式就是右边的。</li>
 </ul>
 <p>看一个文法例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S ::= Ab</span><br><span class="line">A ::= aA | ε</span><br></pre></td></tr></table></figure>
 
-<p>我们可以说S、A是两个非终结符，a、b、ε是终结符(ε代表是空句子)。Ab是S的产生式，aA | ε是A的产生式；S是起始符号。在执行的过程中，从起始符号开始，被替换成它的产生式，如果产生式中仍然有非终结符，那么继续非终结符的替换过程，直到全部都是终结符为止。这个过程称为推导，从例子中看，S被推导成Ab，而A是一个非终结符，接着被推导成<code>a，aa，aaa...</code>这个文法能被推导出的所有句子集合是：</p>
+<p>我们可以说S、A是两个非终结符，a、b、ε是终结符(ε代表是空句子)。Ab是S的产生式，aA | ε是A的产生式；S是起始符号。在执行的过程中，从起始符号开始，被替换成它的产生式，如果产生式中仍然有非终结符，那么继续非终结符的替换过程，直到全部都是终结符为止。这个过程称为推导。推导过程中，我们每次都将句型中最左边一个非终结符展开，所以这种推导称为<strong>最左推导</strong>。从例子中看，S被推导成Ab，而A是一个非终结符，接着被推导成<code>a，aa，aaa...</code>这个文法能被推导出的所有句子集合是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A : &#123; ε, a, aa, aaa...&#125;</span><br><span class="line">S : &#123; b, ab, aab, aaab, aaaab...&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上下文无关文法的之所以为上下文无关，就是S无论在任何形式下都可以被Ab所替换，而不用考虑所在的上下文，它是与上下文无关的。<br>刚才产生式规则使用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">巴科斯范式</a>，接下来的书写会用<code>:</code>代替<code>::=</code>来简化，意义是相同的。</p>
@@ -545,6 +546,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/10/29/compile-study-third-2/" rel="prev" title="编译技术学习：第三章 语法分析（二）">
+                编译技术学习：第三章 语法分析（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -651,7 +656,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -729,7 +734,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初识上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">初识上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理算术表达式"><span class="nav-number">5.</span> <span class="nav-text">处理算术表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#左递归"><span class="nav-number">6.</span> <span class="nav-text">左递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语法分析的概念"><span class="nav-number">2.</span> <span class="nav-text">语法分析的概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上下文无关文法"><span class="nav-number">3.</span> <span class="nav-text">上下文无关文法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#递归下降算法"><span class="nav-number">4.</span> <span class="nav-text">递归下降算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理算术表达式"><span class="nav-number">5.</span> <span class="nav-text">处理算术表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#左递归"><span class="nav-number">6.</span> <span class="nav-text">左递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
