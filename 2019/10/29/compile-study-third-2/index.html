@@ -71,7 +71,8 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-right.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-left.png">
-<meta property="og:updated_time" content="2019-10-29T15:14:56.606Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/remove-left-fn-ast.png">
+<meta property="og:updated_time" content="2019-10-30T03:53:11.939Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析（二）">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
@@ -346,7 +347,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">1.1k(字)</span>
+                  <span class="post-count">2.2k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +356,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">4(分)</span>
+            <span class="post-count">8(分)</span>
             
           </span>
 
@@ -399,14 +400,8 @@
 
 <p>这段文法的优先级从低到高是赋值运算、逻辑运算（or）、逻辑运算（and）、相等比较（equal）、大小比较（rel）、加法运算（add）、乘法运算（mul）和基础表达式（pri）。基础表达式中又可以被解析成三种情况，其中一种是利用括号包裹起来的。这种就是用于解决语法中<code>()</code>改变运算级的处理。通过阅读<a href="http://www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="noopener">语言的语法规则</a>了解优先级等特性。</p>
 <h1 id="正确的结合性"><a href="#正确的结合性" class="headerlink" title="正确的结合性"></a>正确的结合性</h1><p>结合性，是当处于相同优先级的运算符时，该从左往右计算还是从右往左计算。在前一篇中，最后为了消除左递归，把递归项改到运算符的右边最终导致<code>2+3+5</code>是先计算的<code>3+5</code>，这就是结合性出现了错误。</p>
-<p>在语法中，大多数都是从左往右计算的，比如<code>2+3+5</code>和<code>2*3*5</code>，点语法的<code>a.b.c</code>。当然也有从右往左，比较常见的就是赋值操作，如<code>a=b+c</code>。<br>如果按照之前的修改后的文法<code>additiveExpression: multiplicativeExpression Plus additiveExpression</code>会得到简易AST：</p>
-<!-- <img src="/images/compile-study-third/add-right.png" style="margin:0;border:none;" /> -->
-<img src="https://cdn.yuguomin.com/images/compile-study-third/add-right.png" style="margin:0;border:none;">
-
-<p>如果按照修改前的左递归文法<code>additiveExpression: additiveExpression Plus multiplicativeExpression</code>得到的简易AST：</p>
-<!-- <img src="/images/compile-study-third/add-left.png" style="margin:0;border:none;" /> -->
-<img src="https://cdn.yuguomin.com/images/compile-study-third/add-left.png" style="margin:0;border:none;">
-
+<p>在语法中，大多数都是从左往右计算的，比如<code>2+3+5</code>和<code>2*3*5</code>，点语法的<code>a.b.c</code>。当然也有从右往左，比较常见的就是赋值操作，如<code>a=b+c</code>。<br>如果按照之前的修改后的文法<code>additiveExpression: multiplicativeExpression Plus additiveExpression</code>会得到简易AST：<br><img src="https://cdn.yuguomin.com/images/compile-study-third/add-right.png" style="margin:0;border:none;"></p>
+<p>如果按照修改前的左递归文法<code>additiveExpression: additiveExpression Plus multiplicativeExpression</code>得到的简易AST：<br><img src="https://cdn.yuguomin.com/images/compile-study-third/add-left.png" style="margin:0;border:none;"></p>
 <p>根据这两张图可以得出一个结论，如果是左结合的运算符，那么就把递归项放在左边；如果是有右结合的运算符那么就把递归项放在右边。</p>
 <p>所以根据优先级，并且为了保证正确的结合性，我们的加法表达式的产生式是：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression: multiplicativeExpression | additiveExpression Plus multiplicativeExpression</span><br></pre></td></tr></table></figure>
@@ -415,9 +410,54 @@
 <h1 id="消除左递归"><a href="#消除左递归" class="headerlink" title="消除左递归"></a>消除左递归</h1><p>左递归就是产生式产生的第一个符号可能就是该产生式本身的非终结符，如<code>E: E + F</code>递归下降算法是没法处理左递归的。前面通过将递归项后置虽然能解决但是会导致结合性问题。这里介绍一种能处理大部分场景下的左递归的公式。<br>加法左递归的文法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add: mul | add + mul</span><br></pre></td></tr></table></figure>
 
-<p>把左递归修改为等价的右递归形式</p>
+<p>把左递归修改为等价的右递归形式，从这个推导可以得知<code>add</code>的推导结果有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; add: mul, mul + mul, mul + mul + mul ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们把无限循环项，也就是递归项<code>+ mul</code>取出来，单独做处理，得到一个产生式</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add: mul add&apos;</span><br><span class="line">add&apos;: + mul add&apos; | ε</span><br></pre></td></tr></table></figure>
 
+<p>此时，用这个最新得到的文法去推导<code>2 + 3 + 5</code>，得到：<br><img src="https://cdn.yuguomin.com/images/compile-study-third/remove-left-fn-ast.png" style="margin:0;border:none;"></p>
+<p>发现仍是因为<code>add&#39;</code>的右递归问题导致结合性出现问题。那么按照之前提过的EBNF，我们可以将上面的两个产生式合并：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add: mul (&apos;+&apos; mul)*</span><br></pre></td></tr></table></figure>
+
+<p><code>*</code>代表重复0次或多次，那么我们可以把<code>*</code>说明的项利用循环来进行处理，就不会出现递归问题了。对于这一个产生式，可以用的算法伪代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mul();</span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  mul();</span><br><span class="line">  createAddNode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的处理方式，不仅是解决了左递归，而且还是性能上的优化。这里有个概念叫做<strong>尾递归</strong>，尾递归可以这么理解，大概是这么一种情况，假设在父函数A中调用子函数A，这个调用是在父函数A的最后一行，也就是说，子函数A返回结果后父函数A立刻也返回结果。因此在执行子函数A之前父函数A的大部分栈帧与之后循环往复的调用是重叠的。<strong>编译器</strong>就会针对这一点进行优化，使其转换成一个循环语句。上面的伪代码就是尾递归的思想。把之后的递归调用自身转换成了循环的形式。</p>
+<p>实现这段伪代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> additive: <span class="function">(<span class="params">tokenReader: ITokenReader</span>) =&gt;</span> IASTNode | <span class="literal">null</span> = <span class="function">(<span class="params">tokenReader</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> child1 = <span class="keyword">this</span>.multiplicative(tokenReader); <span class="comment">// 应用 add 规则</span></span><br><span class="line">  <span class="keyword">let</span> node = child1;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (child1) &#123; <span class="comment">// 循环应用 add' 规则 ('+' mul)*</span></span><br><span class="line">    <span class="keyword">let</span> token = tokenReader.peek();</span><br><span class="line">    <span class="keyword">const</span> tokenType = token ? token.getType() : <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (tokenType &amp;&amp; [TokenType.Plus, TokenType.Minus].includes(tokenType)) &#123; <span class="comment">// 判断是否加减号</span></span><br><span class="line">      token = tokenReader.read();</span><br><span class="line">      <span class="keyword">const</span> child2 = <span class="keyword">this</span>.multiplicative(tokenReader);</span><br><span class="line">      <span class="keyword">if</span> (child2) &#123;</span><br><span class="line">        <span class="keyword">const</span> tokenText = token ? token.getText() : <span class="literal">null</span>;</span><br><span class="line">        node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.Additive, tokenText)</span><br><span class="line">        node.append2Child(child1); <span class="comment">// 把上一轮得出的节点与新节点置于一级，保证从左到右的结合</span></span><br><span class="line">        node.append2Child(child2);</span><br><span class="line">        child1 = node;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid additive expression, expecting the right part.'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="keyword">break</span>; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>描述一下这段代码的内容：</p>
+<p id="div-border-left-green">
+首先应用“add”的产生式，匹配一个“mul“，然后循环采用”add'“的产生式匹配“('+' mul)*”，每次在匹配成功“add'”的时候创建一个新节点，把之前的节点与新匹配的节点置于一级，保证结合性。最终当匹配不到“add'”时返回整个节点。
+</p>
+
+<p>同理把<code>mul</code>的产生式对应修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mul: pri (&apos;*&apos; pri)*</span><br></pre></td></tr></table></figure>
+
+<p>那么解析一下<code>2+3+4+5</code>这一段代码，输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Program pwc</span><br><span class="line">        Additive +</span><br><span class="line">                Additive +</span><br><span class="line">                        Additive +</span><br><span class="line">                                NumberLiteral 2</span><br><span class="line">                                NumberLiteral 3</span><br><span class="line">                        NumberLiteral 4</span><br><span class="line">                NumberLiteral 5</span><br></pre></td></tr></table></figure>
+
+<p>到此，通过改写语法规则避免，利用循环处理。从而消除左递归。完成了算术表达式的语法解析。</p>
+<h1 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h1><p>现在已经对算术表达式构造了正确的AST了。那么我们要做的是对AST进行深度优先遍历即可。深度优先遍历也是一个递归算法，以<code>2+3*5</code>的AST为例：</p>
+<ol>
+<li>对整个AST根节点进行求值，子节点是一个加法表达式，进行求值；</li>
+<li>先获取加法表达式左边的值，是一个数字2；</li>
+<li>获取加法表达式右边的值，是一个乘法表达式，递归计算到下一层；</li>
+<li>获取乘法表达式左边的值，数字3，获取右边的值数字5，计算得出15，返回；</li>
+<li>计算2 + 15的值为17，返回结果。</li>
+</ol>
+<p>代码输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Calculating: Program</span><br><span class="line">        Calculating: Additive</span><br><span class="line">                Calculating: NumberLiteral</span><br><span class="line">                Result: 2</span><br><span class="line">                Calculating: Multiplicative</span><br><span class="line">                        Calculating: NumberLiteral</span><br><span class="line">                        Result: 3</span><br><span class="line">                        Calculating: NumberLiteral</span><br><span class="line">                        Result: 5</span><br><span class="line">                Result: 15</span><br><span class="line">        Result: 17</span><br><span class="line">Result: 17</span><br></pre></td></tr></table></figure>
+
+<p>具体代码在<a href="https://github.com/yuguomin/my-compiler/blob/master/src/syntaxCalculator/SimpleCalculator.ts" target="_blank" rel="noopener">SimpleCalculator.ts</a>文件中。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇主要学习了</p>
+<ol>
+<li>确保优先级，利用文法的嵌套，保证作为文法的产生式优先被推导。</li>
+<li>正确的结合性，左递归导致左结合，右递归导致又结合。</li>
+<li>消除左递归，左递归导致的死循环可以通过改写文法避免，利用循环代替右递归的方式处理。</li>
+<li>表达式的求值，实际上也是深度优先遍历的递归算法，先计算子节点，一步步往上得到根结点的值。</li>
+</ol>
 <p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a></p>
 <hr>
 <p><a href="https://github.com/yuguomin/my-compiler" target="_blank" rel="noopener">代码地址</a></p>
@@ -659,7 +699,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文法的书写"><span class="nav-number">2.</span> <span class="nav-text">文法的书写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#确保优先级"><span class="nav-number">3.</span> <span class="nav-text">确保优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确的结合性"><span class="nav-number">4.</span> <span class="nav-text">正确的结合性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消除左递归"><span class="nav-number">5.</span> <span class="nav-text">消除左递归</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文法的书写"><span class="nav-number">2.</span> <span class="nav-text">文法的书写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#确保优先级"><span class="nav-number">3.</span> <span class="nav-text">确保优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确的结合性"><span class="nav-number">4.</span> <span class="nav-text">正确的结合性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消除左递归"><span class="nav-number">5.</span> <span class="nav-text">消除左递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表达式求值"><span class="nav-number">6.</span> <span class="nav-text">表达式求值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
