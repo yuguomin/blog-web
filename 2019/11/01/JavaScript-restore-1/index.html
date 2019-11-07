@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="CSS,layout,DOM,">
+  <meta name="keywords" content="JavaScript,">
 
 
 
@@ -61,20 +61,20 @@
 
 
 
-<meta name="description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="keywords" content="CSS,layout,DOM">
+<meta name="description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="repaint and reflow&#x2F;重绘与回流">
-<meta property="og:url" content="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/index.html">
+<meta property="og:title" content="JavaScript重塑(1)——历史与大纲">
+<meta property="og:url" content="https://www.yuguomin.com/2019/11/01/JavaScript-restore-1/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
+<meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
-<meta property="og:updated_time" content="2019-10-20T08:23:13.546Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png">
+<meta property="og:updated_time" content="2019-11-07T03:30:24.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="repaint and reflow&#x2F;重绘与回流">
-<meta name="twitter:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
+<meta name="twitter:title" content="JavaScript重塑(1)——历史与大纲">
+<meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png">
 
 
 
@@ -102,7 +102,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/11/01/JavaScript-restore-1/">
 
 
 
@@ -134,7 +134,7 @@
         }
     })();
 </script>
-  <title> repaint and reflow/重绘与回流 | SuperFish's Blog </title>
+  <title> JavaScript重塑(1)——历史与大纲 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -264,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/01/JavaScript-restore-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -285,7 +285,7 @@
             
             
               
-                repaint and reflow/重绘与回流
+                JavaScript重塑(1)——历史与大纲
               
             
           </h1>
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T11:13:16+08:00">
-                2019-08-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-01T19:29:57+08:00">
+                2019-11-01
               </time>
             
 
@@ -323,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/JavaScript-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript Restore</span>
                   </a>
                 </span>
 
@@ -345,7 +345,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.1k(字)</span>
+                  <span class="post-count">1.9k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -354,7 +354,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">6(分)</span>
             
           </span>
 
@@ -381,95 +381,69 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。</li>
-<li>内容：<a href="#浏览器的渲染过程">了解浏览器的渲染过程</a> =&gt; <a href="#重绘与回流是什么">重绘与回流是什么</a> =&gt; <a href="#什么会触发重绘与回流">什么会触发重绘与回流</a> =&gt; <a href="#浏览器的自我优化">浏览器的自我优化</a> =&gt; <a href="#如何避免重绘与回流">如何避免重绘与回流</a></li>
+<li>本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。</li>
 </ul>
 <a id="more"></a>
+<h1 id="初心"><a href="#初心" class="headerlink" title="初心"></a>初心</h1><p>最近订阅了winter老师的<a href="https://time.geekbang.org/column/intro/154" target="_blank" rel="noopener">重学前端</a>课程，想大体按照老师的学习架构对知识进行系统的梳理。文章的内容走向会大体借鉴老师的架构分类为题，然后加以为个人的学习拓展及学习记录。再次感谢老师的知识分享。本篇是JS的重塑，后面还会有HTML、CSS及浏览器重塑。</p>
+<h1 id="学习方法"><a href="#学习方法" class="headerlink" title="学习方法"></a>学习方法</h1><ol>
+<li>建立知识架构</li>
+</ol>
+<p>学习任何一项知识，需要有一个最基础的<strong>知识架构</strong>，通过知识架构不断挖掘进行学习。知识架构的重点是具备<strong>逻辑性和完备性</strong>。</p>
+<p>通过如果对JavaScript的重点知识进行总结，我们可能会说闭包、作用域链、原型链、this指针等等…但是这些知识，实际上是碎片式的，没有逻辑性关系的。我们需要的知识架构就像目录一样，总结了一个个大纲，层层递进，从而对一项专业知识进行系统化的学习。</p>
+<p>这里对JavaScript的知识划分为</p>
+<ul>
+<li>文法</li>
+<li>语义</li>
+<li>运行时</li>
+</ul>
+<p>任何一门计算机语言，必定是<strong>用规定的文法，表达特定的语义，操作运行时</strong>这样的一个过程。所以，JavaScript的任何一个知识点都不会脱离这个范围。而通过这个顶层的目录又可以向下衍生知识点</p>
+<ul>
+<li>文法<ul>
+<li>词法</li>
+<li>语法</li>
+</ul>
+</li>
+<li>语义</li>
+<li>运行时<ul>
+<li>类型</li>
+<li>执行过程</li>
+</ul>
+</li>
+</ul>
+<p>这样的一个扩展过程是，文法根据“编译原理”，可以分为针对词法和语法的规则分析。而语义与语法是一一对应关系。而运行时，根据：<strong>程序 = 算法 + 数据结构</strong>，所以JavaScript的运行时就被分为类型和执行过程，类型即数据结构，执行过程即算法。通过顶层目录的完备性，逐步衍生知识体系，又可以把词法、语义、类型等进一步划分。如此就建立了不断进化的知识架构，通过这个知识架构，系统的学习。扫描知识盲区。</p>
+<ol start="2">
+<li>追本溯源</li>
+</ol>
+<p>很多知识在其背后有很大的体系。还有一些知识，涉及的概念本身经历了各种变迁，变得非常复杂和有争议性。我们在学习这些知识的时候，需要注意：</p>
+<ul>
+<li>掌握知识点背后的知识体系。</li>
+<li>关注知识点的历史背景，如何产生，经历了怎么样的变化。关注提出者的思想。</li>
+</ul>
+<h1 id="JavaScript发展史"><a href="#JavaScript发展史" class="headerlink" title="JavaScript发展史"></a>JavaScript发展史</h1><p>根据追本溯源，在重塑学习JavaScript这门语言时，先理清楚这门语言的由来。</p>
+<p>1.<br>在1994年的时候，网景公司（Netscape）发布了Navigator浏览器0.9版。这是历史上第一个比较成熟的网络浏览器，但是他的交互只能通过服务端的处理，比如说当用户在输入一个表单信息的时候，只能发送到服务器进行验证操作，判断是否没有填写某个必填项，是否输入了无效值，对于当时的网络速度之慢，每一次交互即增加了服务端的压力，并可能最后等待已久，返回的只是某一项的未填写而导致使用者的体验极差。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png" style="border:none;width:60%;"></p>
+<p>2.<br>这个时候网景公司急需一种网页脚本语言，使得浏览器可以与网页互动。网景公司当时有两个选择：一个是采用现有的语言，比如Perl、Python、Tcl、Scheme等等，允许它们直接嵌入网页；另一个是发明一种全新的语言。</p>
+<p>这两个选择各有利弊。第一个选择，有利于充分利用现有代码和程序员资源，推广起来比较容易；第二个选择，有利于开发出完全适用的语言，实现起来比较容易。</p>
+<p>到底采用哪一个选择，网景公司内部争执不下，管理层一时难以下定决心。</p>
+<p>3.<br>在此时有一件大事，1995年美国Sun公司将Oak改名为Java(由于当时已经有这个名字的语言)，正式推向市场，许诺“一次编写，到处运行”。</p>
+<p>网景公司心动了，与Sun公司合作在Netscape Navigator中支持Java，使用Java语言开发网络应用程序，但由于会使HTML过于复杂而放弃。</p>
+<p>4.<br>JavaScript之父Brendan Eich于1995年4月，被网景公司录用。但招聘他的目的是研究将Scheme语言作为网页脚本语言的可能性。</p>
+<p>可仅仅一个月之后，<strong>1995年5月，网景公司做出决策，未来的网页脚本语言必须”看上去与Java足够相似”，但是比Java简单，使得非专业的网页作者也能很快上手。</strong>这个决策实际上将Perl、Python、Tcl、Scheme等非面向对象编程的语言都排除在外了。</p>
+<p>为了在其他竞争提案中捍卫JavaScript这个想法，公司需要有一个可以运作的原型，Brendan Eich被指定为这种”简化版Java语言”的设计师。仅花了十天时间就把原型设计出来了。</p>
+<p>由于设计时间太短，语言的一些细节考虑得不够严谨，导致后来很长一段时间，Javascript写出来的程序混乱不堪。它是一个大杂烩，语法有多个来源：</p>
+<p id="div-border-left-green">
+基本语法：借鉴C语言和Java语言。<br>
+数据结构：借鉴Java语言，包括将值分成原始值和对象两大类。<br>
+函数的用法：借鉴Scheme语言和Awk语言，将函数当作第一等公民，并引入闭包。<br>
+原型继承模型：借鉴Self语言（Smalltalk的一种变种）。<br>
+正则表达式：借鉴Perl语言。<br>
+字符串和数组处理：借鉴Python语言。<br>
+</p>
 
-<h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><p>重绘与回流是浏览器的渲染过程的一部分，在弄清楚之前，<font color="red"><strong>必须</strong></font>先大致了解浏览器的渲染过程。浏览器是如何将我们的HTML，CSS和JavaScript到屏幕上的渲染像素的。</p>
-<img src="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png" width="80%">
-
-<p>如上图，大致可以得出一个流程</p>
-<ol>
-<li><p>首先处理HTML标记构建出<font class="red-code">DOM Tree</font></p>
-<ul>
-<li>在处理HTML标记时，将每一个HTML的原始字节转换为字符，然后识别出标记，并将标记转换成节点，然后将节点根据每一个自身属性和规则构建出DOM Tree，整个DOM Tree的根部就是 documentElement 即<code>&lt;html&gt;</code>标签。</li>
-</ul>
-</li>
-<li><p>接着处理CSS层叠样式表构建出<font class="red-code">CSSOM Tree</font></p>
-<ul>
-<li>CSSOM Tree的构建主要需要处理：每个浏览器自带的样式、 CSS样式表可以通过外链<code>&lt;link&gt;</code>进行引入、css中的<code>@import</code>引入、行内样式的写入。</li>
-<li>处理时会根据对应的层叠关系、权重规则产生覆盖作用。</li>
-<li>处理的流程与HTML一样，将CSS字节转换成字符，然后识别出标记，标记转换成节点，进而构造一个CSSOM Tree。</li>
-</ul>
-</li>
-<li><p>然后将<font class="red-code">DOM Tree</font>和<font class="red-code">CSSOM Tree</font>组合成<font class="red-code">Render Tree</font></p>
-<ul>
-<li>通过上面两步拿到的DOM Tree和CSSOM Tree，一个描述内容，一个描述需要应用于文档的样式规则。</li>
-<li>通过特定的规则开始进行组合：从DOM Tree根节点开始遍历，如果是脚本标记这种或者是通过CSS隐藏如 <code>display: none;</code> 进行隐藏的节点将会被忽略。找到匹配的CSSOM Tree的规则并组合，最终构造出一个 Render Tree。</li>
-<li>Render Tree的结构和 DOM Tree 很相似，但是它的每一个节点有对应节点的样式属性，记录着如<code>height、width、color</code> </li>
-</ul>
-</li>
-<li><p>在<font class="red-code">Render Tree</font>上进行布局，计算出每个节点的几何</p>
-<ul>
-<li>在Render Tree构建阶段，我们已经拿到了每一个节点的内容已经样式，但是我们还没有在展示设备的视口中计算出它们的确切位置和大小，这就是“布局”阶段。这个阶段的触发往往就叫做<font color="red"><strong>“回流”</strong></font>。</li>
-<li>在这个布局的过程中，浏览器从 Render Tree 的根节点开始遍历。通过样式计算和布局规则拿到每一个节点的确切位置和大小，所有相对测量值都转换为屏幕上的绝对像素。</li>
-<li>Render Tree最终将在屏幕上如何展示就取决于这个过程，通过一些节点的变化，需要不断的遍历自己生成一个新的布局。</li>
-</ul>
-</li>
-<li><p>最后将各个节点绘制到屏幕上</p>
-<ul>
-<li>把计算后的每个节点转换成屏幕上的实际像素。这个就是绘制过程了。</li>
-</ul>
-</li>
-</ol>
-<h1 id="重绘与回流是什么"><a href="#重绘与回流是什么" class="headerlink" title="重绘与回流是什么"></a>重绘与回流是什么</h1><p>理清楚浏览器的大致渲染流程，我们可以思考一点，每次通过浏览器打开一个页面都会有一个从无到有的过程。这个过程就是一次页面的渲染。根据渲染规则，那么可以说<font color="red"><strong>浏览器在每次打开页面必将触发一个页面的回流</strong></font>。而在渲染完成后，对<font class="red-code">Render Tree</font>的任何改变都会触发回流或者重绘。</p>
-<ol>
-<li>回流(reflow)：当 Render Tree 中的部分或者全部元素的结构、尺寸、或者某些属性发生变化，以及JS获取一些节点特定属性时，会导致浏览器从新进行“布局”计算。这个过程就是回流。</li>
-<li>重绘(repaint)：当 Render Tree 中的变化不会影响到布局，如<code>color、background-color</code>，浏览器会去更新这个节点的样式，重新绘制这个节点，这个过程叫做重绘。</li>
-<li>关系：每一次回流会触发重新布局，然后重新绘制。那么可以说 <strong>回流必将触发重绘，而重绘不一定触发回流</strong>。</li>
-<li>每一次回流和重绘，都可能会造成性能影响，大部分的回流甚至会造成页面重新渲染。因此要避免造成页面的回流和重绘，特别是回流。</li>
-</ol>
-<h1 id="什么会触发重绘与回流"><a href="#什么会触发重绘与回流" class="headerlink" title="什么会触发重绘与回流"></a>什么会触发重绘与回流</h1><p>在明白了重绘与回流的过程，那么来知道什么场景下会触发重绘与回流，进而思考如何避免产生他们。</p>
-<h2 id="触发回流的场景"><a href="#触发回流的场景" class="headerlink" title="触发回流的场景"></a>触发回流的场景</h2><p><a href="https://csstriggers.com/" target="_blank" rel="noopener">CSS trigglers</a>列出了所有css属性在不同内核下对回流和重绘的影响。</p>
-<ol>
-<li>页面首次渲染。</li>
-<li>调整窗口大小，布局规则和相对属性值都是根据窗口大小进行计算的。</li>
-<li>样式表的变动。</li>
-<li>节点内容发生变化，如input控件中输入的内容。</li>
-<li>改变字体大小。</li>
-<li>添加或者删除可见<code>DOM</code>。</li>
-<li>使用CSS伪类元素。</li>
-<li>一些JS的查询属性或方法：<code>clientWidth、offsetWidth、scrollWidth、getComputedStyle()、scrollTo()</code>等等，在得出这些计算属性时浏览器希望给到实时的最准确的数据。</li>
-</ol>
-<h2 id="触发重绘的场景"><a href="#触发重绘的场景" class="headerlink" title="触发重绘的场景"></a>触发重绘的场景</h2><ol>
-<li>回流必将触发重绘。</li>
-<li>如隐藏节点(<code>visibility: hidden</code>)、背景图、颜色修改等样式操作。</li>
-</ol>
-<h1 id="浏览器的自我优化"><a href="#浏览器的自我优化" class="headerlink" title="浏览器的自我优化"></a>浏览器的自我优化</h1><p>面对这么多的触发场景，浏览器本身也采取了一些措施避免造成过大的性能损耗。</p>
-<ol>
-<li>浏览器将每次reflow的操作放在了一个缓存队列当中，知道达到了一定的规模或者特定的时间，再将这个结果反馈给 Render Tree，从而将多次的reflow简化成一次。</li>
-<li>JS中的样式合并，在JS很多操作<code>DOM</code>进行<code>CSS</code>的修改，也会进行一次合并更新，减少reflow和repaint的次数。</li>
-<li>浏览器的这个行为很棒，但是架不住一些场景，如果代码需要在一次 reflow 后实时获取元素的属性，那么就会造成浏览器的 reflow 缓存队列提前合并。造成性能损失。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newEle = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    newEle.innerText = i;</span><br><span class="line">    <span class="built_in">document</span>.body.offsetHeight; <span class="comment">// 获取实时高度，强行将回流缓存队列合并到 Render Tree</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(newEle); <span class="comment">// 会触发回流缓存进队列</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>这段代码在每次添加新节点之后，立即获取实时高度，就会结束浏览器的 reflow 缓存，造成了性能损耗。</p>
-<h1 id="如何避免重绘与回流"><a href="#如何避免重绘与回流" class="headerlink" title="如何避免重绘与回流"></a>如何避免重绘与回流</h1><p>浏览器以及针对repaint和reflow采取了措施，那么作为开发者也需要根据造成repaint和reflow的场景进行避免。</p>
-<ol>
-<li>避免使用<code>table</code>布局方式。表格在完全渲染之前，后面的单元格都有可能影响到之前的元素，试想最后一列的最后一个单元格内容过多导致过宽，是会影响到整列的宽度。</li>
-<li>修改DOM样式时，尽量直接修改className，避免分别设置单独的样式。这样相当于合并修改为一次，减少回流重绘次数的可能。</li>
-<li>动画尽量使用在 <code>position</code> 为 <code>absolute</code> 或 <code>fixed</code> 值，绝对定位的元素，脱离文档流，不会影响到其他元素的布局，这样可以减少很多原素的重排。</li>
-<li>避免使用css表达式，如<code>calc()</code>。</li>
-<li>尽量在DOM树的最末端修改样式，每一个DOM节点的修改，可能都会造成页面部分或全部的布局重排(回流)，最顶部的元素造成页面全部重排的可能最大，最底部往往影响范围会更小。</li>
-<li>让操作的元素进行类似浏览器的缓存处理，处理完后一次更新。<ul>
-<li>利用DocumentFragment，缓存要操作的元素，操作完了在进行替换。</li>
-<li>对要进行回流的最外层元素先<code>dislay: none;</code>会造成一次 reflow 和 一次 repaint，隐藏之后在进行需要的操作，完成了这些操作后，再恢复它的<code>display</code>属性。</li>
-</ul>
-</li>
-<li>避免过多的获取DOM的样式信息，对于这种场景，尽量使用变量保存重复利用。</li>
-</ol>
-<p>参考相关文章链接：<br><a href="https://csstriggers.com/" target="_blank" rel="noopener">css-triggers</a><br><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction" target="_blank" rel="noopener">Render-tree Construction, Layout, and Paint</a><br><a href="https://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">Rendering: repaint, reflow/relayout, restyle</a></p>
+<p>5.<br>这门语言最初命名为<strong>Mocha</strong>，1995年9月在Netscape Navigator 2.0的Beta版中改名为<strong>LiveScript</strong>，同年12月，Netscape Navigator 2.0 Beta 3中部署时，网景公司与Sun公司组成的开发联盟为了让这门语言搭上<strong>Java</strong>这个编程语言“热词”，因此将其临时改名为<strong>JavaScript</strong>。</p>
+<p>6.<br>JavaScript推出后在浏览器上大获成功，微软公司在不久后就为Internet Explorer 3浏览器推出了<strong>JScript</strong>，微软公司进入后，意味着有<strong>3</strong>种不同的<strong>JavaScript</strong>版本同时存在：Netscape Navigator 3.0 中的 <code>JavaScript</code>、IE 中的 <code>JScript</code> 以及 CEnvi 中的 <code>ScriptEase</code>。这样的JavaScript多版本在浏览器端共存意味着标准化的缺失，使不少网页使用非微软平台及浏览器无法正常显示。成为网络上普及使用JavaScript的阻碍。</p>
+<p>7.<br>1996年11月，网景公司将<strong>JavaScript 1.1</strong>作为一个草案提交给<strong>ECMA（欧洲计算机制造商协会）</strong>。该协会指定<strong>39号技术委员会（TC39）</strong>负责“标准化一个通用、跨平台、中立于厂商的脚本语言的语法和语义”。由来自 Netscape、Sun、微软、Borland 和其他一些对脚本编程感兴趣的公司的程序员组成的 TC39 锤炼出了 <code>ECMA-262</code>，该标准定义了名为 <code>ECMAScript</code> 的全新脚本语言。</p>
+<p>第二年，国际标准化组织及国际电工委员会（ISO/IEC）也采纳 ECMAScript 作为标准（ISO/IEC-16262）。从此，Web 浏览器就开始努力（虽然有着不同的程度的成功和失败）将 ECMAScript 作为 JavaScript 实现的基础。</p>
+<h1 id="JavaScript学习架构"><a href="#JavaScript学习架构" class="headerlink" title="JavaScript学习架构"></a>JavaScript学习架构</h1><p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a><br><a href="http://javascript.ruanyifeng.com/introduction/history.html" target="_blank" rel="noopener">JavaScript语言的历史-阮一峰</a></p>
 
       
     </div>
@@ -491,7 +465,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/08/17/repaint-and-reflow/" title="repaint and reflow/重绘与回流">https://www.yuguomin.com/2019/08/17/repaint-and-reflow/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/11/01/JavaScript-restore-1/" title="JavaScript重塑(1)——历史与大纲">https://www.yuguomin.com/2019/11/01/JavaScript-restore-1/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -499,11 +473,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
-          
-            <a href="/tags/layout/" rel="tag"><i class="fa fa-tag"> layout</i></a>
-          
-            <a href="/tags/DOM/" rel="tag"><i class="fa fa-tag"> DOM</i></a>
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"> JavaScript</i></a>
           
         </div>
       
@@ -516,8 +486,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/12/What-is-BFC/" rel="next" title="CSS-BFC">
-                <i class="fa fa-chevron-left"></i> CSS-BFC
+              <a href="/2019/10/29/compile-study-third-2/" rel="next" title="编译技术学习：第三章 语法分析（二）">
+                <i class="fa fa-chevron-left"></i> 编译技术学习：第三章 语法分析（二）
               </a>
             
           </div>
@@ -525,10 +495,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/08/compile-learning/" rel="prev" title="编译技术学习：第一章 知识概述">
-                编译技术学习：第一章 知识概述 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -714,7 +680,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的渲染过程"><span class="nav-number">2.</span> <span class="nav-text">浏览器的渲染过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重绘与回流是什么"><span class="nav-number">3.</span> <span class="nav-text">重绘与回流是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么会触发重绘与回流"><span class="nav-number">4.</span> <span class="nav-text">什么会触发重绘与回流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发回流的场景"><span class="nav-number">4.1.</span> <span class="nav-text">触发回流的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发重绘的场景"><span class="nav-number">4.2.</span> <span class="nav-text">触发重绘的场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的自我优化"><span class="nav-number">5.</span> <span class="nav-text">浏览器的自我优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何避免重绘与回流"><span class="nav-number">6.</span> <span class="nav-text">如何避免重绘与回流</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初心"><span class="nav-number">2.</span> <span class="nav-text">初心</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习方法"><span class="nav-number">3.</span> <span class="nav-text">学习方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript发展史"><span class="nav-number">4.</span> <span class="nav-text">JavaScript发展史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript学习架构"><span class="nav-number">5.</span> <span class="nav-text">JavaScript学习架构</span></a></li></ol></div>
             
 
           </div>
