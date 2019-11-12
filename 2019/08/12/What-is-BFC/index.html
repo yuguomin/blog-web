@@ -76,7 +76,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/float-example.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/float-text.png">
-<meta property="og:updated_time" content="2019-10-11T03:47:26.590Z">
+<meta property="og:updated_time" content="2019-11-12T02:29:55.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS-BFC">
 <meta name="twitter:description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
@@ -396,7 +396,7 @@
 <li>定位方案<br><a href="(https://www.w3.org/TR/CSS2/visuren.html#positioning-scheme)">在css2.1中</a>，一个盒子有三种定位方案。</li>
 </ol>
 <ul>
-<li>普通流：一个萝卜一个坑，元素按着在html中的顺序来，块级box从上到下依次排列，两个box直接的垂直距离由box的垂直margin计算得到，是行内元素就和其他元素共处一行知道占满一行再换行。除另外指定，否则所有元素默认都是普通流定位。</li>
+<li>普通流：一个萝卜一个坑，元素按着在html中的顺序来，块级box从上到下依次排列，两个box直接的垂直距离由box的垂直margin计算得到，是行内元素就和其他元素共处一行直到占满一行再换行。除另外指定，否则所有元素默认都是普通流定位。</li>
 <li>浮动：在浮动模型中，首先根据普通流布置盒子，然后根据浮动的方向尽可能向左或向右移动。内容可能沿着浮动的元素的一侧围绕排序(如文本环绕)。</li>
 <li>绝对定位流：元素完全脱离普通流，也就是说它与之后的兄弟姐妹元素再无瓜葛，并且按照指定的位置进行定位。</li>
 </ul>

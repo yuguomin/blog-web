@@ -61,23 +61,23 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第二篇，讲述架构运行时的数据结构的JavaScript类型知识点。">
+<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第二篇，讲述知识架构运行时的数据结构的JavaScript类型知识点。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript重塑(2)——JavaScript类型">
-<meta property="og:url" content="https://www.yuguomin.com/2019/11/07/JavaScript-restore-2/index.html">
+<meta property="og:url" content="https://www.yuguomin.com/2019/11/08/JavaScript-restore-2/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第二篇，讲述架构运行时的数据结构的JavaScript类型知识点。">
+<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第二篇，讲述知识架构运行时的数据结构的JavaScript类型知识点。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/null-type-arrow.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-64.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-nums.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-double.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-up.png">
-<meta property="og:updated_time" content="2019-11-11T15:50:14.891Z">
+<meta property="og:updated_time" content="2019-11-12T02:59:02.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(2)——JavaScript类型">
-<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第二篇，讲述架构运行时的数据结构的JavaScript类型知识点。">
+<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第二篇，讲述知识架构运行时的数据结构的JavaScript类型知识点。">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/null-type-arrow.png">
 
 
@@ -106,7 +106,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/11/07/JavaScript-restore-2/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/11/08/JavaScript-restore-2/">
 
 
 
@@ -268,7 +268,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/07/JavaScript-restore-2/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/08/JavaScript-restore-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-07T21:01:57+08:00">
-                2019-11-07
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-08T21:01:57+08:00">
+                2019-11-08
               </time>
             
 
@@ -385,7 +385,7 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是重塑JavaScript的第二篇，讲述架构运行时的数据结构的JavaScript类型知识点。<a id="more"></a>
+<li>本篇内容主要是重塑JavaScript的第二篇，讲述知识架构运行时的数据结构的JavaScript类型知识点。<a id="more"></a>
 JavaScript语言的每一个数据结构都有自己的类型。JavaScript语言定义了七种语言类型。语言类型广泛用于变量，函数参数，表达式，函数返回值等场合。根据最新的语言标准，这 7 种语言类型是：</li>
 </ul>
 <ol>
@@ -421,7 +421,7 @@ The Undefined type has exactly one value, called undefined. Any variable that ha
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testFn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> <span class="literal">undefined</span> = <span class="number">1</span>;</span><br><span class="line">  alert(<span class="literal">undefined</span>);</span><br><span class="line">&#125;</span><br><span class="line">testFn();</span><br><span class="line"></span><br><span class="line"><span class="comment">// chrome 弹出 1</span></span><br></pre></td></tr></table></figure>
 
 <p>那么由于这种缺陷导致undefined有无意中被篡改的可能，那么我们在想要使用这个值的时候需要一种方式确保能够拿到正确的值。所以这里推荐的方法是使用<code>void(0)</code>来代替<code>undefined</code>。</p>
-<p>这里简单介绍一下<code>void</code>一元操作符，<code>void</code>通常只用于获取<code>undefined</code>的原始值，不管传给它的是任何操作数，最值执行后都会返回<code>undefined</code>。<br>有一个段子：</p>
+<p>这里简单介绍一下<code>void</code>一元操作符，<code>void</code>通常只用于获取<code>undefined</code>的原始值，不管传给它的是任何操作数，最终执行后都会返回<code>undefined</code>。<br>有一个段子：</p>
 <p id="div-border-left-green">
 客官你吃啥？<br>
 啊，我要一碗牛肉面，面给我多煮会少放点葱多放点辣肉给我放多一点汤给我多盛点。<br>
@@ -530,14 +530,14 @@ The Number type has exactly 18437736874454810627 (that is, 2^64-2^53+3) values, 
 Number类型具有18437736874454810627（即2^64-2^53 + 3）值，表示IEEE标准二进制浮点运算中指定的双精度64位格式IEEE 754-2008值，但9007199254740990（也就是说，IEEE标准的2^53-2）在ECMAScript中不一样，它表示为单个特殊的NaN(“Not-a-Number”)值。 （注意，NaN值是由程序表达式NaN产生的。）在某些实现中，外部代码可能能够检测各种Not-a-Number值之间的差异，但这种行为依赖于实现；对于ECMAScript代码，所有NaN值都无法进行区分比较。
 </p> 
 
-<h2 id="Number类型的存储"><a href="#Number类型的存储" class="headerlink" title="Number类型的存储"></a>Number类型的存储</h2><p>JavaScript中的Number类型是双精度浮点数，也就是其他语言的<code>double</code>类型。它使用64-bit浮点数来进行存储（所以JS实际上也没用整数，整数也是用浮点数进行存储的），结构图如下：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-64.png" style="border:none;width:70%;"><br>其中：</p>
+<h2 id="Number类型的存储"><a href="#Number类型的存储" class="headerlink" title="Number类型的存储"></a>Number类型的存储</h2><p>JavaScript中的Number类型是双精度浮点数，也就是其他语言的<code>double</code>类型。它使用<strong>64-bit</strong>浮点数来进行存储（所以JS实际上也没有整数，整数也是用浮点数进行存储的），结构图如下：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-64.png" style="border:none;width:70%;"><br>其中：</p>
 <ul>
 <li>符号位：占1位，表示正负，1为正，2为负；</li>
 <li>指数位：占11位，用来表示次方数；</li>
 <li>尾数位：占52位，科学计数法后的有效数字（精确度）。</li>
 </ul>
 <p>因此一个Number类型在内存中可以被表示为<code>s * m * 2^e</code>这样的格式。<br>以<code>0.1</code>为例，它的二进制是<code>0.0001100110011001100...</code>；<br>为了节省存储空间，在计算机中它是以科学计数法表示的，也就是<code>1.100110011001100... * 2^-4</code></p>
-<h2 id="Number的数值量"><a href="#Number的数值量" class="headerlink" title="Number的数值量"></a>Number的数值量</h2><p>JavaScript中的Number类型具有<strong>18437736874454810627（即2^64−2^53 + 3）</strong>个值，这个数怎么来的呢？<br>JavaScript中的数字是64-bits的双精度浮点数，因此一共有<code>2^64</code>种数值可能，当指数位<code>e</code>为<code>1</code>的时候，表示的要么为无穷数、要么是<code>NaN</code>，而<code>e</code>的存储位数是11位，其他的一共53位，因此不是数值的可能性是<code>2^53</code>。同时JavaScript中把<code>+∞</code>和<code>-∞</code>、<code>NaN</code>定义为数值。所以JavaScript数值的总量为：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-nums.png" style="border:none;width:70%;"></p>
+<h2 id="Number的数值量"><a href="#Number的数值量" class="headerlink" title="Number的数值量"></a>Number的数值量</h2><p>JavaScript中的Number类型具有<strong>18437736874454810627（即2^64−2^53 + 3）</strong>个值，这个数怎么来的呢？<br>JavaScript中的数字是64-bits的双精度浮点数，因此一共有<code>2^64</code>种数值可能，当指数位<code>e</code>全为<code>1</code>的时候，表示的要么为无穷数、要么是<code>NaN</code>，而<code>e</code>的存储位数是11位，其他的一共53位，因此不是数值的可能性是<code>2^53</code>。同时JavaScript中把<code>+∞</code>和<code>-∞</code>、<code>NaN</code>定义为数值（即后面的 +3）。所以JavaScript数值的总量为：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-nums.png" style="border:none;width:70%;"></p>
 <h2 id="精度丢失"><a href="#精度丢失" class="headerlink" title="精度丢失"></a>精度丢失</h2><p>计算机中所有的数据都是以<strong>二进制</strong>存储的，所以在计算时计算机要把数据<strong>先转换成二进制进行计算，然后在把计算结果转换成十进制</strong>。比较出名的一个案例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>;</span><br><span class="line"><span class="comment">// 输出 false</span></span><br></pre></td></tr></table></figure>
 
@@ -563,14 +563,14 @@ Number类型具有18437736874454810627（即2^64-2^53 + 3）值，表示IEEE标�
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.abs(<span class="number">0.1</span> + <span class="number">0.2</span> - <span class="number">0.3</span>) &lt;= <span class="built_in">Number</span>.EPSILON</span><br><span class="line"><span class="comment">// 输出 true</span></span><br></pre></td></tr></table></figure>
 
 <p>检查等式左右两边差的绝对值是否小于最小精度，才是正确的比较浮点数的方法。</p>
-<h2 id="Number类型的最大最小值"><a href="#Number类型的最大最小值" class="headerlink" title="Number类型的最大最小值"></a>Number类型的最大最小值</h2><p>在JS中能否表示的数字的绝对值范围是5e-324 ~ 1.7976931348623157e+308，这一点可以通过<code>Number.MAX_VALUE</code>和Number.MIN_VALUE来得到证实：</p>
+<h2 id="Number类型的最大最小值"><a href="#Number类型的最大最小值" class="headerlink" title="Number类型的最大最小值"></a>Number类型的最大最小值</h2><p>在JS中能否表示的数字的绝对值范围是5e-324 ~ 1.7976931348623157e+308，这一点可以通过<code>Number.MAX_VALUE</code>和<code>Number.MIN_VALUE</code>来得到证实：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.MAX_VALUE</span><br><span class="line"><span class="comment">// 1.7976931348623157e+308</span></span><br><span class="line"><span class="built_in">Number</span>.MIN_VALUE</span><br><span class="line"><span class="comment">// 5e-324</span></span><br></pre></td></tr></table></figure>
 
-<p>那么这两个值怎么来的？<br>再看看存储结构，在ES规范中规定<code>e</code>也就是次方数的范围在 <strong>-1074 ~ 971</strong>；<br>而<code>m</code>最大能表示的最大数是52个1，最小能表示的是1，在我们的科学计数法中，有效数字开头通常都是1，即1.XXXX的形式，因此这个<code>1</code>不存储，可以节省一个存储位，因此尾数部分可以存储的范围是<code>1 ~ 2^(52+1)</code>。<br><strong>也就是说Number能表示的最大数字绝对值范围是 2^-1074 ~ 2^(53+971)。</strong></p>
+<p>那么这两个值怎么来的？<br>再看看存储结构，在<strong>ES规范</strong>中规定<code>e</code>也就是次方数的范围在 <strong>-1074 ~ 971</strong>；<br>而<code>m</code>最大能表示的最大数是52个1，最小能表示的是1，在我们的科学计数法中，有效数字开头通常都是1，即1.XXXX的形式，因此这个<code>1</code>不存储，可以节省一个存储位，因此尾数部分可以存储的范围是<code>1 ~ 2^(52+1)</code>。<br><strong>也就是说Number能表示的最大数字绝对值范围是 2^-1074 ~ 2^(53+971)。</strong></p>
 <h2 id="Number类型的最大和最小安全整数"><a href="#Number类型的最大和最小安全整数" class="headerlink" title="Number类型的最大和最小安全整数"></a>Number类型的最大和最小安全整数</h2><p>最大最小安全数字，即在这个数范围内不会出现精度丢失（小数除外）。在JS中能够表示的最大安全整数的范围是：<strong>-9007199254740991 ~ 9007199254740991</strong>，这一点可以通过<code>Number.MAX_SAFE_INTEGER</code>和<code>Number.MIN_SAFE_INTEGER</code>证实：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.MAX_SAFE_INTEGER</span><br><span class="line"><span class="comment">// 9007199254740991</span></span><br><span class="line"><span class="built_in">Number</span>.MIN_SAFE_INTEGER</span><br><span class="line"><span class="comment">// -9007199254740991</span></span><br></pre></td></tr></table></figure>
 
-<p>那么是为什么呢？<br>最大安全整数<code>9007199254740991</code>对应的二进制数如图：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-double.png" style="border:none;width:70%;"><br>当<code>53</code>个尾数位存储满了之后，如果想要展示更大的值，就需要在指数位上加一，这时候尾数因为没有多余的存储空间，因此只能补<code>0</code>。<br>图中第一列是科学计数法二进制数每次加值1，第一次由于满值，加在了指数上；第二列为转换为不使用科学计数法后补<code>0</code>的二进制数；第三列为转换的对应十进制数。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-up.png" style="border:none;width:70%;"><br>如图所示，在指数位为53的情况下，最后一位尾数位为<code>0</code>的数字可以被精确表示，而最后一位尾数位为<code>1</code>的数字都不能被精确表示。也就是可以被精确表示和不能被精确表示的比例是<code>1:1</code>。<br>同理，当指数为<code>54</code>的时候，只有最后两位尾数为<code>00</code>的可以被精确表示，也就是可以被精确表示和不能被精确表示的比例是<code>1:3</code>，当有效位数达到<code>x (x&gt;52)</code>的时候，可以被精确表示和不能被精确表示的比例将是<code>1 : 2^(x-52) - 1</code>。那么Number.MAX_SAFE_INTEGER ~ Number.MAX_VALUE之间可以被精确表示的整数可以说是凤毛麟角。</p>
+<p>那么是为什么呢？<br>最大安全整数<code>9007199254740991</code>对应的二进制数如图：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-double.png" style="border:none;width:80%;"><br>当<code>53</code>个尾数位存储满了之后，如果想要展示更大的值，就需要在指数位上加一，这时候尾数因为没有多余的存储空间，因此只能补<code>0</code>。<br>图中第一列是科学计数法二进制数每次加值1，第一次由于满值，加在了指数上；第二列为转换为不使用科学计数法后补<code>0</code>的二进制数；第三列为转换的对应十进制数。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-up.png" style="border:none;width:80%;"><br>如图所示，在指数位为53的情况下，最后一位尾数位为<code>0</code>的数字可以被精确表示，而最后一位尾数位为<code>1</code>的数字都不能被精确表示。也就是可以被精确表示和不能被精确表示的比例是<code>1:1</code>。<br>同理，当指数为<code>54</code>的时候，只有最后两位尾数为<code>00</code>的可以被精确表示，也就是可以被精确表示和不能被精确表示的比例是<code>1:3</code>，当有效位数达到<code>x (x&gt;52)</code>的时候，可以被精确表示和不能被精确表示的比例将是<code>1 : 2^(x-52) - 1</code>。那么Number.MAX_SAFE_INTEGER ~ Number.MAX_VALUE之间可以被精确表示的整数可以说是凤毛麟角。</p>
 <p><strong>安全数本质上来说就是由于数字类型在计算机中的存储结构，在尾数位不够补零之后，只要是多余的尾数为1所对应的整数都不能被精确表示。</strong></p>
 <hr>
 <p>未完结</p>
@@ -596,7 +596,7 @@ Number类型具有18437736874454810627（即2^64-2^53 + 3）值，表示IEEE标�
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/11/07/JavaScript-restore-2/" title="JavaScript重塑(2)——JavaScript类型">https://www.yuguomin.com/2019/11/07/JavaScript-restore-2/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/11/08/JavaScript-restore-2/" title="JavaScript重塑(2)——JavaScript类型">https://www.yuguomin.com/2019/11/08/JavaScript-restore-2/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
