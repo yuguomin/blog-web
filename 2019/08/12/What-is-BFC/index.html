@@ -76,7 +76,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/float-example.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/What-is-BFC/float-text.png">
-<meta property="og:updated_time" content="2019-11-12T02:29:55.554Z">
+<meta property="og:updated_time" content="2019-11-13T03:09:41.386Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS-BFC">
 <meta name="twitter:description" content="前言 目的：平时经常使用BFC处理清除浮动影响，解决外边距塌陷等，但是对于原理一直掌握的不够牢靠，进行一下总结。 内容：BFC是什么 =&amp;gt; 如何形成BFC =&amp;gt; BFC的特性及应用场景 =&amp;gt; 总结">
@@ -404,9 +404,9 @@
 <li><p>Formatting Context<br>格式化上下文相当于页面的一个渲染区域，有自己特定的渲染规则，决定子元素如何定位，以及与其它元素的关系和相互作用。</p>
 <p id="div-border-left-green">Boxes in the normal flow belong to a formatting context.</p>
 
-<p>w3c文档中写到，普通流中的一个盒子都属于格式化上下文。<strong>我的理解是普通流排序的一个盒子，父级都有一个格式化的上下文，对这个子元素进行规则渲染。而这个构成格式化上下文的容器可能是上一级格式化上下文中的普通流，也或是浮动、绝对定位流。</strong></p>
+<p>w3c文档中写到，普通流中的一个盒子都属于格式化上下文。<strong>我的理解是普通流排序的一个盒子，父级都有一个格式化的上下文，对这个子元素进行规则渲染。而这个构成格式化上下文的容器可能是它上一级格式化上下文中的普通流，也或是浮动、绝对定位流。</strong></p>
 </li>
-<li><p>BFC<br>BFC就是一种属性，触发了这个属性的容器生成了一种特殊的格式化上下文，块级格式化上下文。在这个容器中，子元素都是以普通流进行渲染。容器内的所有元素可以说是一个独立的上下文关系，无论在里面做什么都不会影响到容易外的元素结构。并且容器本身有一些普通容器所没有的一些<a href="#BFC的特性及应用场景">特性</a>。</p>
+<li><p>BFC<br>BFC就是一种属性，触发了这个属性的容器生成了一种特殊的格式化上下文，块级格式化上下文。在这个容器中，子元素都是以<strong>普通流进行渲染</strong>。容器内的所有元素可以说是一个<strong>独立的上下文关系</strong>，无论在里面做什么都不会影响到容器外的元素结构。并且容器本身有一些普通容器所没有的一些<a href="#BFC的特性及应用场景">特性</a>。</p>
 </li>
 </ol>
 <h1 id="如何触发BFC"><a href="#如何触发BFC" class="headerlink" title="如何触发BFC"></a>如何触发BFC</h1><p>不同的格式化上下文需要特定的方式去触发，<a href="https://www.w3.org/TR/CSS2/visuren.html#block-formatting" target="_blank" rel="noopener">在css2.1中</a>，有这么一段话：</p>
@@ -462,7 +462,7 @@ In a block formatting context, each box’s left outer edge touches the left edg
 
 <img src="https://cdn.yuguomin.com/images/What-is-BFC/margin-cal-three.png" width="70%" style="margin: 0;">
 
-<p><strong>margin collapse的存在并不是一个bug，是为了解决p标签自带的上下margin值造成的视觉上的较大间隔问题。但是也造成了不符合逻辑上的结果。</strong></p>
+<p><strong>margin collapse的存在并不是一个bug，是为了解决p标签自带的上下margin值造成的视觉上的较大间隔问题。但是也造成了不符合逻辑的结果。</strong></p>
 <h3 id="如何使用BFC解决外边距塌陷"><a href="#如何使用BFC解决外边距塌陷" class="headerlink" title="如何使用BFC解决外边距塌陷"></a>如何使用BFC解决外边距塌陷</h3><ol>
 <li>解决上面的块级元素 margin-bottom 与下面的块级元素 margin-top 折叠问题的方式<p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="NWKNWWB" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="NWKNWWB">
 <span>See the Pen <a href="https://codepen.io/super_fish/pen/NWKNWWB/" target="_blank" rel="noopener">
@@ -493,7 +493,7 @@ on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</spa
 
 </li>
 </ol>
-<h2 id="清除浮动元素带来的高度塌陷"><a href="#清除浮动元素带来的高度塌陷" class="headerlink" title="清除浮动元素带来的高度塌陷"></a>清除浮动元素带来的高度塌陷</h2><p>浮动会使元素脱离文档流，元素的高度无法撑起父元素的高度。<br>通常的解决方法是通过添加伪元素设置 clear: both 让父元素自动获取到高度，这里介绍的是<strong>通过 BFC 解决这个问题。</strong><br><img src="https://cdn.yuguomin.com/images/What-is-BFC/float-example.png" width="80%"></p>
+<h2 id="清除浮动元素带来的高度塌陷"><a href="#清除浮动元素带来的高度塌陷" class="headerlink" title="清除浮动元素带来的高度塌陷"></a>清除浮动元素带来的高度塌陷</h2><p>浮动会使元素脱离文档流，元素的高度无法撑起父元素的高度。<br>通常的解决方法是通过添加伪元素设置 <code>clear: both</code> 让父元素自动获取到高度，这里介绍的是<strong>通过 BFC 解决这个问题。</strong><br><img src="https://cdn.yuguomin.com/images/What-is-BFC/float-example.png" width="80%"></p>
 <p>实际使用BFC解决这个问题：</p>
 <p class="codepen" data-height="265" data-theme-id="0" data-default-tab="result" data-user="super_fish" data-slug-hash="eYOZogB" style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="BFC解决浮动">
   <span>See the Pen <a href="https://codepen.io/super_fish/pen/eYOZogB/" target="_blank" rel="noopener">
