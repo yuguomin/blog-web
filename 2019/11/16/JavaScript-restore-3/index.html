@@ -61,18 +61,18 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的”基于对象“。">
+<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
 <meta property="og:url" content="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的”基于对象“。">
+<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-16T10:06:12.601Z">
+<meta property="og:updated_time" content="2019-11-16T16:11:53.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
-<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的”基于对象“。">
+<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
 
 
 
@@ -298,7 +298,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-16T15:01:57+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-16T10:01:57+08:00">
                 2019-11-16
               </time>
             
@@ -352,7 +352,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">6(分)</span>
+            <span class="post-count">7(分)</span>
             
           </span>
 
@@ -379,7 +379,7 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的”基于对象“。</li>
+<li>本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。</li>
 </ul>
 <a id="more"></a>
 <p>前文讲到了JavaScript的七种语言类型，对于<code>Object</code>类型，是一个相对抽象的名词，需要从它的设计思想，从而衍生到应用。</p>
@@ -399,7 +399,7 @@
 <p>因此有了对对象的自然定义后，到了编程语言中，我们就可以对它进行描述，按照定义，无论在什么样的语言里，对象都应该具有一些本质特征：</p>
 <ol>
 <li>对象具有<strong>唯一标识性</strong>：即使完全两个完全相同的对象，也并非同一个对象；</li>
-<li>对象具有<strong>状态</strong>：对象具有状态，同一对象可能处于不同的状态下；</li>
+<li>对象有<strong>状态</strong>：对象具有状态，同一对象可能处于不同的状态下；</li>
 <li>对象具有<strong>行为</strong>：即对象的状态，可能因为它的行为产生变迁。</li>
 </ol>
 <h1 id="JavaScript中的对象模型"><a href="#JavaScript中的对象模型" class="headerlink" title="JavaScript中的对象模型"></a>JavaScript中的对象模型</h1><p>通过对象的定义，衍生出了编程语言的对象设计本质。那么到了JavaScript中，对象是如何设计的呢？</p>
@@ -425,7 +425,7 @@
 <p><code>writable</code>、<code>enumerable</code>和<code>configurable</code>在不进行配置的情况下，默认都是true，</p>
 <p>第二种是访问器属性，它允许使用者在读和写属性的时候得到不同的值。可以视为一种函数的语法糖，它也具有四种属性：</p>
 <ul>
-<li>getter，可以是函数或者undefined，在去属性的时候被调用；</li>
+<li>getter，可以是函数或者undefined，在获取属性的时候被调用；</li>
 <li>setter，可以是函数或者undefined，在设置属性的时候被调用；</li>
 <li>enumable，是否可枚举，决定<code>for...in</code>能否枚举该属性；</li>
 <li>configurable，决定该属性能否被删除或者改变特征值。</li>
@@ -446,6 +446,7 @@
 <p>而到了JavaScript，JavaScript不存在类的概念，而是一个叫做<strong>原型</strong>的东西。原型的概念，就好比，猴是人类的原型，狼是狗的原型一样，任何对象都可以是原型，给予它们的实例自己的特性。这种方式，称作<strong>基于对象</strong>。</p>
 <p>JavaScript的这种高度动态性的对象设计方式，使得我们可以模仿多数面向对象编程范式，所以，也被称作<strong>基于原型继承的面向对象编程语言</strong>。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在本篇通过从抛开对象专有名词思维，定义对象的特征，理解JavaScript对象模型的设计方式；<br>从其数据结构，高度动态，原型继承的特点理解其基于对象的本质。<br>JavaScript虽然被设计成了基于对象的这种模式，但正是这种高度动态的特点使得它能够实现很多其他的特性。<br>下一篇详细讲述对象的原型以及如何基于原型继承实现面向对象编程。</p>
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a></p>
 
       
     </div>
@@ -497,6 +498,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/18/JavaScript-restore-4/" rel="prev" title="JavaScript重塑(3)——JS的对象模型与基于对象">
+                JavaScript重塑(3)——JS的对象模型与基于对象 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -604,7 +609,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
