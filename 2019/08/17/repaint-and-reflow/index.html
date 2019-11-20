@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
-<meta property="og:updated_time" content="2019-11-15T03:52:42.227Z">
+<meta property="og:updated_time" content="2019-11-20T03:49:16.566Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="repaint and reflow&#x2F;重绘与回流">
 <meta name="twitter:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
@@ -412,7 +412,7 @@
 </li>
 <li><p>在<font class="red-code">Render Tree</font>上进行布局，计算出每个节点的几何</p>
 <ul>
-<li>在Render Tree构建阶段，我们已经拿到了每一个节点的内以及样式，但是我们还没有在展示设备的视口中计算出它们的确切位置和大小，这就是“布局”阶段。这个阶段的触发往往就叫做<font color="red"><strong>“回流”</strong></font>。</li>
+<li>在Render Tree构建阶段，我们已经拿到了每一个节点的内容以及样式，但是我们还没有在展示设备的视口中计算出它们的确切位置和大小，这就是“布局”阶段。这个阶段的触发往往就叫做<font color="red"><strong>“回流”</strong></font>。</li>
 <li>在这个布局的过程中，浏览器从 Render Tree 的根节点开始遍历。通过样式计算和布局规则拿到每一个节点的确切位置和大小，所有相对测量值都转换为屏幕上的绝对像素。</li>
 <li>Render Tree最终将在屏幕上如何展示就取决于这个过程，通过一些节点的变化，需要不断的遍历自己生成一个新的布局。</li>
 </ul>
@@ -636,7 +636,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
