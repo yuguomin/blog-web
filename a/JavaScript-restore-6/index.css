@@ -1,0 +1,16 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css">
+
+.block-test-sec {
+  border: 1px solid #000;
+  background-color: #000;
+}
+
+.block-test button {
+  padding: 4px 6px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.block-test .count {
+  font-size: 22px;
+}

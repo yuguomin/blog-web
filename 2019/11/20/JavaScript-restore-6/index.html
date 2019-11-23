@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="CSS,layout,DOM,">
+  <meta name="keywords" content="JavaScript,">
 
 
 
@@ -61,20 +61,22 @@
 
 
 
-<meta name="description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="keywords" content="CSS,layout,DOM">
+<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，然后学习解决异步的实现。">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="repaint and reflow&#x2F;重绘与回流">
-<meta property="og:url" content="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/index.html">
+<meta property="og:title" content="JavaScript重塑(6)——Event Loop">
+<meta property="og:url" content="https://www.yuguomin.com/2019/11/20/JavaScript-restore-6/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
+<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，然后学习解决异步的实现。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
-<meta property="og:updated_time" content="2019-11-20T03:49:16.566Z">
+<meta property="og:image" content="https://www.yuguomin.com/images/JavaScript-restore/call-stack-base.png">
+<meta property="og:image" content="https://www.yuguomin.com/images/JavaScript-restore/call-stack-error.png">
+<meta property="og:image" content="https://www.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png">
+<meta property="og:updated_time" content="2019-11-23T09:26:01.814Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="repaint and reflow&#x2F;重绘与回流">
-<meta name="twitter:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
+<meta name="twitter:title" content="JavaScript重塑(6)——Event Loop">
+<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，然后学习解决异步的实现。">
+<meta name="twitter:image" content="https://www.yuguomin.com/images/JavaScript-restore/call-stack-base.png">
 
 
 
@@ -102,7 +104,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/11/20/JavaScript-restore-6/">
 
 
 
@@ -126,15 +128,15 @@
 
 <script>
     (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
+        if('666666'){
+            if (prompt('请输入文章密码') !== '666666'){
                 alert('密码错误！');
                 history.back();
             }
         }
     })();
 </script>
-  <title> repaint and reflow/重绘与回流 | SuperFish's Blog </title>
+  <title> JavaScript重塑(6)——Event Loop | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -264,7 +266,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/08/17/repaint-and-reflow/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/20/JavaScript-restore-6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -285,7 +287,7 @@
             
             
               
-                repaint and reflow/重绘与回流
+                JavaScript重塑(6)——Event Loop
               
             
           </h1>
@@ -300,8 +302,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-17T11:13:16+08:00">
-                2019-08-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-20T20:13:01+08:00">
+                2019-11-20
               </time>
             
 
@@ -323,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/JavaScript-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript Restore</span>
                   </a>
                 </span>
 
@@ -345,7 +347,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.1k(字)</span>
+                  <span class="post-count">2.2k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -381,96 +383,68 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。</li>
-<li>内容：<a href="#浏览器的渲染过程">了解浏览器的渲染过程</a> =&gt; <a href="#重绘与回流是什么">重绘与回流是什么</a> =&gt; <a href="#什么会触发重绘与回流">什么会触发重绘与回流</a> =&gt; <a href="#浏览器的自我优化">浏览器的自我优化</a> =&gt; <a href="#如何避免重绘与回流">如何避免重绘与回流</a></li>
+<li>本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解<code>Event Loop</code>，然后学习解决异步的实现。</li>
 </ul>
 <a id="more"></a>
+<!-- <script async src="https://static.codepen.io/assets/embed/ei.js"></script> -->
+<script type="text/script" src="https://cdn.yuguomin.com/a/JavaScript-restore-6/index.js"></script>
 
-<h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><p>重绘与回流是浏览器的渲染过程的一部分，在弄清楚之前，<font color="red"><strong>必须</strong></font>先大致了解浏览器的渲染过程。浏览器是如何将我们的HTML，CSS和JavaScript到屏幕上的渲染像素的。</p>
-<img src="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png" width="80%">
+<link rel="stylesheet" type="text/css" href="https://cdn.yuguomin.com/a/JavaScript-restore-6/index.css">
+我们一般都说，JavaScript是一个单线程、非阻塞、异步、解释性脚本语言。那么我们来一个个理解一下。
 
-<p>如上图，大致可以得出一个流程</p>
-<ol>
-<li><p>首先处理HTML标记构建出<font class="red-code">DOM Tree</font></p>
-<ul>
-<li>在处理HTML标记时，将每一个HTML的原始字节转换为字符，然后识别出标记，并将标记转换成节点，然后将节点根据每一个自身属性和规则构建出DOM Tree，整个DOM Tree的根部就是 documentElement 即<code>&lt;html&gt;</code>标签。</li>
-</ul>
-</li>
-<li><p>接着处理CSS层叠样式表构建出<font class="red-code">CSSOM Tree</font></p>
-<ul>
-<li>CSSOM Tree的构建主要需要处理：每个浏览器自带的样式、 CSS样式表可以通过外链<code>&lt;link&gt;</code>进行引入、css中的<code>@import</code>引入、行内样式的写入。</li>
-<li>处理时会根据对应的层叠关系、权重规则产生覆盖作用。</li>
-<li>处理的流程与HTML一样，将CSS字节转换成字符，然后识别出标记，标记转换成节点，进而构造一个CSSOM Tree。</li>
-</ul>
-</li>
-<li><p>然后将<font class="red-code">DOM Tree</font>和<font class="red-code">CSSOM Tree</font>组合成<font class="red-code">Render Tree</font></p>
-<ul>
-<li>通过上面两步拿到的DOM Tree和CSSOM Tree，一个描述内容，一个描述需要应用于文档的样式规则。</li>
-<li>通过特定的规则开始进行组合：从DOM Tree根节点开始遍历，如果是脚本标记这种或者是通过CSS隐藏如 <code>display: none;</code> 进行隐藏的节点将会被忽略。找到匹配的CSSOM Tree的规则并组合，最终构造出一个 Render Tree。</li>
-<li>Render Tree的结构和 DOM Tree 很相似，但是它的每一个节点有对应节点的样式属性，记录着如<code>height、width、color</code> </li>
-</ul>
-</li>
-<li><p>在<font class="red-code">Render Tree</font>上进行布局，计算出每个节点的几何</p>
-<ul>
-<li>在Render Tree构建阶段，我们已经拿到了每一个节点的内容以及样式，但是我们还没有在展示设备的视口中计算出它们的确切位置和大小，这就是“布局”阶段。这个阶段的触发往往就叫做<font color="red"><strong>“回流”</strong></font>。</li>
-<li>在这个布局的过程中，浏览器从 Render Tree 的根节点开始遍历。通过样式计算和布局规则拿到每一个节点的确切位置和大小，所有相对测量值都转换为屏幕上的绝对像素。</li>
-<li>Render Tree最终将在屏幕上如何展示就取决于这个过程，通过一些节点的变化，需要不断的遍历自己生成一个新的布局。</li>
-</ul>
-</li>
-<li><p>最后将各个节点绘制到屏幕上</p>
-<ul>
-<li>把计算后的每个节点转换成屏幕上的实际像素。这个就是绘制过程了。</li>
-</ul>
-</li>
-</ol>
-<h1 id="重绘与回流是什么"><a href="#重绘与回流是什么" class="headerlink" title="重绘与回流是什么"></a>重绘与回流是什么</h1><p>理清楚浏览器的大致渲染流程，我们可以思考一点，每次通过浏览器打开一个页面都会有一个从无到有的过程。这个过程就是一次页面的渲染。根据渲染规则，那么可以说<font color="red"><strong>浏览器在每次打开页面必将触发一个页面的回流</strong></font>。而在渲染完成后，对<font class="red-code">Render Tree</font>的任何改变都会触发回流或者重绘。</p>
-<ol>
-<li>回流(reflow)：当 Render Tree 中的部分或者全部元素的结构、尺寸、或者某些属性发生变化，以及JS获取一些节点特定属性时，会导致浏览器从新进行“布局”计算。这个过程就是回流。</li>
-<li>重绘(repaint)：当 Render Tree 中的变化不会影响到布局，如<code>color、background-color</code>，浏览器会去更新这个节点的样式，重新绘制这个节点，这个过程叫做重绘。</li>
-<li>关系：每一次回流会触发重新布局，然后重新绘制。那么可以说 <strong>回流必将触发重绘，而重绘不一定触发回流</strong>。</li>
-<li>每一次回流和重绘，都可能会造成性能影响，大部分的回流甚至会造成页面重新渲染。因此要避免造成页面的回流和重绘，特别是回流。</li>
-</ol>
-<h1 id="什么会触发重绘与回流"><a href="#什么会触发重绘与回流" class="headerlink" title="什么会触发重绘与回流"></a>什么会触发重绘与回流</h1><p>在明白了重绘与回流的过程，那么来知道什么场景下会触发重绘与回流，进而思考如何避免产生他们。</p>
-<h2 id="触发回流的场景"><a href="#触发回流的场景" class="headerlink" title="触发回流的场景"></a>触发回流的场景</h2><p><a href="https://csstriggers.com/" target="_blank" rel="noopener">CSS trigglers</a>列出了所有css属性在不同内核下对回流和重绘的影响。</p>
-<ol>
-<li>页面首次渲染。</li>
-<li>调整窗口大小，布局规则和相对属性值都是根据窗口大小进行计算的。</li>
-<li>样式表的变动。</li>
-<li>节点内容发生变化，如input控件中输入的内容。</li>
-<li>改变字体大小。</li>
-<li>添加或者删除可见<code>DOM</code>。</li>
-<li>使用CSS伪类元素。</li>
-<li>一些JS的查询属性或方法：<code>clientWidth、offsetWidth、scrollWidth、getComputedStyle()、scrollTo()</code>等等，在得出这些计算属性时浏览器希望给到实时的最准确的数据。</li>
-</ol>
-<h2 id="触发重绘的场景"><a href="#触发重绘的场景" class="headerlink" title="触发重绘的场景"></a>触发重绘的场景</h2><ol>
-<li>回流必将触发重绘。</li>
-<li>如隐藏节点(<code>visibility: hidden</code>)、背景图、颜色修改等样式操作。</li>
-</ol>
-<h1 id="浏览器的自我优化"><a href="#浏览器的自我优化" class="headerlink" title="浏览器的自我优化"></a>浏览器的自我优化</h1><p>面对这么多的触发场景，浏览器本身也采取了一些措施避免造成过大的性能损耗。</p>
-<ol>
-<li>浏览器将每次reflow的操作放在了一个缓存队列当中，知道达到了一定的规模或者特定的时间，再将这个结果反馈给 Render Tree，从而将多次的reflow简化成一次。</li>
-<li>JS中的样式合并，在JS很多操作<code>DOM</code>进行<code>CSS</code>的修改，也会进行一次合并更新，减少reflow和repaint的次数。</li>
-<li>浏览器的这个行为很棒，但是架不住一些场景，如果代码需要在一次 reflow 后实时获取元素的属性，那么就会造成浏览器的 reflow 缓存队列提前合并。造成性能损失。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10000</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> newEle = <span class="built_in">document</span>.createElement(<span class="string">"div"</span>);</span><br><span class="line">    newEle.innerText = i;</span><br><span class="line">    <span class="built_in">document</span>.body.offsetHeight; <span class="comment">// 获取实时高度，强行将回流缓存队列合并到 Render Tree</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(newEle); <span class="comment">// 会触发回流缓存进队列</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h1><p>JS本身没有线程一说的，它的指向线程取决于它的运行环境，在常用的 浏览器 和 node 的宿主环境下，是单线程的运行机制。那么单线程是什么？</p>
+<p>去排队买过火车票吗？假设只有一个窗口，每个人来了，只能按顺序排队，然后轮到了去购票，这就是单线程了。到了JS，就是一次只能执行一段代码，它不具备并行任务处理的特性。就是不具备同时开启多个窗口去卖票。</p>
+<p>那么JavaScript的主线程是怎么推进这些事的呢？</p>
+<h2 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h2><p>JavaScript的运行环境提供的 V8 引擎，它有一个单独的调用栈（call stack）来记录函数调用的数据结构。<br>那么对刚才的内容举个例子，假设有下面这样一段 JS 代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  bar();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
-<p>这段代码在每次添加新节点之后，立即获取实时高度，就会结束浏览器的 reflow 缓存，造成了性能损耗。</p>
-<h1 id="如何避免重绘与回流"><a href="#如何避免重绘与回流" class="headerlink" title="如何避免重绘与回流"></a>如何避免重绘与回流</h1><p>浏览器以及针对repaint和reflow采取了措施，那么作为开发者也需要根据造成repaint和reflow的场景进行避免。</p>
-<ol>
-<li>避免使用<code>table</code>布局方式。表格在完全渲染之前，后面的单元格都有可能影响到之前的元素，试想最后一列的最后一个单元格内容过多导致过宽，是会影响到整列的宽度。</li>
-<li>修改DOM样式时，尽量直接修改className，避免分别设置单独的样式。这样相当于合并修改为一次，减少回流重绘次数的可能。</li>
-<li>动画尽量使用在 <code>position</code> 为 <code>absolute</code> 或 <code>fixed</code> 值，绝对定位的元素，脱离文档流，不会影响到其他元素的布局，这样可以减少很多原素的重排。</li>
-<li>避免使用css表达式，如<code>calc()</code>。</li>
-<li>尽量在DOM树的最末端修改样式，每一个DOM节点的修改，可能都会造成页面部分或全部的布局重排(回流)，最顶部的元素造成页面全部重排的可能最大，最底部往往影响范围会更小。</li>
-<li>让操作的元素进行类似浏览器的缓存处理，处理完后一次更新。<ul>
-<li>利用DocumentFragment，缓存要操作的元素，操作完了在进行替换。</li>
-<li>对要进行回流的最外层元素先<code>dislay: none;</code>会造成一次 reflow 和 一次 repaint，隐藏之后在进行需要的操作，完成了这些操作后，再恢复它的<code>display</code>属性。</li>
-</ul>
-</li>
-<li>避免过多的获取DOM的样式信息，对于这种场景，尽量使用变量保存重复利用。</li>
-</ol>
-<p>参考相关文章链接：<br><a href="https://csstriggers.com/" target="_blank" rel="noopener">css-triggers</a><br><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction" target="_blank" rel="noopener">Render-tree Construction, Layout, and Paint</a><br><a href="https://www.phpied.com/rendering-repaint-reflowrelayout-restyle/" target="_blank" rel="noopener">Rendering: repaint, reflow/relayout, restyle</a></p>
+<p>它在调用栈中是这样的表现<br><img src="/images/JavaScript-restore/call-stack-base.png" style="border:none;"></p>
+<p>在这个示例中，<br>1.运行了某个 JS 文件，首先有一个类似于 <code>main</code> 的函数，这个函数指代了文件本身，先把它放进栈里；<br>2.自上而下查看了下声明的函数；最终发现<code>foo</code>函数调用；把<code>foo</code>推入到栈里；<br>3.然后<code>foo</code>函数调用了函数<code>bar</code>，把<code>bar</code>也推进栈里；<br>4.执行完<code>bar</code>拿到返回值，那么把<code>bar</code>弹出栈；<br>5.执行完<code>foo</code>拿到返回值，把<code>foo</code>弹出栈；<br>6.执行完当前脚本，<code>main</code>弹出栈。</p>
+<p>这张图说明了调用栈在执行这一段代码的时候的变迁，总结一下：</p>
+<p id="div-border-left-green">
+调用栈是一个记录当前程序所在位置的数据结构，如果当前进入了某个函数，这个函数会被放在栈里面。如果离开了某个函数，这个函数会被弹出栈外。
+</p><p>
 
+</p><h3 id="栈的追踪"><a href="#栈的追踪" class="headerlink" title="栈的追踪"></a>栈的追踪</h3><p>我们可以发现，调用栈整体是一个<strong>先进后出，后进先出</strong>的特点，整体有一种链式关系，通过浏览器的报错我们可以清晰的看到栈的顺序，修改一下刚才的那段代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'oh huo'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  bar();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+
+<p>把这段代码放到浏览器中执行，可以看到如下场景：<br><img src="/images/JavaScript-restore/call-stack-error.png" style="border:none;width:60%;margin:0;"><br>可以看到这个报错信息上，能够看到和图中相似也就是和栈中相似的结构。通过这个信息可以知道，报错产生在函数<code>bar</code>中，而函数<code>bar</code>是在函数<code>foo</code>中调用。</p>
+<h3 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h3><p>刚才的代码都还挺“正经”的，假如再修改下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; foo(); &#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
+
+<p>递归调用自身，那么会出现什么情况呢？<br><img src="/images/JavaScript-restore/call-stack-maximum.png" style="border:none;width:60%;margin:0;"><br>这段代码会进入一个死循环，那么栈中不断的被添加新的执行函数，那么不就“撑炸”了，因此，chrome浏览器限制了栈的大小是<strong>16000帧</strong>。如果超出了这个大小就会中断进程并且报错。</p>
+<h1 id="非阻塞"><a href="#非阻塞" class="headerlink" title="非阻塞"></a>非阻塞</h1><p>好了，解释完了单线程调用栈的问题，我想，我们遇到了一个更大的问题，就是代码的“阻塞”，不过幸好，JS是一个“非阻塞”的语言；好了，解释下非阻塞吧。我们先不讨论“非阻塞”，先确认一下，什么是阻塞？</p>
+<p>回到之前的那个例子，假如火车站排队卖票，只有一个窗口，那么后面的人越来越多，是不是贼慢，严重影响了大家的出行。<br>程序也是如此，我们一行行的执行代码，后面的代码不就要等前面的执行完成后才能执行，如果代码执行的很慢，售票员是个实习生，那不就阻塞的更加严重。</p>
+<p>我们日常的一个简单打印，或许很快就出来，但假设我们打印从 1-1亿…嗯，确实很慢，还是别去操作了。<br>这个打印操作可能有点…瓜皮，那么，我们 加载图片、进行一个网络请求呢？我想，浏览器可不能把自己代码的执行速度建立在别人的响应速度上吧。<br>看一个阻塞的例子：</p>
+<div class="block-test-sec">
+  <div>请求 xxx.js</div>
+  <div>请求 zzz.css</div>
+  <div>请求 ooo.png</div>
+  <button class="load">run</button>
+  <hr>
+  count: <span class="count">0</span>
+  <button class="add">count + 1</button>
+</div>
+
+<p>在这个例子中，我使用<code>while</code>模拟了一个同步的文件加载过程，点击按钮run，将会触发这个过程，可以打开浏览器控制台查看一下，按顺序加载这三个文件，<strong>这个run按钮可别多按啊，老哥们。</strong>问题在哪呢，加载的过程中，再去点击<code>count+1</code>按钮，它毫无反应，等到控制台现实三个文件都加载完毕，好家伙，刚才点的几次count全加上了。<br>这下我们明白了，当调用栈里面有东西的时候，你再去干别的，可以，排着队，想渲染页面，想运行代码，好的，等着吧。</p>
+<p>“阻塞”我们搞清楚了，这是很糟糕的事情，严重影响了体验。那么“非阻塞”，很简单，就是解决掉这个问题就是“非阻塞”啦。<br>这就轮到我们的“异步”登场了！</p>
+<h1 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h1><p>前面提到了，如果我们在加载文件或者进行一个网络请求，如果是同步进行，那就会导致“阻塞”的问题，那么解决这个问题的方法是“异步”。</p>
+<p>具体怎么做呢？举个例子：<br>在一个老餐馆里，就是那种需要人分别去记录客人点单的餐馆，只有一个服务员(单线程)，此时来了三桌客人(三个函数)，如果按照同步思维，第一桌点完，才能轮到第二桌，那么后面的客人就想要个蛋炒饭，遇到第一桌的选择恐惧症得多难受鸭。此时的第一桌、第二桌、第三桌都是一个网络请求，快慢不同，但是不相互关联。<br>如何处理，为了不失礼貌，第一桌进来，“好的，客人想吃什么？您做下看看。”第二桌来了，同样，“好的，客人想吃什么？您做下看看。”，第三桌也是如此，当任意一桌想好了想吃啥了之后，唤一声“老板，来碗 腊肠蛋炒饭～”，即可完成点单。当然了，某一桌进来就想好了要吃啥，直接和老板讲就好啦。</p>
+<p>换到我们代码执行里，那我们不就可以在执行到类似网络请求的时候，把它扔一边，我去干我的事，等你好了再叫我？<br>没错，这样好像解决了问题了。想想我们常用的一些API，<code>setTimeout、setInterval、Promise</code>等等，如果在<code>Node</code>的环境下就更多了，它们都有一个回调函数，等到一定的时间后才执行。</p>
+<p>ok，异步的大概思路搞定了，就是我们把需要等待后在执行的函数给扔一边，继续我们的主线程，等它可以执行内容了在执行。但是这样还有点问题：</p>
+<ol>
+<li>我们把等待的东西放一边去，放哪呢？</li>
+<li>如果需要等待的事情有点多，它们又同时结束，那咋办，先执行哪一个？</li>
+<li>有个等待的结束了，回来找主线程执行了，主线程正在做的事就要停下来做你的吗？</li>
+</ol>
+<h2 id="WebAPIs和任务队列"><a href="#WebAPIs和任务队列" class="headerlink" title="WebAPIs和任务队列"></a>WebAPIs和任务队列</h2><p>解决上面的几个问题，这就是<code>WebAPIs</code>和任务队列(Task Queue)的事啦。</p>
+<ol>
+<li>正常的进行调用栈的操作，函数入栈，但是遇到异步任务时，放到一个由<code>C++</code>实现的浏览器创建的<code>WebAPIs</code>的线程中去完成，然后继续执行自己的同步任务，完成后出栈；</li>
+<li>在主线程进行的过程中，<code>WebAPIs</code>会完成这些等待，把等待好的回调函数，放到“任务队列”中去；</li>
+<li>这个时候有一个叫做<code>Event Loop</code>的角色，它在上面这几步的基础上，做一件事，监听调用栈是任务队列，当调用栈为空时，并且任务队列中有东西，那么就把任务队列中的第一项弹出，推入到调用栈中。调用栈则继续着第一步操作。</li>
+</ol>
+<p>由此，可以大体绘制出一个基本运行图：</p>
+<div>1</div>
       
     </div>
     <div>
@@ -491,7 +465,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/08/17/repaint-and-reflow/" title="repaint and reflow/重绘与回流">https://www.yuguomin.com/2019/08/17/repaint-and-reflow/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/11/20/JavaScript-restore-6/" title="JavaScript重塑(6)——Event Loop">https://www.yuguomin.com/2019/11/20/JavaScript-restore-6/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -499,11 +473,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
-          
-            <a href="/tags/layout/" rel="tag"><i class="fa fa-tag"> layout</i></a>
-          
-            <a href="/tags/DOM/" rel="tag"><i class="fa fa-tag"> DOM</i></a>
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"> JavaScript</i></a>
           
         </div>
       
@@ -516,8 +486,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/12/What-is-BFC/" rel="next" title="CSS-BFC">
-                <i class="fa fa-chevron-left"></i> CSS-BFC
+              <a href="/2019/11/18/JavaScript-restore-4/" rel="next" title="JavaScript重塑(4)——JS的原型与模拟类">
+                <i class="fa fa-chevron-left"></i> JavaScript重塑(4)——JS的原型与模拟类
               </a>
             
           </div>
@@ -526,8 +496,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/08/compile-learning/" rel="prev" title="编译技术学习：第一章 知识概述">
-                编译技术学习：第一章 知识概述 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/11/20/JavaScript-restore-5/" rel="prev" title="JavaScript重塑(5)——JS对象的分类">
+                JavaScript重塑(5)——JS对象的分类 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -714,7 +684,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的渲染过程"><span class="nav-number">2.</span> <span class="nav-text">浏览器的渲染过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重绘与回流是什么"><span class="nav-number">3.</span> <span class="nav-text">重绘与回流是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么会触发重绘与回流"><span class="nav-number">4.</span> <span class="nav-text">什么会触发重绘与回流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#触发回流的场景"><span class="nav-number">4.1.</span> <span class="nav-text">触发回流的场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#触发重绘的场景"><span class="nav-number">4.2.</span> <span class="nav-text">触发重绘的场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的自我优化"><span class="nav-number">5.</span> <span class="nav-text">浏览器的自我优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何避免重绘与回流"><span class="nav-number">6.</span> <span class="nav-text">如何避免重绘与回流</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单线程"><span class="nav-number">2.</span> <span class="nav-text">单线程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#调用栈"><span class="nav-number">2.1.</span> <span class="nav-text">调用栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈的追踪"><span class="nav-number">2.1.1.</span> <span class="nav-text">栈的追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栈溢出"><span class="nav-number">2.1.2.</span> <span class="nav-text">栈溢出</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#非阻塞"><span class="nav-number">3.</span> <span class="nav-text">非阻塞</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步"><span class="nav-number">4.</span> <span class="nav-text">异步</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebAPIs和任务队列"><span class="nav-number">4.1.</span> <span class="nav-text">WebAPIs和任务队列</span></a></li></ol></li></ol></div>
             
 
           </div>
