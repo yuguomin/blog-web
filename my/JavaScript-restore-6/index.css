@@ -1,0 +1,277 @@
+
+
+.block-test-sec {
+  border: 1px solid #000;
+  margin-bottom: 20px;
+}
+
+.block-test button {
+  padding: 4px 6px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.block-test .count {
+  font-size: 22px;
+}
+
+text-center {
+  text-align: center;
+}
+.event-loop, .event-loop * {
+  box-sizing: border-box;
+}
+.event-loop {
+  position: relative;
+  width: 530px;
+  min-height: 300px;
+  left: 50%;
+  padding: 40px 10px 10px 50px;
+  margin-top: 30px;
+  border: 2px dotted;
+  transform: translateX(-50%);
+}
+
+.event-loop__js {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  padding: 20px 4px 10px;
+  border: 2px dotted;
+}
+
+.event-loop__js::before {
+  content: 'JS';
+  position: absolute;
+  background: yellow;
+  width: 20px;
+  height: 20px;
+  padding: 10px 0 0 10px;
+  font-weight: bold;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.js-column {
+  position: relative;
+  float: left;
+  width: 45%;
+  height: 100%;
+  margin: 4px;
+  padding-top: 5px;
+  text-align: center;
+  border: 1px solid;
+  border-bottom: 0;
+}
+
+  
+.js__heap::before, .js__heap::after, .heap__elem::before, .heap__elem::after  {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: #2196F3;
+}
+.js__heap::before {
+  left: 15%;
+  top: 40%;
+}
+.js__heap::after {
+  top: 55%;
+  background: red;
+}
+.js__heap
+
+.heap__elem::before {
+  background: #009688;
+  top: 30%;
+  right: 15%;
+}
+
+.heap__elem:after {
+  background: #9C27B0;
+  bottom: 15%;
+  left: 26%;
+}
+
+.stack__elems {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+}
+
+.stack__elem {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  background: yellow;
+  font-size: 12px;
+  line-height: 20px
+}
+
+
+.web-apis {
+  position: absolute;
+  min-width: 200px;
+  text-align: center;
+  right: 10px;
+  top: 40px;
+  
+  
+  /* .arrow {
+    right: auto;
+    top: auto;
+    bottom: -25%;
+    transform: translate(50%, 100%) rotate(90deg);
+  } */
+}
+
+.web-apis .api-elem {
+  background: #FF9800;
+  line-height: 30px;
+  margin: 5px;
+}
+
+.web-apis .arrow {
+  right: auto;
+  top: auto;
+  bottom: -25%;
+  transform: translate(50%, 100%) rotate(90deg);
+}
+
+.event-loop-name {
+  padding: 10px 20px;
+}
+
+.event-loop-name svg {
+  vertical-align: middle;
+}
+
+.queue {
+  position: relative;
+  width: 70%;
+  left: 30%;
+  border: 1px solid;
+  padding: 10px;
+}
+
+.queue::before {
+  content: "Callback Queue";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translate(-100%, -50%);
+}
+
+.queue-item {
+  float: left;
+  padding: 16px;
+  background: yellow;
+  margin-right: 10px;
+}
+
+.clearfix {
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+
+.arrow {
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: black;
+  right: 10px;
+  top: 60%;
+  transform: translateX(100%) rotate(-36deg);
+  z-index: 1;
+}
+
+.arrow::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: 0;
+  top: 50%;
+  border: 10px solid transparent;
+  border-left-color: black;
+  transform: translate(100%, -50%);
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 2s linear infinite;
+  -moz-animation: rotating 2s linear infinite;
+  -ms-animation: rotating 2s linear infinite;
+  -o-animation: rotating 2s linear infinite;
+  animation: rotating 2s linear infinite;
+}
+
+
+
+caption, th, td {
+  text-align: center;
+}
+figure caption, th, td {
+  text-align: left;
+}
+
+.test-task .outer {
+  padding: 20px;
+  width: 100px;
+  height: 100px;
+  background: #616161;
+  margin: 0 auto;
+}
+
+.test-task .inner {
+  width: 100px;
+  height: 100px;
+  background: #e5e5e5;
+}
+
+.test-task .result {
+  margin: 10px auto 0;
+  height: 260px;
+  width: 70%;
+  border: 1px solid #000;
+  font-size: 14px;
+}
+
+.test-task .box-block {
+  text-align: center;
+}
+.test-task .box-block button {
+  padding: 0 4px;
+}
