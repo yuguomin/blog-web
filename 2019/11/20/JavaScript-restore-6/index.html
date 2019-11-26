@@ -73,7 +73,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-error.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-micro.png">
-<meta property="og:updated_time" content="2019-11-25T17:00:20.446Z">
+<meta property="og:updated_time" content="2019-11-26T02:15:33.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(6)——Event Loop">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，以及研究任务与微任务。">
@@ -621,6 +621,7 @@ MicroTask就是JavaScript引擎发起的，没有参与过事件循环的任务�
 <p>如果使用按钮直接调用<code>$inner</code>的<code>click</code>方法，那么这里的触发不再是把<code>$inner</code>的<code>click</code>当作回调异步处理，而是一种<code>dispatchEvent</code>，相当于同步。这种方式相当于把该函数的调用作为点击该按钮时的一个上下文，其中一个执行栈而已，而其对应触发的冒泡，也会在这个上下文中执行，因此，会先输出两次<code>&#39;click&#39;</code>打印，然后查询微任务，而这里的<code>&#39;observer&#39;</code>打印一次是因为<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/MutationObserver/MutationObserver" target="_blank" rel="noopener">MutationObserver</a>的触发在短时间内只触发一次，或者说在一个微队列中只触发一次。</p>
 <p>至此，Task 和 MicroTask的执行顺序和原理基本已经掌握了。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇从 JavaScript 运行时的特征，讲述它的需求，来解决它的需求。<br>搞明白它单线程的处理机制，为何要添加异步，添加异步又是如何处理，以及异步中的细节。<br>下一篇的内容主要 JavaScript 的异步解决方案。</p>
+<p>参考相关文章链接：<br><a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ&list=LLkITm_0Pes_AQFOv9DqFdZA&index=5&t=751s" target="_blank" rel="noopener">Philip Roberts：What the heck is the event loop anyway？(youtube)</a><br><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" target="_blank" rel="noopener">Tasks, microtasks, queues and schedules</a><br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a></p>
 
       
     </div>
