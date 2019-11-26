@@ -61,21 +61,18 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
+<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第七篇，在上一篇讲到了异步回调解决 JavaScript 单线程阻塞问题，这种方式没有问题，但是如果这种关系发生嵌套会造成“回调地狱”，这一篇主要针对解决这个问题，讲一讲每一种方法的使用。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript重塑(1)——历史与大纲">
-<meta property="og:url" content="https://www.yuguomin.com/2019/11/02/JavaScript-restore-1/index.html">
+<meta property="og:title" content="JavaScript重塑(7)——回调地狱的解决">
+<meta property="og:url" content="https://www.yuguomin.com/2019/11/26/JavaScript-restore-7/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
+<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第七篇，在上一篇讲到了异步回调解决 JavaScript 单线程阻塞问题，这种方式没有问题，但是如果这种关系发生嵌套会造成“回调地狱”，这一篇主要针对解决这个问题，讲一讲每一种方法的使用。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/JavaScript-study-line.png">
-<meta property="og:updated_time" content="2019-11-25T03:10:48.410Z">
+<meta property="og:updated_time" content="2019-11-26T08:13:21.160Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript重塑(1)——历史与大纲">
-<meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png">
+<meta name="twitter:title" content="JavaScript重塑(7)——回调地狱的解决">
+<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第七篇，在上一篇讲到了异步回调解决 JavaScript 单线程阻塞问题，这种方式没有问题，但是如果这种关系发生嵌套会造成“回调地狱”，这一篇主要针对解决这个问题，讲一讲每一种方法的使用。">
 
 
 
@@ -103,7 +100,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/11/02/JavaScript-restore-1/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/11/26/JavaScript-restore-7/">
 
 
 
@@ -127,15 +124,15 @@
 
 <script>
     (function(){
-        if(''){
-            if (prompt('请输入文章密码') !== ''){
+        if('666666'){
+            if (prompt('请输入文章密码') !== '666666'){
                 alert('密码错误！');
                 history.back();
             }
         }
     })();
 </script>
-  <title> JavaScript重塑(1)——历史与大纲 | SuperFish's Blog </title>
+  <title> JavaScript重塑(7)——回调地狱的解决 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -265,7 +262,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/02/JavaScript-restore-1/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/26/JavaScript-restore-7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -286,7 +283,7 @@
             
             
               
-                JavaScript重塑(1)——历史与大纲
+                JavaScript重塑(7)——回调地狱的解决
               
             
           </h1>
@@ -301,8 +298,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-02T19:29:57+08:00">
-                2019-11-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-26T08:32:31+08:00">
+                2019-11-26
               </time>
             
 
@@ -346,7 +343,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.3k(字)</span>
+                  <span class="post-count">478(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +352,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">1(分)</span>
             
           </span>
 
@@ -382,75 +379,22 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。</li>
+<li>本篇内容主要是重塑JavaScript的第七篇，在上一篇讲到了异步回调解决 JavaScript 单线程阻塞问题，这种方式没有问题，但是如果这种关系发生嵌套会造成“回调地狱”，这一篇主要针对解决这个问题，讲一讲每一种方法的使用。</li>
 </ul>
 <a id="more"></a>
-<h1 id="初心"><a href="#初心" class="headerlink" title="初心"></a>初心</h1><p>最近订阅了winter老师的<a href="https://time.geekbang.org/column/intro/154" target="_blank" rel="noopener">重学前端</a>课程，想大体按照老师的学习架构对知识进行系统的梳理。文章的内容走向会大体借鉴老师的架构分类为题，然后加以个人的学习拓展及学习记录。再次感谢老师的知识分享。本篇是JS的重塑，后面还会有HTML、CSS及浏览器重塑。</p>
-<h1 id="学习方法"><a href="#学习方法" class="headerlink" title="学习方法"></a>学习方法</h1><ol>
-<li>建立知识架构</li>
-</ol>
-<p>学习任何一项知识，需要有一个最基础的<strong>知识架构</strong>，通过知识架构不断挖掘进行学习。知识架构的重点是具备<strong>逻辑性和完备性</strong>。</p>
-<p>通过如果对JavaScript的重点知识进行总结，我们可能会说闭包、作用域链、原型链、this指针等等…但是这些知识，实际上是碎片式的，没有逻辑性关系的。我们需要的知识架构就像目录一样，总结了一个个大纲，层层递进，从而对一项专业知识进行系统化的学习。</p>
-<p>这里对JavaScript的知识划分为</p>
-<ul>
-<li>文法</li>
-<li>语义</li>
-<li>运行时</li>
-</ul>
-<p>任何一门计算机语言，必定是<strong>用规定的文法，表达特定的语义，操作运行时</strong>这样的一个过程。所以，JavaScript的任何一个知识点都不会脱离这个范围。而通过这个顶层的目录又可以向下衍生知识点</p>
-<ul>
-<li>文法<ul>
-<li>词法</li>
-<li>语法</li>
-</ul>
-</li>
-<li>语义</li>
-<li>运行时<ul>
-<li>类型</li>
-<li>执行过程</li>
-</ul>
-</li>
-</ul>
-<p>这样的一个扩展过程是，文法根据“编译原理”，可以分为针对词法和语法的规则分析。而语义与语法是一一对应关系。而运行时，根据：<strong>程序 = 算法 + 数据结构</strong>，所以JavaScript的运行时就被分为类型和执行过程，类型即数据结构，执行过程即算法。通过顶层目录的完备性，逐步衍生知识体系，又可以把词法、语义、类型等进一步划分。如此就建立了不断进化的知识架构，通过这个知识架构，系统的学习。扫描知识盲区。</p>
-<ol start="2">
-<li>追本溯源</li>
-</ol>
-<p>很多知识在其背后有很大的体系。还有一些知识，涉及的概念本身经历了各种变迁，变得非常复杂和有争议性。我们在学习这些知识的时候，需要注意：</p>
-<ul>
-<li>掌握知识点背后的知识体系。</li>
-<li>关注知识点的历史背景，如何产生，经历了怎么样的变化。关注提出者的思想。</li>
-</ul>
-<h1 id="JavaScript发展史"><a href="#JavaScript发展史" class="headerlink" title="JavaScript发展史"></a>JavaScript发展史</h1><p>根据追本溯源，在重塑学习JavaScript这门语言时，先理清楚这门语言的由来。</p>
-<p>1.<br>在1994年的时候，网景公司（Netscape）发布了Navigator浏览器0.9版。这是历史上第一个比较成熟的网络浏览器，但是他的交互只能通过服务端的处理，比如说当用户在输入一个表单信息的时候，只能发送到服务器进行验证操作，判断是否没有填写某个必填项，是否输入了无效值，对于当时的网络速度之慢，每一次交互即增加了服务端的压力，并可能最后等待已久，返回的只是某一项的未填写而导致使用者的体验极差。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png" style="border:none;width:60%;"></p>
-<p>2.<br>这个时候网景公司急需一种网页脚本语言，使得浏览器可以与网页互动。网景公司当时有两个选择：一个是采用现有的语言，比如Perl、Python、Tcl、Scheme等等，允许它们直接嵌入网页；另一个是发明一种全新的语言。</p>
-<p>这两个选择各有利弊。第一个选择，有利于充分利用现有代码和程序员资源，推广起来比较容易；第二个选择，开发出完全适用的语言，实现起来比较容易。</p>
-<p>到底采用哪一个选择，网景公司内部争执不下，管理层一时难以下定决心。</p>
-<p>3.<br>在此时有一件大事，1995年美国Sun公司将Oak改名为Java(由于当时已经有这个名字的语言)，正式推向市场，许诺“一次编写，到处运行”。</p>
-<p>网景公司心动了，与Sun公司合作在Netscape Navigator中支持Java，使用Java语言开发网络应用程序，但由于会使HTML过于复杂而放弃。</p>
-<p>4.<br>JavaScript之父Brendan Eich于1995年4月，被网景公司录用。但招聘他的目的是研究将Scheme语言作为网页脚本语言的可能性。</p>
-<p>可仅仅一个月之后，<strong>1995年5月，网景公司做出决策，未来的网页脚本语言必须”看上去与Java足够相似”，但是比Java简单，使得非专业的网页作者也能很快上手。</strong>这个决策实际上将Perl、Python、Tcl、Scheme等非面向对象编程的语言都排除在外了。</p>
-<p>为了在其他竞争提案中捍卫JavaScript这个想法，公司需要有一个可以运作的原型，Brendan Eich被指定为这种”简化版Java语言”的设计师。仅花了十天时间就把原型设计出来了。</p>
-<p>由于设计时间太短，语言的一些细节考虑得不够严谨，导致后来很长一段时间，Javascript写出来的程序混乱不堪。它是一个大杂烩，语法有多个来源：</p>
-<p id="div-border-left-green">
-基本语法：借鉴C语言和Java语言。<br>
-数据结构：借鉴Java语言，包括将值分成原始值和对象两大类。<br>
-函数的用法：借鉴Scheme语言和Awk语言，将函数当作第一等公民，并引入闭包。<br>
-原型继承模型：借鉴Self语言（Smalltalk的一种变种）。<br>
-正则表达式：借鉴Perl语言。<br>
-字符串和数组处理：借鉴Python语言。<br>
-</p>
+<p>我们先看一下回调地狱的场景：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testFn</span>(<span class="params">data, callback</span>)</span>&#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    callback(data)</span><br><span class="line">  &#125;,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line">testFn(<span class="string">'data1'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  testFn(<span class="string">'data2'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    testFn(<span class="string">'data3'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(data);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<p>5.<br>这门语言最初命名为<strong>Mocha</strong>，1995年9月在Netscape Navigator 2.0的Beta版中改名为<strong>LiveScript</strong>，同年12月，Netscape Navigator 2.0 Beta 3中部署时，网景公司与Sun公司组成的开发联盟为了让这门语言搭上<strong>Java</strong>这个编程语言“热词”，因此将其临时改名为<strong>JavaScript</strong>。</p>
-<p>6.<br>JavaScript推出后在浏览器上大获成功，微软公司在不久后就为Internet Explorer 3浏览器推出了<strong>JScript</strong>，微软公司进入后，意味着有<strong>3</strong>种不同的<strong>JavaScript</strong>版本同时存在：Netscape Navigator 3.0 中的 <code>JavaScript</code>、IE 中的 <code>JScript</code> 以及 CEnvi 中的 <code>ScriptEase</code>。这样的JavaScript多版本在浏览器端共存意味着标准化的缺失，使不少网页使用非微软平台及浏览器无法正常显示。成为网络上普及使用JavaScript的阻碍。</p>
-<p>7.<br>1996年11月，网景公司将<strong>JavaScript 1.1</strong>作为一个草案提交给<strong>ECMA（欧洲计算机制造商协会）</strong>。该协会指定<strong>39号技术委员会（TC39）</strong>负责“标准化一个通用、跨平台、中立于厂商的脚本语言的语法和语义”。由来自 Netscape、Sun、微软、Borland 和其他一些对脚本编程感兴趣的公司的程序员组成的 TC39 锤炼出了 <code>ECMA-262</code>，该标准定义了名为 <code>ECMAScript</code> 的全新脚本语言。</p>
-<p>第二年，国际标准化组织及国际电工委员会（ISO/IEC）也采纳 ECMAScript 作为标准（ISO/IEC-16262）。从此，Web 浏览器就开始努力（虽然有着不同的程度的成功和失败）将 ECMAScript 作为 JavaScript 实现的基础。</p>
-<h1 id="JavaScript学习架构"><a href="#JavaScript学习架构" class="headerlink" title="JavaScript学习架构"></a>JavaScript学习架构</h1><p>按照winter老师总结的JavaScript学习架构图如下：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/JavaScript-study-line.png" style="border:none;width:80%;"></p>
-<p>在JavaScript的模块中，首先可以按照文法、语义和运行时进行划分。这符合编程语言的一般规律：<strong>用一定的词法和语法，表达一定语义，从而操作运行时</strong>。<br>接下来，对于运行时，可以再划分为数据结构和算法。数据结构包含类型和实例，JS的类型系统就是它的 7 种语言类型和 7 种规范类型；实例是JS的内置对象。而算法，就是JS的执行过程。</p>
-<p>类型中，对象相比于其它类型更为复杂，需要关注它的历史和设计思路。实例部分，JS的内置对象多达150个以上，将从应用和机制的角度，挑选几个进行学习。</p>
-<p>执行过程则需要按照从大结构到小结构的角度学习，从最顶层的程序与模块、事件循环和微任务，到函数、再到语句级的执行。</p>
-<p>文法中的语法和语义基本是一一对应关系，在 JavaScript 标准中有一份<a href="http://www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="noopener">语法定义表</a>，但由于体量庞大，所以从 JavaScript 语法中特别的地方，以及与日常开发比较相关的地方来重点进行学习。</p>
-<p>通过这个系统的学习过程，把JavaScript的知识点进行巩固。重新学习。</p>
-<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a><br><a href="http://javascript.ruanyifeng.com/introduction/history.html" target="_blank" rel="noopener">JavaScript语言的历史-阮一峰</a></p>
+<p>这里写了一个使用<code>setTimeout</code>模拟的简单异步回调嵌套调用，这个嵌套可能因为业务场景而导致更深，会导致代码横向扩展，并且严重增加代码可读性、维护性和调试难度。<br>因此，出现了 promise、generator、async、await，下面就这几种方法来进行介绍。</p>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><p>先来看看ES6的<code>Promise</code>，它的英文翻译过来是“承诺”，朋友的承诺，情侣的承诺，都是一个带有期限的兑现，最终都面临着遵守承诺和违反承诺，<code>Promise</code>的思路也是如此。<br>Promise对象有两个特点：</p>
+<ol>
+<li>不受外界影响。<code>Promise</code>对象代表了异步回调的结果，承诺本身会有结果，有三种状态：<code>pending</code>(进行中)、<code>fulfilled</code>(已成功)和<code>rejected</code>(已失败)。只有异步操作的结果可以决定最终的状态，任何其他操作都无法改变这个状态。</li>
+<li>一旦状态改变，就不会再变，任何时候都可以得到这个结果。<code>Promise</code>对象的状态改变，只有两种可能：<ul>
+<li>从<code>pending</code>(进行中)到<code>fulfilled</code>(已成功)；</li>
+<li>从<code>pending</code>(进行中)到<code>rejected</code>(已失败)。<br>只要这两种任意一种发生，状态就已经无法改变，要不分手要不结婚，并且再改变之后添加回调函数，也会立即得到这个结果。</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
@@ -472,7 +416,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/11/02/JavaScript-restore-1/" title="JavaScript重塑(1)——历史与大纲">https://www.yuguomin.com/2019/11/02/JavaScript-restore-1/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/11/26/JavaScript-restore-7/" title="JavaScript重塑(7)——回调地狱的解决">https://www.yuguomin.com/2019/11/26/JavaScript-restore-7/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -493,8 +437,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/29/compile-study-third-2/" rel="next" title="编译技术学习：第三章 语法分析（二）">
-                <i class="fa fa-chevron-left"></i> 编译技术学习：第三章 语法分析（二）
+              <a href="/2019/11/21/JavaScript-restore-6/" rel="next" title="JavaScript重塑(6)——Event Loop">
+                <i class="fa fa-chevron-left"></i> JavaScript重塑(6)——Event Loop
               </a>
             
           </div>
@@ -502,10 +446,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/08/JavaScript-restore-2/" rel="prev" title="JavaScript重塑(2)——JavaScript类型">
-                JavaScript重塑(2)——JavaScript类型 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -691,7 +631,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初心"><span class="nav-number">2.</span> <span class="nav-text">初心</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习方法"><span class="nav-number">3.</span> <span class="nav-text">学习方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript发展史"><span class="nav-number">4.</span> <span class="nav-text">JavaScript发展史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript学习架构"><span class="nav-number">5.</span> <span class="nav-text">JavaScript学习架构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise"><span class="nav-number">2.</span> <span class="nav-text">Promise</span></a></li></ol></div>
             
 
           </div>
