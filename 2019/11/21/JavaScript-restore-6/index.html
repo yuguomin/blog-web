@@ -73,7 +73,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-error.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-micro.png">
-<meta property="og:updated_time" content="2019-11-29T10:09:35.722Z">
+<meta property="og:updated_time" content="2019-12-03T08:19:09.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(6)——Event Loop">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，以及研究任务与微任务。">
@@ -508,7 +508,7 @@
 <li>首先创建调用栈后，执行脚本创建<code>main</code>函数入栈；</li>
 <li>执行<code>setTimeout</code>入栈，把timeFn的函数信息和<code>0ms</code>延迟传递给<code>WebAPIS</code>去执行；<code>setTimeout</code>函数出栈；</li>
 <li>执行<code>Promise</code>函数，<code>Promise</code>入栈，<code>promiseFn</code>函数立即执行，<code>promiseFn</code>入栈；</li>
-<li><code>promiseFn</code>中的调用<code>console.log(&#39;Promise&#39;)</code>入栈，执行完毕<code>console.log(&#39;Promise&#39;)</code>将其出栈；</li>
+<li><code>promiseFn</code>中的调用<code>console.log(&#39;Promise start&#39;)</code>入栈，执行完毕<code>console.log(&#39;Promise start&#39;)</code>将其出栈；</li>
 <li>遇到<code>resolve()</code>，将 then 的<code>thenFn</code>放入当前微任务队列，等待执行；</li>
 <li>console.log(‘Promise end’)入栈，执行完毕后出栈；<code>console.log(&#39;script&#39;)</code>调用入栈，然后出栈；</li>
 <li>代码执行完毕，<code>promiseFn</code>、<code>Promise</code>、<code>main</code>相继出栈；</li>
@@ -784,7 +784,7 @@ MicroTask就是JavaScript引擎发起的，没有参与过事件循环的任务�
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
