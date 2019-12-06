@@ -69,12 +69,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://www.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
-<meta property="og:updated_time" content="2019-12-05T06:27:31.482Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
+<meta property="og:updated_time" content="2019-12-06T14:21:29.986Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(8)——执行上下文">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
-<meta name="twitter:image" content="https://www.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
 
 
 
@@ -404,7 +404,7 @@
 <li>执行<code>console.log(4)</code>，完成后，代码全部执行完毕。</li>
 </ol>
 <p>嗯，这个流程大家肯定都知道，<code>console.log()</code>其实也是一个执行上下文就不细说了。这样细节的描述可以理清楚一点：<br>代码执行会先进入一个全局环境，而其中会发生很多调用，进入一些函数环境，而函数环境又可能会调用其它函数甚至是递归，生成更多函数环境，以此可能产生无限多个上下文环境。而当某一个函数环境执行完成后就会返回继续执行之前调用它的环境。这种一层层的调用实现的方式就是“栈”了。表现就是在事件循环那一篇讲的“调用栈”。</p>
-<img src="/images/JavaScript-restore/EC-base-call.png" style="border:none;width:80%;">
+<img src="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png" style="border:none;width:80%;">
 
 <p>那么说了半天，什么是执行上下文呢？上面所关注的点好像也都是代码的执行。其实，执行上下文就可以理解为<strong>执行对应栈所需要的信息</strong>。<br>我们把执行上下文先抽象的理解为一个<code>object</code>，也就是键值对集合，那么每一个执行上下文都会保存一些属性来追踪关联代码的执行进度。<br>按照ES6的分类方式它主要包括三种主要信息：</p>
 <ul>
@@ -530,7 +530,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">0</span>;</span><br><span class="line">fn = <span class="function">(<span class="params">arg1, arg2</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.num);</span><br><span class="line">  <span class="built_in">console</span>.log(arg1, arg2);</span><br><span class="line">&#125;</span><br><span class="line">fn.bind(&#123;<span class="attr">num</span>: <span class="number">1</span>&#125;, <span class="string">'x'</span>, <span class="string">'y'</span>)(); <span class="comment">// 1，'x', 'y'</span></span><br></pre></td></tr></table></figure>
 
 <p>需要注意的是这三个函数用于不接受 this 的函数类型如箭头、class 不会报错，不能按期望修改<code>this</code>，但可以传参。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇从执行上下文的类别不同讲到了我们通常理解的作用域链、闭包及this，理解其中的具体规则，有了更清新的知识体系。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇从执行上下文的类别不同讲到了我们通常理解的作用域链、闭包及this，理解其中的具体规则，以及他们的关系，有了更清晰的知识体系。</p>
 <p>参考相关文章链接：<br><a href="https://javascript.info/closure" target="_blank" rel="noopener">Closure</a><br><a href="https://medium.com/@bdov_/javascript-typescript-execution-vs-lexical-vs-variable-environment-37ff3f264831" target="_blank" rel="noopener">JavaScript/TypeScript Internals: Execution vs. Lexical vs. Variable Environment</a><br><a href="http://dmitrysoshnikov.com/ecmascript/javascript-the-core/" target="_blank" rel="noopener">JavaScript. The Core.</a></p>
 
       
@@ -583,6 +583,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/12/06/JavaScript-restore-9/" rel="prev" title="JavaScript重塑(9)——语句的执行">
+                JavaScript重塑(9)——语句的执行 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -690,7 +694,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
