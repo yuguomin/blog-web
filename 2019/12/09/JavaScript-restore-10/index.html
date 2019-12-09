@@ -71,7 +71,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png.png">
-<meta property="og:updated_time" content="2019-12-09T08:30:12.942Z">
+<meta property="og:updated_time" content="2019-12-09T08:32:44.336Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(10)——JS文法篇">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第十篇，主要内容是JavaScript基本文法相关学习。">
@@ -561,7 +561,7 @@
 <p>在这里使用里<code>&quot;use strict&quot;</code>使后面的代码都使用严格模式，最终会输出<code>null</code>，JavaScript的指令序言是只有一个字符串直接量的表达式语句，并且只能出现在脚本、模块和函数体的最前面。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// Window</span></span><br><span class="line">&#125;;</span><br><span class="line">f.call(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
 
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇文章针对JavaScript学习的文法部分做了拆分学习，了解词法以及语法的处理规则，这两点的内容实则是理解编译原理对语言写法的规定，以及带来的影响。很多时候为什么会有一些不符合我们直接思维的处理。<br>后面对于语法结构以及基本的语法规则做了些总结。结合之前的<a href="https://www.yuguomin.com/2019/12/01/JavaScript-restore-8/">运行时执行上下文内容</a>可以有更深刻的体会。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇文章针对JavaScript学习的文法部分做了拆分学习，了解词法以及语法的处理规则，这两点的内容实则是理解编译原理对语言写法的规定，以及带来的影响。很多时候为什么会有一些不符合我们直接思维的处理。后面对于语法结构以及基本的语法规则做了些总结。结合之前的<a href="https://www.yuguomin.com/2019/12/01/JavaScript-restore-8/">运行时执行上下文内容</a>可以有更深刻的体会。</p>
 <p>参考相关文章链接：<br><a href="https://www.yuguomin.com/2019/12/01/JavaScript-restore-8/">执行上下文</a><br><a href="https://time.geekbang.org/column/article/87808" target="_blank" rel="noopener">重学前端-winter</a></p>
 
       
