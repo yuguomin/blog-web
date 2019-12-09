@@ -70,8 +70,8 @@
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第十篇，主要内容是JavaScript基本文法相关学习。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png.png">
-<meta property="og:updated_time" content="2019-12-09T08:32:44.336Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png">
+<meta property="og:updated_time" content="2019-12-09T08:34:58.307Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(10)——JS文法篇">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第十篇，主要内容是JavaScript基本文法相关学习。">
@@ -455,7 +455,7 @@
 <p>这样的引入方式，实际上是浏览器默认语言是JavaScript，所以把<code>type=&quot;application/javascript&quot;</code>隐藏了。按照ES6的新特性<code>Module</code>，我们可以在JS中使用<code>import</code>和<code>export</code>来导入和导出模块，如果引入的<code>x.js</code>中导出了一个属性，那么就会产生一个报错<code>Unexpected token &#39;export&#39;</code>。<br>而我们可是解决的方式是指定<code>script</code>的<code>type</code>为<code>module</code>：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">'x.js'</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>而我们在JavaScript文件可以写很多的语句，因此，我们可以针对脚本模块的划分为：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png.png" style="border:none;width:70%;"></p>
+<p>而我们在JavaScript文件可以写很多的语句，因此，我们可以针对脚本模块的划分为：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png" style="border:none;width:70%;"></p>
 <p>对于<code>type</code>为<code>module</code>和<code>export</code>与<code>import</code>的使用特点，就不在这里多说了。<br>JavaScript 引擎除了执行脚本和模块之外，还可以执行函数。而函数体跟脚本和模块有一定的相似之处。同样是执行代码段，同样是创建任务在调用栈中执行，执行函数的过程实际上就是在执行函数体也就是花括号中的语句列表。</p>
 <p>函数体里面的结构不同也可以进行划分：</p>
 <ol>
