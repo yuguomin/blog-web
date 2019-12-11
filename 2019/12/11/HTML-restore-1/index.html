@@ -61,18 +61,20 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
+<meta name="description" content="前言 本篇内容主要是为接下来一些重塑HTML内容做大纲，以及HTML的历史发展。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
-<meta property="og:url" content="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/index.html">
+<meta property="og:title" content="HTML重塑(1)——历史与大纲">
+<meta property="og:url" content="https://www.yuguomin.com/2019/12/11/HTML-restore-1/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
+<meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑HTML内容做大纲，以及HTML的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-16T16:11:53.934Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-study-map.png">
+<meta property="og:updated_time" content="2019-12-11T08:04:30.317Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
-<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
+<meta name="twitter:title" content="HTML重塑(1)——历史与大纲">
+<meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑HTML内容做大纲，以及HTML的历史发展。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-study-map.png">
 
 
 
@@ -100,7 +102,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/12/11/HTML-restore-1/">
 
 
 
@@ -132,7 +134,7 @@
         }
     })();
 </script>
-  <title> JavaScript重塑(3)——JS的对象模型与基于对象 | SuperFish's Blog </title>
+  <title> HTML重塑(1)——历史与大纲 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -262,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/12/11/HTML-restore-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -283,7 +285,7 @@
             
             
               
-                JavaScript重塑(3)——JS的对象模型与基于对象
+                HTML重塑(1)——历史与大纲
               
             
           </h1>
@@ -298,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-16T10:01:57+08:00">
-                2019-11-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-11T11:32:16+08:00">
+                2019-12-11
               </time>
             
 
@@ -321,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript-Restore/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript Restore</span>
+                  <a href="/categories/HTML-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML Restore</span>
                   </a>
                 </span>
 
@@ -343,7 +345,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">1.9k(字)</span>
+                  <span class="post-count">1.7k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -352,7 +354,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">5(分)</span>
             
           </span>
 
@@ -379,74 +381,44 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。</li>
+<li>本篇内容主要是为接下来一些重塑HTML内容做大纲，以及HTML的历史发展。</li>
 </ul>
 <a id="more"></a>
-<p>前文讲到了JavaScript的七种语言类型，对于<code>Object</code>类型，是一个相对抽象的名词，需要从它的设计思想，从而衍生到应用。</p>
-<h1 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h1><p><code>object</code>翻译过来的意思是对象。在英文中<code>object</code>的意思是<strong>一切事物的总称</strong>。我们一般在学习的过程中会把他当作一个专业名词来理解，但不论如何，我们应该认识到，对象并不是计算机领域凭空造出来的概念，它是顺着人类思维模式产生的一种抽象。</p>
+<p>HTML可以说是构成web的基石，它在一般业务应用中看起来很简单，但一个优秀的HTML写法不仅带来代码上的可读，也会影响到CSS和JavaScript的复杂程度。接下来的内容，先整理一下HTML的概念和发展历程，然后确认接下来的学习大纲。</p>
+<h1 id="什么是HTML"><a href="#什么是HTML" class="headerlink" title="什么是HTML"></a>什么是HTML</h1><p>HTML，全称Hypertext Markup Language，翻译过来是超文本标记语言的意思，好的，那什么是超文本，什么是标记语言，为什么不是编程语言？</p>
+<ol>
+<li><p>什么是超链接？<br>超文本其实就是超链接文本，文本就是我们平时书写文章一样，写了一段内容，都可以称作文本。超链接就是内容链接，可以是其他页面的地址，也可以是图片地址或者文件等等，本质上来讲，超链接就属于页面的一部分，我们点击一个按钮跳转到其他页面，其实就是打开一个超链接。是链接其他网站和站点信息的元素。</p>
 <p id="div-border-left-green">
-一台苹果电脑是一个对象，我们可以用来看电影，可以用来打游戏，敲代码，它也有自己的电量，会发热。<br>
-一盆水仙花是一个对象，它能开花，会枯萎，会散发出香味。<br>
-我们对于对象的认知是从幼儿期就开始形成的，可以发现，身边的每一个东西，都是具有各自特性的个体。
+那么，超文本实际上就是指集成了其他站点链接的文档。
 </p>
-
-<p>在《面向对象分析与设计》这本书中，Grady Booch 替我们做了总结，他认为，从人类的认知角度来说，对象应该是下列事物之一：</p>
-<ol>
-<li>可以接触或者可以看见的东西；</li>
-<li>人的智力可以理解的东西；</li>
-<li>可以指导思考或者行动的东西。</li>
-</ol>
-<p>因此有了对对象的自然定义后，到了编程语言中，我们就可以对它进行描述，按照定义，无论在什么样的语言里，对象都应该具有一些本质特征：</p>
-<ol>
-<li>对象具有<strong>唯一标识性</strong>：即使完全两个完全相同的对象，也并非同一个对象；</li>
-<li>对象有<strong>状态</strong>：对象具有状态，同一对象可能处于不同的状态下；</li>
-<li>对象具有<strong>行为</strong>：即对象的状态，可能因为它的行为产生变迁。</li>
-</ol>
-<h1 id="JavaScript中的对象模型"><a href="#JavaScript中的对象模型" class="headerlink" title="JavaScript中的对象模型"></a>JavaScript中的对象模型</h1><p>通过对象的定义，衍生出了编程语言的对象设计本质。那么到了JavaScript中，对象是如何设计的呢？</p>
-<ul>
-<li><p>针对唯一标识性，是通过内存地址来表现的，每一个对象都具有它在内存中的唯一地址，因此他们是不同的，哪怕是属性相同的两个对象；</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="built_in">console</span>.log(o1 == o2); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>对于状态和行为，在Java中，通过“属性”和“方法”来区分，C++中称作“成员变量”和“成员函数”，在JavaScript中，统一被当作 <strong>“属性”</strong>；</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">  name: <span class="string">'ygm'</span>,</span><br><span class="line">  showName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li><p>什么是标记语言？<br>标记语言就是利用标记把一些文本信息包容起来，并且还有他们的文本结构等。使用者在拿到之后，可以根据文本的结构，定位到自己需要操作的位置。这里标记，在HTML里就是对应的标签。</p>
 </li>
-</ul>
-<p>如代码中的对象<code>o</code>，对于挂载在它上面的<code>name</code>和<code>showName</code>，都是它的属性。</p>
-<h2 id="对象的数据结构"><a href="#对象的数据结构" class="headerlink" title="对象的数据结构"></a>对象的数据结构</h2><p>为了提高抽象能力，JavaScript 的属性被设计成比别的语言更加复杂的形式，它提供了<strong>数据属性和访问器属性</strong>（<code>getter</code>/<code>setter</code>）两类。并且用一组特征来描述属性。我们可以通过<code>Object.getOwnPropertyDescriptor</code>方法来查看特征，也可以通过<code>Object.defineProperty</code>来修改特征。<br>比较常见的是数据属性，它比较接近于其它语言的属性概念。它具有四种特征：</p>
-<ul>
-<li>value，即属性的值；</li>
-<li>writable，可写性，能否被赋值；</li>
-<li>enumerable，是否可枚举，决定<code>for...in</code>能否枚举该属性；</li>
-<li>configurable，决定该属性能否被删除或者改变特征值。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123;<span class="attr">value</span>: <span class="number">2</span>, <span class="attr">writable</span>: <span class="literal">false</span>, <span class="attr">enumerable</span>: <span class="literal">false</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'a'</span>));</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'b'</span>));</span><br><span class="line"><span class="comment">// &#123;value: 2, writable: false, enumerable: false, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> o) &#123; <span class="built_in">console</span>.log(i); &#125; <span class="comment">// a</span></span><br><span class="line">o.b = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o.b); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p><code>writable</code>、<code>enumerable</code>和<code>configurable</code>在不进行配置的情况下，默认都是true，</p>
-<p>第二种是访问器属性，它允许使用者在读和写属性的时候得到不同的值。可以视为一种函数的语法糖，它也具有四种属性：</p>
-<ul>
-<li>getter，可以是函数或者undefined，在获取属性的时候被调用；</li>
-<li>setter，可以是函数或者undefined，在设置属性的时候被调用；</li>
-<li>enumable，是否可枚举，决定<code>for...in</code>能否枚举该属性；</li>
-<li>configurable，决定该属性能否被删除或者改变特征值。</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="keyword">get</span> a() &#123; <span class="keyword">return</span> <span class="number">1</span> &#125; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'a'</span>));</span><br><span class="line"><span class="comment">// &#123;get: ƒ, set: undefined, enumerable: true, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123; <span class="keyword">get</span>()&#123; <span class="keyword">return</span> <span class="number">2</span> &#125;, <span class="attr">enumerable</span>: <span class="literal">false</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'b'</span>));</span><br><span class="line"><span class="comment">// &#123;get: ƒ, set: undefined, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>所以，JavaScript是“属性的集合”，属性以字符串或者<code>Symbol</code>为<code>key</code>，以数据属性特征值或者访问器属性特征值为<code>value</code>。这种<code>key: value</code>形式，我们可以把对象当作一个字典，通过对应的key，查找到对应的特征值。</p>
-<h2 id="JS对象的特性"><a href="#JS对象的特性" class="headerlink" title="JS对象的特性"></a>JS对象的特性</h2><p>JavaScript的对象拥有一个很重要的特性，就是可以动态的添加或者删除对象的属性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123; <span class="attr">value</span>: <span class="number">2</span>, <span class="attr">configurable</span>: <span class="literal">false</span>&#125;);</span><br><span class="line"><span class="keyword">delete</span> o.a;</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123; b: 2 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> o.b;</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123; b: 2 &#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>这种动态添加和删除的能力相当灵活，但是也是增加了代码的复杂度。</p>
-<h1 id="JavaScript的“基于对象“"><a href="#JavaScript的“基于对象“" class="headerlink" title="JavaScript的“基于对象“"></a>JavaScript的“基于对象“</h1><p>在前面，对对象的特性进行了介绍，它有唯一的标识，有状态，有行为。在很多时候，我们会对对象进行描述，把一些对象的相同特性描述归纳到一起，就诞生了类。</p>
-<ul>
-<li>一台苹果电脑，一台联想电脑和很多台电脑，它们因为都具有上网，打游戏的功能，把上网，打游戏归纳到一起，变成了电脑这个<strong>类</strong>；根据电脑特性，我们又创造了其他品牌的电脑。</li>
-<li>一盆水仙花，一盆牡丹花，因为它们都具有开花和散发香气的能力，把开花和散发出香气的能力归纳到一起，变成了花这个<strong>类</strong>。根据花的特性，我们又创造了其他的花。</li>
-</ul>
-<p>到了编程语言中，抽象的描述对象，抽离特征归纳出对应的类；以类为基础从而创建出对象的过程就是<strong>面向对象</strong>。常见的语言如Java、C++。</p>
-<p>而到了JavaScript，JavaScript不存在类的概念，而是一个叫做<strong>原型</strong>的东西。原型的概念，就好比，猴是人类的原型，狼是狗的原型一样，任何对象都可以是原型，给予它们的实例自己的特性。这种方式，称作<strong>基于对象</strong>。</p>
-<p>JavaScript的这种高度动态性的对象设计方式，使得我们可以模仿多数面向对象编程范式，所以，也被称作<strong>基于原型继承的面向对象编程语言</strong>。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在本篇通过从抛开对象专有名词思维，定义对象的特征，理解JavaScript对象模型的设计方式；<br>从其数据结构，高度动态，原型继承的特点理解其基于对象的本质。<br>JavaScript虽然被设计成了基于对象的这种模式，但正是这种高度动态的特点使得它能够实现很多其他的特性。<br>下一篇详细讲述对象的原型以及如何基于原型继承实现面向对象编程。</p>
-<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a></p>
+<li><p>为什么HTML不是编程语言？<br>这个问题就是标记语言和编程语言有什么区别，是否可以使用HTML去运算<code>1 + 1</code>等于几？并不可以。编程语言最终是用来编写指令操作机器行为的，而标记语言只是一种电子文档的技术，它不包括任何操作机器行为的语义，需要怎么使用完全是看调用者行为。</p>
+</li>
+</ol>
+<p>解释了这三个问题，这就是HTML的定义了，也可以知道它到底是什么样的一个东西。接下来，我们探讨一下，它的产生与发展。</p>
+<h1 id="HTML的历史"><a href="#HTML的历史" class="headerlink" title="HTML的历史"></a>HTML的历史</h1><p>HTML的发明者叫做<strong>Tim Berners-Lee</strong>，1980年，它在欧洲核子研究组织（CERN）工作，这个组织主要是研究粒子物理学的，并且需要世界各地研究所的合作。</p>
+<p>于是Tim有了一个想法，使物理学家可以在世界任何地方共享研究信息，并且这种共享的形式，并不是单纯的文档下载，他还想要文档中还具有快速打开相关文档的功能，也就是想要文档之间进行交叉引用，使它们链接起来。这样，就可以在阅读一篇论文的时候快速显示另一份包含直接相关文本或图表的论文。</p>
+<p>1989年，Tim提出一个基于互联网的超文本系统。他规定HTML并在1990年底写出浏览器和服务器软件。</p>
+<p>当时Tim所在的CERN，使用的文件格式是以<strong>SGML</strong>为基础的<strong>SGMLguid</strong>，SGML（标准通用标记语言）就有类似<code>&lt;TITLE&gt;&lt;/TITLE&gt;</code>这样的成对标签，Tim在此基础上加入了超链接，于1991年首次公布了关于HTML的描述。通过<strong>internet</strong>在网上讨论这些想法。</p>
+<p>于是，在1993年的中旬，互联网工程任务组（IETF）发布首个由Tim和Dan Connolly一起编写的HTML规范的提案。同时，来自英格兰布里斯托尔的惠普实验室的Dave Raggett工程师，规范了当时已经实现的如表格与填写表单功能，提出了“HTML+”标准。但是这两个标准一时都没成为正式标准。</p>
+<p>在1993年和1994年初，许多浏览器都在HTML中添加了自己的代码。语言变得不明确。为了弄清混乱，就在这两个草案于1994年初到期后，<strong>IETF创建一个HTML工作组</strong>，Dan Connolly及其同事收集了所有被广泛使用的HTML标签，并将它们整理到草稿文档中，<strong>在1995年完成”HTML 2.0”</strong>，这成为了后续实现标准的依据的HTML规范。</p>
+<p>随着web的快速普及，并且需求的增加，HTML工作组的工作量越来越大，自1996年起，HTML规范一直由万维网联盟（W3C）维护。<strong>HTML 3.2</strong>版本于1997年1月14日发布，是W3C发布的第一个HTML建议，并将它作为HTML跨行业规范，所有成员组织，包括浏览器供应商都对<strong>HTML 3.2</strong>进行了审查，也就代表它的稳定性。它包括了表格，JAVA小程序，围绕图像的文字流。</p>
+<p>1998年4月24日发布了<strong>HTML 4.0</strong>，最重大的改变是支持CSS样式表。<br>1999年12月24日发布了<strong>HTML 4.01</strong>，它是<strong>HTML 5</strong>之前使用最广泛的版本。但是自这个版本问世后，W3C就开始专注于XHTML的标准化开发。</p>
+<p>在2004年，苹果公司，Mozilla和Opera公司成立了<strong>WHATWG</strong>（Web超文本应用技术工作组），研究<strong>HTML 5</strong>，并于2008年1月22日发布第一版正式草案。同时，W3C于2007年3月决定恢复HTML的标准化活动。</p>
+<p>2008年<strong>WHATWG</strong>与<strong>W3C</strong>共同交付，2014年10月28日完成<strong>HTML 5</strong>的标准化，作为稳定W3C推荐标准发布。</p>
+<h1 id="HTML学习大纲"><a href="#HTML学习大纲" class="headerlink" title="HTML学习大纲"></a>HTML学习大纲</h1><p>HTML学习也应该按照语言的学习方式，只是它没有一个编程语言那么严谨和复杂。我们按照功能和语言的分类来进行学习，它的功能是依赖于标签来承载的，因此，首先对标签进行分类。<br>主要是下面的几种：</p>
+<ol>
+<li>文档元信息：在head标签中的元素，包含了描述文档自身的一些信息；</li>
+<li>语义相关：扩展了纯文本，表达文章结构、不同语言要素的标签；</li>
+<li>链接：提供到文档内和文档外的链接；</li>
+<li>替换型标签：引入声音、图片、视频等外部元素替换自身的一类标签；</li>
+<li>表单：用于填写和提交信息的一类标签；</li>
+<li>表格：表头、表尾、单元格等表格的结构。</li>
+</ol>
+<p>接着学习这门语言的重要语法，实体和明名空间。最后学习<strong>ARIA</strong>，它是对超文本标记语言（HTML）的补充。<br><img src="https://cdn.yuguomin.com/images/HTML-restore/HTML-study-map.png" style="border:none;"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>HTML的学习内容并不多，但是却是web的基础，如果把一个页面当作一个人，它便是页面的骨架，CSS则是肉体和外表，JavaScript则是灵魂。</p>
 
       
     </div>
@@ -468,7 +440,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/11/16/JavaScript-restore-3/" title="JavaScript重塑(3)——JS的对象模型与基于对象">https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/12/11/HTML-restore-1/" title="HTML重塑(1)——历史与大纲">https://www.yuguomin.com/2019/12/11/HTML-restore-1/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -489,8 +461,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/08/JavaScript-restore-2/" rel="next" title="JavaScript重塑(2)——JavaScript类型">
-                <i class="fa fa-chevron-left"></i> JavaScript重塑(2)——JavaScript类型
+              <a href="/2019/12/09/JavaScript-restore-10/" rel="next" title="JavaScript重塑(10)——JS文法篇">
+                <i class="fa fa-chevron-left"></i> JavaScript重塑(10)——JS文法篇
               </a>
             
           </div>
@@ -498,10 +470,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/18/JavaScript-restore-4/" rel="prev" title="JavaScript重塑(4)——JS的原型与模拟类">
-                JavaScript重塑(4)——JS的原型与模拟类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -687,7 +655,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是对象"><span class="nav-number">2.</span> <span class="nav-text">什么是对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的对象模型"><span class="nav-number">3.</span> <span class="nav-text">JavaScript中的对象模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的数据结构"><span class="nav-number">3.1.</span> <span class="nav-text">对象的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS对象的特性"><span class="nav-number">3.2.</span> <span class="nav-text">JS对象的特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的“基于对象“"><span class="nav-number">4.</span> <span class="nav-text">JavaScript的“基于对象“</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是HTML"><span class="nav-number">2.</span> <span class="nav-text">什么是HTML</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML的历史"><span class="nav-number">3.</span> <span class="nav-text">HTML的历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML学习大纲"><span class="nav-number">4.</span> <span class="nav-text">HTML学习大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
