@@ -1,0 +1,943 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="HTML,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。">
+<meta name="keywords" content="HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML重塑(2)——语义和元信息标签">
+<meta property="og:url" content="https://www.yuguomin.com/2019/12/12/HTML-restore-2/index.html">
+<meta property="og:site_name" content="SuperFish&#39;s Blog">
+<meta property="og:description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
+<meta property="og:updated_time" content="2019-12-12T09:04:46.955Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML重塑(2)——语义和元信息标签">
+<meta name="twitter:description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.yuguomin.com/2019/12/12/HTML-restore-2/">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #3385ff; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #3385ff, 0 0 5px #3385ff; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #3385ff;    /*上边框颜色*/
+        border-left-color: #3385ff;    /*左边框颜色*/
+    }
+</style>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <title> HTML重塑(2)——语义和元信息标签 | SuperFish's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+  <a href="https://github.com/yuguomin/blog-web"><img style="position:absolute;top:0;left:0;border:0;z-index:1;" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuperFish's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">day day up~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/12/12/HTML-restore-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YGM">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperFish's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTML重塑(2)——语义和元信息标签
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-12T08:20:10+08:00">
+                2019-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML Restore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+          
+            
+          
+
+          
+          
+          <span class="post-time">
+            &nbsp; | &nbsp;
+                  <span class="post-meta-item-icon">
+                    <i class="fa fa-calendar-o"></i>
+                  </span>
+                  <span class="post-meta-item-text">字数统计:</span>
+                  <span class="post-count">3.3k(字)</span>
+                </span>
+            
+              <span class="post-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">12(分)</span>
+            
+          </span>
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">
+            Visitors<span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。</li>
+</ul>
+<a id="more"></a>
+<p>按照前的标签分类，接下来会学习语义标签、元信息标签、链接及替换型标签；表单和表格的特性相对简单不做重点学习。</p>
+<h1 id="语义标签"><a href="#语义标签" class="headerlink" title="语义标签"></a>语义标签</h1><p>HTML是门标记语言，利用标记收纳内容及内容结构，它也是需要代码编写的语言。语义标签和普通的标签在视觉表现上一般都差不多，但是他们带有自己的特定含义。就好比我们写文章一般，有标题、段落、引用之分。我们通常使用的无语义化的标签如<code>div</code>和<code>span</code>，它们在视觉表现上相同，它们同样可以包裹定位信息。那么使用语义标签的优点是什么？是否需要使用它？</p>
+<h2 id="语义标签的优点"><a href="#语义标签的优点" class="headerlink" title="语义标签的优点"></a>语义标签的优点</h2><p>我们使用语义类标签的优点是：</p>
+<ol>
+<li>代码可读性提高，优秀的标签排版和语义化使用可以通过阅读就能知道大概是什么内容，比如<code>header</code>和<code>footer</code>，这样也可以降低代码维护的成本；</li>
+<li>有利于搜索引擎检索<strong>SEO</strong>，也可以让搜索引擎爬虫更好地获取到更多有效信息，提升网页的搜索量；</li>
+<li>有利于读屏软件、盲人阅读器等设备的解析。</li>
+</ol>
+<p>那么我们是否需要使用这语义化标签，在实际开发中，仅通过<code>div</code>加各种CSS也可以完成最终的目标，其实答案也是不确定的，是否使用得看具体的场景来定，如果在不需要上述优点的情况下可以选择不使用。而如果使用，也得保证使用得当，而不是滥用。</p>
+<h2 id="语义标签分类"><a href="#语义标签分类" class="headerlink" title="语义标签分类"></a>语义标签分类</h2><p>想要不滥用语义标签，首先得了解它。HTML工作组其实很多都是文档编排的专家，下面我们按照文档布局来介绍一些语义化标签。</p>
+<ul>
+<li><code>header</code>标签定义文档的页眉（介绍信息）。</li>
+<li><code>footer</code>标签定义文档或节的页脚。</li>
+<li><code>address</code>标签定义文档或文章的作者/拥有者的联系信息。</li>
+<li><code>aside</code>标签的内容可用作文章的侧栏。</li>
+<li><code>aticle</code>标签规定独立的自包含内容，如报纸文章等。</li>
+<li><code>hgroup</code>标题组，结合<code>h1-h6</code>使用，包裹标题。</li>
+<li><code>h1-h6</code>标题标签，定义标题，通常使一个<code>h1</code>标明主标题或者<code>logo</code>。</li>
+<li><code>abbr</code>标签表示简写或者缩写，例如<code>WWW</code>是<strong>World Wide Web</strong>的缩写，并且可以利用标签的<code>title</code>属性，使鼠标移动元素上现实全称。</li>
+<li><code>hr</code>标签表示故事走向的转变或者话题的转变，进行文档分割。</li>
+<li><code>p</code>标签定义段落，好比文章中的自然段。</li>
+<li><code>strong</code>标签把文本定义为语气更强的强调的内容。</li>
+<li><code>blockquote</code>标签表示段落级的引用。</li>
+<li><code>q</code>标签表示行内的引用。</li>
+<li><code>cite</code>标签通常表示它所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。</li>
+<li><code>time</code>标签定义公历的时间（24 小时制）或日期，有利于搜索引擎通过用户日程生成更智能的搜索结果。</li>
+<li><code>figure</code>标签规定独立的自包含性内容（图像、图表、照片、代码等等）。</li>
+<li><code>figcaption</code>标签配合<code>figure</code>标签使用，作为内容的标题。</li>
+<li><code>dfn</code>标签用来包裹被定义的名词。如<strong>Internet</strong>和<strong>World Wide Web</strong>这种专有名词。</li>
+<li><code>nav</code>标签定义导航链接的部分。例如博客的引用文献携带者点击跳转的地址。</li>
+<li><code>ol</code>标签定义有序列表，表示有特定顺序的并列项目。</li>
+<li><code>ul</code>标签定义无序列表，即没有特定顺序的并列项目。</li>
+<li><code>pre</code>标签定义预格式化的文本，也就是标签内的内容格式不会再被特殊处理。常用来表示计算机的源代码。</li>
+<li><code>samp</code>标签表示一段用户应该对其没有什么其他解释的文本字符。如计算机程序的示例输出。</li>
+<li><code>code</code>标签用于表示计算机源代码或者其他机器可以阅读的文本内容。</li>
+</ul>
+<p>HTML的标签很多，这些也只是其中一部分，下面借用<code>winter</code>的添加图：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png" style="border:none;width:80%;"></p>
+<p>HTML的标签使用，不像编程语言一样具有严格的要求，但是我们在使用的时候也是要考虑好场景，在使用对应的语义标签，不要画蛇添足。</p>
+<h1 id="元信息标签"><a href="#元信息标签" class="headerlink" title="元信息标签"></a>元信息标签</h1><p>学习完了语义标签，接着看一下元信息标签，元信息标签也就是<strong>描述自身信息的标签</strong>，元信息多数情况下是给浏览器、搜索引擎等机器阅读的。</p>
+<p>元信息标签一般出现在<code>head</code>标签里面。接下来就从<code>head</code>开始介绍：</p>
+<h2 id="head标签"><a href="#head标签" class="headerlink" title="head标签"></a>head标签</h2><p>如果整个<code>html</code>标签比作一个人，<code>head</code>标签就是人的头部，它是所有头部元素的容器。在其中可以引用脚本、指示浏览器在哪里找到样式表、提供元信息等等。就好比人的大脑可以利用思维学习很多东西，判断出性格一般。</p>
+<p><code>head</code>标签也需要紧跟在<code>&lt;html&gt;</code>后面，并处于<code>&lt;body&gt;</code>标签或<code>&lt;frameset&gt;</code>标签之前。如果文档不是作为<code>iframe</code>，或者有其他方式指定了文档标题时，<code>head</code>标签中必须包含一个<code>title</code>标签。</p>
+<p>通常的一个<code>HTML</code>的骨架是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他信息 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 其他展示元素 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>head</code>中常见的元信息标签有<code>title</code>、<code>base</code>、<code>meta</code>。其中<code>meta</code>标签比较复杂。</p>
+<h2 id="title标签"><a href="#title标签" class="headerlink" title="title标签"></a>title标签</h2><p><code>title</code>标签就和它的意思一样，它表示的是文档的标题。就好比我们一个人的名字一样，是对整个页面的一个概括。<br>浏览器对这个标签的内容会拿来做特殊用处，比如放置在浏览器窗口的标题栏或状态栏上，加入用户的链接列表或者收藏夹或书签列表时，标题将成为该文档链接的默认名称。<br>这个标题很简单，但是在大部分场景下必须要有。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML重塑(2)——标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="base标签"><a href="#base标签" class="headerlink" title="base标签"></a>base标签</h2><p>这是一个平时不常用的标签，但是如果使用不当，会产生很严重的后果。它会<strong>影响到所有页面上的href和src属性相对路劲的定位</strong>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">"../"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base</span> <span class="attr">target</span>=<span class="string">"_blank"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ./1.css 会被理解为 ../1.css --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./1.css"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 2.mp4 会被理解为 ../2.mp4 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">"2.mp4"</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ../3.mp3 会被理解为 ../../3.mp3 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"../3.mp3"</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 像下面这2种绝对路径就不会受影响 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/aaa"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"D:///desk/test/node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，如果发生链接跳转也会在新页面中打开，因为<code>base</code>标签设置了<code>target</code>的方式。因为它的危险型，一般最好不要使用这种方式去修改默认路径。</p>
+<h2 id="meta标签"><a href="#meta标签" class="headerlink" title="meta标签"></a>meta标签</h2><p><code>meta</code>标签相对复杂很多，用处也很多，比如针对搜索引擎和更新频度的描述和关键词。也是最常用的元信息标签。<code>head</code>标签中可以出现多个<code>meta</code>标签。下面按照属性不同来分别介绍不同用处的<code>meta</code>标签。</p>
+<h3 id="具有charset属性的meta"><a href="#具有charset属性的meta" class="headerlink" title="具有charset属性的meta"></a>具有charset属性的meta</h3><p><code>HTML 5</code>开始，为了简化写法，<code>meta</code>标签增加来<code>charset</code>属性，用于描述<strong>HTML</strong>文档自身的编码形式。<br>比如我们一般会这样使用它：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>通常建议把这个标签用法放在<code>head</code>中的第一个，这样，当浏览器读取这个标签之前，处理所有的字符都是<code>ASCUII</code>字符，而这种字符是<code>UTF-8</code>和绝大多数字符编码的子集，所以可以最大限度的防止乱码的出现。</p>
+<p>一般情况下，<code>HTTP</code>服务端会在<code>Response Headers</code>中指定正确的编码方式，所以我们的设置可能没有效果。但是有些特殊的情况，比如直接本地通过<code>file</code>协议打开<code>HTML</code>文件或者<br><code>Response Headers</code>中没有指定，那么具有<code>charset</code>属性的<code>meta</code>就非常重要了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Response Headers:</span><br><span class="line">  content-type: text/html; charset=utf-8</span><br></pre></td></tr></table></figure>
+
+<h3 id="具有http-equiv属性的meta"><a href="#具有http-equiv属性的meta" class="headerlink" title="具有http-equiv属性的meta"></a>具有http-equiv属性的meta</h3><p><code>http-equiv</code>属性就相当于在<code>HTML</code>中写<code>Response Headers</code>。<code>http-equiv</code>的值为<code>key</code>，<code>content</code>属性的值为<code>value</code>。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"content-type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这相当于添加了<code>content-type</code>这个<code>http</code>头，并且指定了<code>http</code>编码方式。和具有<code>charset</code>属性的<code>meta</code>意义是相同的，如果他俩同时存在，谁先出现，浏览器采用谁。<br>除了<code>content-type</code>，还有一些用法：</p>
+<ul>
+<li><p><code>content-language</code>指定内容的语言；对页面没有影响，是用来告诉浏览器，这是一个默认的语系是xxx的网页。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Language"</span> <span class="attr">content</span>=<span class="string">"zh-cn"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>default-style</code>指定默认样式表；<br>如果<code>link</code>标签带有<code>title</code>属性，则会默认选择带有<code>title</code>的<code>link</code>的第一个生效，如果有这个<code>meta</code>为<code>default-style</code>，则按照对应的<code>content</code>来默认选择：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"default-style"</span> <span class="attr">content</span>=<span class="string">"style2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"1.css"</span> <span class="attr">title</span>=<span class="string">"style1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"2.css"</span> <span class="attr">title</span>=<span class="string">"style2"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>refresh 刷新；通过<code>content</code>的设定，可以设定一定时间后刷新页面或跳转。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--5s后跳转到博客首页--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"5; http://www.yuguomin.com"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--每5s刷新一次页面--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"refresh"</span> <span class="attr">content</span>=<span class="string">"5;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>set-cookie</code>模拟<code>http</code>头<code>set-cookie</code>，设置<code>cookie</code>；chrome已经废弃这个设置cookie的方法，但firefox仍然支持，每个标签只能设置一个<code>key=value</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"set-cookie"</span> <span class="attr">content</span>=<span class="string">"age=23"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"set-cookie"</span> <span class="attr">content</span>=<span class="string">"name=ygm"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>x-ua-compatible</code>模拟<code>http</code>头<code>x-ua-compatible</code>，声明<code>ua</code>兼容性；是专门给IE使用的，通知IE用什么版本来渲染：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>content-security-policy</code>模拟<code>http</code>头<code>content-security-policy</code>，声明内容安全策略。</p>
+</li>
+</ul>
+<h3 id="带有content、name属性的meta"><a href="#带有content、name属性的meta" class="headerlink" title="带有content、name属性的meta"></a>带有content、name属性的meta</h3><p>一般的<code>meta</code>标签由<code>name</code>和<code>content</code>两个属性来定义。<code>name</code>表示元信息的名，<code>content</code>则用于表示元信息的值。</p>
+<ul>
+<li>name为<code>viewport</code>是移动端开发特别重要的一个标准，它的<code>content</code>是一个复杂结构，是用逗号分隔的键值对，键值对的格式是<code>key=value</code>。例如：<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=500, initial-scale=1"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><code>viewport</code>能控制的属性很多，例子中只有宽度和缩放，下面介绍一下它的属性：<br>1.<code>width</code>，页面宽度，可以取值具体的数字，也可以是”device-width”，表示跟设备宽度相等。<br>2.<code>height</code>，页面高度，可以取值具体的数字，也可以是”device-height”，表示跟设备高度相等。<br>3.<code>initial-scale</code>，初始缩放比例。<br>4.<code>minimum-scale</code>，最小缩放比例。<br>5.<code>maximum-scale</code>，最大缩放比例。<br>6.<code>user-scalable</code>，是否允许用户缩放。</p>
+<p>对于已经适配好移动端的网页，就可以把用户缩放功能禁止掉，宽度设为设备宽度，一个标准的 meta 如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>name为<code>referrer</code>，跳转策略，是一种安全考量。在一些页面的<code>url</code>中，可能带有用户的敏感信息比如特殊标识等等，为了防止用户点击其他页面链接暴露这些信息，可以通过这个<code>meta</code>来不同程度的控制页面发送给<code>server</code>的<code>referer</code>信息。</li>
+</ul>
+<p>1.<code>origin</code>，只带协议和域名。<br>2.<code>never</code>，直接不带<code>referer</code>。<br>3.<code>always</code>，总是带完整的<code>referer</code>，包括了query，如果涉及隐私则很危险。<br>4.<code>default</code>，https向http请求时，<code>referrer</code>置为空。</p>
+<ul>
+<li>name为<code>author</code>，页面作者，用于优化SEO。</li>
+<li>name为<code>description</code>，页面描述，用于优化SEO。</li>
+<li>name为<code>keywords</code>，页面关键字，用于优化SEO。</li>
+<li>name为<code>generator</code>，生成页面所使用的工具，主要用于可视化编辑器（例如ps直接根据设计稿生成的HTML），如果是手写 HTML 的网页，不需要加这个 meta。</li>
+<li>name为<code>theme-color</code> 页面风格颜色，实际并不会影响页面，但是浏览器可能据此调整页面之外的 UI（如窗口边框或者 tab 的颜色）。</li>
+</ul>
+<p><code>meta</code>标签可以被自由定义，只要写入和读取的双方约定好<code>name</code>和<code>content</code>的格式就可以了。在工作中，还有很多与浏览器或者应用商协定好的用法这里就不多介绍了。</p>
+<p>参考相关文章链接：<br><a href="https://www.w3school.com.cn/" target="_blank" rel="noopener">w3school</a><br><a href="https://time.geekbang.org/column/article/82711" target="_blank" rel="noopener">重学前端-winter</a></p>
+
+      
+    </div>
+    <div>
+      
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  <div>
+        <p id="div-border-left-red">
+      <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <span>
+        <b>本文地址: </b><a href="/2019/12/12/HTML-restore-2/" title="HTML重塑(2)——语义和元信息标签">https://www.yuguomin.com/2019/12/12/HTML-restore-2/</a><br><b>转载请注明出处, 谢谢！</b>
+        </span>
+        </p>
+  </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag"><i class="fa fa-tag"> HTML</i></a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/11/HTML-restore-1/" rel="next" title="HTML重塑(1)——历史与大纲">
+                <i class="fa fa-chevron-left"></i> HTML重塑(1)——历史与大纲
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-hoofoo-share-title">分享到: </div>
+<div class="-hoofoo-share-buttons">
+    <div class="-mob-share-weibo -hoofoo-share-weibo -hoofoo-share-ui-button"><i class="fa fa-weibo" aria-hidden="true"></i></div>
+    <div class="-mob-share-weixin -hoofoo-share-weixin -hoofoo-share-ui-button"><i class="fa fa-weixin" aria-hidden="true"></i></div>
+    <div class="-mob-share-qq -hoofoo-share-qq -hoofoo-share-ui-button"><i class="fa fa-qq" aria-hidden="true"></i></div>
+    <div class="-mob-share-twitter -hoofoo-share-twitter -hoofoo-share-ui-button"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+    <div class="-hoofoo-share-more -hoofoo-share-ui-button -mob-share-open"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk4MC8yMjQ5MQ=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <p class="site-author-name" itemprop="name">YGM</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+<div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("08/03/2019 12:34:56");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语义标签"><span class="nav-number">2.</span> <span class="nav-text">语义标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#语义标签的优点"><span class="nav-number">2.1.</span> <span class="nav-text">语义标签的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义标签分类"><span class="nav-number">2.2.</span> <span class="nav-text">语义标签分类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#元信息标签"><span class="nav-number">3.</span> <span class="nav-text">元信息标签</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#head标签"><span class="nav-number">3.1.</span> <span class="nav-text">head标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#title标签"><span class="nav-number">3.2.</span> <span class="nav-text">title标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#base标签"><span class="nav-number">3.3.</span> <span class="nav-text">base标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#meta标签"><span class="nav-number">3.4.</span> <span class="nav-text">meta标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#具有charset属性的meta"><span class="nav-number">3.4.1.</span> <span class="nav-text">具有charset属性的meta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具有http-equiv属性的meta"><span class="nav-number">3.4.2.</span> <span class="nav-text">具有http-equiv属性的meta</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带有content、name属性的meta"><span class="nav-number">3.4.3.</span> <span class="nav-text">带有content、name属性的meta</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YGM</span>
+</div>
+
+
+<div class="powered-by">
+   个人专属
+</div>
+
+<div class="theme-info">
+  博客 - Super fish
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+<script type="text/javascript">
+    //微信二维码点击背景关闭
+    $('body').delegate('.-mob-share-weixin-qrcode-bg','click', function(){
+         $(".-mob-share-weixin-qrcode-close").trigger("click");
+    }); 
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+
+<script type="text/javascript">
+  if (window.screen.width > 750) {
+    var canvasScript = document.createElement("script");
+    canvasScript.setAttribute("type", "text/javascript");
+    canvasScript.setAttribute("src", "/lib/canvas-nest/canvas-nest.min.js");
+    canvasScript.setAttribute("color", '255,0,204');
+    canvasScript.setAttribute("opacity", '0.5');
+    canvasScript.setAttribute("zIndex", '-2');
+    canvasScript.setAttribute("count", '40');
+    document.body.appendChild(canvasScript);
+  }
+</script>
+
+</html>
