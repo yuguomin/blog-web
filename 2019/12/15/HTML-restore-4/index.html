@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="JavaScript,">
+  <meta name="keywords" content="HTML,">
 
 
 
@@ -61,18 +61,23 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="前言 本篇内容主要是HTML的语法学习和语言标准补充学习。">
+<meta name="keywords" content="HTML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
-<meta property="og:url" content="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/index.html">
+<meta property="og:title" content="HTML重塑(4)——语法及扩展">
+<meta property="og:url" content="https://www.yuguomin.com/2019/12/15/HTML-restore-4/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
+<meta property="og:description" content="前言 本篇内容主要是HTML的语法学习和语言标准补充学习。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-16T16:11:53.934Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-tree-base.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-widget-com.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-widget-extend.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-structure-base.png">
+<meta property="og:updated_time" content="2019-12-15T15:01:40.963Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
-<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
+<meta name="twitter:title" content="HTML重塑(4)——语法及扩展">
+<meta name="twitter:description" content="前言 本篇内容主要是HTML的语法学习和语言标准补充学习。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-tree-base.png">
 
 
 
@@ -100,7 +105,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/12/15/HTML-restore-4/">
 
 
 
@@ -132,7 +137,7 @@
         }
     })();
 </script>
-  <title> JavaScript重塑(3)——JS的对象模型与基于对象 | SuperFish's Blog </title>
+  <title> HTML重塑(4)——语法及扩展 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -262,7 +267,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/12/15/HTML-restore-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -283,7 +288,7 @@
             
             
               
-                JavaScript重塑(3)——JS的对象模型与基于对象
+                HTML重塑(4)——语法及扩展
               
             
           </h1>
@@ -298,8 +303,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-16T10:01:57+08:00">
-                2019-11-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-15T14:21:52+08:00">
+                2019-12-15
               </time>
             
 
@@ -321,8 +326,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript-Restore/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript Restore</span>
+                  <a href="/categories/HTML-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML Restore</span>
                   </a>
                 </span>
 
@@ -343,7 +348,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">1.9k(字)</span>
+                  <span class="post-count">1.7k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -352,7 +357,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">7(分)</span>
+            <span class="post-count">6(分)</span>
             
           </span>
 
@@ -379,74 +384,174 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。</li>
+<li>本篇内容主要是HTML的语法学习和语言标准补充学习。</li>
 </ul>
 <a id="more"></a>
-<p>前文讲到了JavaScript的七种语言类型，对于<code>Object</code>类型，是一个相对抽象的名词，需要从它的设计思想，从而衍生到应用。</p>
-<h1 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h1><p><code>object</code>翻译过来的意思是对象。在英文中<code>object</code>的意思是<strong>一切事物的总称</strong>。我们一般在学习的过程中会把他当作一个专业名词来理解，但不论如何，我们应该认识到，对象并不是计算机领域凭空造出来的概念，它是顺着人类思维模式产生的一种抽象。</p>
-<p id="div-border-left-green">
-一台苹果电脑是一个对象，我们可以用来看电影，可以用来打游戏，敲代码，它也有自己的电量，会发热。<br>
-一盆水仙花是一个对象，它能开花，会枯萎，会散发出香味。<br>
-我们对于对象的认知是从幼儿期就开始形成的，可以发现，身边的每一个东西，都是具有各自特性的个体。
-</p>
-
-<p>在《面向对象分析与设计》这本书中，Grady Booch 替我们做了总结，他认为，从人类的认知角度来说，对象应该是下列事物之一：</p>
-<ol>
-<li>可以接触或者可以看见的东西；</li>
-<li>人的智力可以理解的东西；</li>
-<li>可以指导思考或者行动的东西。</li>
-</ol>
-<p>因此有了对对象的自然定义后，到了编程语言中，我们就可以对它进行描述，按照定义，无论在什么样的语言里，对象都应该具有一些本质特征：</p>
-<ol>
-<li>对象具有<strong>唯一标识性</strong>：即使完全两个完全相同的对象，也并非同一个对象；</li>
-<li>对象有<strong>状态</strong>：对象具有状态，同一对象可能处于不同的状态下；</li>
-<li>对象具有<strong>行为</strong>：即对象的状态，可能因为它的行为产生变迁。</li>
-</ol>
-<h1 id="JavaScript中的对象模型"><a href="#JavaScript中的对象模型" class="headerlink" title="JavaScript中的对象模型"></a>JavaScript中的对象模型</h1><p>通过对象的定义，衍生出了编程语言的对象设计本质。那么到了JavaScript中，对象是如何设计的呢？</p>
+<p>前面的内容分类学习了HTML中的标签知识，HTML虽然不是一门编程语言，而是标记语言，但它也有自己的语法特点。在了解了它的一些基础语法之后，在了解一个它的扩展应用<strong>ARIA</strong>。</p>
+<h1 id="HTML语法"><a href="#HTML语法" class="headerlink" title="HTML语法"></a>HTML语法</h1><p>在第一章HTML的历史与架构内容中，讲过了标记语言与编程语言的区别，并且讲到过<strong>HTML</strong>是在<strong>SGML</strong>（标准通用标记语言）的基础上创造的。所以<strong>HTML</strong>继承了一些<strong>SGML</strong>的语法特性。</p>
+<h2 id="标签语法"><a href="#标签语法" class="headerlink" title="标签语法"></a>标签语法</h2><p>标签产生元素，我们的一个页面就是利用一个个标签的嵌套或者并列，以及他们的各种特性，展现出来的。那么如何界定它们之间的关系，或者说如何描述一个标签的位置，就是标签语法的一个主要作用。</p>
+<p>在<strong>HTML</strong>中，描述一个元素的标签分为开始标签、结束标签和自闭合标签。开始标签和自闭合标签中可以设置标签属性：</p>
 <ul>
-<li><p>针对唯一标识性，是通过内存地址来表现的，每一个对象都具有它在内存中的唯一地址，因此他们是不同的，哪怕是属性相同的两个对象；</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="keyword">var</span> o2 = &#123; <span class="attr">value</span>: <span class="number">2</span> &#125;;</span><br><span class="line"><span class="built_in">console</span>.log(o1 == o2); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<li>开始标签：<code>&lt;tagname&gt;</code><ul>
+<li>带属性的开始标签：<code>&lt;tagname attributename=&quot;attributevalue&quot;&gt;</code></li>
+</ul>
 </li>
-<li><p>对于状态和行为，在Java中，通过“属性”和“方法”来区分，C++中称作“成员变量”和“成员函数”，在JavaScript中，统一被当作 <strong>“属性”</strong>；</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">  name: <span class="string">'ygm'</span>,</span><br><span class="line">  showName() &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li>结束标签：<code>&lt;/tagname&gt;</code></li>
+<li>自闭合标签： <code>&lt;tagname /&gt;</code><ul>
+<li>带属性的自闭合标签：<code>&lt;tagname attributename=&quot;attributevalue&quot; /&gt;</code></li>
+</ul>
 </li>
 </ul>
-<p>如代码中的对象<code>o</code>，对于挂载在它上面的<code>name</code>和<code>showName</code>，都是它的属性。</p>
-<h2 id="对象的数据结构"><a href="#对象的数据结构" class="headerlink" title="对象的数据结构"></a>对象的数据结构</h2><p>为了提高抽象能力，JavaScript 的属性被设计成比别的语言更加复杂的形式，它提供了<strong>数据属性和访问器属性</strong>（<code>getter</code>/<code>setter</code>）两类。并且用一组特征来描述属性。我们可以通过<code>Object.getOwnPropertyDescriptor</code>方法来查看特征，也可以通过<code>Object.defineProperty</code>来修改特征。<br>比较常见的是数据属性，它比较接近于其它语言的属性概念。它具有四种特征：</p>
+<p><strong>HTML</strong>中的开始标签名称只能使用英文字母；比较有变化性的是属性，它的属性值可以使用单引号、双引号或者不使用引号，三种情况下对应需要转义的部分不太一样：</p>
 <ul>
-<li>value，即属性的值；</li>
-<li>writable，可写性，能否被赋值；</li>
-<li>enumerable，是否可枚举，决定<code>for...in</code>能否枚举该属性；</li>
-<li>configurable，决定该属性能否被删除或者改变特征值。</li>
+<li>无引号属性：<code>&lt;tab&gt; &lt;LF&gt; &lt;FF&gt; &lt;SPACE&gt; &amp;</code>五种字符。</li>
+<li>单引号属性：<code>&#39; &amp;</code>两种字符。</li>
+<li>双引号属性：<code>&quot; &amp;两种字符。</code></li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123;<span class="attr">value</span>: <span class="number">2</span>, <span class="attr">writable</span>: <span class="literal">false</span>, <span class="attr">enumerable</span>: <span class="literal">false</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'a'</span>));</span><br><span class="line"><span class="comment">// &#123;value: 1, writable: true, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'b'</span>));</span><br><span class="line"><span class="comment">// &#123;value: 2, writable: false, enumerable: false, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> o) &#123; <span class="built_in">console</span>.log(i); &#125; <span class="comment">// a</span></span><br><span class="line">o.b = <span class="number">3</span>;</span><br><span class="line"><span class="built_in">console</span>.log(o.b); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h2 id="文本语法"><a href="#文本语法" class="headerlink" title="文本语法"></a>文本语法</h2><p>在<strong>HTML</strong>中，规定了两种文本语法，一种是普通的文本节点，另一种是<code>CDATA</code>文本节点。</p>
+<p>普通的文本节点中，必须对<code>&lt;</code>和<code>&amp;</code>做转义，因为标签和文本实体中使用了这些特定的标识符，如果一段文本中包含了大量的<code>&lt;</code>和<code>&amp;</code>，那么可以使用<code>CDATA</code>，<code>CDATA</code>也是一种文本，它存在的意义是语法上的意义：在 CDATA 节点内，不需要考虑多数的转义情况。</p>
+<h2 id="注释语法"><a href="#注释语法" class="headerlink" title="注释语法"></a>注释语法</h2><p>HTML 注释语法以<code>&lt;!--</code>开头，以<code>--&gt;</code>结尾，注释的内容非常自由，除了<code>--&gt;</code>都没有问题。如果注释的内容一定要出现<code>--&gt;</code>，我们可以拆成多个注释节点。</p>
+<h2 id="DTD-语法（文档类型定义）"><a href="#DTD-语法（文档类型定义）" class="headerlink" title="DTD 语法（文档类型定义）"></a>DTD 语法（文档类型定义）</h2><p><code>DTD</code>全称<strong>Document Type Defination</strong>，也就是文档定义模型。SGML用<code>DTD</code>来定义每一种文档类型，<strong>HTML</strong>属于SGML，在<strong>HTML5</strong>出现之前，HTML都是使用符合SGML规定的<code>DTD</code>，目的是告诉标准通用标记语言解析器要使用什么样的文档类型定义来解析文档。<br>在<strong>HTML4.01</strong>有三种<code>DTD</code>，分别是严格模式、过渡模式和 frameset 模式。<br>根据HTML中允许一些标签不闭合的用法，。但是，一些程序员喜欢严格遵守 XML 语法，保证标签闭合性，所以，HTML4.01 又规定了 XHTML 语法，同样有三个版本。</p>
+<p>这里不一一罗列出来了，但实际上这些写法都没什么用，因为浏览器根本不会用SGML引擎解析它们。到了<strong>HTML 5</strong>直接规定了一个简单的<code>DTD</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><code>writable</code>、<code>enumerable</code>和<code>configurable</code>在不进行配置的情况下，默认都是true，</p>
-<p>第二种是访问器属性，它允许使用者在读和写属性的时候得到不同的值。可以视为一种函数的语法糖，它也具有四种属性：</p>
+<h2 id="文本实体"><a href="#文本实体" class="headerlink" title="文本实体"></a>文本实体</h2><p>有些字符，比如<code>&lt;</code>和<code>&gt;</code>符号，可能目的只想表达文本的大于和小于号，但是由于浏览器会误认为它们是标签，导致不能直接使用，这个时候就需要使用文本实体。文本实体大概是长这样的东西：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp;lt;</span><br><span class="line">&amp;nbsp;</span><br><span class="line">&amp;gt;</span><br><span class="line">&amp;amp;</span><br></pre></td></tr></table></figure>
+
+<p>每一个文本实体以<code>&amp;</code>开头，由<code>;</code>结束，文本实体可以用<code>#</code>后跟一个十进制数字，表示字符<code>Unicode</code>值。除此之外这两个符号之间的内容，则由<code>DTD</code>决定。常见的文本实体有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">显示结果</th>
+<th align="center">描述</th>
+<th align="center">实体名称</th>
+<th align="center">实体编号</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"></td>
+<td align="center">空格</td>
+<td align="center"><code>&amp;nbsp;</code></td>
+<td align="center"><code>&amp;#160;</code></td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">小于号</td>
+<td align="center"><code>&amp;lt;</code></td>
+<td align="center"><code>&amp;#60;</code></td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="center">大于号</td>
+<td align="center"><code>&amp;gt;</code></td>
+<td align="center"><code>&amp;#62;</code></td>
+</tr>
+<tr>
+<td align="center">&amp;</td>
+<td align="center">和号</td>
+<td align="center"><code>&amp;amp;</code></td>
+<td align="center"><code>&amp;#38;</code></td>
+</tr>
+<tr>
+<td align="center">“</td>
+<td align="center">引号</td>
+<td align="center"><code>&amp;quot;</code></td>
+<td align="center"><code>&amp;#34;</code></td>
+</tr>
+<tr>
+<td align="center">‘</td>
+<td align="center">撇号</td>
+<td align="center"><code>&amp;apos;</code></td>
+<td align="center"><code>IE不支持)    &amp;#39;</code></td>
+</tr>
+<tr>
+<td align="center">￠</td>
+<td align="center">分（cent）</td>
+<td align="center"><code>&amp;cent;</code></td>
+<td align="center"><code>&amp;#162;</code></td>
+</tr>
+<tr>
+<td align="center">£</td>
+<td align="center">镑（pound）</td>
+<td align="center"><code>&amp;pound;</code></td>
+<td align="center"><code>&amp;#163;</code></td>
+</tr>
+<tr>
+<td align="center">¥</td>
+<td align="center">元（yen）</td>
+<td align="center"><code>&amp;yen;</code></td>
+<td align="center"><code>&amp;#165;</code></td>
+</tr>
+<tr>
+<td align="center">€</td>
+<td align="center">欧元（euro）</td>
+<td align="center"><code>&amp;euro;</code></td>
+<td align="center"><code>&amp;#8364;</code></td>
+</tr>
+<tr>
+<td align="center">§</td>
+<td align="center">小节</td>
+<td align="center"><code>&amp;sect;</code></td>
+<td align="center"><code>&amp;#167;</code></td>
+</tr>
+<tr>
+<td align="center">©</td>
+<td align="center">版权（copyright）</td>
+<td align="center"><code>&amp;copy;</code></td>
+<td align="center"><code>&amp;#169;</code></td>
+</tr>
+<tr>
+<td align="center">®</td>
+<td align="center">注册商标</td>
+<td align="center"><code>&amp;reg;</code></td>
+<td align="center"><code>&amp;#174;</code></td>
+</tr>
+<tr>
+<td align="center">™</td>
+<td align="center">商标</td>
+<td align="center"><code>&amp;trade;</code></td>
+<td align="center"><code>&amp;#8482;</code></td>
+</tr>
+<tr>
+<td align="center">×</td>
+<td align="center">乘号</td>
+<td align="center"><code>&amp;times;</code></td>
+<td align="center"><code>&amp;#215;</code></td>
+</tr>
+<tr>
+<td align="center">÷</td>
+<td align="center">除号</td>
+<td align="center"><code>&amp;divide;</code></td>
+<td align="center"><code>&amp;#247;</code></td>
+</tr>
+</tbody></table>
+<h1 id="语言扩展ARIA"><a href="#语言扩展ARIA" class="headerlink" title="语言扩展ARIA"></a>语言扩展ARIA</h1><p><code>ARIA</code>全称为<strong>Accessible Rich Internet Applications</strong>，它是可以让屏幕阅读器准确识别网页中的内容，变化，状态的技术规范。主要针对的是视觉缺陷，失聪，行动不便的人，让这类用户也能无障碍阅读。</p>
+<p>它的核心是给HTML元素添加一个属性<code>role</code>，不同类型的<code>role</code>表示着不同元素的作用。比如说`role=”checkbox”是在告诉这个元素是一个多选框的角色：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">tabindex</span>=<span class="string">"0"</span> <span class="attr">class</span>=<span class="string">"checkbox"</span> <span class="attr">role</span>=<span class="string">"checkbox"</span> <span class="attr">checked</span> <span class="attr">aria-checked</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">  pick one</span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里就使用了列表项加入了<code>role</code>属性，并且加入了状态属性<code>aria-checked</code>，将该元素显式标识为一个复选框，并指定它在默认情况下处于选中状态。该列表项现在将添加到无障碍树中，屏幕阅读器将把它正确地报告为一个复选框。然后我们为这个元素绑定<code>click</code>事件，并且以<code>checkbox</code>的交互方式来处理用户操作。</p>
+<p>接下来，详细看一下<code>role</code>属性，role 的定义是一个树形的继承关系，它的整体结构(后续结构图来自<a href="https://time.geekbang.org/column/article/93777" target="_blank" rel="noopener">重学前端</a>)：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-tree-base.png" style="border:none;width:70%;"></p>
+<h2 id="Widget角色"><a href="#Widget角色" class="headerlink" title="Widget角色"></a>Widget角色</h2><p>Widget角色指的是可交互的组件，前面示例中的<code>checkbox</code>就是其中一种，<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-widget-com.png" style="border:none;width:70%;"></p>
+<p>按照继承关系给出一份列表和简要说明：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-widget-extend.png" style="border:none;width:70%;"></p>
+<p>不同的<code>role</code>同时搭配着对应的<code>ARIA</code>属性使用，比如<code>checkbox</code>，它会搭配</p>
 <ul>
-<li>getter，可以是函数或者undefined，在获取属性的时候被调用；</li>
-<li>setter，可以是函数或者undefined，在设置属性的时候被调用；</li>
-<li>enumable，是否可枚举，决定<code>for...in</code>能否枚举该属性；</li>
-<li>configurable，决定该属性能否被删除或者改变特征值。</li>
+<li>aria-checked 表示复选框是否已经被选中</li>
+<li>aria-labelledby 表示复选框对应的文字。</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="keyword">get</span> a() &#123; <span class="keyword">return</span> <span class="number">1</span> &#125; &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(o.a); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'a'</span>));</span><br><span class="line"><span class="comment">// &#123;get: ƒ, set: undefined, enumerable: true, configurable: true&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123; <span class="keyword">get</span>()&#123; <span class="keyword">return</span> <span class="number">2</span> &#125;, <span class="attr">enumerable</span>: <span class="literal">false</span>, <span class="attr">configurable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyDescriptor(o, <span class="string">'b'</span>));</span><br><span class="line"><span class="comment">// &#123;get: ƒ, set: undefined, enumerable: true, configurable: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(o.b); <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
-
-<p>所以，JavaScript是“属性的集合”，属性以字符串或者<code>Symbol</code>为<code>key</code>，以数据属性特征值或者访问器属性特征值为<code>value</code>。这种<code>key: value</code>形式，我们可以把对象当作一个字典，通过对应的key，查找到对应的特征值。</p>
-<h2 id="JS对象的特性"><a href="#JS对象的特性" class="headerlink" title="JS对象的特性"></a>JS对象的特性</h2><p>JavaScript的对象拥有一个很重要的特性，就是可以动态的添加或者删除对象的属性。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123; <span class="attr">value</span>: <span class="number">2</span>, <span class="attr">configurable</span>: <span class="literal">false</span>&#125;);</span><br><span class="line"><span class="keyword">delete</span> o.a;</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123; b: 2 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> o.b;</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123; b: 2 &#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>这种动态添加和删除的能力相当灵活，但是也是增加了代码的复杂度。</p>
-<h1 id="JavaScript的“基于对象“"><a href="#JavaScript的“基于对象“" class="headerlink" title="JavaScript的“基于对象“"></a>JavaScript的“基于对象“</h1><p>在前面，对对象的特性进行了介绍，它有唯一的标识，有状态，有行为。在很多时候，我们会对对象进行描述，把一些对象的相同特性描述归纳到一起，就诞生了类。</p>
+<p>在<a href="https://www.w3.org/TR/wai-aria/" target="_blank" rel="noopener"><strong>WAI-ARIA</strong>标准</a>中，可以找到所有的角色和对应的属性。</p>
+<h2 id="structure角色"><a href="#structure角色" class="headerlink" title="structure角色"></a>structure角色</h2><p>structure角色表示文档中的结构，自然与语义化标签有重合，建议优先使用 HTML5 标签。<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-structure-base.png" style="border:none;width:70%;"></p>
+<h2 id="window角色"><a href="#window角色" class="headerlink" title="window角色"></a>window角色</h2><p>window角色则代表窗体。在有的网页中，有些元素表示“新窗口”，特就是弹出的窗体。这时候，会用到 window 角色。window 系角色非常少，只有三个角色：</p>
 <ul>
-<li>一台苹果电脑，一台联想电脑和很多台电脑，它们因为都具有上网，打游戏的功能，把上网，打游戏归纳到一起，变成了电脑这个<strong>类</strong>；根据电脑特性，我们又创造了其他品牌的电脑。</li>
-<li>一盆水仙花，一盆牡丹花，因为它们都具有开花和散发香气的能力，把开花和散发出香气的能力归纳到一起，变成了花这个<strong>类</strong>。根据花的特性，我们又创造了其他的花。</li>
+<li>window<ul>
+<li>dialog<ul>
+<li>alertdialog</li>
 </ul>
-<p>到了编程语言中，抽象的描述对象，抽离特征归纳出对应的类；以类为基础从而创建出对象的过程就是<strong>面向对象</strong>。常见的语言如Java、C++。</p>
-<p>而到了JavaScript，JavaScript不存在类的概念，而是一个叫做<strong>原型</strong>的东西。原型的概念，就好比，猴是人类的原型，狼是狗的原型一样，任何对象都可以是原型，给予它们的实例自己的特性。这种方式，称作<strong>基于对象</strong>。</p>
-<p>JavaScript的这种高度动态性的对象设计方式，使得我们可以模仿多数面向对象编程范式，所以，也被称作<strong>基于原型继承的面向对象编程语言</strong>。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在本篇通过从抛开对象专有名词思维，定义对象的特征，理解JavaScript对象模型的设计方式；<br>从其数据结构，高度动态，原型继承的特点理解其基于对象的本质。<br>JavaScript虽然被设计成了基于对象的这种模式，但正是这种高度动态的特点使得它能够实现很多其他的特性。<br>下一篇详细讲述对象的原型以及如何基于原型继承实现面向对象编程。</p>
-<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>关于HTML的语法和扩展知识这一块还有很多的知识，这里因为使用较少，目前只做大体上的了解。</p>
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/article/93777" target="_blank" rel="noopener">重学前端-winter</a><br><a href="https://developers.google.com/web/fundamentals/accessibility/semantics-aria?hl=zh-CN" target="_blank" rel="noopener">ARIA 简介</a><br><a href="https://www.w3.org/TR/html4/sgml/dtd.html" target="_blank" rel="noopener">Document Type Definition</a><br><a href="https://www.w3.org/TR/html-aria/#sec-strong-native-semantics" target="_blank" rel="noopener">ARIA in HTML</a></p>
 
       
     </div>
@@ -468,7 +573,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/11/16/JavaScript-restore-3/" title="JavaScript重塑(3)——JS的对象模型与基于对象">https://www.yuguomin.com/2019/11/16/JavaScript-restore-3/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/12/15/HTML-restore-4/" title="HTML重塑(4)——语法及扩展">https://www.yuguomin.com/2019/12/15/HTML-restore-4/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -476,7 +581,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"> JavaScript</i></a>
+            <a href="/tags/HTML/" rel="tag"><i class="fa fa-tag"> HTML</i></a>
           
         </div>
       
@@ -489,8 +594,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/08/JavaScript-restore-2/" rel="next" title="JavaScript重塑(2)——JavaScript类型">
-                <i class="fa fa-chevron-left"></i> JavaScript重塑(2)——JavaScript类型
+              <a href="/2019/12/13/HTML-restore-3/" rel="next" title="HTML重塑(3)——链接和替换标签">
+                <i class="fa fa-chevron-left"></i> HTML重塑(3)——链接和替换标签
               </a>
             
           </div>
@@ -498,10 +603,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/11/18/JavaScript-restore-4/" rel="prev" title="JavaScript重塑(4)——JS的原型与模拟类">
-                JavaScript重塑(4)——JS的原型与模拟类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -687,7 +788,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是对象"><span class="nav-number">2.</span> <span class="nav-text">什么是对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的对象模型"><span class="nav-number">3.</span> <span class="nav-text">JavaScript中的对象模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的数据结构"><span class="nav-number">3.1.</span> <span class="nav-text">对象的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS对象的特性"><span class="nav-number">3.2.</span> <span class="nav-text">JS对象的特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的“基于对象“"><span class="nav-number">4.</span> <span class="nav-text">JavaScript的“基于对象“</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML语法"><span class="nav-number">2.</span> <span class="nav-text">HTML语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标签语法"><span class="nav-number">2.1.</span> <span class="nav-text">标签语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本语法"><span class="nav-number">2.2.</span> <span class="nav-text">文本语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释语法"><span class="nav-number">2.3.</span> <span class="nav-text">注释语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DTD-语法（文档类型定义）"><span class="nav-number">2.4.</span> <span class="nav-text">DTD 语法（文档类型定义）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文本实体"><span class="nav-number">2.5.</span> <span class="nav-text">文本实体</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语言扩展ARIA"><span class="nav-number">3.</span> <span class="nav-text">语言扩展ARIA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Widget角色"><span class="nav-number">3.1.</span> <span class="nav-text">Widget角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#structure角色"><span class="nav-number">3.2.</span> <span class="nav-text">structure角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#window角色"><span class="nav-number">3.3.</span> <span class="nav-text">window角色</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
