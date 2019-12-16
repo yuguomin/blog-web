@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Compile,Computer,">
+  <meta name="keywords" content="CSS,">
 
 
 
@@ -61,24 +61,20 @@
 
 
 
-<meta name="description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
-<meta name="keywords" content="Compile,Computer">
+<meta name="description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
+<meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编译技术学习：第一章 知识概述">
-<meta property="og:url" content="https://www.yuguomin.com/2019/09/08/compile-learning/index.html">
+<meta property="og:title" content="CSS重塑(1)——历史与大纲">
+<meta property="og:url" content="https://www.yuguomin.com/2019/12/16/CSS-restore-1/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
+<meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/token-parse-demo.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/statement-parse-cn.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png">
-<meta property="og:updated_time" content="2019-10-21T09:04:58.576Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png">
+<meta property="og:updated_time" content="2019-12-16T16:32:50.338Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="编译技术学习：第一章 知识概述">
-<meta name="twitter:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png">
+<meta name="twitter:title" content="CSS重塑(1)——历史与大纲">
+<meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png">
 
 
 
@@ -106,7 +102,7 @@
 
 
 
-  <link rel="canonical" href="https://www.yuguomin.com/2019/09/08/compile-learning/">
+  <link rel="canonical" href="https://www.yuguomin.com/2019/12/16/CSS-restore-1/">
 
 
 
@@ -138,7 +134,7 @@
         }
     })();
 </script>
-  <title> 编译技术学习：第一章 知识概述 | SuperFish's Blog </title>
+  <title> CSS重塑(1)——历史与大纲 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -268,7 +264,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/09/08/compile-learning/">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/12/16/CSS-restore-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
@@ -289,7 +285,7 @@
             
             
               
-                编译技术学习：第一章 知识概述
+                CSS重塑(1)——历史与大纲
               
             
           </h1>
@@ -304,8 +300,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-08T23:07:42+08:00">
-                2019-09-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-16T22:33:08+08:00">
+                2019-12-16
               </time>
             
 
@@ -327,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Compile-Study/" itemprop="url" rel="index">
-                    <span itemprop="name">Compile Study</span>
+                  <a href="/categories/CSS-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS Restore</span>
                   </a>
                 </span>
 
@@ -349,7 +345,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.6k(字)</span>
+                  <span class="post-count">1.8k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -358,7 +354,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">9(分)</span>
+            <span class="post-count">6(分)</span>
             
           </span>
 
@@ -385,51 +381,32 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。</li>
+<li>本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。</li>
 </ul>
 <a id="more"></a>
-<h1 id="编译器概述"><a href="#编译器概述" class="headerlink" title="编译器概述"></a>编译器概述</h1><p>编译器是一个黑盒子，不需要关心它的内部实现和原理，核心功能是 <strong>它能把一种源语言转换成语义上等价的另外一种目标语言。</strong>从现代的高级编译器角度讲，源语言就是高级计算机语言，容易阅读，方便实现。而目标语言就是计算机可以直接识别的二进制机器语言代码。</p>
-<h1 id="为什么要学习编译器"><a href="#为什么要学习编译器" class="headerlink" title="为什么要学习编译器"></a>为什么要学习编译器</h1><p>在前端开发领域，编译器的作用可以说和工作息息相关，只是前面也说了，它是一个黑盒子，在大部分场景下，我们并不需要去关注它的实现。比如，Babel是如何转译不同版本的JS代码？TypeScript如何把这门语言翻译为js语言？Sass、Less如何转换为CSS？ESLint如何代码检查？React的jsx、Vue的模板解析等等，这些功能的实现都离不开编译，甚至从代码上，作用域的存在能完全解释清楚吗？这些都是需要去学习编译器后能够更清楚的认识到的点。学习了编译技术，自己实现工程化，实现自己的DSL，花里胡哨的造轮子。</p>
-<h1 id="编译器的具体过程"><a href="#编译器的具体过程" class="headerlink" title="编译器的具体过程"></a>编译器的具体过程</h1><p>编译器的工作过程可以分为<strong>前端</strong>技术和<strong>后端</strong>技术。</p>
+<p>CSS是页面的美容师，随着前端的发展，页面的内容已经不仅仅停留在一些简单的文档信息和表单了，现在已经可以使用各种动画以及各种监听自适应效果了，CSS在平时的使用中也是知道如何使用并且会处理异常，解决兼容，接下来，把这些东西系统的进行归类学习。</p>
+<h1 id="什么是CSS"><a href="#什么是CSS" class="headerlink" title="什么是CSS"></a>什么是CSS</h1><p>CSS，全称<strong>Cascading Style Sheets</strong>，层叠样式表，那么解释什么是CSS，就是说明什么是层叠，什么是样式表。</p>
 <ol>
-<li>前端技术可以说是<strong>编译器分析和理解源代码的过程</strong>，它通常只跟语言的语法有关，跟目标机器无关。前端技术可以分为词法解析、语法解析、语义解析。</li>
-<li>后端技术是<strong>生成目标代码的过程</strong>，跟目标机器有关。</li>
-<li>这里的目标机器相关主要是因为每个机器的硬件架构和软件底层架构都是不一样的，前端技术只是一个理解分析过程，得出的结果是一个共通性的，而后端技术是需要与机器对接的。</li>
+<li><p>什么是层叠？<br>层叠的最终结果有点像是不同颜色的水彩笔在同一个区域按顺序画画一样。到了页面中，一个页面有多个样式来源。有元素的内联样式，以及<code>style</code>标签的内部样式、写在CSS文件中的样式、浏览器用户自定义样式，浏览器默认样式，这些样式可以定义了同一个元素，最终会按照统一样式取优先级的方式来渲染。这种对多个样式来源进行叠加，最终确定结果的过程就是层叠。</p>
+</li>
+<li><p>什么是样式表？<br>样式表是一种将网页的内容和表示分离的网页设计形式，我们在HTML中也可以通过内联样式和<code>style</code>标签来定义元素的样式，但是这样一来代码臃肿，不利于维护。利用样式表去处理样式，HTML处理语义和结构，实现关注点分离。这也是CSS的主要目的之一。</p>
+</li>
 </ol>
-<p>编译器的工作过程如图：<br><img src="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png" style="margin:0;border:none;"></p>
-<h1 id="编译器前端技术概述"><a href="#编译器前端技术概述" class="headerlink" title="编译器前端技术概述"></a>编译器前端技术概述</h1><p>前端技术就好比大脑一样，我们使用自然语言交流的时候，自然语言也有属于它的语言规则，大脑通过这些规则进行语言分析。比如说，“这只鸟唱了首很好听的歌”，这里面我们接收到这句话后，对语言进行分析，得知，是哪一只鸟，刚才唱过歌，歌很好听。但是这个过程，是一个潜移默化的抽象过程。计算机语言，也都有自己的语法要求，如何声明赋值一个变量等等，我们需要告诉它代码，它就会按照这个规则进行解析，得知每一个代码的作用。</p>
-<p>思考一下，<code>const abc = 396;</code> 这是js的常量声明赋值。编译器是如何针对这一段进行解析的？</p>
-<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p>编译器的第一项工作是词法分析，就好比一段英语，what is your name? 这句英语里每个单词都有它的含义，在编译技术里，我们称这每个单词为词法单元，英文为token。token是一个不可再被分割的最小单元，比如 <code>const abc = 396;</code> const 就是一个声明常量的标识符，是一个整体，没办法再被分割成con和st，那么编译器是如何将一段段代码进行词法分析得到每一个token的呢？看一段代码</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> index = <span class="number">0</span>; index &lt;= <span class="number">99</span>; index++) &#123;</span><br><span class="line">  <span class="keyword">if</span> ( index === <span class="number">99</span> ) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`max index: <span class="subst">$&#123;index&#125;</span>`</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'index: '</span>, index);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在这一段代码里，我们需要识别出 <code>for let if else index</code>这种标识符，<code>= &lt;= ++ ===</code>这些操作符，还有花括号、圆括号、分号这样的符号，以及数字字面量、字符串字面量等这些token。</p>
-<p>我们在英文中是通过空格和标点来拆分单词，但在计算机中，比如 <code>index &lt;= 99</code>需要被解析成 index、&lt;=、99三个token，这一段可以写成 <code>index&lt;=99</code>，语义是相同的，所以空格和标点的规则对于解析代码是不够的。</p>
-<p>所以编译器在识别这些token的时候，会逐个扫描输入字符，按照一些特定的匹配规则来匹配，比如说：</p>
-<ul>
-<li>识别<code>index</code>标识符：可以由字母、下划线和$符号开头，后面可以时字母或者数字及下划线、<code>$</code>符号，直到遇到不是这四者之一的时候，说明这个token结束。</li>
-<li>识别<code>&lt;=</code>操作符：扫描到 <code>&lt;</code> 字符，这里可能是LT(less than，小于)操作符，也可能会和下一个字符组合为LE(less than or equal，小于等于)操作符，所以当扫描到<code>&lt;</code>时，需要对下一位再进行区别，如果是<code>=</code>那么这个token时LE，否则是LT。</li>
-<li>识别<code>===</code>，在js中，一个<code>=</code>代表的 Assignment(赋值)操作符，两个代表NSC(Nonstrict comparison)非严格相等比较，即比较两者存在隐式类型转换，三个<code>=</code>代表的是SC(Strict comparison)严格匹配。那么在处理<code>===</code>的时候，会有一个判断，如果第一个是<code>=</code>，后面不是则为 Assignment，第一个和第二个都是 <code>=</code> 则为NSC，连续三个字符都是<code>=</code> 则为 SC。</li>
-<li>识别<code>99</code>数字字面量：扫描到以数字开头，就把这个token开始记录，直到遇到不是数字字符，结束这个token。</li>
-</ul>
-<p>上面的这些匹配规则实际上可以用正则表达式来进行描述，通过这些正则表达式规则，完成一个叫做 <strong>“有限自动机”</strong> 的算法，实现词法分析。</p>
-<p><strong>有限自动机</strong>是有限数量状态的自动机器，在这里是通过读取一个个字符，根据规则切换到不同的状态，而这些状态的个数是固定的。<br>例如，在处理 <code>abc = 396</code>时，处理到字符<code>a</code>，进入”标识符“状态，处理到<code>=</code>进入”赋值操作“状态，处理到数字 3，进入”数字字面量“状态。<br><img src="https://cdn.yuguomin.com/images/compile-learning/token-parse-demo.png" style="margin:0;border:none;"></p>
-<p>词法分析通过一个个状态的转换，每次转换就将识别的token推入到token序列中，完成整个代码字串的分词。</p>
-<h2 id="语法解析"><a href="#语法解析" class="headerlink" title="语法解析"></a>语法解析</h2><p>执行完词法分析后进入到了语法分析，词法分析扫描代码字串，将得到的token序列传递给语法分析，语法分析扫描token序列，识别出程序的语法结构。这个语法结构是计算机便于执行和理解的树状结构。</p>
-<p>每个语言都有自己的一个语法结构，例如自然语言，“这只鸟唱了首很好听的歌”，这段语句，可以拆分为主语“这只鸟”，谓语“唱了首”，宾语“很好听的歌”，宾语部分的这句话还可以被拆分为定语”很好听的”用来修饰“歌”，按照这样的拆分方式可以按规则绘制成一个树状结构。<br><img src="https://cdn.yuguomin.com/images/compile-learning/statement-parse-cn.png" style="margin:0;border:none;"></p>
-<p>程序同样有自己的语法结构，经过语法分析后，也是创造这样一个树状结构，这个树状结构叫做<strong>AST</strong>(Abstract Syntax Tree) 抽象语法树，例如代码 <code>99 + 88 * 77</code>可以生成出这样一个AST<br><img src="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png" style="border:0;" width="80%"><br>计算机在拿到这样一段AST后，从根节点进行遍历，通过一些处理，就可以拿到表达式的值。如果再将<code>if for =</code>等语法添加进AST，并解释执行实际上就实现了一个脚本语言。</p>
-<p>语法分析的目的已经清楚，那么如何实现这个构建过程，以代码 <code>const abc = 99</code>为例子，假设我们已经经过了词法分析。这个时候可以开始语法分析，首先构造整个的根节点program，然后从token序列中按照顺序分析，遇到的第一个token是const，是常量声明标识符，这个时候构建一个常量声明节点，下一个token是abc，则为变量声明节点创建一个子节点 常量名标识符abc，再接着一个token是<code>=</code>赋值操作，说明这个常量有初始化，建立初始化子节点，再下面一个token是99，得到字面量子节点。<br>完成了这一个常量声明语句，退回到根节点，进行下一段代码的扫描构建其下一个子节点。<br><img src="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png" width="80%" style="border:none;"></p>
-<p>这个生成算法是递归下降算法，这个算法是从顶部的根节点开始打造整个AST，是一种自顶向下的算法，与之对应的是自底向上算法，先从最底部的叶子节点开始，像搭积木一样构造AST。</p>
-<h2 id="语义解析"><a href="#语义解析" class="headerlink" title="语义解析"></a>语义解析</h2><p>处理完词法解析和语法解析后，前端技术还剩下语义解析，目的是检查程序上下文是否和语言所定义的语义一致，比如类型检查，作用域检查。说的白话点，就是告诉计算机我们的真实意图，通过语法解析得到的语法树有时没办法清晰的说明一个变量是否重复定义等等。同时在这一步会进行一些类型收集放入到语法树中。<br>例如：</p>
-<ul>
-<li>JavaScript使用 <code>==</code> 代表非严格比较相等操作，那么设计到两个不同类型的变量对比，到底是如何进行类型转化？</li>
-<li>同一个作用域下，是否重复声明了一个变量？</li>
-<li>“这只鸟唱了首很好听的歌”，鸟是哪一只鸟？变量到底引用的哪一个，需要上下文分析。</li>
-</ul>
-<p>语义分析更像是一个检查阶段，生成的语法树便于后续中间代码生成。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过这一篇记录编译器的的结构，已经着重说明了前端技术的细节，后续会一步步实现整个编译器。后端技术方面也会补全。<br>大体流程：<br>代码 =&gt; 词法分析 =&gt; Token序列 =&gt; 语法解析 =&gt; AST语法树 =&gt; 语义分析 =&gt; 带有类型等信息的语法树<br>=&gt; 中间代码生成 =&gt; 中间代码 =&gt; 语法树优化 =&gt; 更易生成目标代码的中间代码 =&gt; codegen =&gt; 目标代码</p>
-<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a></p>
-<hr>
-<p><a href="https://github.com/yuguomin/my-compiler" target="_blank" rel="noopener">代码地址</a></p>
+<h1 id="CSS的历史"><a href="#CSS的历史" class="headerlink" title="CSS的历史"></a>CSS的历史</h1><p>CSS的使用就是为了标记语言的展示效果，两者的发展息息相关。</p>
+<p>在HTML刚出世不久，它的能力只是规定了网页中的标题、段落应该使用的标签，但是没有涉及这些内容应该以何种样式(比如大小、位置、间距、缩进等属性)呈现在浏览器中。因此，从1990年初，样式表就以各种形式出现了。不同的浏览器结合了它们各自的样式语言，读者(也就是浏览网页的用户)可以使用这些样式语言来调节网页的显示方式。一开始样式表是给读者用的，最初的HTML版本只含有很少的显示属性，读者来决定网页应该怎样被显示。</p>
+<p>到了1993年，Robert Raisch提出了一种名为“RRP”的样式规则建议。但这个RRP只允许网页使用1个样式表，不像现在的CSS能支持同时加载多个。不久后出现的Mosaic浏览器就采用增加新种类的HTML标签实现样式的表达。</p>
+<p>后来，台湾人魏培源开发的ViolaWWW浏览器使用了一种规则具有层次嵌套性的样式表，并第1个支持通过<code>&lt;link&gt;</code>标签引用外部样式表。FOSI最早支持以相对尺寸值来表示字体大小。函数式风格的DSSSL语言支持在样式表中进行定义变量、继承变量、定义函数等功能，但是语法复杂。</p>
+<p>1994年万维网联盟（W3C）创建，哈肯·维姆·莱(Hakon Wium Lie)提出了CSS的最初建议。伯特·波斯(Gijsbert (Bert) Bos)当时正在设计一个叫做Argo的浏览器，他们决定一起合作设计CSS。当时已经有过一些样式表语言的建议了，但CSS是第一个含有“层叠”的主意的。这种层叠的方式使作者和读者都可以灵活地加入自己的设计，混合各人的爱好。</p>
+<p><strong>1996年12月，哈肯·莱与伯特·波斯发布了CSS规范的第1个版本。</strong>但是由于当时已有的主流浏览器的内核架构完全不适合解析CSS的语法，加上早年设计师滥用HTML标签来表达样式导致来CSS在几年之后才流行起来。而后微软的IE浏览器走在了逐步实现CSS第1版标准的前列。但是因为不重视问题修补，导致遗留Bug很多，这也使得IE浏览器长期为人们诟病。</p>
+<p>1997年初，W3C组织了专门管CSS的工作组，其负责人是克里斯·里雷。这个工作组开始讨论第1版中没有涉及到的问题，在1998年5月出版了第2版规则。并且网页标准计划的7位成员成立了“CSS武士团”（CSS Samurai），指出Opera浏览器和IE浏览器在支持CSS方面存在的诸多问题。Opera公司着手解决了问题，但微软并未解决。网页标准计划也积极劝说网景公司和Macromedia公司分别改进其产品对CSS标准的支持。</p>
+<p>2003年，Dave Shea推出了一个名为“CSS禅意花园”(“CSS Zen Garden”)的站点，励设计师采用基本的HTML页面，并仅使用CSS进行不同的布局。该站点成为了最新提示和技巧的展示，并且在说服人们制定标准的道路上走了很长一段路。</p>
+<p>随着CSS和计算机软硬件技术都取得了跨越式的发展，这也对web的表现力提出了更高的要求，更华丽的设计方案和更复杂的交互方式的出现，让CSS显得有些力不从心。为此，CSS3应运而生。 W3C在2001年就着手开发CSS3的规范，与之前的CSS规范研发模式不同，CSS3规范被划分为一个个独立的模块。这样浏览器厂商可以有选择的先支持部分CSS3模块，从而利于CSS3的推广。</p>
+<p>CSS3新增了很多神奇的功能，“border-radius”、“text-shadow”、“transform”以及“transition”、动画（animation）及立体（preserved-3d）等，每一项都会让页面带来不可思议的展示或交互效果。但因为不同浏览器在不同时间支持不同特性，这也让跨浏览器开发变得复杂。</p>
+<p>从形式上来说，CSS3 标准自身已经不存在了。每个模块都被独立的标准化，现在标准 CSS 包括了修订后的 CSS2.1 以及完整模块对它的扩充，模块的 level（级别）数并不一致。</p>
+<p>CSS不断的强大，需求也在不断的提高，浏览器对标准的实现不同，逐渐为我们带来新的功能时也增加了工作的难度。</p>
+<h1 id="CSS学习大纲"><a href="#CSS学习大纲" class="headerlink" title="CSS学习大纲"></a>CSS学习大纲</h1><p>CSS的学习是按照功能和语言进行，语言主要是它的语法结构，比如 @rule、选择器、单位等等。功能大致可以分为布局、绘制和交互类。</p>
+<p>在布局类我们介绍两个最常用的布局：正常流和弹性布局。绘制类则分成图形相关的和文字相关的绘制。最后还有动画和其它交互。<br><img src="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png" style="border:none;width:80%;"></p>
+<p>参考相关文章链接：<br><a href="https://zh.wikipedia.org/wiki/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8" target="_blank" rel="noopener">层叠样式表 wiki</a><br><a href="https://www.w3.org/Style/CSS20/history.html" target="_blank" rel="noopener">A brief history of CSS until 2016</a><br><a href="https://css-tricks.com/look-back-history-css/" target="_blank" rel="noopener">A Look Back at the History of CSS</a><br><a href="https://time.geekbang.org/column/article/77804" target="_blank" rel="noopener">重学前端-winter</a></p>
 
       
     </div>
@@ -451,7 +428,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/09/08/compile-learning/" title="编译技术学习：第一章 知识概述">https://www.yuguomin.com/2019/09/08/compile-learning/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2019/12/16/CSS-restore-1/" title="CSS重塑(1)——历史与大纲">https://www.yuguomin.com/2019/12/16/CSS-restore-1/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -459,9 +436,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Compile/" rel="tag"><i class="fa fa-tag"> Compile</i></a>
-          
-            <a href="/tags/Computer/" rel="tag"><i class="fa fa-tag"> Computer</i></a>
+            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
           
         </div>
       
@@ -474,8 +449,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/17/repaint-and-reflow/" rel="next" title="repaint and reflow/重绘与回流">
-                <i class="fa fa-chevron-left"></i> repaint and reflow/重绘与回流
+              <a href="/2019/12/15/HTML-restore-4/" rel="next" title="HTML重塑(4)——语法及扩展">
+                <i class="fa fa-chevron-left"></i> HTML重塑(4)——语法及扩展
               </a>
             
           </div>
@@ -483,10 +458,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/11/compile-study-second/" rel="prev" title="编译技术学习：第二章 词法分析">
-                编译技术学习：第二章 词法分析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -672,7 +643,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器概述"><span class="nav-number">2.</span> <span class="nav-text">编译器概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要学习编译器"><span class="nav-number">3.</span> <span class="nav-text">为什么要学习编译器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器的具体过程"><span class="nav-number">4.</span> <span class="nav-text">编译器的具体过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编译器前端技术概述"><span class="nav-number">5.</span> <span class="nav-text">编译器前端技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#词法分析"><span class="nav-number">5.1.</span> <span class="nav-text">词法分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法解析"><span class="nav-number">5.2.</span> <span class="nav-text">语法解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语义解析"><span class="nav-number">5.3.</span> <span class="nav-text">语义解析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是CSS"><span class="nav-number">2.</span> <span class="nav-text">什么是CSS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS的历史"><span class="nav-number">3.</span> <span class="nav-text">CSS的历史</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS学习大纲"><span class="nav-number">4.</span> <span class="nav-text">CSS学习大纲</span></a></li></ol></div>
             
 
           </div>
