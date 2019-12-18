@@ -69,12 +69,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第九篇，本篇内容在JavaScript的语句执行时的原理，以及是如何利用这些实现中断，跳出等逻辑。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/stat-type-completion.png.png">
-<meta property="og:updated_time" content="2019-12-06T14:21:37.064Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/stat-type-completion.png">
+<meta property="og:updated_time" content="2019-12-18T15:16:15.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(9)——语句的执行">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第九篇，本篇内容在JavaScript的语句执行时的原理，以及是如何利用这些实现中断，跳出等逻辑。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/stat-type-completion.png.png">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/stat-type-completion.png">
 
 
 
@@ -399,7 +399,7 @@
 <li><code>[[value]]</code>，表示语句的返回值，如果语句没有，则返回空<code>empty</code>；</li>
 <li><code>[[target]]</code>，定向控制转移的目标标签，仅当<code>[[type]]</code>为<strong>break, continue</strong>时有值。</li>
 </ol>
-<h1 id="语句的分类"><a href="#语句的分类" class="headerlink" title="语句的分类"></a>语句的分类</h1><p>上面介绍了JavaScript是依靠语句的<strong>Completion Record</strong>类型来实现语句的各种流程控制的。那么我们按照它的执行特点对语句进行分类：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/stat-type-completion.png.png" style="border:none;width:80%;"><br>下面详细来讲一下分类的原因以及执行的特点：</p>
+<h1 id="语句的分类"><a href="#语句的分类" class="headerlink" title="语句的分类"></a>语句的分类</h1><p>上面介绍了JavaScript是依靠语句的<strong>Completion Record</strong>类型来实现语句的各种流程控制的。那么我们按照它的执行特点对语句进行分类：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/stat-type-completion.png" style="border:none;width:80%;"><br>下面详细来讲一下分类的原因以及执行的特点：</p>
 <h2 id="普通语句"><a href="#普通语句" class="headerlink" title="普通语句"></a>普通语句</h2><p>普通语句主要是声明类语句、表达式语句、空语句及debugger语句。<br>这些语句的特点是在它们执行后，会得到<code>[[type]]</code>为<code>normal</code>的 <strong>Completion Record</strong>，JavaScript 引擎遇到这样的<strong>Completion Record</strong>，会继续执行下一条语句，而不会有其它的控制操作。</p>
 <p>这些语句中，也<strong>只有表达式语句才会产生<code>[[value]]</code>值</strong>，<code>[[value]]</code>值在这里说一下，在规范中，它是<code>StatementList</code>最后一个产生值的语句的值。比如说：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">"1;;;;;"</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"1;&#123;&#125;"</span>); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">eval</span>(<span class="string">"1;var a;"</span>); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
@@ -662,7 +662,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

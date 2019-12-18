@@ -1,0 +1,1265 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="CSS,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言 本篇内容主要是CSS语言相关的学习，分为语法的整体结构规则、选择器及CSS中的单位学习。">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS重塑(2)——CSS语言相关">
+<meta property="og:url" content="https://www.yuguomin.com/2019/12/17/CSS-restore-2/index.html">
+<meta property="og:site_name" content="SuperFish&#39;s Blog">
+<meta property="og:description" content="前言 本篇内容主要是CSS语言相关的学习，分为语法的整体结构规则、选择器及CSS中的单位学习。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/easy-selector-tree.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-group-priority.png">
+<meta property="og:updated_time" content="2019-12-18T15:42:21.427Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS重塑(2)——CSS语言相关">
+<meta name="twitter:description" content="前言 本篇内容主要是CSS语言相关的学习，分为语法的整体结构规则、选择器及CSS中的单位学习。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/CSS-restore/easy-selector-tree.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.yuguomin.com/2019/12/17/CSS-restore-2/">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #3385ff; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #3385ff, 0 0 5px #3385ff; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #3385ff;    /*上边框颜色*/
+        border-left-color: #3385ff;    /*左边框颜色*/
+    }
+</style>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <title> CSS重塑(2)——CSS语言相关 | SuperFish's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+  <a href="https://github.com/yuguomin/blog-web"><img style="position:absolute;top:0;left:0;border:0;z-index:1;" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuperFish's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">day day up~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/12/17/CSS-restore-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YGM">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperFish's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS重塑(2)——CSS语言相关
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-12-17T10:18:51+08:00">
+                2019-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSS-Restore/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS Restore</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+          
+            
+          
+
+          
+          
+          <span class="post-time">
+            &nbsp; | &nbsp;
+                  <span class="post-meta-item-icon">
+                    <i class="fa fa-calendar-o"></i>
+                  </span>
+                  <span class="post-meta-item-text">字数统计:</span>
+                  <span class="post-count">7.6k(字)</span>
+                </span>
+            
+              <span class="post-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">28(分)</span>
+            
+          </span>
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">
+            Visitors<span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>本篇内容主要是CSS语言相关的学习，分为语法的整体结构规则、选择器及CSS中的单位学习。</li>
+</ul>
+<a id="more"></a>
+<p>在前面将CSS的学习内容划分为语言部分和功能部分。首先，我们从整体的语法结构开始，到细节的选择器的使用，再细化到计量单位的不同。</p>
+<h1 id="CSS语法结构"><a href="#CSS语法结构" class="headerlink" title="CSS语法结构"></a>CSS语法结构</h1><p>我们每天都会和CSS打交道，写过很多CSS样式文件，里面是这样的内容：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.head</span> &#123;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种写法就是<strong>qualified rule</strong>，也就是普通规则。还有一种使用频率低一些的规则就是<code>at-rule</code>，由一个 @ 关键字和后续的一个区块组成，如果没有区块，则以分号结束。例如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">import</span> <span class="string">"mystyle.css"</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这两种规则构建了一个CSS文件的基本语法机构，在不考虑注释等无效信息，一个样式表只会包含这两种结构信息。接下来，我们先看一下使用较少的<code>at-rule</code>。</p>
+<h2 id="at-rule"><a href="#at-rule" class="headerlink" title="at-rule"></a>at-rule</h2><p><code>at-rule</code>的数量不是特别多，主要有下面这些：</p>
+<ol>
+<li><p>@charset<br>用于定义<strong>CSS</strong>文件使用的字符编码方式，使用时必须出现在文件的最前面，这个规则只在给出语法解析阶段前使用，并不影响页面上的展示效果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">charset</span> <span class="string">"utf-8"</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@import<br>用于引入一个CSS文件，这个使用频率就很高了，除了<code>@charset</code>规则不会被引入，<code>@import</code>可以引入另一个文件的全部内容。实际上线时候，不建议使用，多请求，阻塞加载之类。本地用于模块化开发可以，然后使用一些工具如(grunt)工具进行压缩并合并。<code>@import</code>语句也只能在CSS文件顶部，否则顺序的不同会导致一些意想不到的结果。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">import</span> <span class="string">"mystyle.css"</span>;</span><br><span class="line">@<span class="keyword">import</span> url(<span class="string">"mystyle.css"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@media<br>就是<strong>media query</strong>（媒体查询）使用的规则了，也很常用，它能够对设备的类型进行一些判断，响应式宽度，retina屏幕判断，打印屏幕等，甚至IE7,IE8浏览器的hack。在<code>media</code>的区块内，是普通规则列表。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> all and (min-width: <span class="number">750px</span>) &#123;</span><br><span class="line">    <span class="comment">/* 宽度大于750时的样式... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> print &#123;</span><br><span class="line">    <span class="comment">/* 打印的时候的样式 */</span> </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> \<span class="number">0s</span>creen\,screen\<span class="number">9</span> &#123;</span><br><span class="line">    <span class="comment">/* IE7,IE8的特定样式 */</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@page<br>这个规则用于分页媒体访问网页时的表现设置，比如打印文档时候修改一些CSS属性。使用<code>@page</code>我们只能改变部分CSS属性，例如间距属性<code>margin</code>, 打印相关的<code>orphans</code>, <code>widows</code>, 以及<code>page-break-*</code>, 其他CSS属性会被忽略。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">page</span> <span class="selector-pseudo">:first</span> &#123;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1in</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@counter-style<br>产生一种数据，用于定义列表项的表现。看一下它的使用：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">counter</span>-<span class="keyword">style</span> triangle &#123;</span><br><span class="line">  <span class="selector-tag">system</span>: <span class="selector-tag">cyclic</span>;</span><br><span class="line">  <span class="selector-tag">symbols</span>: ‣;</span><br><span class="line">  <span class="selector-tag">suffix</span>: " ";</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.items</span> &#123;</span><br><span class="line">   <span class="attribute">list-style</span>: circled-alpha;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@keyframes<br>它也是产生一种数据，用于定义动画关键帧：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">keyframes</span> fadeIn &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">   <span class="attribute">animation</span>: <span class="number">1s</span> linear fadeIn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@font-face<br>用于定义一种字体，IE6也支持。<strong>icon font</strong>技术就是利用这个特性来实现的。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">font-face</span> &#123;</span><br><span class="line">  <span class="attribute">font-family</span>: Gentium;</span><br><span class="line">  <span class="attribute">src</span>: <span class="built_in">url</span>(http://example.com/fonts/Gentium.woff);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">p</span> &#123; <span class="attribute">font-family</span>: Gentium, serif; &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@supports<br>用来检测浏览器是否支持某CSS属性声明，当作hack使用。既然检查别人，那自己也不能差了，除了IE系列，基本都支持。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 检查是否支持CSS声明flex */</span> </span><br><span class="line">@<span class="keyword">supports</span> (display: flex) &#123;</span><br><span class="line">  <span class="selector-class">.module</span> &#123; <span class="attribute">display</span>: flex; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 检查多个条件 */</span> </span><br><span class="line">@<span class="keyword">supports</span> (display: flex) and (-webkit-appearance: checkbox) &#123;</span><br><span class="line">  <span class="selector-class">.module</span> &#123; <span class="attribute">display</span>: flex; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@namespace<br>此规则应用到XML HTML(XHTML)上特别有用，因为这样的话XHTML元素可以作为选择器在CSS中使用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* XHTML命名空间 */</span></span><br><span class="line">@<span class="keyword">namespace</span> url(http://www.w3.org/<span class="number">1999</span>/xhtml);</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 内嵌在XHTML的SVG的命名空间 */</span></span><br><span class="line">@<span class="keyword">namespace</span> svg url(http://www.w3.org/<span class="number">2000</span>/svg);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@viewport<br>用于设置视口的一些特性，不过兼容性目前不是很好，多数时候被 HTML 的 meta 代替。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">viewport</span> &#123;</span><br><span class="line">  <span class="selector-tag">width</span>: 100<span class="selector-tag">vw</span>; <span class="comment">/*将视口宽度设为与设备宽度相同*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>@document<br>这个规则现在还在讨论中，CSS 4.0规范有相关说明。如果文档满足给定的一些条件，就可以应用我们指定的一些样式。比如一个CSS文件被多个网站调用，可以通过域名匹配来执行不同的CSS样式，有效避免冲突，或者防止外链之类。目前这个规则支持性很差。</p>
+</li>
+</ol>
+<h2 id="qualified-rule"><a href="#qualified-rule" class="headerlink" title="qualified rule"></a>qualified rule</h2><p>接下来是普通规则，普通规则主要由选择器和声明区块构成，声明区块又由属性和值构成。</p>
+<ul>
+<li>普通规则<ul>
+<li>选择器</li>
+<li>声明区块<ul>
+<li>属性</li>
+<li>值<ul>
+<li>值的类型</li>
+<li>函数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>选择器的内容在接下来的部分会专门整理，我们这里看一下声明区块，声明部分是一个由“属性: 值”组成的序列。</p>
+<p>属性是由中划线、下划线、字母等组成的标识符，CSS还支持使用反斜杠转义。<strong>属性不允许使用连续的两个中划线开头，这样的属性会被认为是 CSS 变量。</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">--main-color</span>: <span class="number">#06c</span>;</span><br><span class="line">  <span class="attribute">--accent-color</span>: <span class="number">#006</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* The rest of the CSS file */</span></span><br><span class="line"><span class="selector-id">#foo</span> <span class="selector-tag">h1</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: <span class="built_in">var</span>(--main-color);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值的部分，是根据不同的属性可以取不同的值，可能是字符串，标识符。CSS 属性值可能是以下类型：</p>
+<ul>
+<li>CSS 范围的关键字：initial，unset，inherit，任何属性都可以的关键字。</li>
+<li>字符串：比如 content 属性。</li>
+<li>URL：使用 url() 函数的 URL 值。</li>
+<li>整数 / 实数：比如 flex 属性。</li>
+<li>维度：单位的整数 / 实数，比如 width 属性。</li>
+<li>百分比：大部分维度都支持。</li>
+<li>颜色：比如 background-color 属性。</li>
+<li>图片：比如 background-image 属性。</li>
+<li>2D 位置：比如 background-position 属性。</li>
+<li>函数：来自函数的值，比如 transform 属性。</li>
+</ul>
+<p>有些属性会要求产生函数类型的值，比如<code>easing-function</code>会要求<code>cubic-bezier()</code>函数的值。CSS 支持一批特定的计算型函数：</p>
+<ul>
+<li>calc()</li>
+<li>max()</li>
+<li>min()</li>
+<li>clamp()</li>
+<li>toggle()</li>
+<li>attr()</li>
+</ul>
+<p><code>calc()</code>函数是基本的表达式计算，它支持加减乘除四则运算。在针对维度进行计算时，calc() 函数允许不同单位混合运算，这非常的有用。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">section</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">1em</span>; <span class="attribute">border</span>: solid <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">calc</span>(100%/3 - 2*1em - 2*1px);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>max()</code>、<code>min()</code>和<code>clamp()</code>则是一些比较大小的函数，<code>max()</code>表示取两数中较大的一个，<code>min()</code>表示取两数之中较小的一个，<code>clamp()</code>则是给一个值限定一个范围，超出范围外则使用范围的最大或者最小值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*取两者中的最大值*/</span></span><br><span class="line"><span class="selector-class">.logo</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">max</span>(50vw, 300px);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*取两者中的最小值*/</span></span><br><span class="line"><span class="selector-class">.logo</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">min</span>(50vw, 300px);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment"> * 如果2.5vw大于1.5rem,那结果就是1.5rem</span></span><br><span class="line"><span class="comment"> * 如果2.5vw小于1rem,那结果就是1rem，其它场景下为2.5vw</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="selector-tag">p</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="built_in">clamp</span>(1rem, 2.5vw, 1.5rem);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>toggle()</code>函数在规则选中多于一个元素时生效，它会在几个值之间来回切换，比如我们要让一个列表项的样式圆点和方点间隔出现，可以使用下面代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> &#123; <span class="attribute">list-style-type</span>: <span class="built_in">toggle</span>(circle, square); &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>attr()</code>用来获取选择到的元素的某一HTML属性值，并用于其样式。它也可以用于伪元素，属性值采用伪元素所依附的元素。<br>例如有如下元素：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"background"</span> <span class="attr">data-background</span>=<span class="string">"lime"</span>&gt;</span>颜色应该是粉色而不是绿色或红色因为浏览器并不支持attr()的高级用法<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>对应的样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.background</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.background</span><span class="selector-attr">[data-background]</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">attr</span>(data-background color, red);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终颜色是粉色，原因在元素内容里面已经给出来了。</p>
+<p>上面的一些<code>at</code>规则和普通规则的属性支持性并不好，使用时要注意浏览器是否支持。可以通过<a href="https://caniuse.com/" target="_blank" rel="noopener">Can I use</a>来查看。<br>接下来，继续选择器的内容。</p>
+<h1 id="CSS选择器"><a href="#CSS选择器" class="headerlink" title="CSS选择器"></a>CSS选择器</h1><p>前面讲过了声明部分，它是属性和值构成的序列，CSS最终是要去控制页面样式的，选择器也就是<strong>根据一些特征，选中元素树上的一批元素，然后让声明部分对它们产生影响。</strong><br>把选择器的结构按照简单到复杂进行分类：</p>
+<ul>
+<li>简单选择器：针对某一特征判断是否选中元素。</li>
+<li>复合选择器：连续写在一起的简单选择器，针对元素自身特征选择单个元素。</li>
+<li>复杂选择器：由“（空格）”“ &gt;”“ ~”“ +”“ ||”等符号连接的复合选择器，根据父元素或者前序元素检查单个元素。</li>
+<li>选择器列表：由逗号分隔的复杂选择器，表示“或”的关系。</li>
+</ul>
+<p>这个从简单到复杂也就逐级组合而成的结构，那我们从简单选择器开始。</p>
+<h2 id="简单选择器"><a href="#简单选择器" class="headerlink" title="简单选择器"></a>简单选择器</h2><p>下面是一个常用的简单选择器的分类（来自重学前端）：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/easy-selector-tree.png" style="border:none;width:70%;"></p>
+<h3 id="类型选择器和全体选择器"><a href="#类型选择器和全体选择器" class="headerlink" title="类型选择器和全体选择器"></a>类型选择器和全体选择器</h3><p>类型选择器，也叫标签选择器它根据一个元素的标签名来选中元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在实际使用中，这种操作比较影响的范围比较大，大多在格式化浏览器自带样式时使用。并且我们还必须要考虑<strong>HTML</strong>或者<strong>XML</strong>元素的命名空间问题。<br>比如我们的<code>svg</code>元素，实际上在：<a href="http://www.w3.org/2000/svg" target="_blank" rel="noopener">http://www.w3.org/2000/svg</a> 命名空间之下。我们若要想区分选择<code>svg</code>中的<code>a</code>和<code>html</code>中的<code>a</code>，就必须用带命名空间的类型选择器。也就是我们之前说过的<code>@namespace</code>。</p>
+<p>全体选择器，也就是<code>*</code>，可以选中任意元素。通常是用来做格式化样式。</p>
+<h3 id="id选择器与class选择器"><a href="#id选择器与class选择器" class="headerlink" title="id选择器与class选择器"></a>id选择器与class选择器</h3><p><code>id</code>选择器和<code>class</code>选择器都是针对特定属性的选择器。<code>id</code>选择器是“#”号后面跟随<code>id</code>名，<code>class</code>选择器是“.”后面跟随<code>class</code>名。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#myid</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>:blue;</span><br><span class="line">  <span class="attribute">stroke-width</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.mycls</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>:<span class="number">40px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两个都是和属性有关的选择器，是在属性选择器之前设计出来的，属性选择器在一定情况下可以达到他们的效果。</p>
+<h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3><p>根据<code>html</code>元素的属性来选中元素，属性选择器有下面几种用法：</p>
+<ul>
+<li>[attribute] 用于选取带有指定属性的元素。</li>
+<li>[attribute=value] 用于选取带有指定属性和值的元素。</li>
+<li>[attribute~=value] 用于选取属性值中包含指定词汇的元素。</li>
+<li>[attribute|=value] 用于选取带有以指定值开头的属性值的元素，该值必须是整个单词。</li>
+<li>[attribute^=value] 匹配属性值以指定值开头的每个元素。</li>
+<li>[attribute$=value] 匹配属性值以指定值结尾的每个元素。</li>
+<li>[attribute*=value] 匹配属性值中包含指定值的每个元素。</li>
+</ul>
+<p>对于刚才的id选择器和class选择器就可以用它去实现</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[id="myid"]</span> &#123;</span><br><span class="line">  <span class="attribute">stroke</span>:blue;</span><br><span class="line">  <span class="attribute">stroke-width</span>:<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[class="mycls"]</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>:<span class="number">40px</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有些 HTML 属性含有特殊字符，这个时候，可以把 val 用引号括起来，形成一个 CSS 字符串。CSS 字符串允许使用单双引号来规避特殊字符，也可以用反斜杠转义。</p>
+<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><p>伪类选择器是一系列由<strong>CSS</strong>规定好的选择器，它们以冒号开头。伪类选择器有普通型和函数型两种。我们按照功能来进行分类介绍。</p>
+<ol>
+<li><strong>树结构关系伪类选择器</strong></li>
+</ol>
+<ul>
+<li><p><code>:root</code>伪类匹配文档树的根元素，在选择器是针对完整的<strong>HTML</strong>文档情况，我们一般用<strong>HTML</strong>标签即可选中根元素。但是随着<strong>scoped css</strong>和<strong>shadow root</strong>等场景出现，选择器可以针对某一子树来选择，这时候就很需要<code>root</code>伪类了。</p>
+</li>
+<li><p><code>:empty</code>代表没有子元素的元素。子元素只可以是元素节点或文本（包括空格）。注释或处理指令都不会产生影响。</p>
+</li>
+<li><p><code>:nth-child</code>是函数型的伪类，它会首先查找首先找到所有当前元素的兄弟元素，然后按照位置先后顺序从1开始排序，选择的结果为括号中表达式<code>（an+b）</code>匹配到的元素集合。n会从0开始不断增长匹配。还有一些固定关键字，如<code>odd</code>匹配奇数个，<code>even</code>匹配偶数。</p>
+</li>
+<li><p><code>:nth-last-child</code>的区别仅仅是从后往前数。</p>
+</li>
+<li><p><code>:first-child</code>和<code>:last-child</code> 分别表示第一个和最后一个元素。</p>
+</li>
+<li><p><code>:only-child</code> 匹配没有任何兄弟元素的元素即唯一一个子元素。</p>
+</li>
+<li><p><code>of-type</code>系列，比如说<code>:nth-of-type</code>和<code>:nth-child</code>的区别是<code>:nth-of-type</code>匹配的相同兄弟节点，而不是所有。<code>of-type</code>系列的<code>nth-last-of-type、first-of-type、last-of-type、only-of-type</code>也是如此，<code>only-of-type</code>是元素没有其他相同类型的兄弟元素。</p>
+</li>
+</ul>
+<ol start="2">
+<li><strong>链接与行为伪类选择器</strong><br>链接与行为是第一批设计出来的伪类，也是最常用的一批。</li>
+</ol>
+<ul>
+<li><code>:any-link</code>表示任意的链接，包括<code>a</code>、<code>area</code>和<code>link</code>标签都可能匹配到这个伪类。</li>
+<li><code>:link</code>表示未访问过的链接。</li>
+<li><code>:visited</code>表示已经访问过的链接。</li>
+<li><code>:hover</code>表示鼠标悬停在上的元素。</li>
+<li><code>:active</code>表示用户正在激活这个元素，如用户按下按钮，鼠标还未抬起时，这个按钮就处于激活状态。</li>
+<li><code>:focus</code>表示焦点落在这个元素之上。</li>
+<li><code>:target</code>用于选中浏览器<strong>URL</strong>的<strong>hash</strong>部分所指示的元素。</li>
+</ul>
+<ol start="3">
+<li><strong>逻辑伪类选择器</strong><br>逻辑伪类中支持比较好的就是<code>:not</code>了，它的作用是匹配不符合一组选择器的元素，它有时也被称为反选伪类。选择器 3 级标准中，not 只支持简单选择器，在选择器 4 级标准，则允许 not 接受一个选择器列表。并且选择器中不得包含另一个否定选择符或伪元素。<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 匹配所有非`p`元素的元素。 */</span></span><br><span class="line"><span class="selector-pseudo">:not(p)</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>在 Selector Level 4 草案中，还引入了<code>:is :where :has</code>等逻辑伪类。</p>
+<p>还有一些草案中或者不常用的选择器，这里不多做介绍，伪类选择器是规定好的，是对选择器能力的一种补充。在实际使用中，有时候可以利用它省去很多JS代码，但可能也会对对于<strong>CSS</strong>代码的性能和可读性造成影响。具体使用与否看场景。</p>
+<p>介绍完了简单选择器，我们刚刚在分类选择器的时候有4种，另外三种是复合选择器，复杂选择器和选择器列表。他们都是根据简单选择器为基本加上一些链接符组合成更高级的选择器。</p>
+<ol>
+<li><p>复合选择器是<strong>连写的简单选择器</strong>的组合，<strong>针对元素自身特征选择单个元素</strong>。比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">button</span><span class="selector-class">.disable</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.banner</span><span class="selector-attr">[title="discounts"]</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复杂选择器则是用空格、大于号、波浪线等符号连接的复合选择器，根据父元素或者前序元素检查单个元素。比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father</span> <span class="selector-class">.son</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.father</span> &gt; <span class="selector-class">.son</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.father</span> ~ <span class="selector-class">.brother</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>选择器列表是用逗号分隔的复杂选择器序列，表示“或”的关系。比如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.father</span> &gt; <span class="selector-class">.son</span>,</span><br><span class="line"><span class="selector-class">.father</span> ~ <span class="selector-class">.brother</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>这三种选择器看起来的层层组合关系，看起来就像数学中的四则运算一样，那么他们肯定也有对应的组合优先级。</p>
+<h3 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h3><p>伪元素可以说是一种简单选择器，也可以说是一种机制，它和选择器很大的不同是，选择器是在结构树上或者行为上去选择元素，而伪元素选择器是<strong>把不存在的元素硬选出来</strong>。伪元素现在以双冒号开头<code>::</code>。由于某些早期的伪元素使用单冒号语法，现代浏览器使用单冒号或双冒号语法支持早期的伪元素，以实现向后兼容。</p>
+<p>目前兼容性达到可用的伪元素有以下几种。</p>
+<ul>
+<li>::first-line</li>
+<li>::first-letter</li>
+<li>::before</li>
+<li>::after</li>
+</ul>
+<ol>
+<li><code>::first-line</code>和<code>::first-letter</code><br><code>::first-line</code>和<code>::first-letter</code>是比较类似的伪元素，其中一个表示元素的第一行，一个表示元素的第一个字母。试想一下，假设我们有一篇文章，需要在展示的时候把第一行的内容放大，如果不考虑伪元素，你该怎么做？如何去自适应各种屏幕大小，是一件很麻烦的事，但是有了伪元素，就可以直接指定到对应的文本内容。例如：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span></span><br><span class="line">Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</span><br><span class="line"><span class="tag">&lt;/<span class="name">article</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">article</span><span class="selector-pseudo">::first-line</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">120%</span>;</span><br><span class="line">    <span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，无论显示区域多宽，只有第一行会加粗变大。规则虽然听上去很简单，但是实际上，我们遇到的 HTML 结构要更为复杂，一旦元素中不是纯文本，规则就变得复杂了。<br><strong>CSS 标准规定了<code>first-line</code>必须出现在最内层的块级元素之内。<code>first-letter</code>的位置可以在所有标签之内。</strong>这里最好的解释方式还是举例子：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">a</span>&gt;</span>First paragraph<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Second paragraph<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-id">#a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::first-line</span> &#123; </span><br><span class="line">    <span class="attribute">color</span>:blue; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终第一段显示的颜色是蓝色，因为伪元素出现在块级元素之内，所以<code>p</code>中的伪元素<code>color</code>覆盖了<code>div&gt;p#a</code>中的<code>color</code>。<br>如果把代码修改一下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">a</span>&gt;</span>First paragraph<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>&gt;</span>Second paragraph<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span>&gt;<span class="selector-tag">span</span><span class="selector-id">#a</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>:green;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">div</span><span class="selector-pseudo">::first-line</span> &#123; </span><br><span class="line">    <span class="attribute">color</span>:blue; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>第一行的颜色会是绿色，因为<code>span</code>不是块级元素，伪元素在<code>span</code>之外，所以最终<code>div::first-line</code>干不过<code>div&gt;span#a</code>。如果把<code>::first-line</code>修改成<code>::first-letter</code>则不会有这个问题。<br>CSS 标准只要求<code>::first-line</code>和<code>::first-letter</code>实现有限的几个<strong>CSS</strong>属性，都是<strong>文本相关</strong>，</p>
+<ol start="2">
+<li><code>::before</code>和<code>::after</code><br>这两个伪元素和前面的不同，它不是把已有的内容套上一个元素，而是造出一个元素。</li>
+</ol>
+<ul>
+<li><strong>::before 表示在元素内容之前插入一个虚拟的元素；</strong></li>
+<li><strong>::after 则表示在元素内容之后插入一个虚拟的元素。</strong></li>
+<li><strong>这两个伪元素所在的CSS规则必须指定<code>content</code>属性才会生效，并且支持所有的 CSS 属性。</strong></li>
+</ul>
+<p>实际开发中，这两个伪元素非常有用，有了这两个伪元素，一些修饰性元素比如说小三角形、卡片凹槽，可以使用纯粹的 CSS 代码添加进去，这能够很好地保持 HTML 代码中的语义，既完成了显示效果，又不会让 DOM 中出现很多无语义的空元素。</p>
+<h2 id="组合优先级"><a href="#组合优先级" class="headerlink" title="组合优先级"></a>组合优先级</h2><p>就和编译原理一样，先获得token为词法的最小单元。这里的简单选择器则就是最小单元。按照组合顺序从高到低的优先级是：</p>
+<ul>
+<li>第一优先级<ul>
+<li>无连接符号</li>
+</ul>
+</li>
+<li>第二优先级<ul>
+<li>“空格”</li>
+<li>“~”</li>
+<li>“&gt;”</li>
+<li>“+”</li>
+<li>“||”</li>
+</ul>
+</li>
+<li>第三优先级<ul>
+<li>“,”</li>
+</ul>
+</li>
+</ul>
+<p>举个例子：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span>,<span class="selector-class">.b</span>&gt;<span class="selector-class">.c</span><span class="selector-class">.d</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，它实际上会构成一个结构树：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/CSS-group-priority.png" style="border:none;width:70%;"></p>
+<p>这个树中省略了符号，按照这个组合优先级和树形结构，进行深度优先遍历，最终会先处理<code>.c.d</code>，然后是<code>.b&gt;.c.d</code>，最后是<code>.a,.b&gt;.c.d</code>。我们能来细节化其中的关系：</p>
+<ul>
+<li>例子中的<code>.c.d</code>是复合选择器，无符号链接，表示选中的元素必须同时具有<code>c</code>和<code>d</code>这两个<strong>class</strong>；是一种且的关系；</li>
+<li><code>&gt;</code>是复杂选择器的一种针对节点关系的选择链接符，它一共有五种：<ul>
+<li>“空格”：表示后代，表示选中所有符合条件的后代节点。一个元素中的节点层级是可以不断嵌套的，后代可能是子级也可能是子级的子级…</li>
+<li>“&gt;” ：子代，表示选中符合条件的子节点。它和后代的区别是，必须是子级的节点。</li>
+<li>“~” : 后继，表示选中所有符合条件的后继节点，后继节点即跟当前节点具有同一个父元素，并出现在它之后的节点，</li>
+<li>“+”：直接后继，表示选中符合条件的直接后继节点，直接后继节点即<strong>nextSlibling</strong>。</li>
+<li>“||”：列选择器，表示选中对应列中符合条件的单元格。<br>其中我们最常用的就是空格和<code>&gt;</code>了，这两个链接符的支持也是最好的。通常可以用来避免<em>CSS</em>规则的命名污染问题。</li>
+</ul>
+</li>
+<li><code>,</code>的选择器列表表示“或”的关系，其实可以分解成两个相同声明区块的普通规则，如<code>.a,.b&gt;.c.d</code>其实是这样：<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span> &#123;&#125;</span><br><span class="line"><span class="selector-class">.b</span>&gt;<span class="selector-class">.c</span><span class="selector-class">.d</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>选择器的组合方式及组合优先级现在已经没问题了，根据上面的选择器我们可以选择到相同或不同的元素，以及以不同的方式选择到对应的元素，并且可能其中设置了相同的样式内容，那么最终的元素渲染结果应该是哪一种，这就是选择器优先级的规则了。</p>
+<h2 id="选择器的优先级"><a href="#选择器的优先级" class="headerlink" title="选择器的优先级"></a>选择器的优先级</h2><p>CSS选择器的优先级计算，是按照最大范围为复杂优先级来计算的，也就是说<code>,</code>是不会影响优先级的。具体是以一个三元组<code>(a, b, c)</code>来构成一个复杂选择器的优先级。它的规则：</p>
+<ul>
+<li>id 选择器的数目记为 a；</li>
+<li>伪类选择器和 class 选择器的数目记为 b；</li>
+<li>伪元素选择器和标签选择器数目记为 c；</li>
+<li>“*” 不影响优先级。<br>一个复杂优先级的计算公式为<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">specificity = base * base * a + base * b + c</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>base 是一个“足够大”的正整数。这个“足够大”是无论<code>a, b, c</code>是多大，都会是<code>c &lt; base * b &lt; base * base * a</code>这样的结果。<br>不过根据<strong>CSS</strong>的“层叠”特性，<strong>行内属性的优先级永远高于</strong>CSS<strong>规则</strong>，也就是写在元素上的<code>style</code>样式会覆盖上面的优先级。<br>而<strong>最高的优先级是为样式内容后添加<code>!important</code></strong>，这个用法非常危险，因为它相当于一个新的优先级，而且此优先级会高于行内属性。<br><strong>同一优先级的选择器遵循“后面的覆盖前面的”原则。</strong></p>
+<p>举一个例子，有如下元素</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"my"</span> <span class="attr">class</span>=<span class="string">"x y"</span>&gt;</span>text<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>样式为</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.x</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.y</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightgreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终的颜色会是绿色，如果调换CSS中的规则顺序，则结果会是蓝色。选择器的优先级是针对单条规则的，多条规则的选择器同时命中元素，优先级不会发生叠加。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"my"</span> <span class="attr">class</span>=<span class="string">"x y z"</span>&gt;</span>text<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.x</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.z</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.y</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightgreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，<code>.x</code>和<code>.y</code>两个class同时设置了相同的颜色，但是因为<code>.y</code>规则在最后，所以最终显示结果为绿色。选择器的优先级是针对复杂选择器的优先级，选择器列表不会合并计算优先级。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"my"</span> <span class="attr">class</span>=<span class="string">"x y z"</span>&gt;</span>text<span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.x</span>, <span class="selector-class">.z</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.y</span> &#123;</span><br><span class="line">    <span class="attribute">background-color</span>: lightgreen;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里选择器列表“ .x, .z”命中了 div，但是它的两项分别计算优先级，所以最终优先级仍跟“ .y” 规则相同。</p>
+<p>选择器的优先级规则就是这些了，利用这个优先级可以配合JS实现很多交互功能。</p>
+<h1 id="CSS单位"><a href="#CSS单位" class="headerlink" title="CSS单位"></a>CSS单位</h1><p>CSS的声明区块是由属性和值构成的，如果设置结构的还好，但是如果设置的内容需要一个值的时候，比如<code>width</code>，我们设置的宽度值到底是什么单位，是相对什么来计算的单位。那么，我们需要细究一下，CSS有哪些单位。</p>
+<p>CSS的单位分为<strong>绝对单位</strong>和<strong>相对单位</strong>。有如下的列表：</p>
+<table>
+<thead>
+<tr>
+<th>单位</th>
+<th>类型</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>px</td>
+<td>Absolute</td>
+<td>Pixel, (计算机屏幕上的一个点)，1px = 1/96in</td>
+</tr>
+<tr>
+<td>pt</td>
+<td>Absolute</td>
+<td>Points, 1pt = 1/72in</td>
+</tr>
+<tr>
+<td>pc</td>
+<td>Absolute</td>
+<td>Picas, 1pc = 12pt</td>
+</tr>
+<tr>
+<td>in</td>
+<td>Absolute</td>
+<td>Inches, 1in = 96px = 2.54cm</td>
+</tr>
+<tr>
+<td>cm</td>
+<td>Absolute</td>
+<td>Centimeters, 1cm = 96/2.54px</td>
+</tr>
+<tr>
+<td>mm</td>
+<td>Absolute</td>
+<td>Millimeters, 1mm = 1/10cm</td>
+</tr>
+<tr>
+<td>q</td>
+<td>Absolute</td>
+<td>Quarter-millimeters, 1q = 1/4mm</td>
+</tr>
+<tr>
+<td>%</td>
+<td>Relative</td>
+<td>相对于父元素的宽度或字体大小</td>
+</tr>
+<tr>
+<td>em</td>
+<td>Relative</td>
+<td>相对于父元素的字体大小</td>
+</tr>
+<tr>
+<td>rem</td>
+<td>Relative</td>
+<td>(即root em) 相对于html标签的字体大小</td>
+</tr>
+<tr>
+<td>ex</td>
+<td>Relative</td>
+<td>当前字体环境中 x 字母的高度</td>
+</tr>
+<tr>
+<td>ch</td>
+<td>Relative</td>
+<td>当前字体环境中 0 数字的高度</td>
+</tr>
+<tr>
+<td>vw</td>
+<td>Relative</td>
+<td>1% 视口（浏览器可视区域）的宽度</td>
+</tr>
+<tr>
+<td>vh</td>
+<td>Relative</td>
+<td>1% 视口（浏览器可视区域）的高度</td>
+</tr>
+<tr>
+<td>vmin</td>
+<td>Relative</td>
+<td>1% 视口（浏览器可视区域）的宽度和高度中较小的尺寸</td>
+</tr>
+<tr>
+<td>vmax</td>
+<td>Relative</td>
+<td>1% 视口（浏览器可视区域）的宽度和高度中较大的尺寸</td>
+</tr>
+</tbody></table>
+<p>绝对单位都是固定值，不会因为其他元素的尺寸变化而变化。使用起来也比较简单，接下来主要讲的是相对单位。<strong>使用相对单位声明的值会由浏览器转化为一个绝对值</strong>，我们称之为计算值。</p>
+<h2 id><a href="#" class="headerlink" title="%"></a>%</h2><p>相对于父元素的相同属性的大小。</p>
+<ul>
+<li>如果用来设置字体，则相对的就是父元素的字体大小。大多数浏览器中<code>&lt;html&gt;</code>和<code>&lt;body&gt;</code>标签中的默认字体尺寸是<code>100%</code>。浏览器的默认字体都是<code>16px</code>。所以<code>100% = 1em = 16px = 12pt</code>。</li>
+<li>如果用来设置宽和高等非字体尺寸，则以百分比为单位的长度值是基于具有相同属性的父元素的长度值。这里需要注意如何确定不同定位方式的父元素。</li>
+<li><code>padding</code>和<code>margin</code>如果设置了百分比，上，下，左，右 用的都是父元素宽度 的值为标准去计算。</li>
+</ul>
+<h2 id="em和rem"><a href="#em和rem" class="headerlink" title="em和rem"></a>em和rem</h2><p><code>em</code>后<code>rem</code>都是基于字体尺寸的单位。<br>先来看<code>em</code>，<code>em</code>的基准值是当前元素或者父元素的字号大小。那么究竟是哪一个呢？这取决于设置的元素。<code>em</code>的使用分以下场景：</p>
+<ol>
+<li><code>em</code>设置<code>padding</code>和<code>margin</code>等值。例如：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>显示的结果<code>div</code>的<code>padding</code>最终会被计算为<code>24px</code>，如果我们给<code>div</code>单独加上一个属性<code>font-size: 24px;</code>，则<code>padding</code>为<code>28.800</code>，那么我们可以得到一个结论：</p>
+<p id="div-border-left-green">
+在设置padding、height、width或border-radius等属性时，使用em单位是相对于当前元素的font-size值来计算的。
+</p>
+
+<ol start="2">
+<li><code>em</code>设置<code>font-size</code>值的时候。例如：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置<code>padding</code>等属性的时候，是相对当前元素的<code>font-size</code>，那再设置<code>font-size</code>的时候，那就只能按照父元素的<code>font-size</code>去设置啦。所以这里是<code>24px</code>，那如果父元素也是<code>em</code>怎么办，那就先计算出父元素的。</p>
+<ol start="3">
+<li>同时设置<code>font-size</code>和<code>padding</code>等属性。例如：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">20px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.2em</span>;</span><br><span class="line">  <span class="attribute">padding</span>: <span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里就不要乱不要慌，规则和上面两条一样，但是就是注意计算的顺序，先计算出<code>div</code>的<code>font-size</code>为<code>24px</code>，然后计算<code>padding</code>，<code>24px * 1.2</code>最终为<code>28.800px</code>。</p>
+<p>看起来问题也不大，虽然规则稍微有点复杂，但假设有如下场景：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span> Test</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span> Test</span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">        Test</span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">14px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.2em</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">1.2em</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的结果就是字体越来越大，<code>padding</code>也越来越大，这种复合效果让开发者很难清楚定义的值到底是多少。因此可能需要一个基于唯一的度量标准来按比例缩放的单位。也就是<code>rem</code>。</p>
+<p><strong><code>rem</code>就是<code>root em</code>，它是基于根元素进行设置，在大多数情况下根元素为<code>html</code>元素。</strong>我们可以理解为，一旦根节点<code>html</code>定义的<code>font-size</code>变化，那么整个网页中运用到 <code>rem</code>的也会变化。</p>
+<p><code>rem</code>可以说是<code>px</code>和<code>em</code>之间的一个折中方案，计算统一并且也没有嵌套。通常我们有的移动项目会使用它来做响应式布局，使用动态的<code>html</code>的<code>font-size</code>配合<code>rem</code>达到等比例缩放。</p>
+<p>但是<code>rem</code>好用不意味着就要去除其它单位就只使用它，我们需要确定具体的场景具体的需求，来做最终的判断。</p>
+<h2 id="ex和ch"><a href="#ex和ch" class="headerlink" title="ex和ch"></a>ex和ch</h2><p><code>ex</code>和<code>ch</code>依赖于当前字体<code>font-family</code>和字体大小<code>font-size</code>。<br><code>ch</code>是指当前字体环境中数字<code>0</code>的宽度。要一个单位相对于一个字符的宽做什么？其实在大部分时候<code>ch</code>都是用不上的单位。但是如果使用的是<strong>等宽字体</strong>，比如<code>Consolas</code>、<code>Monaco</code>和<code>monospace</code>，这样所有的字符宽度都和<code>0</code>一样。配合上<code>ch</code>就可以精确控制字符的布局。</p>
+<p><code>ex</code>的指当前字体环境中小写字母<code>x</code>的高度。小写的<code>x</code>在CSS中有一个特殊的概念叫做<code>x-height</code>，术语描述就是基线<strong>baseline</strong>和等分线<strong>midline</strong>之间的距离，小写<code>x</code>的底部就是基线。那么<code>ex</code>又有什么用处呢？我们知道内联元素默认都是基线对齐的，而<code>1ex</code>就是一个<code>x</code>的高度。加入我们有一个小图标，恰巧也是<code>1ex</code>高度，那么图标和文字直接就垂直居中了。当然这个要求有点苛刻，还有啥好用的场景我还不知道。</p>
+<h2 id="vw和vh"><a href="#vw和vh" class="headerlink" title="vw和vh"></a>vw和vh</h2><h2 id="vmin和vmax"><a href="#vmin和vmax" class="headerlink" title="vmin和vmax"></a>vmin和vmax</h2><p>参考相关文章链接：<br><a href="https://css-tricks.com/the-at-rules-of-css/" target="_blank" rel="noopener">The At-Rules of CSS</a><br><a href="https://www.zhangxinxu.com/wordpress/2015/08/know-css-at-rules/" target="_blank" rel="noopener">了解CSS中的@ AT规则</a></p>
+
+      
+    </div>
+    <div>
+      
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  <div>
+        <p id="div-border-left-red">
+      <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <span>
+        <b>本文地址: </b><a href="/2019/12/17/CSS-restore-2/" title="CSS重塑(2)——CSS语言相关">https://www.yuguomin.com/2019/12/17/CSS-restore-2/</a><br><b>转载请注明出处, 谢谢！</b>
+        </span>
+        </p>
+  </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/16/CSS-restore-1/" rel="next" title="CSS重塑(1)——历史与大纲">
+                <i class="fa fa-chevron-left"></i> CSS重塑(1)——历史与大纲
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-hoofoo-share-title">分享到: </div>
+<div class="-hoofoo-share-buttons">
+    <div class="-mob-share-weibo -hoofoo-share-weibo -hoofoo-share-ui-button"><i class="fa fa-weibo" aria-hidden="true"></i></div>
+    <div class="-mob-share-weixin -hoofoo-share-weixin -hoofoo-share-ui-button"><i class="fa fa-weixin" aria-hidden="true"></i></div>
+    <div class="-mob-share-qq -hoofoo-share-qq -hoofoo-share-ui-button"><i class="fa fa-qq" aria-hidden="true"></i></div>
+    <div class="-mob-share-twitter -hoofoo-share-twitter -hoofoo-share-ui-button"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+    <div class="-hoofoo-share-more -hoofoo-share-ui-button -mob-share-open"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk4MC8yMjQ5MQ=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <p class="site-author-name" itemprop="name">YGM</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+<div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("08/03/2019 12:34:56");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS语法结构"><span class="nav-number">2.</span> <span class="nav-text">CSS语法结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#at-rule"><span class="nav-number">2.1.</span> <span class="nav-text">at-rule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#qualified-rule"><span class="nav-number">2.2.</span> <span class="nav-text">qualified rule</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS选择器"><span class="nav-number">3.</span> <span class="nav-text">CSS选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单选择器"><span class="nav-number">3.1.</span> <span class="nav-text">简单选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型选择器和全体选择器"><span class="nav-number">3.1.1.</span> <span class="nav-text">类型选择器和全体选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id选择器与class选择器"><span class="nav-number">3.1.2.</span> <span class="nav-text">id选择器与class选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性选择器"><span class="nav-number">3.1.3.</span> <span class="nav-text">属性选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪类选择器"><span class="nav-number">3.1.4.</span> <span class="nav-text">伪类选择器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪元素"><span class="nav-number">3.1.5.</span> <span class="nav-text">伪元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组合优先级"><span class="nav-number">3.2.</span> <span class="nav-text">组合优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择器的优先级"><span class="nav-number">3.3.</span> <span class="nav-text">选择器的优先级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS单位"><span class="nav-number">4.</span> <span class="nav-text">CSS单位</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#null"><span class="nav-number">4.1.</span> <span class="nav-text">%</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#em和rem"><span class="nav-number">4.2.</span> <span class="nav-text">em和rem</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ex和ch"><span class="nav-number">4.3.</span> <span class="nav-text">ex和ch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vw和vh"><span class="nav-number">4.4.</span> <span class="nav-text">vw和vh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vmin和vmax"><span class="nav-number">4.5.</span> <span class="nav-text">vmin和vmax</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YGM</span>
+</div>
+
+
+<div class="powered-by">
+   个人专属
+</div>
+
+<div class="theme-info">
+  博客 - Super fish
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+<script type="text/javascript">
+    //微信二维码点击背景关闭
+    $('body').delegate('.-mob-share-weixin-qrcode-bg','click', function(){
+         $(".-mob-share-weixin-qrcode-close").trigger("click");
+    }); 
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+
+<script type="text/javascript">
+  if (window.screen.width > 750) {
+    var canvasScript = document.createElement("script");
+    canvasScript.setAttribute("type", "text/javascript");
+    canvasScript.setAttribute("src", "/lib/canvas-nest/canvas-nest.min.js");
+    canvasScript.setAttribute("color", '255,0,204');
+    canvasScript.setAttribute("opacity", '0.5');
+    canvasScript.setAttribute("zIndex", '-2');
+    canvasScript.setAttribute("count", '40');
+    document.body.appendChild(canvasScript);
+  }
+</script>
+
+</html>
