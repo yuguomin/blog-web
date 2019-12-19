@@ -76,7 +76,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-4.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-error.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/fly-layout-ok.png">
-<meta property="og:updated_time" content="2019-12-19T16:48:29.969Z">
+<meta property="og:updated_time" content="2019-12-19T16:50:01.549Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS重塑(3)——CSS布局">
 <meta name="twitter:description" content="前言 本篇内容主要是CSS布局相关的学习，从传统的布局方式再到flex和grid布局的使用，以及CSS常见的居中方式。">
@@ -480,9 +480,7 @@
 </ol>
 <p>实现到这一步可以看到一个结果：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-1.png" style="width:80%;"></p>
 <ol start="3">
-<li><p>接着，我们想要把<code>left</code>和<code>right</code>到对应的左右边去，这里要明白，为什么他们俩会掉下来，根据<code>float</code>元素的定位方式，这里三个元素都会往左边靠，直到遇到父元素或者浮动元素，而根据文档结构，<code>.center</code>元素在第一个，并且宽度是<code>100%，所以其它浮动元素只能再起一行。那么我们使用</code>margin<code>属性来把这两个元素给“提”上去。
-为左边的盒子添加一个</code>margin-left: -100%;<code>，</code>margin-left<code>负值和</code>margin-top<code>负值，是会移动自身元素来控制和其它元素的间距，这个</code>-100%<code>，就相当于往前移动来整个</code>.center<code>元素的距离，那么就跑到上一层最左边去了。
-同理，左边盒子上去后，右边的盒子就在第二行的最左边了，我们只需要为它</code>margin-left: 负自身的宽度`也可以提升的效果，跑到最右边去了。为了节省篇幅，这几个添加的代码就不展示了，看下结果。</p>
+<li><p>接着，我们想要把<code>left</code>和<code>right</code>到对应的左右边去，这里要明白，为什么他们俩会掉下来，根据<code>float</code>元素的定位方式，这里三个元素都会往左边靠，直到遇到父元素或者浮动元素，而根据文档结构，<code>.center</code>元素在第一个，并且宽度是<code>100%</code>，所以其它浮动元素只能再起一行。那么我们使用<code>margin</code>属性来把这两个元素给“提”上去。<br>为左边的盒子添加一个<code>margin-left: -100%;</code>，<code>margin-left</code>负值和<code>margin-top</code>负值，是会移动自身元素来控制和其它元素的间距，这个<code>-100%</code>，就相当于往前移动来整个<code>.center</code>元素的距离，那么就跑到上一层最左边去了。<br>同理，左边盒子上去后，右边的盒子就在第二行的最左边了，我们只需要为它<code>margin-left: 负自身的宽度</code>也可以提升的效果，跑到最右边去了。为了节省篇幅，这几个添加的代码就不展示了，看下结果。</p>
 <img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-2.png" style="width:80%;">
 目的是实现了，可是我们发现`.center`的内容被`.left`给盖住了。
 </li>
