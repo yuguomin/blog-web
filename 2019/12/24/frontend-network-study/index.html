@@ -71,7 +71,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
 <meta property="og:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-structure.png">
-<meta property="og:updated_time" content="2019-12-26T15:30:06.352Z">
+<meta property="og:updated_time" content="2019-12-26T16:03:27.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅入浅出前端通信协议知识">
 <meta name="twitter:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于代码排错，前后端分离开发都有帮助。">
@@ -346,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">8.4k(字)</span>
+                  <span class="post-count">8.5k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">30(分)</span>
+            <span class="post-count">31(分)</span>
             
           </span>
 
@@ -818,8 +818,8 @@
 <h1 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h1><p>2015年，发布了<strong>HTTP/2</strong>，它是<strong>HTTP/1.1</strong>的升级版本，下面列举一下它的升级重点：</p>
 <p>1.二进制分帧<br><strong>HTTP/1.1</strong>的头信息肯定是文本，数据体可以是文本，也可以是二进制。<strong>HTTP/2.0</strong>在不改变原来版本语义的情况下，新增了二进制分帧层，将所有传输的信息分割成更小的消息和帧，并对他们采取二进制格式的编码使体积更小。在<strong>HTTP1.1</strong>中的首部信息（除了请求头）会被封装到<strong>Headers frame</strong>，而请求体会被放入到<strong>DATA frame</strong>，除此之外还有八种不同类型的帧。</p>
 <p>2.多路复用<br><strong>HTTP/2</strong>的传输是基于二进制帧的，同域名下所有请求都是在一个<strong>TCP</strong>连接上进行的，而每一个连接上承载了很多双向流通的流，每一个流都有一个独一无二的标识和优先级，而流就是由二进制帧组成的。二进制帧的头部信息会标识自己属于哪一个流，所以这些帧是可以交错传输的。然后在接收端通过帧的头信息流标识符组装成完整的数据。这样就解决了之前的“队头阻塞问题”。并且优先级越高，服务器会越早回应。</p>
-<p>2.头信息压缩<br><strong>HTTP</strong>协议是无状态的，每次请求都需要带上所有的信息，其中很多信息是重复的。这样会浪费带宽也影响速度。因此，<strong>HTTP/2</strong>做了优化，采用了头信息压缩机制。一方面，采用<strong>gzip</strong>或<strong>compress</strong>压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都将存入表里。并生成索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
-<p>3.TCP复用</p>
+<p>3.头信息压缩<br><strong>HTTP</strong>协议是无状态的，每次请求都需要带上所有的信息，其中很多信息是重复的。这样会浪费带宽也影响速度。因此，<strong>HTTP/2</strong>做了优化，采用了头信息压缩机制。一方面，采用<strong>gzip</strong>或<strong>compress</strong>压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都将存入表里。并生成索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
+<p>4.服务器推送<br>服务器可以为客户端的请求做多个响应，不再是一对一。也就是说，除了原始请求的对应资源，服务端还可以推送一些客户端可能会需要的资源而不需要客户端一一请求。这样可以用服务端控制一些资源提前加载，提高响应速度。</p>
 
       
     </div>
