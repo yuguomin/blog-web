@@ -71,7 +71,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
 <meta property="og:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-structure.png">
-<meta property="og:updated_time" content="2019-12-25T15:23:49.718Z">
+<meta property="og:updated_time" content="2019-12-26T15:30:06.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅入浅出前端通信协议知识">
 <meta name="twitter:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于代码排错，前后端分离开发都有帮助。">
@@ -346,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">5.5k(字)</span>
+                  <span class="post-count">8.4k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">19(分)</span>
+            <span class="post-count">30(分)</span>
             
           </span>
 
@@ -520,7 +520,7 @@
 </li>
 <li><p>字节范围请求，<strong>HTTP1.1</strong>支持传送内容的一部分。比如，当客户端已经有内容的一部分，为了节省带宽，可以只向服务器请求一部分。该功能通过在请求消息中引入了<code>range</code>头信息来实现，它允许只请求资源的某个部分。在响应消息中<code>Content-Range</code>头域声明了返回的这部分对象的偏移值和长度。这在处理大型文件上传下载或者因为网络原因造成中断，继续上传下载的场景下十分有用。</p>
 </li>
-<li><p>缓存处理，当浏览器请求资源时，先看是否有缓存的资源，如果有缓存，直接取，不会再发请求，如果没有缓存，则发送请求。 通过设置字段<code>cache-control</code>来控制缓存。</p>
+<li><p>缓存处理，当浏览器请求资源时，先看是否有缓存的资源，如果有缓存，直接取，不会再发请求，如果没有缓存，则发送请求。 通过设置字段<code>Cache-Control</code>来控制缓存。</p>
 </li>
 <li><p>请求和响应都增加<code>Host</code>头信息，因为在<strong>HTTP/1.0</strong>中默认每台服务器都有唯一的<strong>IP地址</strong>，因此，请求消息中的URL并没有传递主机名。但后来，一台物理主机上可能有多个虚拟主机，它们共享一个<strong>IP地址</strong>，因此，<code>Host</code>信息就比较重要了。</p>
 </li>
@@ -538,7 +538,7 @@
 <p><strong>HTTP</strong>的请求报文由三个东西组成，请求行，请求头和请求体。</p>
 <ol>
 <li>请求行有三个部分，请求方法，请求路径和请求的协议及版本。如上例子的第一行。</li>
-<li>请求头紧随在请求行之后，是由若干行组成的，没行用冒号分隔名称和值。</li>
+<li>请求头紧随在请求行之后，是由若干行组成，每行用冒号分隔名称和值。</li>
 <li>请求体在头之后，以一个空行进行分隔，可能包含文件或者表单数据。</li>
 </ol>
 <p>接下来我们认识一下他们的具体作用。</p>
@@ -584,9 +584,242 @@
 </tr>
 </tbody></table>
 <p>在实际开发中，<code>GET</code>和<code>POST</code>使用的最频繁，它们两的<a href="https://www.zhihu.com/question/28586791" target="_blank" rel="noopener">区别</a>，这里就不多说了，很多理解了浏览器和<strong>HTTP</strong>自然就能分析出它们的区别。</p>
-<h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><p>请求头实际上就是一行行键值对，它实际上也是一堆数据，在<strong>HTTP</strong>规范中，规定了一些特殊的<strong>HTTP</strong>头，我们现在就来了解一下它们。</p>
-<hr>
-<p>未完成</p>
+<h4 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h4><p>请求头实际上就是一行行键值对，它实际上也是一堆数据，在<strong>HTTP</strong>规范中，规定了一些特殊的<strong>HTTP</strong>头，我们现在就来了解一些常用的请求头。</p>
+<table>
+<thead>
+<tr>
+<th>key值</th>
+<th>功能</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Accept</td>
+<td>通知服务端，客户端可以处理的内容类型。</td>
+<td>Accept: text/html</td>
+<td>客户端希望接受的数据类型是html类型。</td>
+</tr>
+<tr>
+<td>Accept-Encoding</td>
+<td>通知服务端，客户端可以理解的内容编码方式。</td>
+<td>Accept-Encoding: gzip</td>
+<td>表示采用LZ777算法，以及32位CRC校验的编码方式。</td>
+</tr>
+<tr>
+<td>Accept-Language</td>
+<td>声明浏览器端接受的语言，用于服务器端判断多语言。</td>
+<td>Accept-Language: *</td>
+<td>任意语言都支持。</td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>控制缓存的时效性。</td>
+<td>Cache-Control: no-cache</td>
+<td>服务端将对应请求返回的响应内容不要在客户端缓存。</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>决定当前的事务完成后，是否会关闭网络连接。</td>
+<td>Connection: keep-alive</td>
+<td>网络连接就是持久，可复用的，不会关闭。</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>HTTP访问的服务器域名，以及可选的TCP端口号。</td>
+<td>Host: <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></td>
+<td>访问80端口的<a href="http://www.baidu.com。" target="_blank" rel="noopener">www.baidu.com。</a></td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>上次访问记录的更改时间，如果服务器认为没有发生修改，则为304。只可以用在GET或HEAD请求中。</td>
+<td>if-modified-since: Wed, 25 Dec 2019 15:25:31 GMT</td>
+<td>最后修改是2019年12月25日23:25:31星期三，下次访问如果不是这个时间则200重新获取，否则读取缓存。</td>
+</tr>
+<tr>
+<td>If-None-Match</td>
+<td>再次访问页面时，携带页面的ETag与服务端的做比较，为改变返回304。</td>
+<td>If-None-Match: “5e037f6b-8c8c”</td>
+<td>请求页面的ETag为”5e037f6b-8c8c”</td>
+</tr>
+<tr>
+<td>User-Agent</td>
+<td>客户端的标识，包含了应用类型、操作系统、软件开发商以及版本号。</td>
+<td>User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36</td>
+<td>系统，内核，浏览器版本······</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>客户端存储的cookie字符串。</td>
+<td>Cookie: Version: 1; Token: C9834F8382E23B;</td>
+<td>传递了Version和Token两个cookie值。</td>
+</tr>
+<tr>
+<td>Referer</td>
+<td>当前页面是通过此来源页面里的链接进入的。</td>
+<td>Referer: <a href="https://www.yuguomin.com">https://www.yuguomin.com</a></td>
+<td>当前页面是从这个页面点击来的。</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>在请求中(如POST 或 PUT)，客户端告诉服务器实际发送的数据类型。</td>
+<td>Content-Type: application/x-www-form-urlencoded</td>
+<td>数据为默认的键值对。</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>表示发送的请求体大小。</td>
+<td>Content-Length： 10</td>
+<td>发送的请求体长度是10。</td>
+</tr>
+</tbody></table>
+<p>常见的请求头总结也就如上了，可以对比看一下示例的请求头部分是否每一个都可以理解了，详细的请求头还去看看标准吧。</p>
+<h4 id="请求体"><a href="#请求体" class="headerlink" title="请求体"></a>请求体</h4><p>请求体也就是请求的数据，最终会通过http请求发送给服务端的数据，一般都是使用<code>POST</code>请求方式，但是并没有明确的要求数据必须使用什么编码方式。实际上，开发者可以自己决定请求体是什么格式，只要最终发送的http请求满足了报文的要求即可。但是，数据到了服务端，对方要能够成功解析才有意义。服务端通常是根据<code>Content-Type</code>字段来获知请求体是什么编码方式，再对主体进行解析。所以说到 POST 提交数据方案，包含了 Content-Type 和消息主体编码方式两部分。一些常见的格式有：</p>
+<ol>
+<li>application/x-www-form-urlencoded<br><code>form</code>标签在不设置<code>enctype</code>属性的情况下，默认就是这个数据类型。请求类似如下（省略掉了其它信息）：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /a HTTP/1.1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded;charset=utf-8</span><br><span class="line"></span><br><span class="line">name=ygm&amp;age=18</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><code>Content-Type</code>类型为<code>application/x-www-form-urlencoded</code>，请求体的数据以<code>key=val&amp;key=val</code>的格式进行编码。</p>
+<ol start="2">
+<li>multipart/form-data<br>当我们使用表单上传文件的时候，必须设置<code>form</code>标签的<code>enctype</code>等于<code>multipart/form-data</code>。该格式还会生成一个<code>boundary</code>字符串来分割请求头与请求体，具体的是以一个boundary=${boundary}来进行分割，请求类似如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /a HTTP/1.1</span><br><span class="line">Content-Type: multipart/form-data; boundary=asdasbdbakjb128egdbjahsb123io</span><br><span class="line"></span><br><span class="line">--asdasbdbakjb128egdbjahsb123io</span><br><span class="line">content...</span><br><span class="line">--asdasbdbakjb128egdbjahsb123io--</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p><code>--boundary</code>用开分割请求头和请求体或请求体中的多个字段结构，<code>--boundary--</code>用来结束请求体。</p>
+<ol start="3">
+<li>application/json<br>这个值如果作为响应头的<code>Content-Type</code>是很常见的，但实际上，作为请求头也是可以的，它表示请求体是序列化的<strong>JSON</strong>字符串。比如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST /a HTTP/1.1</span><br><span class="line">Content-Type: application/x-www-form-urlencoded;charset=utf-8</span><br><span class="line"></span><br><span class="line">&#123;&quot;name&quot;: &quot;ygm&quot;, &quot;age&quot;: 18&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>这种方式对于一些比较复杂的数据结构，或者对于一些抓包工具的数据展示有很好的效果。</p>
+<ol start="4">
+<li>text/xml<br>表示当前请求体是<code>xml</code>格式，如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /a HTTP/1.1</span><br><span class="line">Content-Type: text/xml</span><br><span class="line"></span><br><span class="line">&lt;?xml version=&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;person&gt;</span><br><span class="line">  &lt;name&gt;ygm&lt;/name&gt;</span><br><span class="line">  &lt;age&gt;18&lt;/age&gt;</span><br><span class="line">&lt;/person&gt;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="响应报文"><a href="#响应报文" class="headerlink" title="响应报文"></a>响应报文</h3><p>响应报文按照前面使用<code>curl</code>命令发送请求得到的响应报文如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 302 Found</span><br><span class="line">Cache-Control: max-age=86400</span><br><span class="line">Connection: Keep-Alive</span><br><span class="line">Content-Length: 222</span><br><span class="line">Content-Type: text/html; charset=iso-8859-1</span><br><span class="line">Date: Wed, 25 Dec 2019 10:48:09 GMT</span><br><span class="line">Expires: Thu, 26 Dec 2019 10:48:09 GMT</span><br><span class="line">Location: https://www.baidu.com/search/error.html</span><br><span class="line">Server: Apache</span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE HTML PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;</span><br><span class="line">&lt;html&gt;&lt;head&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>HTTP</strong>的响应报文也分为三个部分，响应行，响应头，响应体。</p>
+<ol>
+<li>响应行：分为三个部分，协议版本，状态码和状态文本。</li>
+<li>响应头紧随在响应行之后，是由若干行组成，每行用冒号分隔名称和值。</li>
+<li>响应体在头之后，以一个空行进行分隔，可能是html或者Json等数据。</li>
+</ol>
+<p>接下来认识一下响应报文中的几个重要点。</p>
+<h4 id="状态码和状态文本"><a href="#状态码和状态文本" class="headerlink" title="状态码和状态文本"></a>状态码和状态文本</h4><p>状态码是一个用来表示本次http请求响应状态的<code>3</code>位数的数字代码。常见的状态码和状态文本如下：<br>| 状态码 | 状态文本 | 说明 |<br>| — | — | — |<br>| 100 | Continue | 客户端必须继续发送请求 |<br>| 200 | OK | 请求成功 |<br>| 204 | Not Content | 请求收到，但返回信息为空 |<br>| 301 | Moved Permanently | 永久重定向，被请求的资源已永久移动到新位置 |<br>| 302 | Found | 临时重定向，请求的资源现在临时从不同的URI响应请求。 |<br>| 304 | Not Modified | 客户端已经执行get，但文件未变化 |<br>| 403 | Forbidden | 请求不允许（由于服务器上文件或目录的权限设置导致资源不可用） |<br>| 404 | Not Found | 没有发现文件，查询或URI没有找到指定资源 |<br>| 405 | Method Not Allowed | 请求行中的请求方法不允许 |<br>| 414 | Request-URI Too Long | 请求的资源URI长度大于服务器允许的长度 |<br>| 500 | Internal Server Error | 服务器产生内部错误 |<br>| 503 | Service Unavaliable | 服务器过载或暂停维修 |</p>
+<p>总结这些状态码的特点：</p>
+<ul>
+<li>1XX：状态码一般被浏览器HTTP库处理掉了，用户一般不知晓，用于告知客户端，服务器接到请求，请继续。</li>
+<li>2XX：成功，操作被成功接收并处理。</li>
+<li>3XX：重定向，请求目标发生变化，需要客户端进一步处理。</li>
+<li>4XX：客户端请求错误，请求包含语法错误或无法完成请求。</li>
+<li>5XX：服务器错误，服务器在处理请求的过程中发生了错误。</li>
+</ul>
+<h4 id="响应头"><a href="#响应头" class="headerlink" title="响应头"></a>响应头</h4><p>和请求头类似，在响应报文中，也有一些基础信息，以键值对表示，下面也列举一些常见的响应头：</p>
+<table>
+<thead>
+<tr>
+<th>key值</th>
+<th>功能</th>
+<th>示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cache-Control</td>
+<td>缓存控制，通知客户端如何控制响应内容的缓存</td>
+<td>Cache-Control: max-age=3600</td>
+<td>让客户端对响应内容缓存3600秒。</td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>决定当前的事务完成后，是否会关闭网络连接</td>
+<td>Connection: keep-alive</td>
+<td>网络连接就是持久，可复用的，不会关闭。</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>内容编码方式，对应请求头Accept-Encoding</td>
+<td>Content-Encoding: gzip</td>
+<td>采用LZ777算法，以及32位CRC校验的编码方式。</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>内容长度，有利于浏览器判断内容是否已经结束</td>
+<td>Content-Length: 10</td>
+<td>本次数据内容的长度是10个字符，后面的是下一个回应。</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>内容类型</td>
+<td>Content-Type: text/html</td>
+<td>数据类型是html</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>当前服务器的日期</td>
+<td>Date: Wed, 25 Dec 2019 10:48:09 GMT</td>
+<td>服务器日期是···</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>资源的标识符，用于判断下次请求是否需要到服务端取回最新资源</td>
+<td>ETag: “33a64dff89d4”</td>
+<td>告知客户端当前资源的标识符是···</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>过期时间，用于判断下次请求是否需要重新到服务端获取最新资源</td>
+<td>Expires: Wed, 21 Oct 2015 07:28:00 GMT</td>
+<td>在这个时间之后响应过期</td>
+</tr>
+<tr>
+<td>Keep-Alive</td>
+<td>表示连接的状态，可以用来设置超时时长和最大请求数</td>
+<td>Keep-Alive: timeout=5, max=1000</td>
+<td>空闲连接至少打开5秒，限制连接关闭前最多1000次请求</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>当前资源最后修改的时间</td>
+<td>Last-Modified: Wed, 21 Oct 2015 07:28:00 GMT</td>
+<td>最后修改时间是···</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>服务端软件的类型</td>
+<td>Server: Apache</td>
+<td>服务端软件类型是Apache</td>
+</tr>
+<tr>
+<td>Set-Cookie</td>
+<td>设置客户端cookie，可以存在多个</td>
+<td>Set-Cookie: sessionid=38afes7a8; HttpOnly; Path=/</td>
+<td>设置了会话cookie</td>
+</tr>
+<tr>
+<td>Via</td>
+<td>服务端请求链路，追踪消息转发情况</td>
+<td>Via: 1.0 fred, 1.1 p.example.net</td>
+<td>累积的链路信息</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>指定需要将页面重新定向至的地址</td>
+<td>Location: <a href="http://www.yuguomin.com">http://www.yuguomin.com</a></td>
+<td>告知客户端，请求这个地址</td>
+</tr>
+</tbody></table>
+<p>以上是常见的一些响应头信息了。</p>
+<h4 id="响应体"><a href="#响应体" class="headerlink" title="响应体"></a>响应体</h4><p>响应体也一般就是网页的正文内容或者Json数据，有的会在响应头中会用 Content-Length 来明确响应体的长度，便于浏览器接收，对于大数据量的正文信息，也会使用<code>chunked</code>的编码方式。</p>
+<p>HTTP的整体结构就是这些，发展到1.1版本，它仍然有一些缺陷，比如复用连接，但实际上是把阻塞转移到服务端、明文传输、头信息臃肿。<br>为解决这些问题，出现了<strong>HTTP/2.0</strong>和<strong>HTTPS</strong>。</p>
+<h1 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h1><p>2015年，发布了<strong>HTTP/2</strong>，它是<strong>HTTP/1.1</strong>的升级版本，下面列举一下它的升级重点：</p>
+<p>1.二进制分帧<br><strong>HTTP/1.1</strong>的头信息肯定是文本，数据体可以是文本，也可以是二进制。<strong>HTTP/2.0</strong>在不改变原来版本语义的情况下，新增了二进制分帧层，将所有传输的信息分割成更小的消息和帧，并对他们采取二进制格式的编码使体积更小。在<strong>HTTP1.1</strong>中的首部信息（除了请求头）会被封装到<strong>Headers frame</strong>，而请求体会被放入到<strong>DATA frame</strong>，除此之外还有八种不同类型的帧。</p>
+<p>2.多路复用<br><strong>HTTP/2</strong>的传输是基于二进制帧的，同域名下所有请求都是在一个<strong>TCP</strong>连接上进行的，而每一个连接上承载了很多双向流通的流，每一个流都有一个独一无二的标识和优先级，而流就是由二进制帧组成的。二进制帧的头部信息会标识自己属于哪一个流，所以这些帧是可以交错传输的。然后在接收端通过帧的头信息流标识符组装成完整的数据。这样就解决了之前的“队头阻塞问题”。并且优先级越高，服务器会越早回应。</p>
+<p>2.头信息压缩<br><strong>HTTP</strong>协议是无状态的，每次请求都需要带上所有的信息，其中很多信息是重复的。这样会浪费带宽也影响速度。因此，<strong>HTTP/2</strong>做了优化，采用了头信息压缩机制。一方面，采用<strong>gzip</strong>或<strong>compress</strong>压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都将存入表里。并生成索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
+<p>3.TCP复用</p>
 
       
     </div>
@@ -831,7 +1064,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络结构"><span class="nav-number">2.</span> <span class="nav-text">计算机网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP协议"><span class="nav-number">3.</span> <span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP协议"><span class="nav-number">4.</span> <span class="nav-text">TCP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP协议（0-9-1-1）"><span class="nav-number">5.</span> <span class="nav-text">HTTP协议（0.9-1.1）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-0-9和HTTP-1-0"><span class="nav-number">5.1.</span> <span class="nav-text">HTTP/0.9和HTTP/1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">5.2.</span> <span class="nav-text">HTTP/1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议格式"><span class="nav-number">5.3.</span> <span class="nav-text">HTTP协议格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求报文"><span class="nav-number">5.3.1.</span> <span class="nav-text">请求报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">请求头</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络结构"><span class="nav-number">2.</span> <span class="nav-text">计算机网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP协议"><span class="nav-number">3.</span> <span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP协议"><span class="nav-number">4.</span> <span class="nav-text">TCP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP协议（0-9-1-1）"><span class="nav-number">5.</span> <span class="nav-text">HTTP协议（0.9-1.1）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-0-9和HTTP-1-0"><span class="nav-number">5.1.</span> <span class="nav-text">HTTP/0.9和HTTP/1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">5.2.</span> <span class="nav-text">HTTP/1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议格式"><span class="nav-number">5.3.</span> <span class="nav-text">HTTP协议格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求报文"><span class="nav-number">5.3.1.</span> <span class="nav-text">请求报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求体"><span class="nav-number">5.3.1.3.</span> <span class="nav-text">请求体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应报文"><span class="nav-number">5.3.2.</span> <span class="nav-text">响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码和状态文本"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">状态码和状态文本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应头"><span class="nav-number">5.3.2.2.</span> <span class="nav-text">响应头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应体"><span class="nav-number">5.3.2.3.</span> <span class="nav-text">响应体</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-2"><span class="nav-number">6.</span> <span class="nav-text">HTTP/2</span></a></li></ol></div>
             
 
           </div>
