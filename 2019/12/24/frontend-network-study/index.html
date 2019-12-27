@@ -61,21 +61,21 @@
 
 
 
-<meta name="description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于代码排错，前后端分离开发都有帮助。">
+<meta name="description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于前后端分离开发、代码排错都有帮助。">
 <meta name="keywords" content="network,TCP&#x2F;IP,HTTP,HTTPS,HTTP2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅入浅出前端通信协议知识">
 <meta property="og:url" content="https://www.yuguomin.com/2019/12/24/frontend-network-study/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于代码排错，前后端分离开发都有帮助。">
+<meta property="og:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于前后端分离开发、代码排错都有帮助。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
-<meta property="og:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-structure.png">
-<meta property="og:updated_time" content="2019-12-26T16:03:27.167Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-structure.png">
+<meta property="og:updated_time" content="2019-12-27T07:36:36.983Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅入浅出前端通信协议知识">
-<meta name="twitter:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于代码排错，前后端分离开发都有帮助。">
-<meta name="twitter:image" content="https://www.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
+<meta name="twitter:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于前后端分离开发、代码排错都有帮助。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
 
 
 
@@ -346,7 +346,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">8.5k(字)</span>
+                  <span class="post-count">9.3k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -355,7 +355,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">31(分)</span>
+            <span class="post-count">33(分)</span>
             
           </span>
 
@@ -382,7 +382,7 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于代码排错，前后端分离开发都有帮助。</li>
+<li>通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于前后端分离开发、代码排错都有帮助。</li>
 </ul>
 <a id="more"></a>
 <p>浏览器打开一个页面首先要做的就是<strong>DNS</strong>域名解析，然后根据<strong>URL</strong>把数据取回来，取回数据通常使用的是<strong>HTTP</strong>协议。或者在我们的页面中，与服务端产生一个交互，也可以利用<strong>HTTP</strong>协议获取我们需要的信息。关于<strong>HTTP</strong>协议是一个什么，以及它相关扩展的知识，接下来展开一个基于前端层面的学习。</p>
@@ -464,7 +464,7 @@
 <p>目前，广泛采用的是IP协议第四版，简称<strong>IPv4</strong>。这个版本规定，网络地址由<code>32</code>个二进制位组成。习惯上，我们用分成四段的十进制数表示IP地址，从<code>0.0.0.0</code>一直到<code>255.255.255.255</code>。</p>
 <p>但是<strong>IP协议</strong>是如何通过<strong>IP地址</strong>判断两台计算机同属一个子网络的呢？<br>在<strong>IP地址中</strong>有一部分位数表示网络部分，一部分表示主机部分。具体的判断还需要一个参数“子网掩码”，它是表示子网络特征的一个参数，也是由<code>32</code>位二进制组成，它的网络部分全部为1，主机部分全部为<code>0</code>。如果已知网络部分是前<code>24</code>位，主机部分是后<code>8</code>位，那么子网络掩码就是<code>11111111.11111111.11111111.00000000</code>，写成十进制就是<code>255.255.255.0</code>。在判断网络的时候，就通过两台计算机的子网掩码判断是否为网络部分，然后在用IP地址进行比较。确认是否在同一个子网络。</p>
 <h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p><strong>TCP协议</strong>是传输层的协议，传输程实现两台计算机中进程的通信，并提供通用的数据传输服务，在这里主要使用两种协议。一种是<strong>UDP</strong>，一种是<strong>TCP</strong>。</p>
-<p><strong>UDP（User Datagram Protocol，用户数据报协议）</strong>，是一个非链接，面向报文的协议。UDP的包非常简单，并且尽最大努力的数据传输服务（不保证数据传输的可靠性）。这里就不多做介绍了。</p>
+<p><strong>UDP（User Datagram Protocol，用户数据报协议）</strong>，是一个非连接，面向报文的协议。UDP的包非常简单，并且尽最大努力的数据传输服务（不保证数据传输的可靠性）。这里就不多做介绍了。</p>
 <p><strong>TCP（Transmission Control Protocol，传输控制协议）</strong>是面向连接的协议，也就是说，在收发数据前，必须和对方建立可靠的连接。一个TCP连接必须要经过三次“对话”才能建立起来，其中的过程非常复杂，一般称作 <strong>“三次握手”</strong>，这里也只简单的描述下，以一个客户端和服务端交互为例：</p>
 <ul>
 <li>第一次握手：客户端将一个带有<strong>SYN</strong>标志的数据包传递给服务端；</li>
@@ -486,7 +486,7 @@
 <li>第四次挥手，客户端返回<strong>ACK</strong>报文确认。</li>
 </ul>
 <p><strong>FIN</strong>就像是一个表示自己想要关闭的讯号。<br>这里有个问题是，为什么连接只要三次，可断开需要四次？<br><strong>TCP协议</strong>是一条双向的通讯通道，任何一方都可以主动断开连接，任何一方也有可能还有没有发送完的信息。就比如两个人打电话，电话双方都可以讲话，也可以由一方来提出结束，但是对方可能也没有讲完，需要双方都确认结束，然后再挂断。在第一次和第二次挥手，相当于客户端通知服务端，我这边结束了，服务端表示我知道了。然后第三次和第四次挥手是服务端告诉客户端我这边也结束了，客户端接收到后确认双方都结束了，告诉服务端我知道了。</p>
-<h1 id="HTTP协议（0-9-1-1）"><a href="#HTTP协议（0-9-1-1）" class="headerlink" title="HTTP协议（0.9-1.1）"></a>HTTP协议（0.9-1.1）</h1><p>在<strong>TCP</strong>连接建立后，就到了应用层，在这一层有多种协议规定应用程序的数据格式，对于我们最常见的就是<strong>HTTP</strong>协议。<br><img src="/images/frontend-network-study/HTTP-base-img.png" style="border:none;width:70%;"></p>
+<h1 id="HTTP协议（0-9-1-1）"><a href="#HTTP协议（0-9-1-1）" class="headerlink" title="HTTP协议（0.9-1.1）"></a>HTTP协议（0.9-1.1）</h1><p>在<strong>TCP</strong>连接建立后，就到了应用层，在这一层有多种协议规定应用程序的数据格式，对于我们最常见的就是<strong>HTTP</strong>协议。<br><img src="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-base-img.png" style="border:none;width:70%;"></p>
 <p><strong>HTTP(Hyper Text Transfer Protocol 超文本传输协议)</strong>，看名字就可以知道是<strong>用于传输诸如HTML的超媒体文档</strong>的应用层协议。<strong>HTTP</strong>协议是基于<strong>TCP</strong>协议出现的，在TCP的基础上，规定了<code>Request-Response</code>的模式。这个模式决定了通讯必定是由浏览器端首先发起的，默认使用<code>80</code>端口。我们以它的几个关键版本的发展来学习。</p>
 <h2 id="HTTP-0-9和HTTP-1-0"><a href="#HTTP-0-9和HTTP-1-0" class="headerlink" title="HTTP/0.9和HTTP/1.0"></a>HTTP/0.9和HTTP/1.0</h2><p>最早的版本是1991年发布的0.9版本，只支持<code>GET</code>请求方式：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /index.html</span><br></pre></td></tr></table></figure>
@@ -527,7 +527,7 @@
 <li><p>新增了一些Request method，<strong>HTTP1.1</strong>增加了<code>OPTIONS</code>、<code>PUT</code>、<code>DELETE</code>、<code>TRACE</code>、<code>CONNECT</code>方法。</p>
 </li>
 </ol>
-<h2 id="HTTP协议格式"><a href="#HTTP协议格式" class="headerlink" title="HTTP协议格式"></a>HTTP协议格式</h2><p><strong>HTTP</strong>协议经过版本的变化，它的基本格式如下图所示：<br><img src="/images/frontend-network-study/HTTP-structure.png" style="border:none;width:70%;"></p>
+<h2 id="HTTP协议格式"><a href="#HTTP协议格式" class="headerlink" title="HTTP协议格式"></a>HTTP协议格式</h2><p><strong>HTTP</strong>协议经过版本的变化，它的基本格式如下图所示：<br><img src="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-structure.png" style="border:none;width:70%;"></p>
 <p>我们使用<a href="http://www.ruanyifeng.com/blog/2019/09/curl-reference.html" target="_blank" rel="noopener">curl</a>命令来请求一个服务器，查看一个示例：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST -d <span class="string">"super fish"</span> -s -v -H <span class="string">"name: ygm"</span> -- <span class="string">"https://www.baidu.com"</span></span><br></pre></td></tr></table></figure>
 
@@ -616,7 +616,7 @@
 <td>Cache-Control</td>
 <td>控制缓存的时效性。</td>
 <td>Cache-Control: no-cache</td>
-<td>服务端将对应请求返回的响应内容不要在客户端缓存。</td>
+<td>服务端对应请求返回的响应内容不会在客户端缓存。</td>
 </tr>
 <tr>
 <td>Connection</td>
@@ -708,7 +708,76 @@
 <li>响应体在头之后，以一个空行进行分隔，可能是html或者Json等数据。</li>
 </ol>
 <p>接下来认识一下响应报文中的几个重要点。</p>
-<h4 id="状态码和状态文本"><a href="#状态码和状态文本" class="headerlink" title="状态码和状态文本"></a>状态码和状态文本</h4><p>状态码是一个用来表示本次http请求响应状态的<code>3</code>位数的数字代码。常见的状态码和状态文本如下：<br>| 状态码 | 状态文本 | 说明 |<br>| — | — | — |<br>| 100 | Continue | 客户端必须继续发送请求 |<br>| 200 | OK | 请求成功 |<br>| 204 | Not Content | 请求收到，但返回信息为空 |<br>| 301 | Moved Permanently | 永久重定向，被请求的资源已永久移动到新位置 |<br>| 302 | Found | 临时重定向，请求的资源现在临时从不同的URI响应请求。 |<br>| 304 | Not Modified | 客户端已经执行get，但文件未变化 |<br>| 403 | Forbidden | 请求不允许（由于服务器上文件或目录的权限设置导致资源不可用） |<br>| 404 | Not Found | 没有发现文件，查询或URI没有找到指定资源 |<br>| 405 | Method Not Allowed | 请求行中的请求方法不允许 |<br>| 414 | Request-URI Too Long | 请求的资源URI长度大于服务器允许的长度 |<br>| 500 | Internal Server Error | 服务器产生内部错误 |<br>| 503 | Service Unavaliable | 服务器过载或暂停维修 |</p>
+<h4 id="状态码和状态文本"><a href="#状态码和状态文本" class="headerlink" title="状态码和状态文本"></a>状态码和状态文本</h4><p>状态码是一个用来表示本次http请求响应状态的<code>3</code>位数的数字代码。常见的状态码和状态文本如下：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>状态文本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100</td>
+<td>Continue</td>
+<td>客户端必须继续发送请求</td>
+</tr>
+<tr>
+<td>200</td>
+<td>OK</td>
+<td>请求成功</td>
+</tr>
+<tr>
+<td>204</td>
+<td>Not Content</td>
+<td>请求收到，但返回信息为空</td>
+</tr>
+<tr>
+<td>301</td>
+<td>Moved Permanently</td>
+<td>永久重定向，被请求的资源已永久移动到新位置</td>
+</tr>
+<tr>
+<td>302</td>
+<td>Found</td>
+<td>临时重定向，请求的资源现在临时从不同的URI响应请求。</td>
+</tr>
+<tr>
+<td>304</td>
+<td>Not Modified</td>
+<td>客户端已经执行get，但文件未变化</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden</td>
+<td>请求不允许（由于服务器上文件或目录的权限设置导致资源不可用）</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>没有发现文件，查询或URI没有找到指定资源</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed</td>
+<td>请求行中的请求方法不允许</td>
+</tr>
+<tr>
+<td>414</td>
+<td>Request-URI Too Long</td>
+<td>请求的资源URI长度大于服务器允许的长度</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>服务器产生内部错误</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavaliable</td>
+<td>服务器过载或暂停维修</td>
+</tr>
+</tbody></table>
 <p>总结这些状态码的特点：</p>
 <ul>
 <li>1XX：状态码一般被浏览器HTTP库处理掉了，用户一般不知晓，用于告知客户端，服务器接到请求，请继续。</li>
@@ -814,12 +883,30 @@
 </tbody></table>
 <p>以上是常见的一些响应头信息了。</p>
 <h4 id="响应体"><a href="#响应体" class="headerlink" title="响应体"></a>响应体</h4><p>响应体也一般就是网页的正文内容或者Json数据，有的会在响应头中会用 Content-Length 来明确响应体的长度，便于浏览器接收，对于大数据量的正文信息，也会使用<code>chunked</code>的编码方式。</p>
-<p>HTTP的整体结构就是这些，发展到1.1版本，它仍然有一些缺陷，比如复用连接，但实际上是把阻塞转移到服务端、明文传输、头信息臃肿。<br>为解决这些问题，出现了<strong>HTTP/2.0</strong>和<strong>HTTPS</strong>。</p>
+<p>HTTP的整体结构就是这些，发展到1.1版本，它仍然有一些缺陷，比如1.1的管道机制，但实际上是把阻塞转移到服务端、明文传输、头信息臃肿。<br>为解决这些问题，出现了<strong>HTTP/2.0</strong>和<strong>HTTPS</strong>。</p>
 <h1 id="HTTP-2"><a href="#HTTP-2" class="headerlink" title="HTTP/2"></a>HTTP/2</h1><p>2015年，发布了<strong>HTTP/2</strong>，它是<strong>HTTP/1.1</strong>的升级版本，下面列举一下它的升级重点：</p>
 <p>1.二进制分帧<br><strong>HTTP/1.1</strong>的头信息肯定是文本，数据体可以是文本，也可以是二进制。<strong>HTTP/2.0</strong>在不改变原来版本语义的情况下，新增了二进制分帧层，将所有传输的信息分割成更小的消息和帧，并对他们采取二进制格式的编码使体积更小。在<strong>HTTP1.1</strong>中的首部信息（除了请求头）会被封装到<strong>Headers frame</strong>，而请求体会被放入到<strong>DATA frame</strong>，除此之外还有八种不同类型的帧。</p>
-<p>2.多路复用<br><strong>HTTP/2</strong>的传输是基于二进制帧的，同域名下所有请求都是在一个<strong>TCP</strong>连接上进行的，而每一个连接上承载了很多双向流通的流，每一个流都有一个独一无二的标识和优先级，而流就是由二进制帧组成的。二进制帧的头部信息会标识自己属于哪一个流，所以这些帧是可以交错传输的。然后在接收端通过帧的头信息流标识符组装成完整的数据。这样就解决了之前的“队头阻塞问题”。并且优先级越高，服务器会越早回应。</p>
+<p>2.多路复用<br><strong>HTTP/2</strong>的传输是基于二进制帧的，同域名下所有请求都是在一个<strong>TCP</strong>连接上进行的，而连接上承载了很多双向流通的流，每一个流都有一个独一无二的标识和优先级，流就是由二进制帧组成的。二进制帧的头部信息会标识自己属于哪一个流，所以这些帧是可以交错传输的。然后在接收端通过帧的头信息流标识符组装成完整的数据。这样就解决了之前的“队头阻塞问题”。并且优先级越高，服务器会越早回应。</p>
 <p>3.头信息压缩<br><strong>HTTP</strong>协议是无状态的，每次请求都需要带上所有的信息，其中很多信息是重复的。这样会浪费带宽也影响速度。因此，<strong>HTTP/2</strong>做了优化，采用了头信息压缩机制。一方面，采用<strong>gzip</strong>或<strong>compress</strong>压缩后再发送；另一方面，客户端和服务器同时维护一张头信息表，所有字段都将存入表里。并生成索引号，以后就不发送同样字段了，只发送索引号，这样就提高速度了。</p>
 <p>4.服务器推送<br>服务器可以为客户端的请求做多个响应，不再是一对一。也就是说，除了原始请求的对应资源，服务端还可以推送一些客户端可能会需要的资源而不需要客户端一一请求。这样可以用服务端控制一些资源提前加载，提高响应速度。</p>
+<p><strong>HTTP/2</strong>在性能优化上的提升和为之后准备更高级的功能打下了很好的基础。从一定程度上，减少了开发人员很多的工作内容。但是，<strong>http</strong>协议还有一个问题，安全。</p>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><p><strong>HTTP</strong>协议的安全方面的问题，主要在于它的明文传输和互联网的公开环境造成，主要涉及三个点：</p>
+<ol>
+<li>无法确认对端的身份，就是无法确定我要快递的东西真的是本人签收，可能存在冒充。</li>
+<li>传输的数据可能会被窃听，我发出去的快递，在过程中别人可以看到里面的内容。</li>
+<li>传输的数据可能被篡改，我发出的快递，在传输过程中被人更换了其中的内容。</li>
+</ol>
+<p>鉴于此，出现了<strong>HTTPS</strong>来解决这些问题，本篇内容对<strong>HTTPS</strong>的介绍主要只涉及到它的大概过程。<br><strong>HTTPS</strong>不是应用层的一种新协议，它是采用来<strong>SSL（SecureSocket Layer）或TLS（Transport Layer Security）</strong>协议作为通信接口的<strong>HTTP</strong>协议，这个通信接口可以用来加密，构建于<strong>TCP</strong>协议之上。他们利用对称加密的方式加密通信信息，利用非对称加密加密对称加密的密钥，再利用证书保证非对称加密的公开密钥的正确性。这样，在保持了<strong>HTTP</strong>设计思想的同时，保证了传输的安全性，以及最大程度的节约了加密解密的性能。</p>
+<h1 id="WebScoket"><a href="#WebScoket" class="headerlink" title="WebScoket"></a>WebScoket</h1><p>WebScoket协议在2011年成为了国际标准，它的目的就是实现真正的服务端客户端全双工通信，也就是服务端也可以主动发起消息了。这里介绍它的几个特点：</p>
+<ol>
+<li>建立在TCP协议之上；</li>
+<li><strong>WebSocket</strong>是由<strong>http</strong>先发起的，端口也是80和443，握手阶段采用<strong>HTTP</strong>协议，然后再转为<strong>WebSocket</strong>连接;</li>
+<li>协议标识符是<code>ws</code>（如果加密，则为<code>wss</code>），服务器网址就是<strong>URL</strong>。</li>
+</ol>
+<p>不同于<strong>HTTP/2.0 Server Push</strong>基于客户端发起请求后，服务端可以主动推送一些相关的资源。而是可以完全的主动发起通信。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上面的这些内容，是最近几天整理下来的，有的知识点如果往深了看实在是太深了…这里基于我目前的知识水平和应用角度，综合了关于互联网协议的相关知识，内容还是<strong>HTTP协议</strong>为主的，毕竟是使用最多。可能有一些理解不当的地方，还请指出。</p>
+<p>总结完了这一块的知识，对日常开发的前后端交互，浏览器的数据获取有了更深刻的印象。也从这几个<strong>HTTP</strong>版本的变迁体会到一些设计方式和传输优化上的思想。学海无涯，且静看眼前发纷飞。</p>
+<p>参考相关文章链接：<br><a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="noopener">互联网协议</a><br><a href="http://www.ruanyifeng.com/blog/2016/08/http.html" target="_blank" rel="noopener">HTTP 协议</a><br><a href="http://www.alloyteam.com/2015/03/http2-0-di-qi-miao-ri-chang/#prettyPhoto" target="_blank" rel="noopener">HTTP2.0奇妙日常</a><br><a href="https://tools.ietf.org/html/rfc1945" target="_blank" rel="noopener">HTTP/1.0</a><br><a href="https://tools.ietf.org/html/rfc2616" target="_blank" rel="noopener">HTTP/1.1</a><br><a href="https://http2.github.io/http2-spec/" target="_blank" rel="noopener">HTTP/2</a><br><a href="https://tools.ietf.org/html/rfc5246" target="_blank" rel="noopener">TLS</a></p>
 
       
     </div>
@@ -1064,7 +1151,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络结构"><span class="nav-number">2.</span> <span class="nav-text">计算机网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP协议"><span class="nav-number">3.</span> <span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP协议"><span class="nav-number">4.</span> <span class="nav-text">TCP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP协议（0-9-1-1）"><span class="nav-number">5.</span> <span class="nav-text">HTTP协议（0.9-1.1）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-0-9和HTTP-1-0"><span class="nav-number">5.1.</span> <span class="nav-text">HTTP/0.9和HTTP/1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">5.2.</span> <span class="nav-text">HTTP/1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议格式"><span class="nav-number">5.3.</span> <span class="nav-text">HTTP协议格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求报文"><span class="nav-number">5.3.1.</span> <span class="nav-text">请求报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求体"><span class="nav-number">5.3.1.3.</span> <span class="nav-text">请求体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应报文"><span class="nav-number">5.3.2.</span> <span class="nav-text">响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码和状态文本"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">状态码和状态文本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应头"><span class="nav-number">5.3.2.2.</span> <span class="nav-text">响应头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应体"><span class="nav-number">5.3.2.3.</span> <span class="nav-text">响应体</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-2"><span class="nav-number">6.</span> <span class="nav-text">HTTP/2</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络结构"><span class="nav-number">2.</span> <span class="nav-text">计算机网络结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IP协议"><span class="nav-number">3.</span> <span class="nav-text">IP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCP协议"><span class="nav-number">4.</span> <span class="nav-text">TCP协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP协议（0-9-1-1）"><span class="nav-number">5.</span> <span class="nav-text">HTTP协议（0.9-1.1）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-0-9和HTTP-1-0"><span class="nav-number">5.1.</span> <span class="nav-text">HTTP/0.9和HTTP/1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-1-1"><span class="nav-number">5.2.</span> <span class="nav-text">HTTP/1.1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP协议格式"><span class="nav-number">5.3.</span> <span class="nav-text">HTTP协议格式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求报文"><span class="nav-number">5.3.1.</span> <span class="nav-text">请求报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求方法"><span class="nav-number">5.3.1.1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求头"><span class="nav-number">5.3.1.2.</span> <span class="nav-text">请求头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#请求体"><span class="nav-number">5.3.1.3.</span> <span class="nav-text">请求体</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应报文"><span class="nav-number">5.3.2.</span> <span class="nav-text">响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#状态码和状态文本"><span class="nav-number">5.3.2.1.</span> <span class="nav-text">状态码和状态文本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应头"><span class="nav-number">5.3.2.2.</span> <span class="nav-text">响应头</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应体"><span class="nav-number">5.3.2.3.</span> <span class="nav-text">响应体</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTP-2"><span class="nav-number">6.</span> <span class="nav-text">HTTP/2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">7.</span> <span class="nav-text">HTTPS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebScoket"><span class="nav-number">8.</span> <span class="nav-text">WebScoket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
