@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 刚把通信协议相关的内容整理好，这会关于这方面的知识还挺热乎(香)，趁热打铁，再看看关于前后端通信时常遇的问题“跨域”。本篇文章主要讲了跨域和解决跨域的方法及原理。让我们一起步入知识的海洋～">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/cross-domain/proxy-solve.png">
-<meta property="og:updated_time" content="2019-12-30T17:08:31.584Z">
+<meta property="og:updated_time" content="2019-12-31T07:07:55.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域的解决方法及原理">
 <meta name="twitter:description" content="前言 刚把通信协议相关的内容整理好，这会关于这方面的知识还挺热乎(香)，趁热打铁，再看看关于前后端通信时常遇的问题“跨域”。本篇文章主要讲了跨域和解决跨域的方法及原理。让我们一起步入知识的海洋～">
@@ -392,7 +392,7 @@
 <p>跨域出现的目的，实际上也就是为什么要制定同源策略：<br>利用同源策略，可以判断出两个地址之间的关系，对不同源也就是跨域做一些限制。主要是下面这三种限制：</p>
 <ol>
 <li><code>Cookie</code>、<code>LocalStorage</code>和<code>IndexDB</code>无法读取；</li>
-<li>相互间的DOM无法获取；</li>
+<li>相互间的<code>DOM</code>无法获取；</li>
 <li><code>XHR</code>请求<strong>无法接收</strong>响应。</li>
 </ol>
 <p>假设，我们没有这些限制，别人可以利用一些手段拿到用户信息，或者攻击一些被内嵌的页面用以修改它的宿主页面，再或者去获取一些敏感信息。这些都是很危险的。<br>浏览器爸爸搞了这么一出，一定程度上为我们营造了相对安全的环境。但是有些场景下，我们不得不去跨域做一些事，比如后端服务托管在另外一个域名，或者有时候对接一些第三方的API，通过内嵌页面通知宿主页面一些信息等等。因此我们需要用一些办法实现消息互通。<br>不过需要一提的是，<code>img</code>、<code>link</code>和<code>script</code>是可以跨域加载的，<code>form</code>表单提交也不被限制。</p>
@@ -512,6 +512,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/12/31/web-attack-ways/" rel="prev" title="常见Web安全攻防措施">
+                常见Web安全攻防措施 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -618,7 +622,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -627,7 +631,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -636,7 +640,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -719,7 +723,7 @@ show_date_time();
         <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
