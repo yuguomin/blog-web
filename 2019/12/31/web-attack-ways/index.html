@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="browser,network,Web,">
+  <meta name="keywords" content="Web,network,browser,">
 
 
 
@@ -62,14 +62,14 @@
 
 
 <meta name="description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
-<meta name="keywords" content="browser,network,Web">
+<meta name="keywords" content="Web,network,browser">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见Web安全攻防措施">
 <meta property="og:url" content="https://www.yuguomin.com/2019/12/31/web-attack-ways/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-02T06:27:00.369Z">
+<meta property="og:updated_time" content="2020-01-02T06:49:47.725Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见Web安全攻防措施">
 <meta name="twitter:description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
@@ -452,7 +452,7 @@
 <h1 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h1><p><strong>DNS</strong>，简单来说，就是一个存储着域名和<strong>IP</strong>映射关系的数据库。域名的作用就是针对<strong>IP</strong>地址做一个标记记忆，我们在输入域名去进行请求的时候，第一步就是要进行各个渠道的<strong>DNS</strong>解析，找到对应的<strong>IP</strong>，浏览器缓存，本地缓存，本地区域名服务器，根域名服务器，找到后，再发起最终请求。如果在这些环节里出了错，被人篡改了其中的映射关系，比如把我的博客域名导流到著名澳门的那啥网站去等等。</p>
 <p>如果要防备这些攻击，没有直接防备的手段，多是用来预防：</p>
 <ul>
-<li>准备两个域名，发生问题后即使更换。</li>
+<li>准备两个域名，发生问题后及时更换。</li>
 <li>少做奇怪的事，减少被恶意网站入侵修改本地文件或缓存的可能。</li>
 <li>使用<strong>HTTPDNS</strong>代替原本的<strong>UDP</strong>协议的<strong>Local DNS</strong>。</li>
 </ul>
@@ -493,11 +493,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/browser/" rel="tag"><i class="fa fa-tag"> browser</i></a>
+            <a href="/tags/Web/" rel="tag"><i class="fa fa-tag"> Web</i></a>
           
             <a href="/tags/network/" rel="tag"><i class="fa fa-tag"> network</i></a>
           
-            <a href="/tags/Web/" rel="tag"><i class="fa fa-tag"> Web</i></a>
+            <a href="/tags/browser/" rel="tag"><i class="fa fa-tag"> browser</i></a>
           
         </div>
       
