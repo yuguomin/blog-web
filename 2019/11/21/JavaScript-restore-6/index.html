@@ -73,7 +73,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-error.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-micro.png">
-<meta property="og:updated_time" content="2019-12-03T08:19:09.527Z">
+<meta property="og:updated_time" content="2020-01-02T04:20:52.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(6)——Event Loop">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，以及研究任务与微任务。">
@@ -440,7 +440,7 @@
 <ol>
 <li>正常的进行调用栈的操作，函数入栈，但是遇到异步任务时，放到一个由<code>C++</code>实现的浏览器创建的<code>WebAPIs</code>的线程中去完成，然后继续执行自己的同步任务，完成后出栈；</li>
 <li>在主线程进行的过程中，<code>WebAPIs</code>会完成这些等待，把等待好的回调函数，放到“任务队列”中去；</li>
-<li>这个时候有一个叫做<code>Event Loop</code>的角色，它在上面这几步的基础上，做一件事，监听调用栈是任务队列，当调用栈为空时，并且任务队列中有东西，那么就把任务队列中的第一项弹出，推入到调用栈中。调用栈则继续着第一步操作。</li>
+<li>这个时候有一个叫做<code>Event Loop</code>的角色，它在上面这几步的基础上，做一件事，监听调用栈和任务队列，当调用栈为空时，并且任务队列中有东西，那么就把任务队列中的第一项弹出，推入到调用栈中。调用栈则继续着第一步操作。</li>
 </ol>
 <p>由此，可以大体绘制出一个基本运行图：</p>
 <div class="event-loop">

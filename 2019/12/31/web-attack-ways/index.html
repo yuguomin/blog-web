@@ -69,7 +69,7 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-01T16:33:46.487Z">
+<meta property="og:updated_time" content="2020-01-02T06:27:00.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见Web安全攻防措施">
 <meta name="twitter:description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
@@ -343,7 +343,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">2.5k(字)</span>
+                  <span class="post-count">3.2k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -352,7 +352,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">9(分)</span>
+            <span class="post-count">11(分)</span>
             
           </span>
 
@@ -420,7 +420,7 @@
 <h1 id="DDOS"><a href="#DDOS" class="headerlink" title="DDOS"></a>DDOS</h1><p><strong>DDOS(Distributed Denial of Service 分布式拒绝服务)</strong>，这种攻击方式，主要是采用多个计算机向一个目标服务器发起大量请求，造成目标服务器资源耗尽无法访问。并且由于其来源众多，防都没法防。也被称为洪水攻击。在去年阮一峰老师的博客站不幸被攻击了，看一下他提供的一些<a href="http://www.ruanyifeng.com/blog/2018/06/ddos.html" target="_blank" rel="noopener">解决方式</a>：</p>
 <ul>
 <li>HTTP拦截，如果是简单的<strong>DDOS</strong>，量少或者有特征，采用<code>IP</code>地址或者<code>User Agent</code>字段的方式进行拦截访问。</li>
-<li>带宽扩容，地方出兵800人，我方增兵1000人。始终高你一头。所以一些云服务商可以进行防护，因为他们有大量冗余带宽。</li>
+<li>带宽扩容，敌方出兵800人，我方增兵1000人。始终高你一头。所以一些云服务商可以进行防护，因为他们有大量冗余带宽。</li>
 <li>CDN，CDN的策略是把静态资源缓存到多个服务器，用户就近访问。因此，只要不暴露源服务器的<code>IP</code>的情况下，就可以利用CDN实现扩容的效果。</li>
 </ul>
 <h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p><strong>CSRF(Cross Site Request Forgery 跨站请求伪造)</strong>，我们还是先举个例子，再来总结：<br>假设有一个银行有一个<code>GET</code>请求接口<code>http://www.bank.com/transfer?money=10000&amp;to=1573</code>，这个接口是用来转账的。<code>money</code>参数就是想转账的金额，<code>to</code>参数就是转账对象的<code>id</code>。好了，攻击者发现了这个环节有机可乘，他就搞了一个恶意网站，这个网站的就是勾引人点其中的小广告，小广告有这样的一段代码：</p>
@@ -431,7 +431,7 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">action</span>=<span class="string">"http://www.xbank.com/transfer"</span> <span class="attr">id</span>=<span class="string">"form"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"number"</span> <span class="attr">name</span>=<span class="string">"money"</span> <span class="attr">value</span>=<span class="string">"100000"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"to"</span> <span class="attr">value</span>=<span class="string">"xxx"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"btn"</span>&gt;</span><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.querySelector(<span class="string">'#form'</span>).submit();</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这样，打开这样面就会刷新然后跳到了xbank的页面，执行了这个<code>POST</code>请求，<code>Cookie</code>照样带上了不说，参数都配置的整整齐齐，钱它又没了。</p>
-<p>具体总结一下，<strong>CSRF就是通过第三方页面发起跨站请求，利用用户已经保存的用户信息（多是登陆凭证），做一些修改操作，这种操作会危害到用户的利益。</strong>在这个过程里面，有一点需要说明，跨域请求多是利用<code>img</code>标签、超链接、<code>form</code>标签等这些可以搞跨域请求的功能来搞的。<br>这个时候在想，为啥不断绝这些东西的跨域功能呢？一个是同源限制出来的晚一些，另外像<code>form</code>标签这种提交操作它并没发在第三方页面拿到返回，同源策略的本质<strong>一个域名的JS，在未经允许的情况下，不得读取另一个域名的内容。但是浏览器并不会阻止你向另一个域名发送请求。</strong>如果这种经常做跨域请求的功能也加以限制，对服务端等的工作也会加大。</p>
+<p>具体总结一下，<strong>CSRF就是通过第三方页面发起跨站请求，利用用户已经保存的用户信息（多是登陆凭证），做一些修改操作，这种操作会危害到用户的利益。</strong>在这个过程里面，有一点需要说明，跨域请求多是利用<code>img</code>标签、超链接、<code>form</code>标签等这些可以搞跨域请求的功能来搞的。<br>这个时候在想，为啥不断绝这些东西的跨域功能呢？一个是同源限制出来的晚一些，另外像<code>form</code>标签这种提交操作它并没发在第三方页面拿到返回，同源策略的本质在于<strong>一个域名的JS，在未经允许的情况下，不得读取另一个域名的内容。但是浏览器并不会阻止你向另一个域名发送请求。</strong>如果这种经常做跨域请求的功能也加以限制，对服务端等的工作也会加大。</p>
 <p>讲清楚了发生场景和原理，我们来做一下防护吧！</p>
 <ol>
 <li>别搞一些骚操作。<ul>
@@ -449,7 +449,22 @@
 </ul>
 </li>
 </ol>
-<h1 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h1><h1 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h1>
+<h1 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h1><p><strong>DNS</strong>，简单来说，就是一个存储着域名和<strong>IP</strong>映射关系的数据库。域名的作用就是针对<strong>IP</strong>地址做一个标记记忆，我们在输入域名去进行请求的时候，第一步就是要进行各个渠道的<strong>DNS</strong>解析，找到对应的<strong>IP</strong>，浏览器缓存，本地缓存，本地区域名服务器，根域名服务器，找到后，再发起最终请求。如果在这些环节里出了错，被人篡改了其中的映射关系，比如把我的博客域名导流到著名澳门的那啥网站去等等。</p>
+<p>如果要防备这些攻击，没有直接防备的手段，多是用来预防：</p>
+<ul>
+<li>准备两个域名，发生问题后即使更换。</li>
+<li>少做奇怪的事，减少被恶意网站入侵修改本地文件或缓存的可能。</li>
+<li>使用<strong>HTTPDNS</strong>代替原本的<strong>UDP</strong>协议的<strong>Local DNS</strong>。</li>
+</ul>
+<h1 id="点击劫持"><a href="#点击劫持" class="headerlink" title="点击劫持"></a>点击劫持</h1><p>点击劫持的一种常用套路是，利用一个<code>iframe</code>标签嵌套一个用户真是想访问的页面，比如说我的这篇博客的页面，然后真实的页面元素覆盖在<code>iframe</code>上面并且全透明化，用户打开后看起来视觉上就会是普通的博客页面了，正常浏览没什么问题，但是当它点击屏幕上的任何区域时，实际上点击的是透明效果的主页面，一旦触发交互，JS会操作做一些什么事情就不得而知了。你以为你做的是什么，实际上并不是。</p>
+<p>如何防备这个问题：</p>
+<ul>
+<li>设置<code>X-FRAME-OPTIONS</code>报头，这个报头可以根据值的不同实现页面对<code>iframe</code>的各种程度限制。</li>
+<li>校验页面层级，利用<code>top</code>和<code>self</code>的值判断当前页面是否为顶层页面，不是就隐藏自己页面并且尝试控制顶层页面跳转到自己页面即可。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇内容介绍了几种常见的web攻击手段，也举了一些例子，但是实际的攻击手段层出不穷，很多简单的漏洞是我们把机会创造给别人的，开发不光为实现目的而开发，细节代码也要多多思考，按照规范开发，利用浏览器等工具协助，加强网络安全防范意识。也是很重要的。</p>
+<p>参考相关文章链接：<br><a href="https://www.owasp.org/index.php/Category:Attack" target="_blank" rel="noopener">OWASP-Category:Attack</a><br><a href="http://www.ruanyifeng.com/blog/2018/06/ddos.html" target="_blank" rel="noopener">DDOS</a><br><a href="http://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html" target="_blank" rel="noopener">SameSite</a></p>
+
       
     </div>
     <div>
@@ -689,7 +704,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS"><span class="nav-number">2.</span> <span class="nav-text">XSS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入"><span class="nav-number">3.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDOS"><span class="nav-number">4.</span> <span class="nav-text">DDOS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF"><span class="nav-number">5.</span> <span class="nav-text">CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS劫持"><span class="nav-number">6.</span> <span class="nav-text">DNS劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点击劫持"><span class="nav-number">7.</span> <span class="nav-text">点击劫持</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XSS"><span class="nav-number">2.</span> <span class="nav-text">XSS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL注入"><span class="nav-number">3.</span> <span class="nav-text">SQL注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDOS"><span class="nav-number">4.</span> <span class="nav-text">DDOS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CSRF"><span class="nav-number">5.</span> <span class="nav-text">CSRF</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DNS劫持"><span class="nav-number">6.</span> <span class="nav-text">DNS劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#点击劫持"><span class="nav-number">7.</span> <span class="nav-text">点击劫持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

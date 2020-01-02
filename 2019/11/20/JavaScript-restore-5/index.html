@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/object-type-protogenesis.png">
-<meta property="og:updated_time" content="2019-11-20T11:35:53.896Z">
+<meta property="og:updated_time" content="2020-01-02T04:22:24.817Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(5)——JS对象的分类">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。">
@@ -384,7 +384,7 @@
 <li>本篇内容主要是重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。</li>
 </ul>
 <a id="more"></a>
-<p>前面我们学的的对象类型，讲到了对象是<code>key: value</code>形式的属性集合，但实际上，这只是特定的一部分，并不能涵盖全部的 JavaScript 对象。JavaScript 的对象机制并非简单的属性集合 + 原型；比如，我们没办法实现一个和原生<code>Array</code>一样的数组，y有着随着下标变化改变的<code>length</code>属性，以及不使用<code>document.createElement</code>单纯依靠JS代码实现<code>div</code>对象等等</p>
+<p>前面我们学的的对象类型，讲到了对象是<code>key: value</code>形式的属性集合，但实际上，这只是特定的一部分，并不能涵盖全部的 JavaScript 对象。JavaScript 的对象机制并非简单的属性集合 + 原型；比如，我们没办法实现一个和原生<code>Array</code>一样的数组，要有着随着下标变化改变的<code>length</code>属性，以及不使用<code>document.createElement</code>单纯依靠JS代码实现<code>div</code>对象等等</p>
 <p>我们日常中接触到的许多 API，都是从这些对象中提供的，理解对象的性质，才能真正理解我们一些 API 的特性。</p>
 <h1 id="JavaScript的对象分类"><a href="#JavaScript的对象分类" class="headerlink" title="JavaScript的对象分类"></a>JavaScript的对象分类</h1><p>我们可以把对象分成几类</p>
 <ul>
@@ -434,7 +434,7 @@
 <li>Number: <code>[[NumberData]]</code></li>
 <li>Array: <code>[[DefineOwnProperty]]</code></li>
 </ul>
-<p>这些字段使得原型继承方法无法正常工作，所以，我们可以认为，所有这些原生对象都是为了特定能力或者性能，而设计出来的“特权对象”。<br>到了ES6，就可以使用<code>class/extends</code>继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。<br>但是需要注意<code>Object</code>构造函数，继承他的子类，行为有些差异，因为一旦发现<code>Object</code>方法不是通过<code>new Object()</code>这种形式调用，ES6 规定O<code>bject</code>构造函数会忽略参数。</p>
+<p>这些字段使得原型继承方法无法正常工作，所以，我们可以认为，所有这些原生对象都是为了特定能力或者性能，而设计出来的“特权对象”。<br>到了ES6，就可以使用<code>class/extends</code>继承原生构造函数定义子类，因为 ES6 是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。<br>但是需要注意<code>Object</code>构造函数，继承他的子类，行为有些差异，因为一旦发现<code>Object</code>方法不是通过<code>new Object()</code>这种形式调用，ES6 规定<code>Object</code>构造函数会忽略参数。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyObject</span> <span class="keyword">extends</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>() &#123;</span><br><span class="line">    <span class="keyword">super</span>(...arguments)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> person = <span class="keyword">new</span> MyObject(&#123;<span class="attr">name</span>: <span class="string">'ygm'</span>&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(person.name); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
 
 <p>利用 ES6 这个特点可以自己定义一些数据结构。</p>
