@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 本篇内容延续上一篇，添加类组件和函数组件，完成之后，基本上React 15版本前的基本功能均已实现。在看本篇内容之前最好对前一篇的内容能够掌握。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/class-component-instance.png">
-<meta property="og:updated_time" content="2020-01-11T15:35:52.735Z">
+<meta property="og:updated_time" content="2020-01-12T02:51:09.850Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易React实现(2)——类组件和函数组件">
 <meta name="twitter:description" content="前言 本篇内容延续上一篇，添加类组件和函数组件，完成之后，基本上React 15版本前的基本功能均已实现。在看本篇内容之前最好对前一篇的内容能够掌握。">
@@ -345,7 +345,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">4.6k(字)</span>
+                  <span class="post-count">4.7k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -396,7 +396,7 @@
 <li>类组件有自己的<code>render</code>方法，<code>props</code>和<code>state</code>更新即可再次触发；</li>
 <li>类组件有自己的生命周期。</li>
 </ol>
-<p>接下来的内容，先实现类组件，然后再加入函数组件，<strong>React 16</strong>版本之前的函数组件相对简单，没有太多复杂点，所以放在后面。<br><strong>如果觉得内容不清晰，我确实没有能讲的够直白，介意还是敲下代码更能理解。</strong>在第二篇中对于TS的<code>interface</code>修改就不在文章内说了，自行思考补充下即可。</p>
+<p>接下来的内容，先实现类组件，然后再加入函数组件，<strong>React 16</strong>版本之前的函数组件相对简单，没有太多复杂点，所以放在后面。<br><strong>如果觉得内容不清晰，我确实没有能讲的够直白，介意还是敲下代码更能理解。</strong>在第二篇中对于TS的<code>interface</code>修改就不在文章内说了，自行思考补充下即可。<br>代码实现主要基于该<a href="https://github.com/pomber/didact" target="_blank" rel="noopener">代码库</a>。</p>
 <h1 id="component基础类"><a href="#component基础类" class="headerlink" title="component基础类"></a>component基础类</h1><p>在<strong>React</strong>中，当我们创建一个类组件，有一个基本的结构：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnyComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="comment">/** 一些 JSX */</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -482,7 +482,7 @@
 
 </li>
 </ul>
-<p>按照这样的思路添加生命周期的调用，基本实现了类组件的效果，有几个欠缺点，嵌套的子组件由于未递归调用<code>reconcile</code>方法而导致挂载的生命周期无法触发，以及前面说的和<code>react</code>的一些不同，这里都不再去解决了，生命周期的思路主要如此。</p>
+<p>按照这样的思路添加生命周期的调用，基本实现了类组件的效果，有几个欠缺点，嵌套的子组件由于未递归调用<code>reconcile</code>方法而导致挂载的生命周期无法触发，<code>componentWillReceiveProps</code>没有实现，可以通过复用的时候比对前后<code>props</code>去调用，以及前面说的和<code>react</code>的一些不同，这里都不再去解决了，生命周期的思路主要如此。</p>
 <h1 id="函数组件"><a href="#函数组件" class="headerlink" title="函数组件"></a>函数组件</h1><p>在<code>hooks</code>没出现之前，函数组件就是一个纯函数，没有生命周期，没有自己的状态<code>state</code>，就接收<code>props</code>用来渲染，虽然它功能简单，由于其不用实例化，性能上也很好。</p>
 <p>在现有的代码基础上支持函数组件只需要处理：</p>
 <ol>
@@ -497,6 +497,7 @@
 
 <p>ok，函数组件添加完成。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>基本上<strong>React 16</strong>版本以前的基本功能在这两篇已经差不多至少思想上完善好了。里面毕竟复杂的是<code>element</code>和<code>instance</code>的一个关系，<code>element</code>实际上就是我们的<code>vdom</code>，通过我们的<code>createElement</code>方法来实现的，<code>instance</code>是将这个<code>element</code>和对应描述的<code>dom</code>进行映射绑定，然后再加上自己的子节点的相关数据用于递归更新。而对于类组件，在其实例上多了一个内部实例，用来访问自己的<code>instance</code>，而在其<code>instance</code>上又有一个公共实例的暴露，让<code>instance</code>能访问到实例里面的方法。代码最终不多，但是实现思想着实厉害，感叹我日益稀少的头发。接下来，实现<strong>React 16</strong>的<strong>Fiber</strong>架构版本。</p>
+<p>最后放上一个<a href="https://codepen.io/super_fish/pen/KKwRrQw?editors=1111" target="_blank" rel="noopener">demo戳一戳</a>。</p>
 <p>参考相关文章链接：<br><a href="https://github.com/yuguomin/my-own-react" target="_blank" rel="noopener">我的相关代码</a><br><a href="https://github.com/pomber/didact" target="_blank" rel="noopener">didact-A DIY guide to build your own React</a></p>
 
       
