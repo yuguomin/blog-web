@@ -72,7 +72,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/children-child-instance.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/render-dom-demo-tree.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/render-dom-demo-change.png">
-<meta property="og:updated_time" content="2020-01-12T02:51:03.552Z">
+<meta property="og:updated_time" content="2020-01-12T03:07:45.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易React实现(1)——DOM渲染与更新">
 <meta name="twitter:description" content="前言 该系列内容主要是记录实现一个简易react实现的过程和思维，从而加深对React本身的理解。">
@@ -520,7 +520,7 @@
 <li>对比C的第二个子节点，<strong>Instance</strong>不存在，<strong>element</strong>这边为G，创建G的<strong>DOM</strong>并做<strong>添加</strong>。</li>
 </ol>
 <p>通过上面的这个过程分析，最终想要更新成新的<strong>DOM</strong>结构，需要修改三个地方，分别在第<strong>3、4、7</strong>步。整体的流程是从根节点开始，<strong>深度</strong>遍历，一旦发现不相同的，就会按照<code>reconcile</code>方法中的规则进行增删改。如果发现某一个节点无法复用后，其子节点也不会再做对比，不是替换就是添加删除整个子节点。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇内容，从实现<strong>DOM</strong>渲染，到解析<strong>JSX</strong>生成<strong>DOM</strong>，最后通过对比VDOM差异化更新页面。实现了React的几个基本功能点，但是可以发现，每次<code>render</code>都是在对比整个虚拟DOM树，并且每次更改都要显示的调用<code>render</code>，如果定义状态也是全局的。这些都可以利用本篇没有涉及到的组件来解决，下一篇将完成组件相关的功能点。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇内容，从实现<strong>DOM</strong>渲染，到解析<strong>JSX</strong>生成<strong>DOM</strong>，最后通过对比VDOM差异化更新页面。实现了React的几个基本功能点，但是可以发现，每次<code>render</code>都是在对比整个虚拟DOM树，并且每次更改都要显式的调用<code>render</code>，如果定义状态也是全局的。这些都可以利用本篇没有涉及到的组件来解决，下一篇将完成组件相关的功能点。</p>
 <p>参考相关文章链接：<br><a href="https://github.com/yuguomin/my-own-react" target="_blank" rel="noopener">我的相关代码</a><br><a href="https://github.com/pomber/didact" target="_blank" rel="noopener">didact-A DIY guide to build your own React</a></p>
 
       
@@ -688,7 +688,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -697,7 +697,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -706,7 +706,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

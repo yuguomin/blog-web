@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 本篇内容延续上一篇，添加类组件和函数组件，完成之后，基本上React 15版本前的基本功能均已实现。在看本篇内容之前最好对前一篇的内容能够掌握。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/class-component-instance.png">
-<meta property="og:updated_time" content="2020-01-12T02:51:09.850Z">
+<meta property="og:updated_time" content="2020-01-12T03:07:40.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易React实现(2)——类组件和函数组件">
 <meta name="twitter:description" content="前言 本篇内容延续上一篇，添加类组件和函数组件，完成之后，基本上React 15版本前的基本功能均已实现。在看本篇内容之前最好对前一篇的内容能够掌握。">
@@ -387,7 +387,7 @@
 <p>在上一篇中，实现了<strong>DOM</strong>的渲染和差异化更新，虽然实现了这些功能，但是也有一些问题暴露出来：</p>
 <ol>
 <li>状态都是全局的，类似于上一篇的最后的<a href="https://codepen.io/super_fish/pen/GRgQLqZ" target="_blank" rel="noopener">demo</a>，时间变量是全局的；</li>
-<li>每次更新都是不断的显示调用<code>render</code>，理想的是通过<code>setState</code>或者<code>props</code>进行更新；</li>
+<li>每次更新都是不断的显式调用<code>render</code>，理想的是通过<code>setState</code>或者<code>props</code>进行更新；</li>
 <li>基于上面的原因导致每次渲染都要对比整个<strong>VDOM</strong>树。</li>
 </ol>
 <p>解决这几个问题需要实现组件功能，结合<strong>React</strong>的类组件，它具有：</p>
@@ -555,6 +555,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/01/14/preload-module-tool/" rel="prev" title="开发日记——性能优化之预加载quicklink">
+                开发日记——性能优化之预加载quicklink <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -661,7 +665,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -670,7 +674,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -679,7 +683,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
