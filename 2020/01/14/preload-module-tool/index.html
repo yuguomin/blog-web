@@ -45,7 +45,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="browser,performance,cache,">
+  <meta name="keywords" content="performance,browser,cache,">
 
 
 
@@ -62,14 +62,14 @@
 
 
 <meta name="description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
-<meta name="keywords" content="browser,performance,cache">
+<meta name="keywords" content="performance,browser,cache">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开发日记——性能优化之预加载quicklink">
 <meta property="og:url" content="https://www.yuguomin.com/2020/01/14/preload-module-tool/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-14T15:44:07.698Z">
+<meta property="og:updated_time" content="2020-01-15T02:33:01.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发日记——性能优化之预加载quicklink">
 <meta name="twitter:description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
@@ -390,11 +390,11 @@
 <li>过多的预加载文件，会浪费用户流量；</li>
 <li>通过什么方式加载文件，能否支持优先级。</li>
 </ol>
-<p><strong>Google Chrome Labs</strong>团队有一个开源工具叫做<a href="https://github.com/GoogleChromeLabs/quicklink" target="_blank" rel="noopener">quicklink</a>，基本上可以解决我们的这些问题，我们将这个工具的基础上进行修改。<strong>quicklink</strong>的代码量并不多，在修改之前，了解一下它的具体实现，是如何解决上面的问题。</p>
+<p><strong>Google Chrome Labs</strong>团队有一个开源工具叫做<a href="https://github.com/GoogleChromeLabs/quicklink" target="_blank" rel="noopener">quicklink</a>，基本上可以解决我们的这些问题，我们在这个工具的基础上进行修改实现我们的需求。<strong>quicklink</strong>的代码量并不多，在修改之前，了解一下它的具体实现，是如何解决上面的问题。</p>
 <h1 id="quicklink核心功能"><a href="#quicklink核心功能" class="headerlink" title="quicklink核心功能"></a>quicklink核心功能</h1><p><strong>quicklink</strong>的流程主要是：</p>
 <ol>
 <li>通过<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API" target="_blank" rel="noopener"><code>Intersection Observer</code></a><code>API</code>建立对应<code>a</code>标签位置监听；</li>
-<li>默认的这个监听建立在<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback" target="_blank" rel="noopener"><code>requestIdleCallback</code></a>方法的基础上，该方法在浏览器空闲时可以触发其中的回调，</li>
+<li>默认的这个监听建立在<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback" target="_blank" rel="noopener"><code>requestIdleCallback</code></a>方法的基础上，该方法在浏览器空闲时可以触发其中的回调；</li>
 <li>当监听<code>a</code>标签进入视口，拿到元素上绑定的属性<code>href</code>也就是一个<code>url</code>，对<code>url</code>调用<code>prefetch</code>方法；</li>
 <li><code>prefetch</code>方法中，先利用<code>navigator.connection.effectiveType</code>属性拿到用户的网络状态，如果是<em>2g</em>就不进行预加载；</li>
 <li>基于<code>promise.all</code>根据监听时<code>isPriority</code>属性配置，对于高优先级采用<code>fetch</code>，不支持回退到<code>xhr</code>请求，低优先级采用<code>&lt;link ref=&quot;prefetch/&gt;</code>或者<code>xhr</code>的方式。</li>
@@ -403,9 +403,9 @@
 <h1 id="quicklink功能修改"><a href="#quicklink功能修改" class="headerlink" title="quicklink功能修改"></a>quicklink功能修改</h1><p>拿到这个库的代码之后，对于我们项目有一些不匹配的情况，总结下来主要有两个区别：</p>
 <ol>
 <li>我们项目基于<strong>React Router</strong>的路由<code>Hash</code>开发模式，基本上跳转逻辑通常写在点击事件中，跳转方式也是通过<code>hash change</code>来进行；而<code>quicklink</code>主要采用读取<code>a</code>标签的<code>href</code>属性来加载。</li>
-<li>我们是一个<strong>SPA</strong>项目，是客户端渲染页面，也就是说加载的<code>html</code>只有最基本的<code>DOM</code>结构，加上一些<strong>bundle</strong>文件的引用；而<code>quicklink</code>实现的跳转页面文件预加载实际上对于我们的性能提升并不大。</li>
+<li>我们是一个<strong>SPA</strong>项目，是客户端渲染页面，也就是说加载的<code>html</code>只有最基本的<code>DOM</code>结构，加上一些<strong>bundle</strong>文件的引用；而<code>quicklink</code>实现的跳转页面文件(<strong>HTML</strong>入口文件)预加载实际上对于我们的性能提升并不大。</li>
 </ol>
-<p>解决第一个问题，实际上就是让<code>quicklink</code>读取非<code>a</code>标签的属性即可，我们可以定义一个特殊的类名让<code>quicklink</code>获取到<strong>DOM</strong>元素如<code>v-quicklink-prefetch</code>，再定义一个特殊标识的属性比如<code>prefetch-href</code>，然后可以通过把需要预加载的具体文件地址动态的绑定在任意元素的<code>prefetch-href</code>属性上即可。如封装一个<strong>React</strong>组件基本代码：</p>
+<p>解决第一个问题，实际上就是让<code>quicklink</code>读取非<code>a</code>标签的属性即可，我们可以定义一个特殊的类名让<code>quicklink</code>获取到<strong>DOM</strong>元素如<code>v-quicklink-prefetch</code>，再定义一个特殊标识的属性比如<code>prefetch-href</code>，然后可以通过把需要预加载的具体文件地址动态的绑定在任意元素的<code>prefetch-href</code>属性上即可。如按照逻辑封装一个<strong>React</strong>组件基本代码的<code>render</code>部分：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Quicklink</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;prfetchHref, children, className&#125; = props;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div</span><br><span class="line">        prefetch-href=&#123;prfetchHref&#125;</span><br><span class="line">        className=&#123;<span class="string">`v-quicklink-prefetch <span class="subst">$&#123;className&#125;</span>`</span>&#125;</span><br><span class="line">        &gt;</span><br><span class="line">        &#123; children &#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>这样在<strong>quicklink</strong>方法配置中加入<strong>DOM</strong>和属性获取配置项和代码逻辑，就完成了。</p>
@@ -449,9 +449,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/browser/" rel="tag"><i class="fa fa-tag"> browser</i></a>
-          
             <a href="/tags/performance/" rel="tag"><i class="fa fa-tag"> performance</i></a>
+          
+            <a href="/tags/browser/" rel="tag"><i class="fa fa-tag"> browser</i></a>
           
             <a href="/tags/cache/" rel="tag"><i class="fa fa-tag"> cache</i></a>
           
@@ -475,6 +475,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/17/create-ssr-framework/" rel="prev" title="SSR同构框架搭建笔记">
+                SSR同构框架搭建笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -582,7 +586,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -591,7 +595,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -600,7 +604,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
