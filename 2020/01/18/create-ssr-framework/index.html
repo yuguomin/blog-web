@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言前段时间公司运营要求把一个客户端的主站页面支持SEO，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现SSR场景开发工具，并且对原本的CSR的业务代码做微量修改即可支持。本篇内容讲述整体SSR项目的架构和总结实现过程的难点及优化。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-ssr-framework/base-framework.png">
-<meta property="og:updated_time" content="2020-01-21T10:11:03.687Z">
+<meta property="og:updated_time" content="2020-01-21T10:16:39.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSR同构框架搭建笔记">
 <meta name="twitter:description" content="前言前段时间公司运营要求把一个客户端的主站页面支持SEO，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现SSR场景开发工具，并且对原本的CSR的业务代码做微量修改即可支持。本篇内容讲述整体SSR项目的架构和总结实现过程的难点及优化。">
@@ -400,7 +400,7 @@
 <li><strong>service web</strong>处理请求的数据如<code>cookie</code>等，并将请求的对应模块信息一起发送给<strong>service render</strong>端；</li>
 <li><strong>service render</strong>接到请求后，判断路由，进行一些同构处理后，将渲染出的html字符串等信息返回给<strong>service web</strong>端；</li>
 <li><strong>service web</strong>拿到数据后，根据对应模块的模版进行组合，将组合好的页面数据字符串返回给客户端进行HTML显示；</li>
-<li>web端显示的模块中会加载对应客户端的<strong>bundle</strong>，然后执行一遍<em>JS</em>，执行生命周期绑定附加事件，接管页面交互。</li>
+<li><strong>web</strong>端显示的模块中会加载对应客户端的<strong>bundle</strong>，然后执行一遍<em>JS</em>，执行生命周期绑定附加事件，接管页面交互。</li>
 </ol>
 <p>为什么要把service分成两块，是想采用微服务的设计方式，在我们公司内部有一些基础服务部门提供了一些微服务中间件和基础设施，比如性能监控，服务注册，链路追踪等，分开部署的形式可以有效利用现有资源；并且这两个服务对机器性能要求不一样，<strong>service web</strong>主要处理的用户打开页面<strong>HTML</strong>获取请求的转发，以及由<strong>service render</strong>返回的数据与对应模块<strong>HTML</strong>模版的组合，而<strong>service render</strong>则要对对应模块代码执行拿到前端渲染的具体内容，以及一些同构处理，这里的操作可能会消耗大量<code>cpu</code>，对于性能吃紧的情况下，可以分开扩容。</p>
 <p>看起来前面的流程也很简单，像是客户端告诉了服务端想要哪个页面的东西，服务端就把对应页面的首屏结构给返回就可以了。但实际上这其中有很多难点。</p>
