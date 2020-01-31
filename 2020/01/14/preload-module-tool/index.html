@@ -69,7 +69,7 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-15T02:33:01.337Z">
+<meta property="og:updated_time" content="2020-01-31T03:27:37.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发日记——性能优化之预加载quicklink">
 <meta name="twitter:description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
@@ -385,7 +385,7 @@
 <h1 id="优化思路及大纲"><a href="#优化思路及大纲" class="headerlink" title="优化思路及大纲"></a>优化思路及大纲</h1><p>项目加载的优化策略无非就是去掉多余的操作，能读缓存的就读缓存。对于加快模块文件加载优化，在代码压缩方面已经都安排好<code>webpack</code>去完成工作，尽可能的减少多余代码。接下来就得从缓存上入手。</p>
 <p>最后的方案是，<strong>在页面上采用一种嵌入式的<code>prefetch</code>策略，绑定对应的模块跳转元素，当该元素进入页面视口中，就提前加载这个元素可以进入的模块的相关文件。</strong><br>在这个方案需要处理几个问题：</p>
 <ol>
-<li>处理元素于视口的关系；</li>
+<li>处理元素与视口的关系；</li>
 <li>如何避免预加载文件时对当前页面性能产生的影响；</li>
 <li>过多的预加载文件，会浪费用户流量；</li>
 <li>通过什么方式加载文件，能否支持优先级。</li>
