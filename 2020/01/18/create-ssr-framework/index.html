@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言前段时间公司运营要求把一个客户端的主站页面支持SEO，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现SSR场景开发工具，并且对原本的CSR的业务代码做微量修改即可支持。本篇内容讲述整体SSR项目的架构和总结实现过程的难点及优化。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/create-ssr-framework/base-framework.png">
-<meta property="og:updated_time" content="2020-01-31T03:27:22.568Z">
+<meta property="og:updated_time" content="2020-01-31T09:56:39.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSR同构框架搭建笔记">
 <meta name="twitter:description" content="前言前段时间公司运营要求把一个客户端的主站页面支持SEO，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现SSR场景开发工具，并且对原本的CSR的业务代码做微量修改即可支持。本篇内容讲述整体SSR项目的架构和总结实现过程的难点及优化。">
@@ -383,14 +383,14 @@
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前段时间公司运营要求把一个客户端的主站页面支持<strong>SEO</strong>，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现<strong>SSR</strong>场景开发工具，并且对原本的<strong>CSR</strong>的业务代码做微量修改即可支持。本篇内容讲述整体<strong>SSR</strong>项目的架构和总结实现过程的难点及优化。</p>
 <a id="more"></a>
 <p>前面先说下我们公司的开发模式，在<strong>SSR</strong>开发工具之前，我们的开发工具已经支持<strong>CSR SPA</strong>和小程序开发，并且以<strong>cli</strong>工具进行串联、生成、组织构建代码实现开发者无感知。</p>
-<p>就<strong>CSR SPA</strong>而言，是对业务框架中立的，可以自行配置支持<strong>React</strong>或<strong>Vue</strong>等实现；虽然是<strong>SPA</strong>，但是以单项目多模块的形式，模块可以业务场景来进行分割，这样可实现模块的独立开发和编译，实现大型项目代码之间的解耦，不过代码解耦不是完全的无相关，会把一些公共类包进行抽取打包，这样在从一个模块打开另一个模块的时候只需要加载目标模块自己的<strong>bundle</strong>，公共包可以走浏览器缓存加载。</p>
-<p>好了，bb了这一会，实际上想说明，接下来开发的<strong>SSR</strong>本身不是只是为了这个项目的一次性产品，也是要实现我们开发工具的模式，框架中立，<strong>CSR SPA</strong>的代码体验，<strong>less sass</strong>样式支持，模块式开发。目前这个工具已经开发完成，投入生产使用，满足了开发的需求。</p>
+<p>就<strong>CSR</strong>而言，是对业务框架中立的，可以自行配置支持<strong>React</strong>或<strong>Vue</strong>等实现；虽然是<strong>SPA</strong>，但是以单项目多模块的形式，模块可以业务场景来进行分割，这样可实现模块的独立开发和编译，实现大型项目代码之间的解耦，不过代码解耦不是完全的无相关，会把一些公共类包进行抽取打包，这样在从一个模块打开另一个模块的时候只需要加载目标模块自己的<strong>bundle</strong>，公共包可以走浏览器缓存加载。</p>
+<p>好了，bb了这一会，实际上想说明，接下来开发的<strong>SSR</strong>本身不是只是为了这个项目的一次性产品，也是要实现我们开发工具的模式，框架中立，<strong>CSR</strong>的代码体验，<strong>less sass</strong>样式支持，模块式开发。目前这个工具已经开发完成，投入生产使用，满足了开发的需求。</p>
 <h1 id="SSR是什么"><a href="#SSR是什么" class="headerlink" title="SSR是什么"></a>SSR是什么</h1><p>在这里，简单说一下<strong>SSR</strong>是什么，以及<strong>SSR</strong>的意义。</p>
 <ol>
-<li><p><strong>SSR</strong>是什么？<br>常说的<strong>CSR</strong>是客户端渲染，也就是常见的手机端标准<strong>SPA</strong>，加载的是一个基本的<strong>HTML</strong>骨架结构，包含了一些容器元素，真实的内容都打包作为了一个<strong>js</strong>文件，浏览器通过加载了这个<strong>HTML</strong>文件并执行，在自行加载<strong>js</strong>文件执行，渲染出对应的页面信息。<br>而<strong>SSR</strong>就是服务端渲染，之前的服务端渲染是使用各种语言，类似<strong>PHP</strong>、<strong>JAVA</strong>等，采用混编式的模版写法，在服务端把<strong>HTML</strong>结构生成好之后返回给客户端渲染。本项目要做的服务端渲染，是基于现在比较主流的<strong>Vue</strong>和<strong>React</strong>等框架，写法上还是基于<strong>SPA</strong>的编写方式，在服务端执行打包的代码，实现服务端渲染，然后将内容返回给客户端，客户端渲染元素，并再执行一遍<strong>js</strong>接管页面交互。</p>
+<li><p><strong>SSR</strong>是什么？<br>常说的<strong>CSR</strong>是客户端渲染，也就是常见的手机端标准<strong>SPA</strong>，加载的是一个基本的<strong>HTML</strong>骨架结构，包含了一些容器元素，真实的内容都打包作为了一个<strong>JS</strong>文件，浏览器通过加载了这个<strong>HTML</strong>文件并执行，在自行加载<strong>JS</strong>文件执行，渲染出对应的页面信息。<br>而<strong>SSR</strong>就是服务端渲染，之前的服务端渲染是使用各种语言，类似<strong>PHP</strong>、<strong>JAVA</strong>等，采用混编式的模版写法，在服务端把<strong>HTML</strong>结构生成好之后返回给客户端渲染。本项目要做的服务端渲染，是基于现在比较主流的<strong>Vue</strong>和<strong>React</strong>等框架，写法上还是基于<strong>CSR</strong>的编写方式，在服务端执行打包的代码，实现服务端渲染，然后将内容返回给客户端，客户端渲染元素，并再执行一遍<strong>JS</strong>接管页面交互。</p>
 </li>
-<li><p><strong>SSR</strong>的意义是什么？<br>按照前面需求原因，是<strong>SSR</strong>的其中一个意义，这里再进行一下简单总结：<br><strong>SSR</strong>可以加快<strong>CSR SPA</strong>的首页面加载速度，<strong>CSR SPA</strong>是先加载<strong>HTML</strong>文件，再加载整个项目的<strong>JS</strong>文件，然后再根据<strong>JS</strong>内容进行渲染页面，设置页面交互。所以首页面加载有时会有短暂白屏显示。而<strong>SSR</strong>项目，在用户请求拿到页面数据的时候，服务端已经执行了一次代码把页面内容返回，客户端直接拿到进行渲染，减少了一次请求。</p>
-<p><strong>SSR</strong>有利于<strong>SEO</strong>的优化，大部分搜索引擎，对于<strong>SEO</strong>都是对服务端返回的<strong>HTML</strong>结构内容进行捕捉，而通常的<strong>CSR SPA</strong>直接返回的是基本骨架结构和所需<strong>js</strong>的引入路径，需要被搜索引擎拿到的东西都被打包在了<strong>js</strong>里；而通过<strong>SSR</strong>，返回包含了网页的所有内容，更利于爬取。</p>
+<li><p><strong>SSR</strong>的意义是什么？<br>按照前面需求原因，是<strong>SSR</strong>的其中一个意义，这里再进行一下简单总结：<br><strong>SSR</strong>可以加快<strong>CSR</strong>的首页面加载速度，<strong>CSR</strong>是先加载<strong>HTML</strong>文件，再加载整个项目的<strong>JS</strong>文件，然后再根据<strong>JS</strong>内容进行渲染页面，设置页面交互。所以首页面加载有时会有短暂白屏显示。而<strong>SSR</strong>项目，在用户请求拿到页面数据的时候，服务端已经执行了一次代码把页面内容返回，客户端直接拿到进行渲染，减少了一次请求。</p>
+<p><strong>SSR</strong>有利于<strong>SEO</strong>的优化，大部分搜索引擎，对于<strong>SEO</strong>都是对服务端返回的<strong>HTML</strong>结构内容进行捕捉，而通常的<strong>CSR</strong>直接返回的是基本骨架结构和所需<strong>JS</strong>的引入路径，需要被搜索引擎拿到的东西都被打包在了<strong>JS</strong>里；而通过<strong>SSR</strong>，返回包含了网页的所有内容，更利于爬取。</p>
 </li>
 </ol>
 <h1 id="建立整体架构"><a href="#建立整体架构" class="headerlink" title="建立整体架构"></a>建立整体架构</h1><p>我们的<strong>SSR</strong>最终决定在service上分离出web层和render层，并且都采用node环境编写，它们整体的关系是这样：<br><img src="https://cdn.yuguomin.com/images/create-ssr-framework/base-framework.png" style="border:none;width:80%;"></p>
@@ -539,6 +539,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2020/01/29/webpack-js-tool-demo/" rel="prev" title="webpack打包JS工具库简单示例">
+                webpack打包JS工具库简单示例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -645,7 +649,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -654,7 +658,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -663,7 +667,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
