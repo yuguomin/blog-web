@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="Compile,Computer,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
+<meta name="keywords" content="Compile,Computer">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译技术学习：第三章 语法分析（二）">
+<meta property="og:url" content="https://www.yuguomin.com/2019/09/07/compile-study-third-2/index.html">
+<meta property="og:site_name" content="SuperFish&#39;s Blog">
+<meta property="og:description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-right.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-left.png">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/remove-left-fn-ast.png">
+<meta property="og:updated_time" content="2020-02-11T07:46:10.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="编译技术学习：第三章 语法分析（二）">
+<meta name="twitter:description" content="前言 本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 语法分析 ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-third/add-right.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.yuguomin.com/2019/09/07/compile-study-third-2/">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #3385ff; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #3385ff, 0 0 5px #3385ff; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #3385ff;    /*上边框颜色*/
+        border-left-color: #3385ff;    /*左边框颜色*/
+    }
+</style>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <title> 编译技术学习：第三章 语法分析（二） | SuperFish's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+  <a href="https://github.com/yuguomin/blog-web"><img style="position:absolute;top:0;left:0;border:0;z-index:1;" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuperFish's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">day day up~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2019/09/07/compile-study-third-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YGM">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperFish's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                编译技术学习：第三章 语法分析（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-07T21:13:36+08:00">
+                2019-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Compile-Study/" itemprop="url" rel="index">
+                    <span itemprop="name">Compile Study</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+          
+            
+          
+
+          
+          
+          <span class="post-time">
+            &nbsp; | &nbsp;
+                  <span class="post-meta-item-icon">
+                    <i class="fa fa-calendar-o"></i>
+                  </span>
+                  <span class="post-meta-item-text">字数统计:</span>
+                  <span class="post-count">2.2k(字)</span>
+                </span>
+            
+              <span class="post-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">8(分)</span>
+            
+          </span>
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">
+            Visitors<span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
+<li>本篇学习编译技术的第三篇下半部分，为编译器前端技术第二步 <strong>语法分析</strong> ，主要内容是确保优先级与结合性、消除左递归，和实现算术表达式的语法分析与求值。</li>
+</ul>
+<a id="more"></a>
+<h1 id="文法的书写"><a href="#文法的书写" class="headerlink" title="文法的书写"></a>文法的书写</h1><p>前面对上下文无关文法进行了介绍，后续的文法书写都采用的是<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">巴科斯范式</a>（BNF），这里要介绍的是<a href="https://zh.wikipedia.org/zh-hans/%E6%89%A9%E5%B1%95%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">扩展巴科斯范式</a>（EBNF）。从名字就可以知道它是基本巴科斯范式(BNF)元语法符号表示法的一种扩展。</p>
+<p>扩展巴科斯范式和BNF的区别，主要是严格了书写的规范，<strong>终结符使用引号进行包裹</strong>；还提供了定义重复次数，排除法选择(比如除了引号的所有字符)和注释等的增强机制。EBNF语言意义上不比BNF要强大，但是可以节省很多不必要的规则书写。这种功能和正则表达式的一些书写很相似。比如<code>*</code>，表示repetition-symbol，重复0次或0次以上。<br>使用EBNF写一段文法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E: F (&apos;+&apos; F)*</span><br></pre></td></tr></table></figure>
+
+<p>那么再使用BNF写这一段文法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E: E + F | F</span><br></pre></td></tr></table></figure>
+
+<p>这两段在推导结果上是完全等同的。但是可以看出，EBNF在写法上和给人理解上来讲都要清晰一些。</p>
+<h1 id="确保优先级"><a href="#确保优先级" class="headerlink" title="确保优先级"></a>确保优先级</h1><p>在语法分析的第一部分，在对算术表达式乘法和加法的优先级上，通过文法的嵌套，利用加法规则推导出乘法规则，那么乘法规则匹配到的节点肯定是加法规则的子节点，从而实现了乘法的优先计算。</p>
+<p>同理，如果我们把关系运算（&gt;、&lt;）作为加法运算的上级文法，把and、or作为关系运算的上级文法，如此，就可以实现很多代码的运算优先级。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">exp: or | or <span class="string">'='</span> exp   </span><br><span class="line">or: and | or <span class="string">'||'</span> and</span><br><span class="line">and: equal | and <span class="string">'&amp;&amp;'</span> equal</span><br><span class="line">equal: rel | equal <span class="string">'=='</span> rel | equal <span class="string">'!='</span> rel | equal <span class="string">'==='</span> rel | equal <span class="string">'!=='</span> rel</span><br><span class="line">rel: add | rel <span class="string">'&gt;'</span> add | rel <span class="string">'&lt;'</span> add | rel <span class="string">'&gt;='</span> add | rel <span class="string">'&lt;='</span> add</span><br><span class="line">add: mul | add <span class="string">'+'</span> mul | add <span class="string">'-'</span> mul </span><br><span class="line">mul: pri | mul <span class="string">'*'</span> pri | mul <span class="string">'/'</span> pri </span><br><span class="line">pri: Id | Literal | <span class="string">'('</span>exp<span class="string">')'</span></span><br></pre></td></tr></table></figure>
+
+<p>这段文法的优先级从低到高是赋值运算、逻辑运算（or）、逻辑运算（and）、相等比较（equal）、大小比较（rel）、加法运算（add）、乘法运算（mul）和基础表达式（pri）。基础表达式中又可以被解析成三种情况，其中一种是利用括号包裹起来的。这种就是用于解决语法中<code>()</code>改变运算级的处理。通过阅读<a href="http://www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="noopener">语言的语法规则</a>了解优先级等特性。</p>
+<h1 id="正确的结合性"><a href="#正确的结合性" class="headerlink" title="正确的结合性"></a>正确的结合性</h1><p>结合性，是当处于相同优先级的运算符时，该从左往右计算还是从右往左计算。在前一篇中，最后为了消除左递归，把递归项改到运算符的右边最终导致<code>2+3+5</code>是先计算的<code>3+5</code>，这就是结合性出现了错误。</p>
+<p>在语法中，大多数都是从左往右计算的，比如<code>2+3+5</code>和<code>2*3*5</code>，点语法的<code>a.b.c</code>。当然也有从右往左，比较常见的就是赋值操作，如<code>a=b+c</code>。<br>如果按照之前的修改后的文法<code>additiveExpression: multiplicativeExpression Plus additiveExpression</code>会得到简易AST：<br><img src="https://cdn.yuguomin.com/images/compile-study-third/add-right.png" style="margin:0;border:none;"></p>
+<p>如果按照修改前的左递归文法<code>additiveExpression: additiveExpression Plus multiplicativeExpression</code>得到的简易AST：<br><img src="https://cdn.yuguomin.com/images/compile-study-third/add-left.png" style="margin:0;border:none;"></p>
+<p>根据这两张图可以得出一个结论，如果是左结合的运算符，那么就把递归项放在左边；如果是有右结合的运算符那么就把递归项放在右边。</p>
+<p>所以根据优先级，并且为了保证正确的结合性，我们的加法表达式的产生式是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression: multiplicativeExpression | additiveExpression Plus multiplicativeExpression</span><br></pre></td></tr></table></figure>
+
+<p>但是如此以来，就将会面对左递归的问题。那么接着，来消除掉左递归。</p>
+<h1 id="消除左递归"><a href="#消除左递归" class="headerlink" title="消除左递归"></a>消除左递归</h1><p>左递归就是产生式产生的第一个符号可能就是该产生式本身的非终结符，如<code>E: E + F</code>递归下降算法是没法处理左递归的。前面通过将递归项后置虽然能解决但是会导致结合性问题。这里介绍一种能处理大部分场景下的左递归的公式。<br>加法左递归的文法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add: mul | add + mul</span><br></pre></td></tr></table></figure>
+
+<p>把左递归修改为等价的右递归形式，从这个推导可以得知<code>add</code>的推导结果有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; add: mul, mul + mul, mul + mul + mul ... &#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们把无限循环项，也就是递归项<code>+ mul</code>取出来，单独做处理，得到一个产生式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add: mul add&apos;</span><br><span class="line">add&apos;: + mul add&apos; | ε</span><br></pre></td></tr></table></figure>
+
+<p>此时，用这个最新得到的文法去推导<code>2 + 3 + 5</code>，得到：<br><img src="https://cdn.yuguomin.com/images/compile-study-third/remove-left-fn-ast.png" style="margin:0;border:none;"></p>
+<p>发现仍是因为<code>add&#39;</code>的右递归问题导致结合性出现问题。那么按照之前提过的EBNF，我们可以将上面的两个产生式合并：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">add: mul (&apos;+&apos; mul)*</span><br></pre></td></tr></table></figure>
+
+<p><code>*</code>代表重复0次或多次，那么我们可以把<code>*</code>说明的项利用循环来进行处理，就不会出现递归问题了。对于这一个产生式，可以用的算法伪代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mul();</span><br><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">  mul();</span><br><span class="line">  createAddNode();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的处理方式，不仅是解决了左递归，而且还是性能上的优化。这里有个概念叫做<strong>尾递归</strong>，尾递归可以这么理解，大概是这么一种情况，假设在父函数A中调用子函数A，这个调用是在父函数A的最后一行，也就是说，子函数A返回结果后父函数A立刻也返回结果。因此在执行子函数A之前父函数A的大部分栈帧与之后循环往复的调用是重叠的。<strong>编译器</strong>就会针对这一点进行优化，使其转换成一个循环语句。上面的伪代码就是尾递归的思想。把之后的递归调用自身转换成了循环的形式。</p>
+<p>实现这段伪代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> additive: <span class="function">(<span class="params">tokenReader: ITokenReader</span>) =&gt;</span> IASTNode | <span class="literal">null</span> = <span class="function">(<span class="params">tokenReader</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> child1 = <span class="keyword">this</span>.multiplicative(tokenReader); <span class="comment">// 应用 add 规则</span></span><br><span class="line">  <span class="keyword">let</span> node = child1;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (child1) &#123; <span class="comment">// 循环应用 add' 规则 ('+' mul)*</span></span><br><span class="line">    <span class="keyword">let</span> token = tokenReader.peek();</span><br><span class="line">    <span class="keyword">const</span> tokenType = token ? token.getType() : <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (tokenType &amp;&amp; [TokenType.Plus, TokenType.Minus].includes(tokenType)) &#123; <span class="comment">// 判断是否加减号</span></span><br><span class="line">      token = tokenReader.read();</span><br><span class="line">      <span class="keyword">const</span> child2 = <span class="keyword">this</span>.multiplicative(tokenReader);</span><br><span class="line">      <span class="keyword">if</span> (child2) &#123;</span><br><span class="line">        <span class="keyword">const</span> tokenText = token ? token.getText() : <span class="literal">null</span>;</span><br><span class="line">        node = <span class="keyword">new</span> SimpleASTNode(ASTNodeType.Additive, tokenText)</span><br><span class="line">        node.append2Child(child1); <span class="comment">// 把上一轮得出的节点与新节点置于一级，保证从左到右的结合</span></span><br><span class="line">        node.append2Child(child2);</span><br><span class="line">        child1 = node;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'invalid additive expression, expecting the right part.'</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="keyword">break</span>; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> node;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>描述一下这段代码的内容：</p>
+<p id="div-border-left-green">
+首先应用“add”的产生式，匹配一个“mul“，然后循环采用”add'“的产生式匹配“('+' mul)*”，每次在匹配成功“add'”的时候创建一个新节点，把之前的节点与新匹配的节点置于一级，保证结合性。最终当匹配不到“add'”时返回整个节点。
+</p>
+
+<p>同理把<code>mul</code>的产生式对应修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mul: pri (&apos;*&apos; pri)*</span><br></pre></td></tr></table></figure>
+
+<p>那么解析一下<code>2+3+4+5</code>这一段代码，输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Program pwc</span><br><span class="line">        Additive +</span><br><span class="line">                Additive +</span><br><span class="line">                        Additive +</span><br><span class="line">                                NumberLiteral 2</span><br><span class="line">                                NumberLiteral 3</span><br><span class="line">                        NumberLiteral 4</span><br><span class="line">                NumberLiteral 5</span><br></pre></td></tr></table></figure>
+
+<p>到此，通过改写语法规则避免，利用循环处理。从而消除左递归。完成了算术表达式的语法解析。</p>
+<h1 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h1><p>现在已经对算术表达式构造了正确的AST了。那么我们要做的是对AST进行深度优先遍历即可。深度优先遍历也是一个递归算法，以<code>2+3*5</code>的AST为例：</p>
+<ol>
+<li>对整个AST根节点进行求值，子节点是一个加法表达式，进行求值；</li>
+<li>先获取加法表达式左边的值，是一个数字2；</li>
+<li>获取加法表达式右边的值，是一个乘法表达式，递归计算到下一层；</li>
+<li>获取乘法表达式左边的值，数字3，获取右边的值数字5，计算得出15，返回；</li>
+<li>计算2 + 15的值为17，返回结果。</li>
+</ol>
+<p>代码输出为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Calculating: Program</span><br><span class="line">        Calculating: Additive</span><br><span class="line">                Calculating: NumberLiteral</span><br><span class="line">                Result: 2</span><br><span class="line">                Calculating: Multiplicative</span><br><span class="line">                        Calculating: NumberLiteral</span><br><span class="line">                        Result: 3</span><br><span class="line">                        Calculating: NumberLiteral</span><br><span class="line">                        Result: 5</span><br><span class="line">                Result: 15</span><br><span class="line">        Result: 17</span><br><span class="line">Result: 17</span><br></pre></td></tr></table></figure>
+
+<p>具体代码在<a href="https://github.com/yuguomin/my-compiler/blob/master/src/syntaxCalculator/SimpleCalculator.ts" target="_blank" rel="noopener">SimpleCalculator.ts</a>文件中。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇主要学习了</p>
+<ol>
+<li>确保优先级，利用文法的嵌套，保证作为文法的产生式优先被推导。</li>
+<li>正确的结合性，左递归导致左结合，右递归导致又结合。</li>
+<li>消除左递归，左递归导致的死循环可以通过改写文法避免，利用循环代替右递归的方式处理。</li>
+<li>表达式的求值，实际上也是深度优先遍历的递归算法，先计算子节点，一步步往上得到根结点的值。</li>
+</ol>
+<p>参考相关文章链接：<br><a href="https://time.geekbang.org/column/intro/219" target="_blank" rel="noopener">编译原理之美-宫文学</a></p>
+<hr>
+<p><a href="https://github.com/yuguomin/my-compiler" target="_blank" rel="noopener">代码地址</a></p>
+
+      
+    </div>
+    <div>
+      
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  <div>
+        <p id="div-border-left-red">
+      <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <span>
+        <b>本文地址: </b><a href="/2019/09/07/compile-study-third-2/" title="编译技术学习：第三章 语法分析（二）">https://www.yuguomin.com/2019/09/07/compile-study-third-2/</a><br><b>转载请注明出处, 谢谢！</b>
+        </span>
+        </p>
+  </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Compile/" rel="tag"><i class="fa fa-tag"> Compile</i></a>
+          
+            <a href="/tags/Computer/" rel="tag"><i class="fa fa-tag"> Computer</i></a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/31/compile-study-second/" rel="next" title="编译技术学习：第二章 词法分析">
+                <i class="fa fa-chevron-left"></i> 编译技术学习：第二章 词法分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/14/compile-study-third/" rel="prev" title="编译技术学习：第三章 语法分析（一）">
+                编译技术学习：第三章 语法分析（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-hoofoo-share-title">分享到: </div>
+<div class="-hoofoo-share-buttons">
+    <div class="-mob-share-weibo -hoofoo-share-weibo -hoofoo-share-ui-button"><i class="fa fa-weibo" aria-hidden="true"></i></div>
+    <div class="-mob-share-weixin -hoofoo-share-weixin -hoofoo-share-ui-button"><i class="fa fa-weixin" aria-hidden="true"></i></div>
+    <div class="-mob-share-qq -hoofoo-share-qq -hoofoo-share-ui-button"><i class="fa fa-qq" aria-hidden="true"></i></div>
+    <div class="-mob-share-twitter -hoofoo-share-twitter -hoofoo-share-ui-button"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+    <div class="-hoofoo-share-more -hoofoo-share-ui-button -mob-share-open"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk4MC8yMjQ5MQ=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <p class="site-author-name" itemprop="name">YGM</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+<div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("08/03/2019 12:34:56");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文法的书写"><span class="nav-number">2.</span> <span class="nav-text">文法的书写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#确保优先级"><span class="nav-number">3.</span> <span class="nav-text">确保优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#正确的结合性"><span class="nav-number">4.</span> <span class="nav-text">正确的结合性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#消除左递归"><span class="nav-number">5.</span> <span class="nav-text">消除左递归</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表达式求值"><span class="nav-number">6.</span> <span class="nav-text">表达式求值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YGM</span>
+</div>
+
+
+<div class="powered-by">
+   个人专属
+</div>
+
+<div class="theme-info">
+  博客 - Super fish
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+<script type="text/javascript">
+    //微信二维码点击背景关闭
+    $('body').delegate('.-mob-share-weixin-qrcode-bg','click', function(){
+         $(".-mob-share-weixin-qrcode-close").trigger("click");
+    }); 
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+
+</html>

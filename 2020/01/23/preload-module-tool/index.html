@@ -1,0 +1,867 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="browser,performance,cache,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
+<meta name="keywords" content="browser,performance,cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="开发日记——性能优化之预加载quicklink">
+<meta property="og:url" content="https://www.yuguomin.com/2020/01/23/preload-module-tool/index.html">
+<meta property="og:site_name" content="SuperFish&#39;s Blog">
+<meta property="og:description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-11T07:53:27.998Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="开发日记——性能优化之预加载quicklink">
+<meta name="twitter:description" content="前言本篇内容是客户端SPA项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.yuguomin.com/2020/01/23/preload-module-tool/">
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #3385ff; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #3385ff, 0 0 5px #3385ff; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #3385ff;    /*上边框颜色*/
+        border-left-color: #3385ff;    /*左边框颜色*/
+    }
+</style>
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+  <title> 开发日记——性能优化之预加载quicklink | SuperFish's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+  <a href="https://github.com/yuguomin/blog-web"><img style="position:absolute;top:0;left:0;border:0;z-index:1;" width="149" height="149" src="https://github.blog/wp-content/uploads/2008/12/forkme_left_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SuperFish's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">day day up~</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2020/01/23/preload-module-tool/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YGM">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SuperFish's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                开发日记——性能优化之预加载quicklink
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-23T23:32:21+08:00">
+                2020-01-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/performance/" itemprop="url" rel="index">
+                    <span itemprop="name">performance</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+          
+            
+          
+
+          
+          
+          <span class="post-time">
+            &nbsp; | &nbsp;
+                  <span class="post-meta-item-icon">
+                    <i class="fa fa-calendar-o"></i>
+                  </span>
+                  <span class="post-meta-item-text">字数统计:</span>
+                  <span class="post-count">1.8k(字)</span>
+                </span>
+            
+              <span class="post-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">阅读时长:</span>
+            <span class="post-count">6(分)</span>
+            
+          </span>
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">
+            Visitors<span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇内容是客户端<strong>SPA</strong>项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。</p>
+<a id="more"></a>
+<p>优化的原因，我们的主站项目使用的是基于<strong>React</strong>开发的<strong>SPA</strong>项目，虽然是<strong>SPA</strong>，但是是以模块的方式开发，总体公共代码如<strong>React</strong>等第三方包打包成一个公共文件，用于缓存提高每个模块页面加载速度；对于每个模块则打包成一个独立的<strong>bundle.js</strong>和<strong>bundle.css</strong>用于独立开发上线、并提高首页面加载速度，避免代码在开发时造成的全局污染。</p>
+<p>但是这种方式带来的问题是，打开每一个新模块的页面都需要加载模块对应的<strong>bundle</strong>文件，和首页面加载虽慢但整体是一个<strong>bundle</strong>文件的传统<strong>SPA</strong>来讲，后续加载会显得较慢。因此，我们要对新模块打开速度进行优化。</p>
+<h1 id="优化思路及大纲"><a href="#优化思路及大纲" class="headerlink" title="优化思路及大纲"></a>优化思路及大纲</h1><p>项目加载的优化策略无非就是去掉多余的操作，能读缓存的就读缓存。对于加快模块文件加载优化，在代码压缩方面已经都安排好<code>webpack</code>去完成工作，尽可能的减少多余代码。接下来就得从缓存上入手。</p>
+<p>最后的方案是，<strong>在页面上采用一种嵌入式的<code>prefetch</code>策略，绑定对应的模块跳转元素，当该元素进入页面视口中，就提前加载这个元素可以进入的模块的相关文件。</strong><br>在这个方案需要处理几个问题：</p>
+<ol>
+<li>处理元素与视口的关系；</li>
+<li>如何避免预加载文件时对当前页面性能产生的影响；</li>
+<li>过多的预加载文件，会浪费用户流量；</li>
+<li>通过什么方式加载文件，能否支持优先级。</li>
+</ol>
+<p><strong>Google Chrome Labs</strong>团队有一个开源工具叫做<a href="https://github.com/GoogleChromeLabs/quicklink" target="_blank" rel="noopener">quicklink</a>，基本上可以解决我们的这些问题，我们在这个工具的基础上进行修改实现我们的需求。<strong>quicklink</strong>的代码量并不多，在修改之前，了解一下它的具体实现，是如何解决上面的问题。</p>
+<h1 id="quicklink核心功能"><a href="#quicklink核心功能" class="headerlink" title="quicklink核心功能"></a>quicklink核心功能</h1><p><strong>quicklink</strong>的流程主要是：</p>
+<ol>
+<li>通过<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API" target="_blank" rel="noopener"><code>Intersection Observer</code></a><code>API</code>建立对应<code>a</code>标签位置监听；</li>
+<li>默认的这个监听建立在<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback" target="_blank" rel="noopener"><code>requestIdleCallback</code></a>方法的基础上，该方法在浏览器空闲时可以触发其中的回调；</li>
+<li>当监听<code>a</code>标签进入视口，拿到元素上绑定的属性<code>href</code>也就是一个<code>url</code>，对<code>url</code>调用<code>prefetch</code>方法；</li>
+<li><code>prefetch</code>方法中，先利用<code>navigator.connection.effectiveType</code>属性拿到用户的网络状态，如果是<em>2g</em>就不进行预加载；</li>
+<li>基于<code>promise.all</code>根据监听时<code>isPriority</code>属性配置，对于高优先级采用<code>fetch</code>，不支持回退到<code>xhr</code>请求，低优先级采用<code>&lt;link ref=&quot;prefetch/&gt;</code>或者<code>xhr</code>的方式。</li>
+</ol>
+<p>还有一些属性配置并发限制等功能，具体的实现可以看一下这个库的代码。</p>
+<h1 id="quicklink功能修改"><a href="#quicklink功能修改" class="headerlink" title="quicklink功能修改"></a>quicklink功能修改</h1><p>拿到这个库的代码之后，对于我们项目有一些不匹配的情况，总结下来主要有两个区别：</p>
+<ol>
+<li>我们项目基于<strong>React Router</strong>的路由<code>Hash</code>开发模式，基本上跳转逻辑通常写在点击事件中，跳转方式也是通过<code>hash change</code>来进行；而<code>quicklink</code>主要采用读取<code>a</code>标签的<code>href</code>属性来加载。</li>
+<li>我们是一个<strong>SPA</strong>项目，是客户端渲染页面，也就是说加载的<code>html</code>只有最基本的<code>DOM</code>结构，加上一些<strong>bundle</strong>文件的引用；而<code>quicklink</code>实现的跳转页面文件(<strong>HTML</strong>入口文件)预加载实际上对于我们的性能提升并不大。</li>
+</ol>
+<p>解决第一个问题，实际上就是让<code>quicklink</code>读取非<code>a</code>标签的属性即可，我们可以定义一个特殊的类名让<code>quicklink</code>获取到<strong>DOM</strong>元素如<code>v-quicklink-prefetch</code>，再定义一个特殊标识的属性比如<code>prefetch-href</code>，然后可以通过把需要预加载的具体文件地址动态的绑定在任意元素的<code>prefetch-href</code>属性上即可。如按照逻辑封装一个<strong>React</strong>组件基本代码的<code>render</code>部分：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Quicklink</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123;prfetchHref, children, className&#125; = props;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div</span><br><span class="line">        prefetch-href=&#123;prfetchHref&#125;</span><br><span class="line">        className=&#123;<span class="string">`v-quicklink-prefetch <span class="subst">$&#123;className&#125;</span>`</span>&#125;</span><br><span class="line">        &gt;</span><br><span class="line">        &#123; children &#125;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样在<strong>quicklink</strong>方法配置中加入<strong>DOM</strong>和属性获取配置项和代码逻辑，就完成了。</p>
+<p>解决第二个问题就相对麻烦了一些，首先解决的问题很明确是要预加载到对应<strong>bundle</strong>资源文件，而不是<strong>SPA</strong>的<strong>HTML</strong>文件，联系到我们每一个模块都有一个<strong>HTML</strong>入口文件，里面有对应的引用资源地址如<strong>bundle</strong>等，它们都是在模块单独打包时生成，那么对应的我们同样可以生成一份对应模块的资源地址列表的<strong>JSON</strong>文件，只需要我们读取到这个<strong>HTML</strong>即可。这就需要我们去对<strong>webpack</strong>做额外处理，由于我们之前已经使用<strong>html-webpack-plugin</strong>这个<strong>webpack</strong>插件来生成<strong>HTML</strong>入口文件，并且它提供<a href="https://github.com/jantimon/html-webpack-plugin/tree/v3.2.0" target="_blank" rel="noopener">五个钩子</a>，我们需要做的是拿到这个文件的内容，也就是在<strong>HtmlWebpackPluginAfterEmit</strong>钩子中触发，大体代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HtmlWebpackChunksPlugin</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(options) &#123;</span><br><span class="line">    <span class="keyword">this</span>.options = options;</span><br><span class="line">  &#125;</span><br><span class="line">  apply(compiler) &#123;</span><br><span class="line">    <span class="keyword">const</span> pluginName = <span class="string">'HtmlWebpackChunksPluginGenerateAssetsManifest'</span>;</span><br><span class="line">    compiler.hooks.compilation.tap(pluginName, (compilation) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (compilation.hooks.htmlWebpackPluginAfterEmit) &#123;</span><br><span class="line">        compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync(pluginName,</span><br><span class="line">          (htmlPluginData, callback) =&gt; &#123;</span><br><span class="line">            <span class="comment">// 拿到页面资源</span></span><br><span class="line">            <span class="keyword">const</span> htmlSource = htmlPluginData.html.source();</span><br><span class="line">            <span class="comment">// 使用htmlparser解析html</span></span><br><span class="line">            <span class="keyword">const</span> parser = <span class="keyword">new</span> htmlparser.Parser(&#123;</span><br><span class="line">              <span class="comment">// 当标签为script和link时保存数据地址</span></span><br><span class="line">              onopentag: <span class="function">(<span class="params">name, attribs</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (name === <span class="string">'script'</span> &amp;&amp; attribs.src) &#123;</span><br><span class="line">                  <span class="keyword">const</span> &#123; defer &#125; = attribs;</span><br><span class="line">                  resources.push(&#123;</span><br><span class="line">                    url: attribs.src,</span><br><span class="line">                    priority: defer || <span class="literal">null</span></span><br><span class="line">                  &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (name === <span class="string">'link'</span> &amp;&amp; attribs.href) &#123;</span><br><span class="line">                  <span class="keyword">const</span> &#123; preload &#125; = attribs;</span><br><span class="line">                  resources.push(&#123;</span><br><span class="line">                    url: attribs.href,</span><br><span class="line">                    priority: preload || <span class="literal">null</span></span><br><span class="line">                  &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;, &#123;&#125;);</span><br><span class="line"></span><br><span class="line">            parser.write(htmlSource);</span><br><span class="line">            parser.end();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 把 resources 以JSON写入对应模块文件中</span></span><br><span class="line">          &#125;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过每次打包模块时触发这个钩子拿到模块对应资源地址的集合，然后只需要再给<code>quicklink</code>传入这个文件的数组，再使其能处理数组的多文件地址格式，便解决了<strong>SPA</strong>在<code>quicklink</code>中只加载了<strong>HTML</strong>入口文件的问题。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>最终这个组件封装好了之后便可以通过相互模块之间的<code>JSON</code>文件引入，传递给对应的元素，即可完成视口区域的<code>prefetch</code>，对于页面加载速度提升是很多的，实现的关键是其中的思路，<code>quicklink</code>代码并不多，但是在处理每一个细节上都考虑的很周全。</p>
+<p>需要注意两个兼容问题</p>
+<ol>
+<li><code>Intersection Observer</code>，低版本浏览器可以引入对应<a href="https://github.com/w3c/IntersectionObserver/tree/master/polyfill" target="_blank" rel="noopener">polyfill</a>。</li>
+<li><code>requestIdleCallback</code>的polyfill很难实现，<code>quicklink</code>中已经通过定时器模拟实现。</li>
+</ol>
+<p>参考相关文章链接：<br><a href="https://github.com/GoogleChromeLabs/quicklink" target="_blank" rel="noopener">quicklink github</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API" target="_blank" rel="noopener">Intersection Observer</a><br><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback" target="_blank" rel="noopener">requestIdleCallback</a><br><a href="https://github.com/art-software/art-core/tree/master/packages/art-lib-react/src/components/quicklink" target="_blank" rel="noopener">项目中的组件代码地址</a></p>
+
+      
+    </div>
+    <div>
+      
+        <div style="text-align:center;color: #ccc;font-size:14px;">---------------- The End ----------------</div>
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  <div>
+        <p id="div-border-left-red">
+      <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
+        <span>
+        <b>本文地址: </b><a href="/2020/01/23/preload-module-tool/" title="开发日记——性能优化之预加载quicklink">https://www.yuguomin.com/2020/01/23/preload-module-tool/</a><br><b>转载请注明出处, 谢谢！</b>
+        </span>
+        </p>
+  </div>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/browser/" rel="tag"><i class="fa fa-tag"> browser</i></a>
+          
+            <a href="/tags/performance/" rel="tag"><i class="fa fa-tag"> performance</i></a>
+          
+            <a href="/tags/cache/" rel="tag"><i class="fa fa-tag"> cache</i></a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/18/create-my-own-react-2/" rel="next" title="简易React实现(2)——类组件和函数组件">
+                <i class="fa fa-chevron-left"></i> 简易React实现(2)——类组件和函数组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/01/29/webpack-js-tool-demo/" rel="prev" title="webpack打包JS工具库简单示例">
+                webpack打包JS工具库简单示例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!--MOB SHARE BEGIN-->
+<div class="-hoofoo-share-title">分享到: </div>
+<div class="-hoofoo-share-buttons">
+    <div class="-mob-share-weibo -hoofoo-share-weibo -hoofoo-share-ui-button"><i class="fa fa-weibo" aria-hidden="true"></i></div>
+    <div class="-mob-share-weixin -hoofoo-share-weixin -hoofoo-share-ui-button"><i class="fa fa-weixin" aria-hidden="true"></i></div>
+    <div class="-mob-share-qq -hoofoo-share-qq -hoofoo-share-ui-button"><i class="fa fa-qq" aria-hidden="true"></i></div>
+    <div class="-mob-share-twitter -hoofoo-share-twitter -hoofoo-share-ui-button"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+    <div class="-hoofoo-share-more -hoofoo-share-ui-button -mob-share-open"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></div>
+</div>
+<div class="-mob-share-ui" style="display: none">
+    <ul class="-mob-share-list">
+        <li class="-mob-share-weibo"><p>新浪微博</p></li>
+        <li class="-mob-share-weixin"><p>微信</p></li>
+        <li class="-mob-share-qzone"><p>QQ空间</p></li>
+        <li class="-mob-share-qq"><p>QQ好友</p></li>
+        <li class="-mob-share-tencentweibo"><p>腾讯微博</p></li>
+        <li class="-mob-share-renren"><p>人人网</p></li>
+        <li class="-mob-share-kaixin"><p>开心网</p></li>
+        <li class="-mob-share-douban"><p>豆瓣</p></li>
+        <li class="-mob-share-youdao"><p>有道云笔记</p></li>
+        <li class="-mob-share-mingdao"><p>明道</p></li>
+        <li class="-mob-share-pengyou"><p>朋友网</p></li>
+        <li class="-mob-share-facebook"><p>Facebook</p></li>
+        <li class="-mob-share-twitter"><p>Twitter</p></li>
+        <li class="-mob-share-pocket"><p>Pocket</p></li>
+        <li class="-mob-share-google"><p>Google+</p></li>
+        <li class="-mob-share-tumblr"><p>Tumblr</p></li>
+        <li class="-mob-share-instapaper"><p>Instapaper</p></li>
+        <li class="-mob-share-linkedin"><p>Linkedin</p></li>
+    </ul>
+    <div class="-mob-share-close">取消</div>
+</div>
+<div class="-mob-share-ui-bg"></div>
+<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<!--MOB SHARE END-->
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80NTk4MC8yMjQ5MQ=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <p class="site-author-name" itemprop="name">YGM</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+<div id="days"></div>
+    <script>
+    function show_date_time(){
+        window.setTimeout("show_date_time()", 1000);
+        BirthDay=new Date("08/03/2019 12:34:56");
+        today=new Date();
+        timeold=(today.getTime()-BirthDay.getTime());
+        sectimeold=timeold/1000
+        secondsold=Math.floor(sectimeold);
+        msPerDay=24*60*60*1000
+        e_daysold=timeold/msPerDay
+        daysold=Math.floor(e_daysold);
+        e_hrsold=(e_daysold-daysold)*24;
+        hrsold=setzero(Math.floor(e_hrsold));
+        e_minsold=(e_hrsold-hrsold)*60;
+        minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+        seconds=setzero(Math.floor((e_minsold-minsold)*60));
+        document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+    }
+function setzero(i){
+    if (i<10)
+    {i="0" + i};
+    return i;
+}
+show_date_time();
+</script>
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化思路及大纲"><span class="nav-number">2.</span> <span class="nav-text">优化思路及大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#quicklink核心功能"><span class="nav-number">3.</span> <span class="nav-text">quicklink核心功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#quicklink功能修改"><span class="nav-number">4.</span> <span class="nav-text">quicklink功能修改</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YGM</span>
+</div>
+
+
+<div class="powered-by">
+   个人专属
+</div>
+
+<div class="theme-info">
+  博客 - Super fish
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+      <script type="text/javascript">
+        (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+  
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  
+<script type="text/javascript">
+    //微信二维码点击背景关闭
+    $('body').delegate('.-mob-share-weixin-qrcode-bg','click', function(){
+         $(".-mob-share-weixin-qrcode-close").trigger("click");
+    }); 
+</script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+
+</html>
