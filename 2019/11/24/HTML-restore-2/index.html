@@ -61,19 +61,19 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。">
+<meta name="description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
 <meta name="keywords" content="HTML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML重塑(2)——语义和元信息标签">
 <meta property="og:url" content="https://www.yuguomin.com/2019/11/24/HTML-restore-2/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。">
+<meta property="og:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
-<meta property="og:updated_time" content="2020-02-11T07:48:27.212Z">
+<meta property="og:updated_time" content="2020-02-14T16:27:30.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(2)——语义和元信息标签">
-<meta name="twitter:description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。">
+<meta name="twitter:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
 
 
@@ -381,10 +381,10 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的语义和元信息标签学习。</li>
+<li>本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。</li>
 </ul>
 <a id="more"></a>
-<p>按照前的标签分类，接下来会学习语义标签、元信息标签、链接及替换型标签；表单和表格的特性相对简单不做重点学习。</p>
+<p>按照前面的标签分类，接下来会学习语义标签、元信息标签、链接及替换型标签；表单和表格的特性相对简单不做重点学习。</p>
 <h1 id="语义标签"><a href="#语义标签" class="headerlink" title="语义标签"></a>语义标签</h1><p>HTML是门标记语言，利用标记收纳内容及内容结构，它也是需要代码编写的语言。语义标签和普通的标签在视觉表现上一般都差不多，但是他们带有自己的特定含义。就好比我们写文章一般，有标题、段落、引用之分。我们通常使用的无语义化的标签如<code>div</code>和<code>span</code>，它们在视觉表现上相同，它们同样可以包裹定位信息。那么使用语义标签的优点是什么？是否需要使用它？</p>
 <h2 id="语义标签的优点"><a href="#语义标签的优点" class="headerlink" title="语义标签的优点"></a>语义标签的优点</h2><p>我们使用语义类标签的优点是：</p>
 <ol>
@@ -433,7 +433,7 @@
 <h2 id="title标签"><a href="#title标签" class="headerlink" title="title标签"></a>title标签</h2><p><code>title</code>标签就和它的意思一样，它表示的是文档的标题。就好比我们一个人的名字一样，是对整个页面的一个概括。<br>浏览器对这个标签的内容会拿来做特殊用处，比如放置在浏览器窗口的标题栏或状态栏上，加入用户的链接列表或者收藏夹或书签列表时，标题将成为该文档链接的默认名称。<br>这个标题很简单，但是在大部分场景下必须要有。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>HTML重塑(2)——标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="base标签"><a href="#base标签" class="headerlink" title="base标签"></a>base标签</h2><p>这是一个平时不常用的标签，但是如果使用不当，会产生很严重的后果。它会<strong>影响到所有页面上的href和src属性相对路劲的定位</strong>：</p>
+<h2 id="base标签"><a href="#base标签" class="headerlink" title="base标签"></a>base标签</h2><p>这是一个平时不常用的标签，但是如果使用不当，会产生很严重的后果。它会<strong>影响到所有页面上的href和src属性相对路径的定位</strong>：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">"../"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">base</span> <span class="attr">target</span>=<span class="string">"_blank"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ./1.css 会被理解为 ../1.css --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./1.css"</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 2.mp4 会被理解为 ../2.mp4 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">src</span>=<span class="string">"2.mp4"</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ../3.mp3 会被理解为 ../../3.mp3 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">src</span>=<span class="string">"../3.mp3"</span>&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 像下面这2种绝对路径就不会受影响 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"/aaa"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"D:///desk/test/node_modules/vue/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>在上面的代码中，如果发生链接跳转也会在新页面中打开，因为<code>base</code>标签设置了<code>target</code>的方式。因为它的危险型，一般最好不要使用这种方式去修改默认路径。</p>

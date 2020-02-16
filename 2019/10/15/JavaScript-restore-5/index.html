@@ -70,7 +70,7 @@
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/object-type-protogenesis.png">
-<meta property="og:updated_time" content="2020-02-11T07:47:11.308Z">
+<meta property="og:updated_time" content="2020-02-15T08:02:46.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(5)——JS对象的分类">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。">
@@ -402,7 +402,7 @@
 <p>在浏览器宿主中，有一个全局的<code>window</code>对象，这个对象上的属性，一部分来自 JavaScript 语言，一部分来自浏览器环境。<br>比如<code>window.document、window.Image</code>对象，</p>
 <p>在操作系统宿主下，<code>global</code>对象及其子对象，也包含自定义的类对象。</p>
 <p>因此宿主对象，也可以分为固有对象和用户创建的对象，比如我们可以使用<code>window.document.createElement</code>来创建一个<code>DOM</code>对象，</p>
-<p>宿主对象也提供了一些构造器，比如我们可以使用<code>new Image</code>来创建<code>img</code>元素，这些在浏览器的 API 部分详细学习。</p>
+<p>宿主对象也提供了一些构造器，比如我们可以使用<code>new Image</code>来创建<code>img</code>元素。</p>
 <h1 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h1><p>内置对象是由 JavaScript 语言提供的对象，它包括标准规定在 JavaScript 运行时创建而自动创建，也包括用户通过内置构造函数创建的以及之前讲过的普通对象。</p>
 <h2 id="固有对象"><a href="#固有对象" class="headerlink" title="固有对象"></a>固有对象</h2><p>内置对象中的固有对象，固有对象是由标准规定，随着 JavaScript 运行时创建而自动创建的对象实例。</p>
 <p>固有对象在任何 JavaScript 代码执行前就已经被创建出来了，它们通常扮演者类似基础库的角色。我们可以拿来做很多事情，常见的比如 <code>Array、Boolean、Date、Function、Global、Math、Error</code>等等</p>

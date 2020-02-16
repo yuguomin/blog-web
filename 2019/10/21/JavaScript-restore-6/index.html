@@ -73,7 +73,7 @@
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-error.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-micro.png">
-<meta property="og:updated_time" content="2020-02-11T07:47:21.057Z">
+<meta property="og:updated_time" content="2020-02-16T15:43:23.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(6)——Event Loop">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，以及研究任务与微任务。">
@@ -430,7 +430,7 @@
 <h1 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h1><p>前面提到了，如果我们在加载文件或者进行一个网络请求，如果是同步进行，那就会导致“阻塞”的问题，那么解决这个问题的方法是“异步”。</p>
 <p>具体怎么做呢？举个例子：<br>在一个老餐馆里，就是那种需要人分别去记录客人点单的餐馆，只有一个服务员(单线程)，此时来了三桌客人(三个函数)，如果按照同步思维，第一桌点完，才能轮到第二桌，那么后面的客人就想要个蛋炒饭，遇到第一桌的选择恐惧症得多难受鸭。此时的第一桌、第二桌、第三桌都是一个网络请求，快慢不同，但是不相互关联。<br>如何处理，为了不失礼貌，第一桌进来，“好的，客人想吃什么？您坐下看看菜单。”第二桌来了，同样，“好的，客人想吃什么？您做下看看。”，第三桌也是如此，当任意一桌想好了想吃啥了之后，唤一声“老板，来碗 腊肠蛋炒饭～”，即可完成点单。当然了，某一桌进来就想好了要吃啥，直接和老板讲就好啦。</p>
 <p>换到我们代码执行里，那我们不就可以在执行到类似网络请求的时候，把它扔一边，我去干我的事，等你好了再叫我。<br>没错，这样好像解决了问题了。想想我们常用的一些API，<code>setTimeout、setInterval、Promise</code>等等，如果在<code>Node</code>的环境下就更多了，它们都有一个回调函数，等到一定的时间后才执行。</p>
-<p>ok，异步的大概思路搞定了，就是我们把需要等待后在执行的函数给扔一边，继续我们的主线程，等它可以执行内容了在执行。但是这样还有点问题：</p>
+<p>ok，异步的大概思路搞定了，就是我们把需要等待后再执行的函数给扔一边，继续我们的主线程，等它可以执行内容了再执行。但是这样还有点问题：</p>
 <ol>
 <li>我们把等待的东西放一边去，放哪呢？</li>
 <li>如果需要等待的事情有点多，它们又同时结束，那咋办，先执行哪一个？</li>

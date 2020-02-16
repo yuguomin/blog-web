@@ -61,19 +61,19 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的链接和替换标签学习。">
+<meta name="description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的链接和替换标签相关内容。">
 <meta name="keywords" content="HTML">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML重塑(3)——链接和替换标签">
 <meta property="og:url" content="https://www.yuguomin.com/2019/11/30/HTML-restore-3/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的链接和替换标签学习。">
+<meta property="og:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的链接和替换标签相关内容。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-link-classify.png">
-<meta property="og:updated_time" content="2020-02-11T07:48:32.828Z">
+<meta property="og:updated_time" content="2020-02-15T02:49:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(3)——链接和替换标签">
-<meta name="twitter:description" content="前言 本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的链接和替换标签学习。">
+<meta name="twitter:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的链接和替换标签相关内容。">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-link-classify.png">
 
 
@@ -381,7 +381,7 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是HTML的功能学习，HTML是由标签承载的，功能的学习也就是标签的学习。本篇是标签分类的链接和替换标签学习。</li>
+<li>本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的链接和替换标签相关内容。</li>
 </ul>
 <a id="more"></a>
 <p>上一章总结了义和元信息标签，本章继续学习链接标签与替换标签。</p>
@@ -423,17 +423,17 @@
 <ol>
 <li><code>icon</code>型<strong>link</strong><br>这个标签的作用体现在打开页面在浏览器标签上显示的小图标。它是唯一一个外部资源型的元信息<code>link</code>，其链接会被浏览器下载并用作网页<code>icon</code>，如果没有设定这样的<code>link</code>，多数浏览器会使用域名根目录下的<code>favicon.ico</code>。</li>
 </ol>
-<p><strong>HTML</strong>标准允许一个页面出现多个<code>icon</code>型<code>link，并且用</code>sizes`指定它适合的<strong>icon</strong>尺寸。</p>
+<p><strong>HTML</strong>标准允许一个页面出现多个<code>icon</code>型<strong>link</strong>，并且用<code>sizes</code>指定它适合的<strong>icon</strong>尺寸。</p>
 <ol start="2">
 <li>预处理类<strong>link</strong><br>预处理的概念就是提前处理，我们知道打开一个页面一般会经过dns查询、建立链接、传输数据、加载进内存和渲染等一系列步骤。</li>
 </ol>
-<p>预处理类<code>link</code>就是根据不同的程度，去控制浏览器提前针对一些资源完成一部分操作。主要有一下几种类型的<code>link</code>和功能：</p>
+<p>预处理类<code>link</code>就是根据不同的程度，去控制浏览器提前针对一些资源完成一部分操作。主要有以下几种类型的<code>link</code>和功能：</p>
 <ul>
 <li><code>dns-prefetch</code>型<code>link</code>提前对一个域名做<code>dns</code>查询，这样的<code>link</code>里面的<code>href</code>实际上只有域名有意义。</li>
 <li><code>preconnect</code>型<code>link</code>提前对一个服务器建立<code>tcp</code>连接。</li>
 <li><code>prefetch</code>型<code>link</code>提前取<code>href</code>指定的<code>url</code>的内容。</li>
-<li><code>preload</code>型<code>link</code>提前加载<code>href</code>指定的`url。</li>
-<li><code>prerender</code>型<code>link</code>提前渲染<code>href</code>指定的`url。</li>
+<li><code>preload</code>型<code>link</code>提前加载<code>href</code>指定的<code>url</code>。</li>
+<li><code>prerender</code>型<code>link</code>提前渲染<code>href</code>指定的<code>url</code>。</li>
 </ul>
 <p>主要的预处理控制的程度就是这些，但是具体的实现与否和细节处理还要看每个浏览器的实现。</p>
 <ol start="3">
@@ -475,12 +475,12 @@
 <li>tag，表示本网页所属的标签；</li>
 <li>bookmark，到上级章节的链接。比如博客集合。<br>还有一些用于提示浏览器或者搜索引擎做一些处理的<code>rel</code>属性值：</li>
 <li>nofollow，此链接不会被搜索引擎索引；主要是被一些使用人气排名技术的搜索引擎所使用。</li>
-<li>noopener，此链接打开的网页无法使用 opener 来获得当前页面的窗口；当打开不受信任的链接时，这特别有用。</li>
+<li>noopener，此链接打开的网页无法使用<code>opener</code>来获得当前页面的窗口；当打开不受信任的链接时，这特别有用。</li>
 <li>noreferrer，此链接打开的网页无法使用<code>referrer</code>来获得当前页面的<code>url</code>；</li>
-<li>opener，打开的网页可以使用<code>window.opener</code>来访问当前页面的<code>window</code>对象，这是<code>a</code>标签的默认行为。主要是用于清楚<code>a</code>标签<code>target</code>属性为”_blank”时隐式设置的<code>rel=&quot;noopener&quot;</code>。</li>
+<li>opener，打开的网页可以使用<code>window.opener</code>来访问当前页面的<code>window</code>对象，这是<code>a</code>标签的默认行为。主要是用于清除<code>a</code>标签<code>target</code>属性为”_blank”时隐式设置的<code>rel=&quot;noopener&quot;</code>。</li>
 </ul>
 <p><code>a</code>标签基本解决了我们在页面中插入文字或者图片超链接的需求，如果我们想要在图片中插入超链接，并且支持非矩形点击区域，那么就需要使用<code>area</code>标签了。</p>
-<h2 id="area标签"><a href="#area标签" class="headerlink" title="area标签"></a>area标签</h2><p><code>area</code>标签的最大特点是它是<strong>HTML</strong>唯一一个支持非矩形热区的标签，这样我们可以在图片中设定一些特殊的点击区域。<br>它有一个属性<code>shape</code>支持四中类型，与<code>coords</code>属性配合，规定区域的尺寸、形状和位置。</p>
+<h2 id="area标签"><a href="#area标签" class="headerlink" title="area标签"></a>area标签</h2><p><code>area</code>标签的最大特点是它是<strong>HTML</strong>唯一一个支持非矩形热区的标签，这样我们可以在图片中设定一些特殊的点击区域。<br>它有一个属性<code>shape</code>支持四种类型，与<code>coords</code>属性配合，规定区域的尺寸、形状和位置。</p>
 <ul>
 <li>default，如果没设置<code>shape</code>时使用这个值，意味着区域覆盖整个图像。</li>
 <li>circle或者circ，圆形，coords 支持三个值，分别表示中心点的 x,y 坐标和圆形半径 r。</li>
@@ -498,7 +498,7 @@
 <p>第一种是直接把脚本代码写在标签中，第二种是通过链接引入文件，两种方法的结果是等效的，但是第二种会产生替换效果。</p>
 <p>这里需要注意一点，替换标签都是通过<code>src</code>来引入文件的，而前面说的链接标签都是通过<code>href</code>来引入的。所以<code>link</code>在引入<strong>CSS</strong>的时候使用的是<code>href</code>。</p>
 <h2 id="img"><a href="#img" class="headerlink" title="img"></a>img</h2><p><code>img</code>标签通过<code>src</code>引入一张图片替换掉所在位置。可以说<code>img</code>标签创建的是被引用图像的占位空间。</p>
-<p><code>img</code>标签的<code>src</code>属性也可以接受其它协议的uri，如http、https、file、data。<br>我们还可以通过<code>width</code>和<code>height</code>来设置图片的大小，可以只设置其中一项进行等比例缩放，在考虑性能方面最好是进行设置，否则了不能预知的图片尺寸后，会对之后的元素产生回排。<code>img</code>标签在部分浏览器中还可以通过<code>loading</code>来实现懒加载功能，逐步提升来性能优化。</p>
+<p><code>img</code>标签的<code>src</code>属性也可以接受其它协议的uri，如http、https、file、data。<br>我们还可以通过<code>width</code>和<code>height</code>来设置图片的大小，可以只设置其中一项进行等比例缩放，在考虑性能方面最好是进行设置，否则了不能预知的图片尺寸后，会对之后的元素产生重排。<code>img</code>标签在部分浏览器中还可以通过<code>loading</code>来实现懒加载功能，逐步提升来性能优化。</p>
 <p><code>img</code>的<code>alt</code>属性也是比较重要的属性，用于用户在一些无法查看图片时的场景如：网速太慢，浏览器禁用图像，用户使用的是屏幕阅读器等，来代替图像显示在浏览器中的内容。对于视障用户来说，alt 属性通常是他们了解图像内容的唯一方式。</p>
 <p>还有一组属性，<code>srcset</code>和<code>sizes</code>，实现来根据屏幕条件选取图片的能力如（示例来自<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/img" target="_blank" rel="noopener">MDN</a>）：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"/files/16864/clock-demo-200px.png"</span> </span></span><br><span class="line"><span class="tag">      <span class="attr">alt</span>=<span class="string">"Clock"</span> </span></span><br><span class="line"><span class="tag">      <span class="attr">srcset</span>=<span class="string">"/files/16864/clock-demo-200px.png 200w,</span></span></span><br><span class="line"><span class="tag"><span class="string">          /files/16797/clock-demo-400px.png 400w"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">sizes</span>=<span class="string">"(max-width: 600px) 200px, 50vw"</span>&gt;</span></span><br></pre></td></tr></table></figure>

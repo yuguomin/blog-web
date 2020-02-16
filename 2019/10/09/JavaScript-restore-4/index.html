@@ -69,7 +69,7 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第四篇，讲述的是在JavaScript中，原型系统的概念，以及JS通过其语言特性实现的基于类的面向对象。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-11T07:47:02.272Z">
+<meta property="og:updated_time" content="2020-02-15T07:33:33.173Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(4)——JS的原型与模拟类">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第四篇，讲述的是在JavaScript中，原型系统的概念，以及JS通过其语言特性实现的基于类的面向对象。">
@@ -450,7 +450,7 @@
 
 </li>
 </ul>
-<p>通过这种方式为实例共享属性解决了内存浪费的问题，所有实例通过原型链的特点最终使用的都是一个属性，但这种方式有一个问题就是，<strong>如果有实例对其原型上的属性进行修改，可能会影响到其他属性，多发生在对象类型的修改上</strong>。</p>
+<p>通过这种方式为实例共享属性解决了内存浪费的问题，所有实例通过原型链的特点最终使用的都是一个属性，但这种方式有一个问题就是，<strong>如果有实例对其原型上的属性进行修改，可能会影响到其他实例，多发生在对象类型的修改上</strong>。</p>
 <ul>
 <li><p>为构造函数添加静态方法，实例无法共享，但可以通过构造函数访问到该属性，通常用在一些类相关的 helper，如<code>Array.from</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Cat</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Cat.showName = <span class="function"><span class="keyword">function</span>(<span class="params">cat</span>) </span>&#123; <span class="built_in">console</span>.log(cat.name); &#125;</span><br></pre></td></tr></table></figure>
@@ -517,7 +517,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Dog = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> privateProp = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(name, like) &#123;</span><br><span class="line">      <span class="keyword">this</span>.name = name;</span><br><span class="line">      privateProp.set(<span class="keyword">this</span>, &#123; like &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    eat() &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is eating <span class="subst">$&#123;privateProp.get(<span class="keyword">this</span>).like&#125;</span>`</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> Dog;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myDog = <span class="keyword">new</span> Dog(<span class="string">'kaka'</span>, <span class="string">'ham'</span>);</span><br><span class="line">myDog.eat(); <span class="comment">// 'kaka is eating ham'</span></span><br></pre></td></tr></table></figure>
 
 <p>通过<code>WeakMap</code>来创建的对象还有一个特点，它的<code>key</code>是“弱引用”，当没有其它引用指向该key对象时，该对象即可被垃圾回收，WeakMap不会阻止回收。这会优化内存泄漏问题。</p>
-<p>通过ES6的<code>class</code>关键字以及能够很优雅的实现类了，但是我们仍然需要明白它的原理，它也是由原型运行时来承载的，逻辑上 JavaScript 认为每个类是有共同原型的一组对象，从函数的方式到class的方式，理解运行时的原型系统都是很有必要的一件事。</p>
+<p>通过ES6的<code>class</code>关键字已经能够很优雅的实现类了，但是我们仍然需要明白它的原理，它也是由原型运行时来承载的，逻辑上 JavaScript 认为每个类是有共同原型的一组对象，从函数的方式到class的方式，理解运行时的原型系统都是很有必要的一件事。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>上一篇从对象的模型到基于对象的理念，到本篇理解原型链系统特点，和利用这种特点去实现基于类的面向对象实现，再到ES6的基于类实践。更深刻理解在语言设计上带来的优势与弊端。</p>
 <p>参考相关文章链接：<br><a href="[点击查看](https://github.com/yuguomin/study-demo/tree/master/class-inherit)">继承代码实现demo</a><br><a href="https://time.geekbang.org/column/article/77749" target="_blank" rel="noopener">重学前端-winter</a></p>
 

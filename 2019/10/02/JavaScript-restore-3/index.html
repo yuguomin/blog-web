@@ -69,7 +69,7 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-11T07:46:57.611Z">
+<meta property="og:updated_time" content="2020-02-15T06:20:25.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(3)——JS的对象模型与基于对象">
 <meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第三篇，讲述的是在JavaScript中，对象的模型设计与特性，从而分析JavaScript的“基于对象”。">
@@ -437,7 +437,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> o = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(o, <span class="string">'b'</span>, &#123; <span class="attr">value</span>: <span class="number">2</span>, <span class="attr">configurable</span>: <span class="literal">false</span>&#125;);</span><br><span class="line"><span class="keyword">delete</span> o.a;</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123; b: 2 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">delete</span> o.b;</span><br><span class="line"><span class="built_in">console</span>.log(o); <span class="comment">// &#123; b: 2 &#125;</span></span><br></pre></td></tr></table></figure>
 
 <p>这种动态添加和删除的能力相当灵活，但是也是增加了代码的复杂度。</p>
-<h1 id="JavaScript的“基于对象“"><a href="#JavaScript的“基于对象“" class="headerlink" title="JavaScript的“基于对象“"></a>JavaScript的“基于对象“</h1><p>在前面，对对象的特性进行了介绍，它有唯一的标识，有状态，有行为。在很多时候，我们会对对象进行描述，把一些对象的相同特性描述归纳到一起，就诞生了类。</p>
+<h1 id="JavaScript的“基于对象”"><a href="#JavaScript的“基于对象”" class="headerlink" title="JavaScript的“基于对象”"></a>JavaScript的“基于对象”</h1><p>在前面，对对象的特性进行了介绍，它有唯一的标识，有状态，有行为。在很多时候，我们会对对象进行描述，把一些对象的相同特性描述归纳到一起，就诞生了类。</p>
 <ul>
 <li>一台苹果电脑，一台联想电脑和很多台电脑，它们因为都具有上网，打游戏的功能，把上网，打游戏归纳到一起，变成了电脑这个<strong>类</strong>；根据电脑特性，我们又创造了其他品牌的电脑。</li>
 <li>一盆水仙花，一盆牡丹花，因为它们都具有开花和散发香气的能力，把开花和散发出香气的能力归纳到一起，变成了花这个<strong>类</strong>。根据花的特性，我们又创造了其他的花。</li>
@@ -687,7 +687,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是对象"><span class="nav-number">2.</span> <span class="nav-text">什么是对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的对象模型"><span class="nav-number">3.</span> <span class="nav-text">JavaScript中的对象模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的数据结构"><span class="nav-number">3.1.</span> <span class="nav-text">对象的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS对象的特性"><span class="nav-number">3.2.</span> <span class="nav-text">JS对象的特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的“基于对象“"><span class="nav-number">4.</span> <span class="nav-text">JavaScript的“基于对象“</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是对象"><span class="nav-number">2.</span> <span class="nav-text">什么是对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript中的对象模型"><span class="nav-number">3.</span> <span class="nav-text">JavaScript中的对象模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的数据结构"><span class="nav-number">3.1.</span> <span class="nav-text">对象的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS对象的特性"><span class="nav-number">3.2.</span> <span class="nav-text">JS对象的特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JavaScript的“基于对象”"><span class="nav-number">4.</span> <span class="nav-text">JavaScript的“基于对象”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
