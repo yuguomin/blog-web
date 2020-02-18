@@ -69,7 +69,7 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-11T07:52:51.483Z">
+<meta property="og:updated_time" content="2020-02-18T03:13:11.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见Web安全攻防措施">
 <meta name="twitter:description" content="前言 今天的内容来看看网络安全这一块，在这个信息数据爆炸的时代，新鲜技术也在不断增加，对应的漏洞也就会增加，信息安全就成了一个大问题。这一篇文章学习总结一下前端工作中常见的一些攻击手段和防备措施。">
@@ -423,7 +423,7 @@
 <li>带宽扩容，敌方出兵800人，我方增兵1000人。始终高你一头。所以一些云服务商可以进行防护，因为他们有大量冗余带宽。</li>
 <li>CDN，CDN的策略是把静态资源缓存到多个服务器，用户就近访问。因此，只要不暴露源服务器的<code>IP</code>的情况下，就可以利用CDN实现扩容的效果。</li>
 </ul>
-<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p><strong>CSRF(Cross Site Request Forgery 跨站请求伪造)</strong>，我们还是先举个例子，再来总结：<br>假设有一个银行有一个<code>GET</code>请求接口<code>http://www.bank.com/transfer?money=10000&amp;to=1573</code>，这个接口是用来转账的。<code>money</code>参数就是想转账的金额，<code>to</code>参数就是转账对象的<code>id</code>。好了，攻击者发现了这个环节有机可乘，他就搞了一个恶意网站，这个网站的就是勾引人点其中的小广告，小广告有这样的一段代码：</p>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p><strong>CSRF(Cross Site Request Forgery 跨站请求伪造)</strong>，我们还是先举个例子，再来总结：<br>假设有一个银行有一个<code>GET</code>请求接口<code>http://www.xbank.com/transfer?money=10000&amp;to=1573</code>，这个接口是用来转账的。<code>money</code>参数就是想转账的金额，<code>to</code>参数就是转账对象的<code>id</code>。好了，攻击者发现了这个环节有机可乘，他就搞了一个恶意网站，这个网站的就是勾引人点其中的小广告，小广告有这样的一段代码：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">herf</span>=<span class="string">"http://www.xbank.com/transfer?money=100000&amp;to=xxx"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><code>xxx</code>就是攻击者的id，如果一旦有个憨憨用户，在登陆了银行的账户后没有退出。去网上冲浪点击了这个页面，咔，页面一跳转，钱就没了，这钱想花也花的太快了。具体发生了些啥呢，当点击了这个小广告后，跳转就发起了<code>GET</code>请求，这请求还会把在银行页面的<code>Cookie</code>给带上，也就是这个网站可能用的登陆信息给一起发送过去，服务端一看，哦，憨憨用户，转给xxx一共100000块钱，就把钱给转走了。</p>
@@ -449,7 +449,7 @@
 </ul>
 </li>
 </ol>
-<h1 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h1><p><strong>DNS</strong>，简单来说，就是一个存储着域名和<strong>IP</strong>映射关系的数据库。域名的作用就是针对<strong>IP</strong>地址做一个标记记忆，我们在输入域名去进行请求的时候，第一步就是要进行各个渠道的<strong>DNS</strong>解析，找到对应的<strong>IP</strong>，浏览器缓存，本地缓存，本地区域名服务器，根域名服务器，找到后，再发起最终请求。如果在这些环节里出了错，被人篡改了其中的映射关系，比如把我的博客域名导流到著名澳门的那啥网站去等等。</p>
+<h1 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h1><p><strong>DNS</strong>，简单来说，就是一个存储着域名和<strong>IP</strong>映射关系的数据库。域名的作用就是针对<strong>IP</strong>地址做一个标记记忆，我们在输入域名去进行请求的时候，第一步就是要进行各个渠道的<strong>DNS</strong>解析，找到对应的<strong>IP</strong>；通过浏览器缓存，本地缓存，本地区域名服务器，根域名服务器，找到后，再发起最终请求。如果在这些环节里出了错，被人篡改了其中的映射关系，比如把我的博客域名导流到著名澳门的那啥网站去等等。</p>
 <p>如果要防备这些攻击，没有直接防备的手段，多是用来预防：</p>
 <ul>
 <li>准备两个域名，发生问题后及时更换。</li>

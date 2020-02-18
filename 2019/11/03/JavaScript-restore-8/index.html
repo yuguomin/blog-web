@@ -61,19 +61,19 @@
 
 
 
-<meta name="description" content="前言 本篇内容主要是重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
+<meta name="description" content="前言 重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript重塑(8)——执行上下文">
 <meta property="og:url" content="https://www.yuguomin.com/2019/11/03/JavaScript-restore-8/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
-<meta property="og:description" content="前言 本篇内容主要是重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
+<meta property="og:description" content="前言 重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
-<meta property="og:updated_time" content="2020-02-11T07:47:32.516Z">
+<meta property="og:updated_time" content="2020-02-17T09:10:40.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(8)——执行上下文">
-<meta name="twitter:description" content="前言 本篇内容主要是重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
+<meta name="twitter:description" content="前言 重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
 <meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
 
 
@@ -381,7 +381,7 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><ul>
-<li>本篇内容主要是重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。</li>
+<li>重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。</li>
 </ul>
 <a id="more"></a>
 <p>前面关于事件循环的那一篇，讲到的是 JavaScript 任务的运行机制，而一个任务中可能包含很多的函数调用等其他内容，在形成一个个任务，接下来，先入手的内容叫做“执行上下文”。通过“执行上下文”理解代码执行时包含的信息。</p>
@@ -469,13 +469,13 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;, i * <span class="number">1000</span>)</span><br><span class="line">  &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里我们在<code>setTimeout</code>外层套了一层函数自调用，并且传递了每次循环的<code>i</code>值，创建了一个函数上下文，而<code>setTimeout</code>同步的部分会获取到自调函数中的<code>i</code>，异步部分在进入任务队列后，主线执行完毕，自调函数也出栈后，每个异步回调都通过自己的作用域链保存的变量获取到之前的<code>i</code>值输出。</p>
-<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><p><code>this</code>在JavaScript中是一个关键字，执行的是当前代码块的运行环境，为什么需要这么一个东西呢？<br>我们知道JavaScript是没有类的概念的，也就是ES6才出现了<code>class</code>，我们有的是对象和函数，函数可以作为对象的一个方法来进行调用，也可以直接调用：</p>
+<h1 id="this"><a href="#this" class="headerlink" title="this"></a>this</h1><p><code>this</code>在JavaScript中是一个关键字，指向的是当前代码块的运行环境，为什么需要这么一个东西呢？<br>我们知道JavaScript是没有类的概念的，也就是ES6才出现了<code>class</code>，我们有的是对象和函数，函数可以作为对象的一个方法来进行调用，也可以直接调用：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(num); &#125;</span><br><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">  num: <span class="number">2</span>,</span><br><span class="line">  fn</span><br><span class="line">&#125;</span><br><span class="line">fn();</span><br><span class="line">o.fn();</span><br></pre></td></tr></table></figure>
 
 <p>而我们知道函数声明时就保存了父级的作用域链，而当我们想向<code>Java</code>一样有类的概念，以方法访问到对象上的属性时，我们该如何做，通过传参吗？这样写：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params">who</span>) </span>&#123; <span class="built_in">console</span>.log(who.num); &#125;</span><br><span class="line"><span class="keyword">var</span> o = &#123;</span><br><span class="line">  num: <span class="number">2</span>,</span><br><span class="line">  fn</span><br><span class="line">&#125;</span><br><span class="line">fn(<span class="built_in">window</span>);</span><br><span class="line">o.fn(o);</span><br></pre></td></tr></table></figure>
 
-<p>没错，结果是想要的，但并不是类的效果，因此我们需要一个链接对象和函数之间桥梁，或者说在函数中访问到调用者信息的方式，出现了<code>this</code>。</p>
+<p>没错，结果是想要的，但并不是类的效果，因此我们需要一个连接对象和函数之间桥梁，或者说在函数中访问到调用者信息的方式，出现了<code>this</code>。</p>
 <p>在前面简单的讲了<code>this</code>是执行上下文的一个属性，它是在执行上下文创建也就是函数调用的时候就被确定的，所以也是不可修改的。<br>在这里主要还是按照全局执行上下文和函数执行上下文两种类型来讲述。</p>
 <h2 id="全局中的this"><a href="#全局中的this" class="headerlink" title="全局中的this"></a>全局中的this</h2><p>浏览器全局中的<code>this</code>指向的就是全局对象<code>window</code>，</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过声明绑定到window上</span></span><br><span class="line"><span class="keyword">var</span> num0 = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 没有声明的赋值操作，隐式绑定到全局对象</span></span><br><span class="line">num1 = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 通过this绑定到全局对象</span></span><br><span class="line"><span class="keyword">this</span>.num2 = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">window</span>.num0); <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>.num1); <span class="comment">// 1</span></span><br><span class="line"><span class="built_in">console</span>.log(num2); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">this</span>); <span class="comment">// window</span></span><br></pre></td></tr></table></figure>

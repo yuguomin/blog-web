@@ -71,7 +71,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-base-img.png">
 <meta property="og:image" content="https://cdn.yuguomin.com/images/frontend-network-study/HTTP-structure.png">
-<meta property="og:updated_time" content="2020-02-11T07:51:58.769Z">
+<meta property="og:updated_time" content="2020-02-17T09:34:05.901Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅入浅出前端通信协议知识">
 <meta name="twitter:description" content="前言 通信协议方面的知识，主要掌握的就是当我们输入一个url，浏览器是通过什么获取到当前页面的数据，这也是想要实现我们前端开发最终目标，页面渲染的第一大步。了解这部分知识，对于前后端分离开发、代码排错都有帮助。">
@@ -445,7 +445,7 @@
 <p>互联网的每一层，都定义了很多协议，这些协议的总称，就叫做 <strong>“互联网协议”</strong>，它们是互联网的核心。下面按照五层结构从下往上对每一层的功能做简单介绍。</p>
 <p>1.物理层<br>物理层主要规定了网络的一些电气特性，它的作用就是<strong>负责传送0和1的电信号</strong>。</p>
 <p>2.数据链路层<br>数据链接层的功能就是对0和1的数据进行分组。早期的时候，每个公司都有自己的电信号分组方式，后来，“以太网”（Ethernet）协议占据了主导地位。<br>以太网规定，一组电信号构成一个数据包，叫做“帧”（Frame）。每一帧分成两个部分：标头（Head）和数据（Data）。“标头”包含数据包的一些说明项，比如发送者、接受者、数据类型等等；“数据”则是数据包的具体内容。</p>
-<p>那么标头中的发送者和接受者是如何标识的？<br>以太网规定，连入网络的所有设备，都必须具有“网卡”接口。数据包最终会从一块网卡传送的到另一块网卡。二者两个网卡的地址，就叫做<strong>MAC</strong>地址，每一块网卡出厂的时候都有着独一无二的<strong>MAC</strong>地址。</p>
+<p>那么标头中的发送者和接受者是如何标识的？<br>以太网规定，连入网络的所有设备，都必须具有“网卡”接口。数据包最终会从一块网卡传送的到另一块网卡。两个网卡的地址，就叫做<strong>MAC</strong>地址，每一块网卡出厂的时候都有着独一无二的<strong>MAC</strong>地址。</p>
 <p>既然每块网卡有了地址，那么如何传送？<br>以太网协议中，我们假设发送者已经知道了接受者的地址，它不是一对一的发送，而是对所在网络内所有计算机发送，然后每个计算机在进行判断，是否接收。就好像老师点人答题一样，喊出名字，同学们确定是不是自己，在决定起不起身。这种方式叫做 <strong>“广播”</strong>。</p>
 <p>3.网络层<br>理论上来讲，有了唯一的地址之后，任何两个地方的网卡之间就可以产生互通了。但是，考虑到广播的传输方式范围广效率低，而且局限在发送者所在的子网络。</p>
 <p>互联网本身是一个巨型网络，由很多子网络所构成，因此，为了能够达到传输目的，我们必须要通过这唯一的<strong>MAC</strong>地址找到对应的子网络。如果是同一个子网络，就采用 <strong>“广播”</strong>方式发送，否则就采用 <strong>“路由”</strong>方式发送。但是<strong>MAC</strong>地址没办法办到。</p>
@@ -463,7 +463,7 @@
 <h1 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h1><p>IP协议作用于网络层，网络层的目的是实现主机到主机间的通信，而这一步，需要发送者和接收者的<strong>MAC</strong>地址和<strong>网络地址</strong>，<strong>IP协议</strong>就是用来<strong>规定网络地址</strong>的协议，它所定义的地址，就被称为<strong>IP地址</strong>。</p>
 <p>目前，广泛采用的是IP协议第四版，简称<strong>IPv4</strong>。这个版本规定，网络地址由<code>32</code>个二进制位组成。习惯上，我们用分成四段的十进制数表示IP地址，从<code>0.0.0.0</code>一直到<code>255.255.255.255</code>。</p>
 <p>但是<strong>IP协议</strong>是如何通过<strong>IP地址</strong>判断两台计算机同属一个子网络的呢？<br>在<strong>IP地址中</strong>有一部分位数表示网络部分，一部分表示主机部分。具体的判断还需要一个参数“子网掩码”，它是表示子网络特征的一个参数，也是由<code>32</code>位二进制组成，它的网络部分全部为1，主机部分全部为<code>0</code>。如果已知网络部分是前<code>24</code>位，主机部分是后<code>8</code>位，那么子网络掩码就是<code>11111111.11111111.11111111.00000000</code>，写成十进制就是<code>255.255.255.0</code>。在判断网络的时候，就通过两台计算机的子网掩码判断是否为网络部分，然后在用IP地址进行比较。确认是否在同一个子网络。</p>
-<h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p><strong>TCP协议</strong>是传输层的协议，传输程实现两台计算机中进程的通信，并提供通用的数据传输服务，在这里主要使用两种协议。一种是<strong>UDP</strong>，一种是<strong>TCP</strong>。</p>
+<h1 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h1><p><strong>TCP协议</strong>是传输层的协议，传输程实现两台计算机中进程的通信，并提供通用的数据传输服务。传输层主要使用两种协议。一种是<strong>UDP</strong>，一种是<strong>TCP</strong>。</p>
 <p><strong>UDP（User Datagram Protocol，用户数据报协议）</strong>，是一个非连接，面向报文的协议。UDP的包非常简单，并且尽最大努力的数据传输服务（不保证数据传输的可靠性）。这里就不多做介绍了。</p>
 <p><strong>TCP（Transmission Control Protocol，传输控制协议）</strong>是面向连接的协议，也就是说，在收发数据前，必须和对方建立可靠的连接。一个TCP连接必须要经过三次“对话”才能建立起来，其中的过程非常复杂，一般称作 <strong>“三次握手”</strong>，这里也只简单的描述下，以一个客户端和服务端交互为例：</p>
 <ul>
