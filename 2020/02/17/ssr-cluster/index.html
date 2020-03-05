@@ -69,12 +69,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言在上一篇的SSR同构框架中，讲述了对于render服务的优化措施开启多进程处理服务端渲染服务。本篇内容主要是如何使用node多进程，以及它的注意项。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/images/ssr-cluster/want-demo.png">
-<meta property="og:updated_time" content="2020-03-05T15:52:41.134Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/ssr-cluster/want-demo.png">
+<meta property="og:updated_time" content="2020-03-05T15:55:20.488Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSR服务优化之多进程">
 <meta name="twitter:description" content="前言在上一篇的SSR同构框架中，讲述了对于render服务的优化措施开启多进程处理服务端渲染服务。本篇内容主要是如何使用node多进程，以及它的注意项。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/images/ssr-cluster/want-demo.png">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/ssr-cluster/want-demo.png">
 
 
 
@@ -384,7 +384,7 @@
 <a id="more"></a>
 <h1 id="优化目的"><a href="#优化目的" class="headerlink" title="优化目的"></a>优化目的</h1><p>再开始研究如何进行优化之前，应该思考的是为什么要进行优化？<br>在SSR同构服务中，render服务采用的是nodeJS技术栈，承载了服务端渲染、页面初始化的请求同构、CSS同构，这些功能无疑是非常耗费CPU，并且很容易造成阻塞。而现在计算机大部分都是搭载了多核CPU，优化这一点就需要利用我们nodeJS的能力。</p>
 <p>那么结合node的运行时概念，nodeJS通常就是一个进程，它有一个主线程运行V8和JavaScript，然后利用这个主线程创建了多个子线程，当执行到一些可分配任务时，就把这些任务交给子线程去执行，自己则继续主线程任务，等到子线程任务完成后，利用事件回调，通知主线程，主线程则处理这些回调。</p>
-<p>回到我们的需求，在我们的render服务可能同时会有很多的请求服务，要处理很多个页面的渲染与同构，单靠这一个进程是完成不了这么多事情，那么是否可以结合node的运行时的方式，创建多个子进程？我们期望实现的效果是这样一个场景：<br><img src="https://cdn.yuguomin.com/images/images/ssr-cluster/want-demo.png" style="border:none;width:80%;"><br>请求到了render服务之后，由master主进程进行分配，把对应的请求内容交给相对空闲的子进程进行渲染处理，完成后进行回调给master，然后再返回给请求方。</p>
+<p>回到我们的需求，在我们的render服务可能同时会有很多的请求服务，要处理很多个页面的渲染与同构，单靠这一个进程是完成不了这么多事情，那么是否可以结合node的运行时的方式，创建多个子进程？我们期望实现的效果是这样一个场景：<br><img src="https://cdn.yuguomin.com/images/ssr-cluster/want-demo.png" style="border:none;width:80%;"><br>请求到了render服务之后，由master主进程进行分配，把对应的请求内容交给相对空闲的子进程进行渲染处理，完成后进行回调给master，然后再返回给请求方。</p>
 <p>在nodeJS中提供了子进程的能力，它可以在别的CPU上也创建一个JavaScript环境，并且它实现了主进程和子进程的通信。下面是一个简单的主进程和子进程创建与通信的过程：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ./master.js  主进程文件</span></span><br><span class="line"><span class="keyword">const</span> cp = <span class="built_in">require</span>(<span class="string">'child_process'</span>); <span class="comment">// 控制子进程调度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sonProcess = cp.fork(__dirname + <span class="string">'/son.js'</span>); <span class="comment">// 创建子进程</span></span><br><span class="line"></span><br><span class="line">sonProcess.send(<span class="string">'Hi, son.'</span>); <span class="comment">// 向子进程发送消息</span></span><br><span class="line"></span><br><span class="line">sonProcess.on(<span class="string">'message'</span>, (str) =&gt; &#123; <span class="comment">// 父子进程通信事件</span></span><br><span class="line">  <span class="built_in">console</span>.log(str, <span class="string">'(from son)'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ./son.js 子进程son入口文件</span></span><br><span class="line">process.on(<span class="string">'message'</span>, (str) =&gt; &#123;  <span class="comment">// 父子进程通信事件</span></span><br><span class="line">  <span class="built_in">console</span>.log(str);</span><br><span class="line">  process.send(<span class="string">'Hi, father.'</span>); <span class="comment">// 向主进程发送消息</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
