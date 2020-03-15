@@ -64,14 +64,14 @@
 <meta name="description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
 <meta name="keywords" content="Diary">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作总结">
+<meta property="og:title" content="工作经历总结">
 <meta property="og:url" content="https://www.yuguomin.com/2020/03/14/job-summary-1/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-14T14:54:39.616Z">
+<meta property="og:updated_time" content="2020-03-15T14:40:53.639Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工作总结">
+<meta name="twitter:title" content="工作经历总结">
 <meta name="twitter:description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
 
 
@@ -132,7 +132,7 @@
         }
     })();
 </script>
-  <title> 工作总结 | SuperFish's Blog </title>
+  <title> 工作经历总结 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -283,7 +283,7 @@
             
             
               
-                工作总结
+                工作经历总结
               
             
           </h1>
@@ -343,7 +343,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">67(字)</span>
+                  <span class="post-count">1.1k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -352,7 +352,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
+            <span class="post-count">3(分)</span>
             
           </span>
 
@@ -379,6 +379,12 @@
 
       
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。</p>
+<a id="more"></a>
+<p>在上一家公司我呆了接近两年，刚加入上一家公司(后文即称老东家)的时候，我的技术水平大概是业务开发都没有问题，前端框架应用得当，找一找轮子装车启用，算是一个妥妥的切图仔。我所在的主要是做出借型产品的项目组，刚开始带上我一共四个前端，后来一个老哥离开后，又招来了两个同事，一共五个人维持着这边的业务。在公司的第一年，业务非常繁忙，处理了公司的几个紧急需求，加班通宵也不是没有的事。周末去公司加班，和同事凌晨在全家吃着卤菜喝着粥还干了瓶啤酒，也是恍如昨日。</p>
+<h1 id="面临问题"><a href="#面临问题" class="headerlink" title="面临问题"></a>面临问题</h1><p>老东家当时的开发体验并不好，就当时我们项目组的H5项目来说，我来的时候是已经由angular迭代过来的一个纯SPA的vue项目，还有一些历史页面仍残留在老项目(angular)中。<br>整体代码架构上来说，就是一个对vue-cli进行了一些定制的项目，在src下以业务模块分割，一个页面就是一个vue模版文件，多则数千行代码，然后再定制了所有模块所依赖的公共模块，写入了一些公用业务组件，并引入了一个第三方组件库。利用cli配置的webpack功能，进行基本打包处理。<br>在开发流程上来讲，本地开发依照设计图完成，没有本地mock，想跑流程得接入一个测试服务，而后端文档也不完善，没有长期维护，字段不准确，更或者是一些接口并没有文档。测试阶段，测试服务器通过git拉取前后端开发分支进行测试，对应服务得保证前后端统一，提出了bug，开发得在本地配置好环境，进行问题测试，对代码修改，然后再由测试拉取代码测试。生产阶段，一波压缩编译配合上cdn，发布到git，deploy系统一顿操作上线。</p>
+<p>这样的一个项目如果要开发没有问题，好赖都能把功能实现。可在整个工作中，总是因为开发环境的调试而花费大量时间，甚至是当调好时一天已经没了；又或者同事的需求，突然bug提到了自己这边(当然相反也有)，摸不着头脑的找bug，原来因为对方不小心修改到了公共代码；又或者维护代码时总是摸不清对方的长篇代码，幸好像vue这种数据驱动相对还没那么复杂，无非就是多花点时间；想要进行一些老功能维护时，接口不完善或者后段字段逻辑复杂也总是让人头大；依赖的第三方组件库总是和自己的预期效果不太一样，产品和UI的定制如大圣的七十二变；本地开发时，总得使用远程mock或者期待着后端服务能够早点完成进行访问；然后到了测试阶段，测试也可能因为相互协调原因，分支被切，测了一堆bug发现白测；到了生产，也曾因为一个引入的SDK服务挂掉，而导页面挂掉…等等，这些问题，最终带来的影响是开发效率的降低，以及一个代码质量过低的工程。</p>
+<p>沉醉于业务中的生活状态是真的“充实”，想要改变现状，哪怕再“充实”也得挤挤时间制定计划。</p>
+<h1 id="求变思想"><a href="#求变思想" class="headerlink" title="求变思想"></a>求变思想</h1><p>问题到来时，想要想到最佳的改变方式也是需要经过不断的尝试和调研。先制定时间上的计划，每周小区对面的图书馆周末必须去一天，弥补技术上的空缺，并且通过学习其他社区产品的解决方法，去考量如何应用到我们自己的业务中来。</p>
 
       
     </div>
@@ -400,7 +406,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2020/03/14/job-summary-1/" title="工作总结">https://www.yuguomin.com/2020/03/14/job-summary-1/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2020/03/14/job-summary-1/" title="工作经历总结">https://www.yuguomin.com/2020/03/14/job-summary-1/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -615,7 +621,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面临问题"><span class="nav-number">2.</span> <span class="nav-text">面临问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求变思想"><span class="nav-number">3.</span> <span class="nav-text">求变思想</span></a></li></ol></div>
             
 
           </div>
