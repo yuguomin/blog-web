@@ -64,15 +64,17 @@
 <meta name="description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
 <meta name="keywords" content="Diary">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作经历总结">
+<meta property="og:title" content="2019工作总结">
 <meta property="og:url" content="https://www.yuguomin.com/2020/03/14/job-summary-1/index.html">
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-03-15T14:40:53.639Z">
+<meta property="og:image" content="https://cdn.yuguomin.com/images/job-summary-1/art-core-framework.png">
+<meta property="og:updated_time" content="2020-03-16T09:18:22.544Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="工作经历总结">
+<meta name="twitter:title" content="2019工作总结">
 <meta name="twitter:description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
+<meta name="twitter:image" content="https://cdn.yuguomin.com/images/job-summary-1/art-core-framework.png">
 
 
 
@@ -132,7 +134,7 @@
         }
     })();
 </script>
-  <title> 工作经历总结 | SuperFish's Blog </title>
+  <title> 2019工作总结 | SuperFish's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -283,7 +285,7 @@
             
             
               
-                工作经历总结
+                2019工作总结
               
             
           </h1>
@@ -343,7 +345,7 @@
                     <i class="fa fa-calendar-o"></i>
                   </span>
                   <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">1.1k(字)</span>
+                  <span class="post-count">3.7k(字)</span>
                 </span>
             
               <span class="post-time">
@@ -352,7 +354,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">3(分)</span>
+            <span class="post-count">12(分)</span>
             
           </span>
 
@@ -382,9 +384,51 @@
 <a id="more"></a>
 <p>在上一家公司我呆了接近两年，刚加入上一家公司(后文即称老东家)的时候，我的技术水平大概是业务开发都没有问题，前端框架应用得当，找一找轮子装车启用，算是一个妥妥的切图仔。我所在的主要是做出借型产品的项目组，刚开始带上我一共四个前端，后来一个老哥离开后，又招来了两个同事，一共五个人维持着这边的业务。在公司的第一年，业务非常繁忙，处理了公司的几个紧急需求，加班通宵也不是没有的事。周末去公司加班，和同事凌晨在全家吃着卤菜喝着粥还干了瓶啤酒，也是恍如昨日。</p>
 <h1 id="面临问题"><a href="#面临问题" class="headerlink" title="面临问题"></a>面临问题</h1><p>老东家当时的开发体验并不好，就当时我们项目组的H5项目来说，我来的时候是已经由angular迭代过来的一个纯SPA的vue项目，还有一些历史页面仍残留在老项目(angular)中。<br>整体代码架构上来说，就是一个对vue-cli进行了一些定制的项目，在src下以业务模块分割，一个页面就是一个vue模版文件，多则数千行代码，然后再定制了所有模块所依赖的公共模块，写入了一些公用业务组件，并引入了一个第三方组件库。利用cli配置的webpack功能，进行基本打包处理。<br>在开发流程上来讲，本地开发依照设计图完成，没有本地mock，想跑流程得接入一个测试服务，而后端文档也不完善，没有长期维护，字段不准确，更或者是一些接口并没有文档。测试阶段，测试服务器通过git拉取前后端开发分支进行测试，对应服务得保证前后端统一，提出了bug，开发得在本地配置好环境，进行问题测试，对代码修改，然后再由测试拉取代码测试。生产阶段，一波压缩编译配合上cdn，发布到git，deploy系统一顿操作上线。</p>
-<p>这样的一个项目如果要开发没有问题，好赖都能把功能实现。可在整个工作中，总是因为开发环境的调试而花费大量时间，甚至是当调好时一天已经没了；又或者同事的需求，突然bug提到了自己这边(当然相反也有)，摸不着头脑的找bug，原来因为对方不小心修改到了公共代码；又或者维护代码时总是摸不清对方的长篇代码，幸好像vue这种数据驱动相对还没那么复杂，无非就是多花点时间；想要进行一些老功能维护时，接口不完善或者后段字段逻辑复杂也总是让人头大；依赖的第三方组件库总是和自己的预期效果不太一样，产品和UI的定制如大圣的七十二变；本地开发时，总得使用远程mock或者期待着后端服务能够早点完成进行访问；然后到了测试阶段，测试也可能因为相互协调原因，分支被切，测了一堆bug发现白测；到了生产，也曾因为一个引入的SDK服务挂掉，而导页面挂掉…等等，这些问题，最终带来的影响是开发效率的降低，以及一个代码质量过低的工程。</p>
+<p>这样的一个项目如果要开发没有问题，好赖都能把功能实现。可在整个工作中，总是因为开发环境的调试而花费大量时间，甚至是当调好时一天已经没了；又或者同事的需求，突然bug提到了自己这边(当然相反也有)，摸不着头脑的找bug，原来因为对方不小心修改到了公共代码；又或者维护代码时总是摸不清对方的长篇代码，幸好像vue这种数据驱动相对还没那么复杂，无非就是多花点时间；想要进行一些老功能维护时，接口不完善或者后段字段逻辑复杂也总是让人头大；依赖的第三方组件库总是和自己的预期效果不太一样，产品和UI的定制如大圣的七十二变；本地开发时，总得使用远程mock或者期待着后端服务能够早点完成进行访问；然后到了测试阶段，测试也可能因为相互协调原因，分支被切，测了一堆bug发现白测；到了生产，也曾因为一个引入的SDK服务挂掉，而导页面挂掉；开发一个新项目时，需要搬运许多重复的代码…等等，这些问题，最终带来的影响是开发效率的降低，以及一个代码质量过低的工程。</p>
 <p>沉醉于业务中的生活状态是真的“充实”，想要改变现状，哪怕再“充实”也得挤挤时间制定计划。</p>
-<h1 id="求变思想"><a href="#求变思想" class="headerlink" title="求变思想"></a>求变思想</h1><p>问题到来时，想要想到最佳的改变方式也是需要经过不断的尝试和调研。先制定时间上的计划，每周小区对面的图书馆周末必须去一天，弥补技术上的空缺，并且通过学习其他社区产品的解决方法，去考量如何应用到我们自己的业务中来。</p>
+<h1 id="求变过程"><a href="#求变过程" class="headerlink" title="求变过程"></a>求变过程</h1><p>问题到来时，想要想到最佳的改变方式也是需要经过不断的尝试和调研。先制定时间上的计划，每周小区对面的图书馆周末必须去一天，弥补技术上的空缺，并且通过学习其他社区产品的解决方法，去考量如何应用到我们自己的业务中来。每天晚上回到家只要不是特别晚再花点时间或多或少一个小时两个小时实践。</p>
+<p>接下来的运气也是不错，业务需求也在不断的减少，使得项目组的小伙伴都有时间去学习一些新知识。对于整个业务开发的优化，主要需要解决几个点：</p>
+<ol>
+<li>加快项目的构建速度，快速创建风格统一的开发环境。</li>
+<li>webpack可定制，可优化。</li>
+<li>定制自己的组件库。</li>
+<li>伴随本地开发的mock。</li>
+<li>模块式开发，解耦项目。</li>
+<li>对于测试阶段定制文件读写，并可进行参数配置访问。</li>
+</ol>
+<p>简单点，其实就是自定义一个cli，串联一个业务开发的各个阶段，社区中的cli那么多，定制功能也不差，但是当视角不聚焦于一个项目时，我们是否还会有其他的业务场景，比如PC/SSR/小程序等等，如果开发一个cli，那么意味着每一个场景都需要这样一套工具，是否可以整合在一起？阿里的<a href="https://github.com/alibaba/ice" target="_blank" rel="noopener">icejs</a>框架就是一个解决方案，icejs是一个面向react的通用型框架，支持SPA、SSR、MPA、微前端等流行的应用类型。</p>
+<p>而对于我们老东家，多个项目组，其中vue/react都有涉及，并且大部分还是vue，icejs聚合多业务场景的方式是一个值得参考的方案，我们想再面向业务场景的基础上，对于框架保持中立。基本上确立了这些需求及思想后，我们得出了个结论，需要的就是一个面向业务，对框架中立，可持续扩展的项目构建工具，也就是后续开发出的art-core。</p>
+<p>接下来开发整个框架，结合了<a href="https://github.com/facebook/create-react-app" target="_blank" rel="noopener">create-react-app</a>这个脚手架，采用了lerna进行开发包管理，实现包解耦与扩展，公共包复用，以及按需安装。大概理的一个框架架构如下：<br><img src="https://cdn.yuguomin.com/images/job-summary-1/art-core-framework.png" style="border:none;"></p>
+<p>整个框架由一个入口的全局包art-cli-tools包进行调用，通过命令形式解析出配置，进行分发调用对应业务场景下的功能，在对应业务场景下又定制了不同框架的对应工具包，通过不断开发扩展实现框架中立，并且建立了common包来进行功能复用，通过配置package.json实现按需安装。在整体开发流程上，规范的cli命令形式串联，使多业务场景的开发风格统一，内置的webpack编译优化，降低学习和开发成本。</p>
+<p>到了这里，art-core实现了基本框架架构的需求，对于业务工程上来讲，我们还需要对它的代码实现整体解耦，以及产品的整体优化。以SPA为例，单项目多模块是最后我们确立的方案，大概的一个业务项目结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">├── debug/                         # 用于测试服务器的代码</span><br><span class="line">│   ├── home/</span><br><span class="line">│       ├── assets/</span><br><span class="line">│       ├── bundle.css</span><br><span class="line">│       ├── bundle.js</span><br><span class="line">│       ├── index.html</span><br><span class="line">│       ├── version.txt</span><br><span class="line">│   ├── product/</span><br><span class="line">├── public/                        # 用于生产的代码</span><br><span class="line">│   ├── home/</span><br><span class="line">│       ├── assets/</span><br><span class="line">│       ├── bundle.css</span><br><span class="line">│       ├── bundle.js</span><br><span class="line">│       ├── index.html</span><br><span class="line">│       ├── version.txt</span><br><span class="line">│   ├── product/</span><br><span class="line">├── client/                        # 项目源码</span><br><span class="line">│   ├── common/</span><br><span class="line">│   ├── home/</span><br><span class="line">│       ├── assets/</span><br><span class="line">│       ├── services/</span><br><span class="line">│       ├── styles/</span><br><span class="line">│       ├── views/</span><br><span class="line">│       ├── index.tsx</span><br><span class="line">│       ├── route.tsx</span><br><span class="line">│   ├── product/</span><br><span class="line">├── mock/                          # 本地模拟数据</span><br><span class="line">├── art.config.js                  # 串联整个框架流程的配置文件</span><br><span class="line">├── package.json</span><br><span class="line">└── tsconfig.json</span><br></pre></td></tr></table></figure>
+
+<p>以上是一个已经创建了home和product两个业务模块的项目，通过这个代码组织方式，我们可以看到，每一个模块中都有一个入口文件index.tsx，对应到测试环境(debug)和生产打包环境(public)的代码，都划分出了一个module，以此来独立对应一个bundle文件。而在整个框架开发和打包流程中，都是以命令行生成对单个或多个任选模块的热更新服务，或创建动态entry打包服务。</p>
+<p>这样将整个模块进行业务划分，进行单独开发和打包，那么对于每次上线也都是单独模块的发布，假设在开发某一个模块时对公共代码进行了修改，只要模块没有重新编译就不会受到影响，以此形成了代码隔离。完成了这些，基本上可以用这套框架进行快速的项目开发。</p>
+<h1 id="再度优化"><a href="#再度优化" class="headerlink" title="再度优化"></a>再度优化</h1><h2 id="弥补缺失"><a href="#弥补缺失" class="headerlink" title="弥补缺失"></a>弥补缺失</h2><p>在上述的代码组织构建方式中，面临了一个取舍问题，传统的SPA直接就可以打开整个项目的bundle文件，造成了首页面的白屏时间增加和后续页面的无白屏。在使用了单项目多模块后，我们相对降低了首页面加载速度，提高了后续页面的加载速度。那么有什么方案可以进行优化？通过对webpack等一些社区优化策略的学习，我们进行了如下措施：</p>
+<ol>
+<li>采用webpack dll功能实现公共包抽取，公共包是一个需要权衡哪些是“公共”，比如react，我们抽取之后，既可以减少构建的时间，也可以利用缓存加速后续模块的加载速度。并且采用版本控制的dll，实现了不同模块的可定制公共包的功能。</li>
+<li>组件的动态加载以及图片压缩等webpack配置优化措施。</li>
+<li>预加载quicklink组件，前面有一篇优化文章有讲，利用视口与模块跳转元素关系实现模块的bundle文件预加载能力。</li>
+</ol>
+<p>通过以上措施，弥补单项目多模块带来的用户体验度的影响。</p>
+<h2 id="需求认知"><a href="#需求认知" class="headerlink" title="需求认知"></a>需求认知</h2><p>在开发体验上，测试阶段，我们在一个测试服务上建立了简单的node服务来读写文件，项目中通过命令即可推送测试模块代码；并且我们可以以query配置形式，通过预支的请求配置文件，访问到不同的测试服务。在开发阶段，内置了mock服务，在本地化开发不用为了环境的问题，或者后端进度的问题而产生苦恼。不过大量的mock编写，以及ts的每个api接口定义编写也成了重复的工作。因此，我想是否有个方法可以避免这个过程呢？</p>
+<p>既然重复那么就是有规则，我们所做的mock文件和接口定义文件都依赖于后端的接口文档，如果接口文档能够统一，我们就可以通过解析文档来生成mock文件和ts文件。为此，我开发了一个可视化的文档编写工具，主要分为三个阶段：</p>
+<ol>
+<li>阶段一：定制一套文档书写规则，结合marked和recast等工具，进行AST生成与语言编译输出。并应用到我们的开发框架中，以命令形式读取和生成。但是问题是需要后端按照这种文档规则进行书写，相当于增加了他们的学习成本和开发成本。</li>
+<li>阶段二：开发可视化工具，以可视化表单输入的形式来制定输入的内容，并且可以实时查看对应文档效果，然后生成出定制的文档文件。相对而言，解决了阶段一的后端工作量问题，但是阶段一和阶段二的一个共有问题仍未解决，无法实现定制化，文档不便与管理。</li>
+<li>阶段三(尚未完成)：开发服务功能，建立服务机制，实现文档的增删改查，并且可定制服务接口，业务接口字段和类型规则要可定制。并让服务与业务项目斜街，以命令形式拉取文档文件，直接生成对应mock信息。</li>
+</ol>
+<p>这个工具和java swagger确实很相似。不过这个需求的层层推进的过程，也是对需求的认知和对视角的转换的学习。</p>
+<h2 id="项目健壮性"><a href="#项目健壮性" class="headerlink" title="项目健壮性"></a>项目健壮性</h2><p>项目的健壮性，就犹如人的免疫力，在面对病毒的时候自我保护和抵抗能力，在我们写项目的时候也应该考虑这一些。在单项目多模块的代码解耦上就是一种健壮性提升，对我们开发的组件库和工具库进行单元测试也是健壮性提升。这里举的简单例子是在SSR服务开发中，遇到的两个问题。</p>
+<ol>
+<li><p>采用双服务代替常见的render单服务<br>常见的如next.js采用的单服务模式进行服务端渲染，在我们框架中利用双服务来进行处理，分别是负责请求接收和转发以及对数据模版拼接返回的web服务，和进行服务端渲染以及request/css同构的render服务。这样做，可以充分利用微服务架构，对性能需求较大的render服务进行单独扩容，也可以充分利用基础设施开发的服务注册，链路追踪，性能监控等功能。</p>
+</li>
+<li><p>cluster创建多进程对node服务进行优化<br>单纯的创建多进程利用for/fork即可，但是如何维护多进程才是需要掌握的，进行心跳检测，错误重启，以及错误日志收集，建立了这样的体系，才能在我们的服务遇到问题时快速定位到问题并解决问题，也防止线上因为一些简单问题而全线崩溃。</p>
+</li>
+</ol>
+<p>实际上开发一个服务并不难，难的在于它的健壮性开发，不是一个服务能够跑通就完成了任务。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>接近两年下来，从切图仔到能去思考项目整体架构，无论是业务上的开发，还是前端工程化的思维上都有了小小的进步。在以后的工作中，要继续保持一个时间上的自律性，养成学习的习惯，多阅读大佬代码，学习别人的思想。提升整体的代码功底。希望这个过程中，头发能够少掉一些。加油，哈哈哈。</p>
 
       
     </div>
@@ -406,7 +450,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2020/03/14/job-summary-1/" title="工作经历总结">https://www.yuguomin.com/2020/03/14/job-summary-1/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="/2020/03/14/job-summary-1/" title="2019工作总结">https://www.yuguomin.com/2020/03/14/job-summary-1/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -621,7 +665,7 @@ show_date_time();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面临问题"><span class="nav-number">2.</span> <span class="nav-text">面临问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求变思想"><span class="nav-number">3.</span> <span class="nav-text">求变思想</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面临问题"><span class="nav-number">2.</span> <span class="nav-text">面临问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#求变过程"><span class="nav-number">3.</span> <span class="nav-text">求变过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再度优化"><span class="nav-number">4.</span> <span class="nav-text">再度优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#弥补缺失"><span class="nav-number">4.1.</span> <span class="nav-text">弥补缺失</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求认知"><span class="nav-number">4.2.</span> <span class="nav-text">需求认知</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目健壮性"><span class="nav-number">4.3.</span> <span class="nav-text">项目健壮性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
