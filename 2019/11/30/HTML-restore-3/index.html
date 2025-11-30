@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的链接和替换标签相关内容。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-link-classify.png">
+<meta property="og:image" content="./images/HTML-restore/HTML-link-classify.png">
 <meta property="og:updated_time" content="2020-02-15T02:49:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(3)——链接和替换标签">
 <meta name="twitter:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的链接和替换标签相关内容。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-link-classify.png">
+<meta name="twitter:image" content="./images/HTML-restore/HTML-link-classify.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -386,7 +390,7 @@
 <a id="more"></a>
 <p>上一章总结了义和元信息标签，本章继续学习链接标签与替换标签。</p>
 <h1 id="链接标签"><a href="#链接标签" class="headerlink" title="链接标签"></a>链接标签</h1><p>在第一篇中，我们讲到了<code>HTML</code>是超文本标记语言，超文本的特性就是带有超链接的文本，如果没有超链接，只能说是富文本。链接标签在<code>HTML</code>中就是对其他文档或者资源关系的实现，在<code>HTML</code>中，可以分为两种类型，一种是超链接型标签，一种是外部资源链接。这个分类的简单理解，可以说超链接型是被动链接，需要用户主动触发才会去跳转或者下载，而外部资源型链接是会主动下载的。</p>
-<p>下面按照标签，以及他们的属性或特征对链接标签进行分类(图片来自重学前端)：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/HTML-link-classify.png" style="border:none;width:70%;"></p>
+<p>下面按照标签，以及他们的属性或特征对链接标签进行分类(图片来自重学前端)：<br><img src="./images/HTML-restore/HTML-link-classify.png" style="border:none;width:70%;"></p>
 <p>下面按照分类整理一下每个链接的使用方式。</p>
 <h2 id="link标签"><a href="#link标签" class="headerlink" title="link标签"></a>link标签</h2><p><code>link</code>标签实际上也是元信息标签的一种，但它的使用都是靠链接进行的，并且在有些场景下可以把标签放在<code>body</code>中使用。所以我们在链接这一篇进行学习。<br><code>link</code>标签生成的链接根据用处分类不同，可以分为<strong>超链接</strong>和<strong>外部资源链接</strong>。<code>link</code>标签的使用方式主要是用<code>rel</code>属性来区分，比如：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"canonical"</span> <span class="attr">href</span>=<span class="string">"..."</span> /&gt;</span></span><br></pre></td></tr></table></figure>
@@ -687,7 +691,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

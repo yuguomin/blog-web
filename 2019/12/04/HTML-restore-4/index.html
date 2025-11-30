@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,15 +73,15 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是HTML的语法学习和语言标准补充学习。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-tree-base.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-widget-com.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-widget-extend.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-structure-base.png">
+<meta property="og:image" content="./images/HTML-restore/role-tree-base.png">
+<meta property="og:image" content="./images/HTML-restore/role-widget-com.png">
+<meta property="og:image" content="./images/HTML-restore/role-widget-extend.png">
+<meta property="og:image" content="./images/HTML-restore/role-structure-base.png">
 <meta property="og:updated_time" content="2020-02-11T07:49:58.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(4)——语法及扩展">
 <meta name="twitter:description" content="前言 本篇内容主要是HTML的语法学习和语言标准补充学习。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/role-tree-base.png">
+<meta name="twitter:image" content="./images/HTML-restore/role-tree-base.png">
 
 
 
@@ -272,7 +276,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -530,16 +534,16 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">tabindex</span>=<span class="string">"0"</span> <span class="attr">class</span>=<span class="string">"checkbox"</span> <span class="attr">role</span>=<span class="string">"checkbox"</span> <span class="attr">checked</span> <span class="attr">aria-checked</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">  pick one</span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>这里就使用了列表项加入了<code>role</code>属性，并且加入了状态属性<code>aria-checked</code>，将该元素显式标识为一个复选框，并指定它在默认情况下处于选中状态。该列表项现在将添加到无障碍树中，屏幕阅读器将把它正确地报告为一个复选框。然后我们为这个元素绑定<code>click</code>事件，并且以<code>checkbox</code>的交互方式来处理用户操作。</p>
-<p>接下来，详细看一下<code>role</code>属性，role 的定义是一个树形的继承关系，它的整体结构(后续结构图来自<a href="https://time.geekbang.org/column/article/93777" target="_blank" rel="noopener">重学前端</a>)：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-tree-base.png" style="border:none;width:70%;"></p>
-<h2 id="Widget角色"><a href="#Widget角色" class="headerlink" title="Widget角色"></a>Widget角色</h2><p>Widget角色指的是可交互的组件，前面示例中的<code>checkbox</code>就是其中一种，<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-widget-com.png" style="border:none;width:70%;"></p>
-<p>按照继承关系给出一份列表和简要说明：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-widget-extend.png" style="border:none;width:70%;"></p>
+<p>接下来，详细看一下<code>role</code>属性，role 的定义是一个树形的继承关系，它的整体结构(后续结构图来自<a href="https://time.geekbang.org/column/article/93777" target="_blank" rel="noopener">重学前端</a>)：<br><img src="./images/HTML-restore/role-tree-base.png" style="border:none;width:70%;"></p>
+<h2 id="Widget角色"><a href="#Widget角色" class="headerlink" title="Widget角色"></a>Widget角色</h2><p>Widget角色指的是可交互的组件，前面示例中的<code>checkbox</code>就是其中一种，<br><img src="./images/HTML-restore/role-widget-com.png" style="border:none;width:70%;"></p>
+<p>按照继承关系给出一份列表和简要说明：<br><img src="./images/HTML-restore/role-widget-extend.png" style="border:none;width:70%;"></p>
 <p>不同的<code>role</code>同时搭配着对应的<code>ARIA</code>属性使用，比如<code>checkbox</code>，它会搭配</p>
 <ul>
 <li>aria-checked 表示复选框是否已经被选中</li>
 <li>aria-labelledby 表示复选框对应的文字。</li>
 </ul>
 <p>在<a href="https://www.w3.org/TR/wai-aria/" target="_blank" rel="noopener"><strong>WAI-ARIA</strong>标准</a>中，可以找到所有的角色和对应的属性。</p>
-<h2 id="structure角色"><a href="#structure角色" class="headerlink" title="structure角色"></a>structure角色</h2><p>structure角色表示文档中的结构，自然与语义化标签有重合，建议优先使用 HTML5 标签。<br><img src="https://cdn.yuguomin.com/images/HTML-restore/role-structure-base.png" style="border:none;width:70%;"></p>
+<h2 id="structure角色"><a href="#structure角色" class="headerlink" title="structure角色"></a>structure角色</h2><p>structure角色表示文档中的结构，自然与语义化标签有重合，建议优先使用 HTML5 标签。<br><img src="./images/HTML-restore/role-structure-base.png" style="border:none;width:70%;"></p>
 <h2 id="window角色"><a href="#window角色" class="headerlink" title="window角色"></a>window角色</h2><p>window角色则代表窗体。在有的网页中，有些元素表示“新窗口”，特就是弹出的窗体。这时候，会用到 window 角色。window 系角色非常少，只有三个角色：</p>
 <ul>
 <li>window<ul>
@@ -703,7 +707,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,14 +73,14 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 该系列内容主要是记录实现一个简易react实现的过程和思维，从而加深对React本身的理解。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/children-child-instance.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/render-dom-demo-tree.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/render-dom-demo-change.png">
+<meta property="og:image" content="./images/create-my-own-react/children-child-instance.png">
+<meta property="og:image" content="./images/create-my-own-react/render-dom-demo-tree.png">
+<meta property="og:image" content="./images/create-my-own-react/render-dom-demo-change.png">
 <meta property="og:updated_time" content="2020-02-11T07:53:04.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易React实现(1)——DOM渲染与更新">
 <meta name="twitter:description" content="前言 该系列内容主要是记录实现一个简易react实现的过程和思维，从而加深对React本身的理解。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/create-my-own-react/children-child-instance.png">
+<meta name="twitter:image" content="./images/create-my-own-react/children-child-instance.png">
 
 
 
@@ -271,7 +275,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -486,7 +490,7 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reconcile = <span class="function">(<span class="params">parentDom: Element | Text, instance: IFishtailInstance | <span class="literal">null</span>, element: IFishtailElement</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (instance === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> newInstance = instantiate(element);</span><br><span class="line">    parentDom.appendChild(newInstance.dom);</span><br><span class="line">    <span class="keyword">return</span> newInstance;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (instance.element.type === element.type) &#123;</span><br><span class="line">    <span class="comment">// 说明相同类型的type，可复用dom，继而修改原 dom 上的属性</span></span><br><span class="line">    updateDomProperties(instance.dom, instance.element.props, element.props);</span><br><span class="line">    <span class="comment">// dom 已更新至最新，Fishtail element保持同步</span></span><br><span class="line">    instance.element = element;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newInstance = instantiate(element);</span><br><span class="line">    parentDom.replaceChild(newInstance.dom, instance.dom);</span><br><span class="line">    <span class="keyword">return</span> newInstance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>看起来好像没有什么问题了，但实际上还有一个问题没解决，<a href="https://codepen.io/super_fish/pen/VwYQXMg?editors=1111" target="_blank" rel="noopener">戳一戳看demo</a>，如果你打开这个demo的控制台可以发现，外层元素和子元素同样用了动态属性，但是子元素却没有更新，原因还是回到<code>reconcile</code>方法中，我们匹配到可复用的节点时，却只更新了最外层<code>dom</code>，接下来，加入子元素的对比复用渲染。</p>
-<h2 id="子元素复用"><a href="#子元素复用" class="headerlink" title="子元素复用"></a>子元素复用</h2><p>如果要实现子元素的复用，要考虑的就是多层结构，一层复一层，逻辑也相同，那就是递归了。而对比的双方，实际上就是我们在<strong>Instance</strong>结构中保存的<strong>childInstances</strong>，和<strong>Fishtail Element</strong>的<code>props.children</code>，即可以做对比，也有对应的<strong>dom</strong>可以复用了。这完全复用了<code>reconcile</code>的逻辑。<br><img src="https://cdn.yuguomin.com/images/create-my-own-react/children-child-instance.png" style="border:none;"></p>
+<h2 id="子元素复用"><a href="#子元素复用" class="headerlink" title="子元素复用"></a>子元素复用</h2><p>如果要实现子元素的复用，要考虑的就是多层结构，一层复一层，逻辑也相同，那就是递归了。而对比的双方，实际上就是我们在<strong>Instance</strong>结构中保存的<strong>childInstances</strong>，和<strong>Fishtail Element</strong>的<code>props.children</code>，即可以做对比，也有对应的<strong>dom</strong>可以复用了。这完全复用了<code>reconcile</code>的逻辑。<br><img src="./images/create-my-own-react/children-child-instance.png" style="border:none;"></p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reconcileChildren = <span class="function">(<span class="params">instance: IFishtailInstance, element: IFishtailElement</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; dom, childInstances &#125; = instance;</span><br><span class="line">  <span class="keyword">const</span> nextChlidElements = element.props.children || [];</span><br><span class="line">  <span class="keyword">const</span> newChildInstances: <span class="built_in">Array</span>&lt;IFishtailInstance | <span class="literal">null</span>&gt; = [];</span><br><span class="line">  <span class="keyword">const</span> count = <span class="built_in">Math</span>.max(childInstances.length, nextChlidElements.length);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">    childInstance = childInstance[i];</span><br><span class="line">    childElement = nextChlidElements[i];</span><br><span class="line">    newChildInstances.push(reconcile(dom, childInstance, childElement));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> newChildInstances;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结合代码和图，我们拿到了子级的<strong>Fishtail Element</strong>，就会和之前的做协调对比<code>reconcile</code>，然后我们为<code>reconcile</code>增加上这一段子元素对比逻辑：</p>
@@ -499,7 +503,7 @@
 <p>下面再来描述下在当下代码逻辑，<strong>DOM</strong>更新的流程，帮助理解整个过程。假设有如下结构：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const element = (</span><br><span class="line">  <span class="tag">&lt;<span class="name">A</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">B</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">D</span>&gt;</span><span class="tag">&lt;/<span class="name">D</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">E</span>&gt;</span><span class="tag">&lt;/<span class="name">E</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">B</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">C</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">F</span>&gt;</span><span class="tag">&lt;/<span class="name">F</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">C</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">A</span>&gt;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>对于这样的结构，我们可以得到一个树状结构图：<br><img src="https://cdn.yuguomin.com/images/create-my-own-react/render-dom-demo-tree.png" style="border:none;width:70%;"></p>
+<p>对于这样的结构，我们可以得到一个树状结构图：<br><img src="./images/create-my-own-react/render-dom-demo-tree.png" style="border:none;width:70%;"></p>
 <ol>
 <li>当执行来<code>render</code>进入<code>reconcile</code>后，<code>rootInstance</code>为<code>null</code>，第一次肯定会进入<strong>Instance</strong>创建；</li>
 <li><strong>Instance</strong>创建，会先创建A，然后递归创建找到B，再找到D和E，再继续找到C和F；</li>
@@ -508,7 +512,7 @@
 <p>假设这一段结构被修改，删除了D，加入了G。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const element = (</span><br><span class="line">  <span class="tag">&lt;<span class="name">A</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">B</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">E</span>&gt;</span><span class="tag">&lt;/<span class="name">E</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">B</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">C</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">F</span>&gt;</span><span class="tag">&lt;/<span class="name">F</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">G</span>&gt;</span><span class="tag">&lt;/<span class="name">G</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">C</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">A</span>&gt;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
-<p>会产生的对比效果如图：<br><img src="https://cdn.yuguomin.com/images/create-my-own-react/render-dom-demo-change.png" style="border:none;width:90%;"></p>
+<p>会产生的对比效果如图：<br><img src="./images/create-my-own-react/render-dom-demo-change.png" style="border:none;width:90%;"></p>
 <p>我们来细分一下这个<strong>DOM</strong>更新过程：</p>
 <ol>
 <li>对比根节点，两边<code>type</code>相同，都为A，递归对比A的<code>children</code>；</li>
@@ -677,7 +681,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

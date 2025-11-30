@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,16 +73,16 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/token-parse-demo.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/statement-parse-cn.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png">
+<meta property="og:image" content="./images/compile-learning/compile-layout.png">
+<meta property="og:image" content="./images/compile-learning/token-parse-demo.png">
+<meta property="og:image" content="./images/compile-learning/statement-parse-cn.png">
+<meta property="og:image" content="./images/compile-learning/expression-parse-tree.png">
+<meta property="og:image" content="./images/compile-learning/assignment-tree.png">
 <meta property="og:updated_time" content="2020-02-11T07:50:59.534Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第一章 知识概述">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第一篇，主要讲述学习目的，及编译器的基本结构。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png">
+<meta name="twitter:image" content="./images/compile-learning/compile-layout.png">
 
 
 
@@ -273,7 +277,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -396,7 +400,7 @@
 <li>后端技术是<strong>生成目标代码的过程</strong>，跟目标机器有关。</li>
 <li>这里的目标机器相关主要是因为每个机器的硬件架构和软件底层架构都是不一样的，前端技术只是一个理解分析过程，得出的结果是一个共通性的，而后端技术是需要与机器对接的。</li>
 </ol>
-<p>编译器的工作过程如图：<br><img src="https://cdn.yuguomin.com/images/compile-learning/compile-layout.png" style="margin:0;border:none;"></p>
+<p>编译器的工作过程如图：<br><img src="./images/compile-learning/compile-layout.png" style="margin:0;border:none;"></p>
 <h1 id="编译器前端技术概述"><a href="#编译器前端技术概述" class="headerlink" title="编译器前端技术概述"></a>编译器前端技术概述</h1><p>前端技术就好比大脑一样，我们使用自然语言交流的时候，自然语言也有属于它的语言规则，大脑通过这些规则进行语言分析。比如说，“这只鸟唱了首很好听的歌”，这里面我们接收到这句话后，对语言进行分析，得知，是哪一只鸟，刚才唱过歌，歌很好听。但是这个过程，是一个潜移默化的抽象过程。计算机语言，也都有自己的语法要求，如何声明赋值一个变量等等，我们需要告诉它代码，它就会按照这个规则进行解析，得知每一个代码的作用。</p>
 <p>思考一下，<code>const abc = 396;</code> 这是js的常量声明赋值。编译器是如何针对这一段进行解析的？</p>
 <h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p>编译器的第一项工作是词法分析，就好比一段英语，what is your name? 这句英语里每个单词都有它的含义，在编译技术里，我们称这每个单词为词法单元，英文为token。token是一个不可再被分割的最小单元，比如 <code>const abc = 396;</code> const 就是一个声明常量的标识符，是一个整体，没办法再被分割成con和st，那么编译器是如何将一段段代码进行词法分析得到每一个token的呢？看一段代码</p>
@@ -412,12 +416,12 @@
 <li>识别<code>99</code>数字字面量：扫描到以数字开头，就把这个token开始记录，直到遇到不是数字字符，结束这个token。</li>
 </ul>
 <p>上面的这些匹配规则实际上可以用正则表达式来进行描述，通过这些正则表达式规则，完成一个叫做 <strong>“有限自动机”</strong> 的算法，实现词法分析。</p>
-<p><strong>有限自动机</strong>是有限数量状态的自动机器，在这里是通过读取一个个字符，根据规则切换到不同的状态，而这些状态的个数是固定的。<br>例如，在处理 <code>abc = 396</code>时，处理到字符<code>a</code>，进入”标识符“状态，处理到<code>=</code>进入”赋值操作“状态，处理到数字 3，进入”数字字面量“状态。<br><img src="https://cdn.yuguomin.com/images/compile-learning/token-parse-demo.png" style="margin:0;border:none;"></p>
+<p><strong>有限自动机</strong>是有限数量状态的自动机器，在这里是通过读取一个个字符，根据规则切换到不同的状态，而这些状态的个数是固定的。<br>例如，在处理 <code>abc = 396</code>时，处理到字符<code>a</code>，进入”标识符“状态，处理到<code>=</code>进入”赋值操作“状态，处理到数字 3，进入”数字字面量“状态。<br><img src="./images/compile-learning/token-parse-demo.png" style="margin:0;border:none;"></p>
 <p>词法分析通过一个个状态的转换，每次转换就将识别的token推入到token序列中，完成整个代码字串的分词。</p>
 <h2 id="语法解析"><a href="#语法解析" class="headerlink" title="语法解析"></a>语法解析</h2><p>执行完词法分析后进入到了语法分析，词法分析扫描代码字串，将得到的token序列传递给语法分析，语法分析扫描token序列，识别出程序的语法结构。这个语法结构是计算机便于执行和理解的树状结构。</p>
-<p>每个语言都有自己的一个语法结构，例如自然语言，“这只鸟唱了首很好听的歌”，这段语句，可以拆分为主语“这只鸟”，谓语“唱了首”，宾语“很好听的歌”，宾语部分的这句话还可以被拆分为定语”很好听的”用来修饰“歌”，按照这样的拆分方式可以按规则绘制成一个树状结构。<br><img src="https://cdn.yuguomin.com/images/compile-learning/statement-parse-cn.png" style="margin:0;border:none;"></p>
-<p>程序同样有自己的语法结构，经过语法分析后，也是创造这样一个树状结构，这个树状结构叫做<strong>AST</strong>(Abstract Syntax Tree) 抽象语法树，例如代码 <code>99 + 88 * 77</code>可以生成出这样一个AST<br><img src="https://cdn.yuguomin.com/images/compile-learning/expression-parse-tree.png" style="border:0;" width="80%"><br>计算机在拿到这样一段AST后，从根节点进行遍历，通过一些处理，就可以拿到表达式的值。如果再将<code>if for =</code>等语法添加进AST，并解释执行实际上就实现了一个脚本语言。</p>
-<p>语法分析的目的已经清楚，那么如何实现这个构建过程，以代码 <code>const abc = 99</code>为例子，假设我们已经经过了词法分析。这个时候可以开始语法分析，首先构造整个的根节点program，然后从token序列中按照顺序分析，遇到的第一个token是const，是常量声明标识符，这个时候构建一个常量声明节点，下一个token是abc，则为变量声明节点创建一个子节点 常量名标识符abc，再接着一个token是<code>=</code>赋值操作，说明这个常量有初始化，建立初始化子节点，再下面一个token是99，得到字面量子节点。<br>完成了这一个常量声明语句，退回到根节点，进行下一段代码的扫描构建其下一个子节点。<br><img src="https://cdn.yuguomin.com/images/compile-learning/assignment-tree.png" width="80%" style="border:none;"></p>
+<p>每个语言都有自己的一个语法结构，例如自然语言，“这只鸟唱了首很好听的歌”，这段语句，可以拆分为主语“这只鸟”，谓语“唱了首”，宾语“很好听的歌”，宾语部分的这句话还可以被拆分为定语”很好听的”用来修饰“歌”，按照这样的拆分方式可以按规则绘制成一个树状结构。<br><img src="./images/compile-learning/statement-parse-cn.png" style="margin:0;border:none;"></p>
+<p>程序同样有自己的语法结构，经过语法分析后，也是创造这样一个树状结构，这个树状结构叫做<strong>AST</strong>(Abstract Syntax Tree) 抽象语法树，例如代码 <code>99 + 88 * 77</code>可以生成出这样一个AST<br><img src="./images/compile-learning/expression-parse-tree.png" style="border:0;" width="80%"><br>计算机在拿到这样一段AST后，从根节点进行遍历，通过一些处理，就可以拿到表达式的值。如果再将<code>if for =</code>等语法添加进AST，并解释执行实际上就实现了一个脚本语言。</p>
+<p>语法分析的目的已经清楚，那么如何实现这个构建过程，以代码 <code>const abc = 99</code>为例子，假设我们已经经过了词法分析。这个时候可以开始语法分析，首先构造整个的根节点program，然后从token序列中按照顺序分析，遇到的第一个token是const，是常量声明标识符，这个时候构建一个常量声明节点，下一个token是abc，则为变量声明节点创建一个子节点 常量名标识符abc，再接着一个token是<code>=</code>赋值操作，说明这个常量有初始化，建立初始化子节点，再下面一个token是99，得到字面量子节点。<br>完成了这一个常量声明语句，退回到根节点，进行下一段代码的扫描构建其下一个子节点。<br><img src="./images/compile-learning/assignment-tree.png" width="80%" style="border:none;"></p>
 <p>这个生成算法是递归下降算法，这个算法是从顶部的根节点开始打造整个AST，是一种自顶向下的算法，与之对应的是自底向上算法，先从最底部的叶子节点开始，像搭积木一样构造AST。</p>
 <h2 id="语义解析"><a href="#语义解析" class="headerlink" title="语义解析"></a>语义解析</h2><p>处理完词法解析和语法解析后，前端技术还剩下语义解析，目的是检查程序上下文是否和语言所定义的语义一致，比如类型检查，作用域检查。说的白话点，就是告诉计算机我们的真实意图，通过语法解析得到的语法树有时没办法清晰的说明一个变量是否重复定义等等。同时在这一步会进行一些类型收集放入到语法树中。<br>例如：</p>
 <ul>
@@ -583,7 +587,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

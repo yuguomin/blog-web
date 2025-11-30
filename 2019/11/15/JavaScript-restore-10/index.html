@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,13 +73,13 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 重塑JavaScript的第十篇，主要内容是JavaScript文法相关的学习。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png">
+<meta property="og:image" content="./images/compile-study-third/cal-ast-test.png">
+<meta property="og:image" content="./images/JavaScript-restore/module-script-difference.png">
 <meta property="og:updated_time" content="2020-02-17T09:10:48.199Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(10)——JS文法篇">
 <meta name="twitter:description" content="前言 重塑JavaScript的第十篇，主要内容是JavaScript文法相关的学习。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
+<meta name="twitter:image" content="./images/compile-study-third/cal-ast-test.png">
 
 
 
@@ -270,7 +274,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -423,7 +427,7 @@
 <p>这里简单说一下这个东西怎么玩，具体的可以<a href="https://www.yuguomin.com/2019/10/21/compile-study-third/">看这个</a>。<br>上面的两个产生式，定义了一些规则：</p>
 <ol>
 <li>加法表达式，必须由一个乘法表达式，或者一个乘法表达式，一个<code>Plus</code>(也就是<code>+</code>号)以及一个加法表达式组成。</li>
-<li>乘法表达式，必须由一个数字字面量，或者一个数字字面量，一个<code>Star</code>(也就是<code>*</code>号)以及一个乘法表达式组成。<br>这个规则解读起来和自然语言的主谓宾划分就很像了，通过这样的规则定义，我们通过遍历<code>token</code>序列，就能构造一个树状结构，例如代码<code>2 + 3 * 5</code>，就可以获取到这样一个<code>AST</code>：<img src="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png" style="border:none;">
+<li>乘法表达式，必须由一个数字字面量，或者一个数字字面量，一个<code>Star</code>(也就是<code>*</code>号)以及一个乘法表达式组成。<br>这个规则解读起来和自然语言的主谓宾划分就很像了，通过这样的规则定义，我们通过遍历<code>token</code>序列，就能构造一个树状结构，例如代码<code>2 + 3 * 5</code>，就可以获取到这样一个<code>AST</code>：<img src="./images/compile-study-third/cal-ast-test.png" style="border:none;">
 
 </li>
 </ol>
@@ -455,7 +459,7 @@
 <p>这样的引入方式，实际上是浏览器默认语言是JavaScript，所以把<code>type=&quot;application/javascript&quot;</code>隐藏了。按照ES6的新特性<code>Module</code>，我们可以在JS中使用<code>import</code>和<code>export</code>来导入和导出模块，如果引入的<code>x.js</code>中导出了一个属性，那么就会产生一个报错<code>Unexpected token &#39;export&#39;</code>。<br>而我们可是解决的方式是指定<code>script</code>的<code>type</code>为<code>module</code>：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"module"</span> <span class="attr">src</span>=<span class="string">'x.js'</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>而我们在JavaScript文件可以写很多的语句，因此，我们可以针对脚本模块的划分为：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/module-script-difference.png" style="border:none;width:70%;"></p>
+<p>而我们在JavaScript文件可以写很多的语句，因此，我们可以针对脚本模块的划分为：<br><img src="./images/JavaScript-restore/module-script-difference.png" style="border:none;width:70%;"></p>
 <p>对于<code>type</code>为<code>module</code>和<code>export</code>与<code>import</code>的使用特点，就不在这里多说了。<br>JavaScript 引擎除了执行脚本和模块之外，还可以执行函数。而函数体跟脚本和模块有一定的相似之处。同样是执行代码段，同样是创建任务在调用栈中执行，执行函数的过程实际上就是在执行函数体也就是花括号中的语句列表。</p>
 <p>函数体里面的结构不同也可以进行划分：</p>
 <ol>
@@ -714,7 +718,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

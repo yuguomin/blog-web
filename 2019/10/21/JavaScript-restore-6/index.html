@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,15 +73,15 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，以及研究任务与微任务。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-base.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-error.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-micro.png">
+<meta property="og:image" content="./images/JavaScript-restore/call-stack-base.png">
+<meta property="og:image" content="./images/JavaScript-restore/call-stack-error.png">
+<meta property="og:image" content="./images/JavaScript-restore/call-stack-maximum.png">
+<meta property="og:image" content="./images/JavaScript-restore/call-stack-micro.png">
 <meta property="og:updated_time" content="2020-02-17T09:10:59.660Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(6)——Event Loop">
 <meta name="twitter:description" content="前言 重塑JavaScript的第六篇，从JavaScript这门语言在宿主环境下的运行时机制，理解Event Loop，以及研究任务与微任务。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-base.png">
+<meta name="twitter:image" content="./images/JavaScript-restore/call-stack-base.png">
 
 
 
@@ -272,7 +276,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -397,7 +401,7 @@
 <h2 id="调用栈"><a href="#调用栈" class="headerlink" title="调用栈"></a>调用栈</h2><p>JavaScript的运行环境提供的 V8 引擎，它有一个单独的调用栈（call stack）来记录函数调用的数据结构。<br>那么对刚才的内容举个例子，假设有下面这样一段 JS 代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  bar();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
 
-<p>它在调用栈中是这样的表现<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-base.png" style="border:none;"></p>
+<p>它在调用栈中是这样的表现<br><img src="./images/JavaScript-restore/call-stack-base.png" style="border:none;"></p>
 <p>在这个示例中，<br>1.运行了某个 JS 文件，首先有一个类似于 <code>main</code> 的函数，这个函数指代了文件本身，先把它放进栈里；<br>2.自上而下查看了下声明的函数；最终发现<code>foo</code>函数调用；把<code>foo</code>推入到栈里；<br>3.然后<code>foo</code>函数调用了函数<code>bar</code>，把<code>bar</code>也推进栈里；<br>4.执行完<code>bar</code>拿到返回值，那么把<code>bar</code>弹出栈；<br>5.执行完<code>foo</code>拿到返回值，把<code>foo</code>弹出栈；<br>6.执行完当前脚本，<code>main</code>弹出栈。</p>
 <p>这张图说明了调用栈在执行这一段代码的时候的变迁，总结一下：</p>
 <p id="div-border-left-green">
@@ -407,11 +411,11 @@
 </p><h3 id="栈的追踪"><a href="#栈的追踪" class="headerlink" title="栈的追踪"></a>栈的追踪</h3><p>我们可以发现，调用栈整体是一个<strong>先进后出，后进先出</strong>的特点，整体有一种链式关系，通过浏览器的报错我们可以清晰的看到栈的顺序，修改一下刚才的那段代码</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'oh huo'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  bar();</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
 
-<p>把这段代码放到浏览器中执行，可以看到如下场景：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-error.png" style="border:none;width:60%;margin:0;"><br>可以看到这个报错信息上，能够看到和图中相似也就是和栈中相似的结构。通过这个信息可以知道，报错产生在函数<code>bar</code>中，而函数<code>bar</code>是在函数<code>foo</code>中调用。</p>
+<p>把这段代码放到浏览器中执行，可以看到如下场景：<br><img src="./images/JavaScript-restore/call-stack-error.png" style="border:none;width:60%;margin:0;"><br>可以看到这个报错信息上，能够看到和图中相似也就是和栈中相似的结构。通过这个信息可以知道，报错产生在函数<code>bar</code>中，而函数<code>bar</code>是在函数<code>foo</code>中调用。</p>
 <h3 id="栈溢出"><a href="#栈溢出" class="headerlink" title="栈溢出"></a>栈溢出</h3><p>刚才的代码都还挺“正经”的，假如再修改下代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123; foo(); &#125;</span><br><span class="line"></span><br><span class="line">foo();</span><br></pre></td></tr></table></figure>
 
-<p>递归调用自身并且不设开关，那么会出现什么情况呢？<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-maximum.png" style="border:none;width:60%;margin:0;"><br>这段代码会进入一个死循环，那么栈中不断的被添加新的执行函数，那么不就“撑炸”了，因此，chrome浏览器限制了栈的大小是<strong>16000帧</strong>。如果超出了这个大小就会中断进程并且报错。</p>
+<p>递归调用自身并且不设开关，那么会出现什么情况呢？<br><img src="./images/JavaScript-restore/call-stack-maximum.png" style="border:none;width:60%;margin:0;"><br>这段代码会进入一个死循环，那么栈中不断的被添加新的执行函数，那么不就“撑炸”了，因此，chrome浏览器限制了栈的大小是<strong>16000帧</strong>。如果超出了这个大小就会中断进程并且报错。</p>
 <h1 id="非阻塞"><a href="#非阻塞" class="headerlink" title="非阻塞"></a>非阻塞</h1><p>好了，解释完了单线程调用栈的问题，我想，我们遇到了一个更大的问题，就是代码的“阻塞”，不过幸好，JS是一个“非阻塞”的语言；嗯，那就解释下非阻塞吧。我们先不讨论“非阻塞”，先确认一下，什么是阻塞？</p>
 <p>回到之前的那个例子，假如火车站排队卖票，只有一个窗口，那么后面的人越来越多，是不是贼慢，严重影响了大家的出行。<br>程序也是如此，我们一行行的执行代码，后面的代码不就要等前面的执行完成后才能执行，如果代码执行的很慢，售票员是个实习生，那不就阻塞的更加严重。</p>
 <p>我们日常的一个简单打印，或许很快就出来，但假设我们打印从 1-1亿…嗯，确实很慢，还是别去操作了。<br>这个打印操作可能有点…瓜皮，那么，我们 加载图片、进行一个网络请求呢？我想，浏览器可不能把自己代码的执行速度建立在别人的响应速度上吧。<br>看一个阻塞的例子：</p>
@@ -517,7 +521,7 @@
 <li>然后入栈<code>console.log(&#39;setTimeout&#39;)</code>，执行完毕后将其和<code>timeFn</code>顺次出栈。</li>
 </ol>
 <p>看起来很复杂，但只要能区分任务部分划分和微任务划分，就可以清晰的识别出答案：<br><code>Promise start -&gt; Promise end -&gt; script -&gt; then -&gt; setTimeout</code></p>
-<p>用一张图表示微任务的执行时机：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/call-stack-micro.png" style="border:none;width:90%;"></p>
+<p>用一张图表示微任务的执行时机：<br><img src="./images/JavaScript-restore/call-stack-micro.png" style="border:none;width:90%;"></p>
 <h2 id="如何区分任务与微任务"><a href="#如何区分任务与微任务" class="headerlink" title="如何区分任务与微任务"></a>如何区分任务与微任务</h2><p>现在搞清楚了啥是微任务，但是看起来微任务和任务好相似哦，都是把回调放队列里，等待执行，只是执行的时机不同。那我们时机应用中如何辨别哪些是微任务，哪些是任务呢？</p>
 <p>我们按照之前API的思路可以整理出：</p>
 <p id="div-border-left-green">
@@ -773,7 +777,7 @@ MicroTask就是JavaScript引擎发起的，没有参与过事件循环的任务�
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -52,12 +56,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
+<meta property="og:image" content="./images/repaint-and-reflow/browser-render.png">
 <meta property="og:updated_time" content="2020-02-18T06:38:03.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="repaint and reflow&#x2F;重绘与回流">
 <meta name="twitter:description" content="前言 目的：重绘与回流的学习是对浏览器性能优化的一个知识点，从理解浏览器的大体渲染过程到如何优化这个渲染流程去理解重绘与回流。掌握这个知识点。 内容：了解浏览器的渲染过程 =&amp;gt; 重绘与回流是什么 =&amp;gt; 什么会触发重绘与回流 =&amp;gt; 浏览器的自我优化 =&amp;gt; 如何避免重绘与回流">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/repaint-and-reflow/browser-render.png">
+<meta name="twitter:image" content="./images/repaint-and-reflow/browser-render.png">
 
 
 
@@ -252,7 +256,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -608,7 +612,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -892,5 +896,4 @@ show_date_time();
 
 
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
-
 </html>

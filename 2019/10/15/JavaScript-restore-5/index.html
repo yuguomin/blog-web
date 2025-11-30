@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/object-type-protogenesis.png">
+<meta property="og:image" content="./images/JavaScript-restore/object-type-protogenesis.png">
 <meta property="og:updated_time" content="2020-02-17T09:11:08.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(5)——JS对象的分类">
 <meta name="twitter:description" content="前言 重塑JavaScript的第五篇，讲述的是在JavaScript中，对象的分类。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/object-type-protogenesis.png">
+<meta name="twitter:image" content="./images/JavaScript-restore/object-type-protogenesis.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -426,7 +430,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">set</span> = new Set();</span><br><span class="line">var objects = [</span><br><span class="line">  eval,</span><br><span class="line">  isFinite,</span><br><span class="line">  isNaN,</span><br><span class="line">  parseFloat,</span><br><span class="line">  parseInt,</span><br><span class="line">  decodeURI,</span><br><span class="line">  decodeURIComponent,</span><br><span class="line">  encodeURI,</span><br><span class="line">  encodeURIComponent,</span><br><span class="line">  Array,</span><br><span class="line">  Date,</span><br><span class="line">  RegExp,</span><br><span class="line">  Promise,</span><br><span class="line">  Proxy,</span><br><span class="line">  Map,</span><br><span class="line">  WeakMap,</span><br><span class="line">  Set,</span><br><span class="line">  WeakSet,</span><br><span class="line">  Function,</span><br><span class="line">  Boolean,</span><br><span class="line">  String,</span><br><span class="line">  Number,</span><br><span class="line">  Symbol,</span><br><span class="line">  Object,</span><br><span class="line">  Error,</span><br><span class="line">  EvalError,</span><br><span class="line">  RangeError,</span><br><span class="line">  ReferenceError,</span><br><span class="line">  SyntaxError,</span><br><span class="line">  TypeError,</span><br><span class="line">  URIError,</span><br><span class="line">  ArrayBuffer,</span><br><span class="line">  SharedArrayBuffer,</span><br><span class="line">  DataView,</span><br><span class="line">  Float32Array,</span><br><span class="line">  Float64Array,</span><br><span class="line">  Int8Array,</span><br><span class="line">  Int16Array,</span><br><span class="line">  Int32Array,</span><br><span class="line">  Uint8Array,</span><br><span class="line">  Uint16Array,</span><br><span class="line">  Uint32Array,</span><br><span class="line">  Uint8ClampedArray,</span><br><span class="line">  Atomics,</span><br><span class="line">  JSON,</span><br><span class="line">  Math,</span><br><span class="line">  Reflect</span><br><span class="line">];</span><br><span class="line">objects.forEach(o =&gt; <span class="keyword">set</span>.add(o));</span><br><span class="line">for(var i = 0; i &lt; objects.length; i++) &#123;</span><br><span class="line">  <span class="keyword">var</span> o = objects[i]</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> prop <span class="keyword">of</span> <span class="built_in">Object</span>.getOwnPropertyNames(o)) &#123;</span><br><span class="line">    <span class="keyword">var</span> desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(o, prop);</span><br><span class="line">    <span class="keyword">if</span> ((desc !== <span class="literal">null</span> &amp;&amp; <span class="keyword">typeof</span> desc.value === <span class="string">'object'</span>) || (<span class="keyword">typeof</span> desc.value === <span class="string">'function'</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!<span class="keyword">set</span>.has(desc.value)) &#123;</span><br><span class="line">        <span class="keyword">set</span>.add(desc.value);</span><br><span class="line">        objects.push(desc.value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (desc.<span class="keyword">get</span> &amp;&amp; !<span class="keyword">set</span>.has(desc.<span class="keyword">get</span>)) &#123;</span><br><span class="line">      <span class="keyword">set</span>.add(desc.<span class="keyword">get</span>);</span><br><span class="line">      objects.push(desc.<span class="keyword">get</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    if (desc.<span class="keyword">set</span> &amp;&amp; !<span class="keyword">set</span>.has(desc.<span class="keyword">set</span>)) &#123;</span><br><span class="line">      <span class="keyword">set</span>.add(desc.<span class="keyword">set</span>);</span><br><span class="line">      objects.push(desc.<span class="keyword">set</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>将在标准中规定的属性先存入集合中，然后利用<strong>for循环</strong>去便利属性数组，保证后续的深度遍历，然后查找到每个对象上的属性，判断是否收集后加入，最终 set 就是固有对象集合结果。最好打开一个空页面(about:blank)进行获取，防止页面有对固有属性进行过修改。</p>
-<h2 id="原生对象"><a href="#原生对象" class="headerlink" title="原生对象"></a>原生对象</h2><p>我们把 JavaScript 中，能够通过语言本身的构造器创建的对象称作原生对象。在 JavaScript 语言中存在30多个构造器，按照不同应用场景，我把原生对象分成了以下几个种类。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/object-type-protogenesis.png" style="border:none;width:80%;"></p>
+<h2 id="原生对象"><a href="#原生对象" class="headerlink" title="原生对象"></a>原生对象</h2><p>我们把 JavaScript 中，能够通过语言本身的构造器创建的对象称作原生对象。在 JavaScript 语言中存在30多个构造器，按照不同应用场景，我把原生对象分成了以下几个种类。<br><img src="./images/JavaScript-restore/object-type-protogenesis.png" style="border:none;width:80%;"></p>
 <p>这些构造器可以通过<code>new</code>来进行调用，创建新的对象，所以把这些对象称作原生对象。<br>几乎所有这些构造器的能力都是无法用纯 JavaScript 代码实现的，在 ES5 中也无法继承，原因是：ES5的继承方式都是先新建子类的<code>this</code>，然后再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。比如，这些构造器创建的对象多数使用了私有字段：</p>
 <ul>
 <li>Error: <code>[[ErrorData]]</code></li>
@@ -622,7 +626,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

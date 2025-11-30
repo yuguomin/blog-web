@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,13 +73,13 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是CSS语言相关的学习，分为语法的整体结构规则、选择器及CSS中的单位学习。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/easy-selector-tree.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-group-priority.png">
+<meta property="og:image" content="./images/CSS-restore/easy-selector-tree.png">
+<meta property="og:image" content="./images/CSS-restore/CSS-group-priority.png">
 <meta property="og:updated_time" content="2020-02-14T14:42:56.265Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS重塑(2)——CSS语言相关">
 <meta name="twitter:description" content="前言 本篇内容主要是CSS语言相关的学习，分为语法的整体结构规则、选择器及CSS中的单位学习。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/CSS-restore/easy-selector-tree.png">
+<meta name="twitter:image" content="./images/CSS-restore/easy-selector-tree.png">
 
 
 
@@ -270,7 +274,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -495,7 +499,7 @@
 <li>选择器列表：由逗号分隔的复杂选择器，表示“或”的关系。</li>
 </ul>
 <p>这个从简单到复杂也就逐级组合而成的结构，那我们从简单选择器开始。</p>
-<h2 id="简单选择器"><a href="#简单选择器" class="headerlink" title="简单选择器"></a>简单选择器</h2><p>下面是一个常用的简单选择器的分类（来自重学前端）：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/easy-selector-tree.png" style="border:none;width:70%;"></p>
+<h2 id="简单选择器"><a href="#简单选择器" class="headerlink" title="简单选择器"></a>简单选择器</h2><p>下面是一个常用的简单选择器的分类（来自重学前端）：<br><img src="./images/CSS-restore/easy-selector-tree.png" style="border:none;width:70%;"></p>
 <h3 id="类型选择器和全体选择器"><a href="#类型选择器和全体选择器" class="headerlink" title="类型选择器和全体选择器"></a>类型选择器和全体选择器</h3><p>类型选择器，也叫标签选择器它根据一个元素的标签名来选中元素。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">button</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -629,7 +633,7 @@
 <p>举个例子：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.a</span>,<span class="selector-class">.b</span>&gt;<span class="selector-class">.c</span><span class="selector-class">.d</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<p>在这个例子中，它实际上会构成一个结构树：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/CSS-group-priority.png" style="border:none;width:70%;"></p>
+<p>在这个例子中，它实际上会构成一个结构树：<br><img src="./images/CSS-restore/CSS-group-priority.png" style="border:none;width:70%;"></p>
 <p>这个树中省略了符号，按照这个组合优先级和树形结构，进行深度优先遍历，最终会先处理<code>.c.d</code>，然后是<code>.b&gt;.c.d</code>，最后是<code>.a,.b&gt;.c.d</code>。我们能来细节化其中的关系：</p>
 <ul>
 <li>例子中的<code>.c.d</code>是复合选择器，无符号链接，表示选中的元素必须同时具有<code>c</code>和<code>d</code>这两个<strong>class</strong>；是一种且的关系；</li>
@@ -970,7 +974,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/job-summary-1/art-core-framework.png">
+<meta property="og:image" content="./images/job-summary-1/art-core-framework.png">
 <meta property="og:updated_time" content="2020-03-16T09:18:22.544Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2019工作总结">
 <meta name="twitter:description" content="前言最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/job-summary-1/art-core-framework.png">
+<meta name="twitter:image" content="./images/job-summary-1/art-core-framework.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -398,7 +402,7 @@
 </ol>
 <p>简单点，其实就是自定义一个cli，串联一个业务开发的各个阶段，社区中的cli那么多，定制功能也不差，但是当视角不聚焦于一个项目时，我们是否还会有其他的业务场景，比如PC/SSR/小程序等等，如果开发一个cli，那么意味着每一个场景都需要这样一套工具，是否可以整合在一起？阿里的<a href="https://github.com/alibaba/ice" target="_blank" rel="noopener">icejs</a>框架就是一个解决方案，icejs是一个面向react的通用型框架，支持SPA、SSR、MPA、微前端等流行的应用类型。</p>
 <p>而对于我们老东家，多个项目组，其中vue/react都有涉及，并且大部分还是vue，icejs聚合多业务场景的方式是一个值得参考的方案，我们想再面向业务场景的基础上，对于框架保持中立。基本上确立了这些需求及思想后，我们得出了个结论，需要的就是一个面向业务，对框架中立，可持续扩展的项目构建工具，也就是后续开发出的art-core。</p>
-<p>接下来开发整个框架，结合了<a href="https://github.com/facebook/create-react-app" target="_blank" rel="noopener">create-react-app</a>这个脚手架，采用了lerna进行开发包管理，实现包解耦与扩展，公共包复用，以及按需安装。大概理的一个框架架构如下：<br><img src="https://cdn.yuguomin.com/images/job-summary-1/art-core-framework.png" style="border:none;"></p>
+<p>接下来开发整个框架，结合了<a href="https://github.com/facebook/create-react-app" target="_blank" rel="noopener">create-react-app</a>这个脚手架，采用了lerna进行开发包管理，实现包解耦与扩展，公共包复用，以及按需安装。大概理的一个框架架构如下：<br><img src="./images/job-summary-1/art-core-framework.png" style="border:none;"></p>
 <p>整个框架由一个入口的全局包art-cli-tools包进行调用，通过命令形式解析出配置，进行分发调用对应业务场景下的功能，在对应业务场景下又定制了不同框架的对应工具包，通过不断开发扩展实现框架中立，并且建立了common包来进行功能复用，通过配置package.json实现按需安装。在整体开发流程上，规范的cli命令形式串联，使多业务场景的开发风格统一，内置的webpack编译优化，降低学习和开发成本。</p>
 <p>到了这里，art-core实现了基本框架架构的需求，对于业务工程上来讲，我们还需要对它的代码实现整体解耦，以及产品的整体优化。以SPA为例，单项目多模块是最后我们确立的方案，大概的一个业务项目结构如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">├── debug/                         # 用于测试服务器的代码</span><br><span class="line">│   ├── home/</span><br><span class="line">│       ├── assets/</span><br><span class="line">│       ├── bundle.css</span><br><span class="line">│       ├── bundle.js</span><br><span class="line">│       ├── index.html</span><br><span class="line">│       ├── version.txt</span><br><span class="line">│   ├── product/</span><br><span class="line">├── public/                        # 用于生产的代码</span><br><span class="line">│   ├── home/</span><br><span class="line">│       ├── assets/</span><br><span class="line">│       ├── bundle.css</span><br><span class="line">│       ├── bundle.js</span><br><span class="line">│       ├── index.html</span><br><span class="line">│       ├── version.txt</span><br><span class="line">│   ├── product/</span><br><span class="line">├── client/                        # 项目源码</span><br><span class="line">│   ├── common/</span><br><span class="line">│   ├── home/</span><br><span class="line">│       ├── assets/</span><br><span class="line">│       ├── services/</span><br><span class="line">│       ├── styles/</span><br><span class="line">│       ├── views/</span><br><span class="line">│       ├── index.tsx</span><br><span class="line">│       ├── route.tsx</span><br><span class="line">│   ├── product/</span><br><span class="line">├── mock/                          # 本地模拟数据</span><br><span class="line">├── art.config.js                  # 串联整个框架流程的配置文件</span><br><span class="line">├── package.json</span><br><span class="line">└── tsconfig.json</span><br></pre></td></tr></table></figure>
@@ -580,7 +584,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

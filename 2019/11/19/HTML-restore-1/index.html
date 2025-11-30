@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑HTML内容做大纲，以及HTML的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-study-xml.png">
+<meta property="og:image" content="./images/HTML-restore/HTML-study-xml.png">
 <meta property="og:updated_time" content="2020-02-14T16:12:32.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(1)——历史与大纲">
 <meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑HTML内容做大纲，以及HTML的历史发展。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-study-xml.png">
+<meta name="twitter:image" content="./images/HTML-restore/HTML-study-xml.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -417,7 +421,7 @@
 <li>表单：用于填写和提交信息的一类标签；</li>
 <li>表格：表头、表尾、单元格等表格的结构。</li>
 </ol>
-<p>接着学习这门语言的重要语法，实体和命名空间。最后学习<strong>ARIA</strong>，它是对超文本标记语言（HTML）的补充。<br><img src="https://cdn.yuguomin.com/images/HTML-restore/HTML-study-xml.png" style="border:none;width:80%;"></p>
+<p>接着学习这门语言的重要语法，实体和命名空间。最后学习<strong>ARIA</strong>，它是对超文本标记语言（HTML）的补充。<br><img src="./images/HTML-restore/HTML-study-xml.png" style="border:none;width:80%;"></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>HTML的学习内容并不多，但是却是web的基础，如果把一个页面当作一个人，它便是页面的骨架，CSS则是肉体和外表，JavaScript则是灵魂。</p>
 <p>参考相关文章链接：<br><a href="https://www.w3.org/People/Raggett/book4/ch02.html" target="_blank" rel="noopener">A history of HTML</a><br><a href="https://zh.wikipedia.org/wiki/HTML" target="_blank" rel="noopener">HTML wiki</a><br><a href="https://en.wikipedia.org/wiki/World_Wide_Web_Consortium" target="_blank" rel="noopener">World Wide Web Consortium wiki</a><br><a href="https://en.wikipedia.org/wiki/SGMLguid" target="_blank" rel="noopener">SGMLguid wiki</a><br><a href="https://time.geekbang.org/column/article/77804" target="_blank" rel="noopener">重学前端-winter</a></p>
 
@@ -571,7 +575,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

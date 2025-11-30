@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 刚把通信协议相关的内容整理好，这会关于这方面的知识还挺热乎(香)，趁热打铁，再看看关于前后端通信时常遇到的问题“跨域”。本篇文章主要讲了跨域和解决跨域的方法及原理。让我们一起步入知识的海洋～">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/cross-domain/proxy-solve.png">
+<meta property="og:image" content="./images/cross-domain/proxy-solve.png">
 <meta property="og:updated_time" content="2020-02-18T02:16:32.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="跨域的解决方法及原理">
 <meta name="twitter:description" content="前言 刚把通信协议相关的内容整理好，这会关于这方面的知识还挺热乎(香)，趁热打铁，再看看关于前后端通信时常遇到的问题“跨域”。本篇文章主要讲了跨域和解决跨域的方法及原理。让我们一起步入知识的海洋～">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/cross-domain/proxy-solve.png">
+<meta name="twitter:image" content="./images/cross-domain/proxy-solve.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -408,7 +412,7 @@
 <li>只能进行<code>GET</code>请求，加载资源嘛；</li>
 <li>因为这种方式需要完全信任服务端，所以安全性也有问题，比如<strong>XSS</strong>攻击。<br>好了，那我们下一位。</li>
 </ol>
-<h1 id="服务端代理"><a href="#服务端代理" class="headerlink" title="服务端代理"></a>服务端代理</h1><p>啊哈，这个就机智多了，同源策略是浏览器搞的，那我们不让浏览器去找目标服务端不就好了。那找的人一定得是浏览器允许的。<br><img src="https://cdn.yuguomin.com/images/cross-domain/proxy-solve.png" style="border:none;width:80%;"></p>
+<h1 id="服务端代理"><a href="#服务端代理" class="headerlink" title="服务端代理"></a>服务端代理</h1><p>啊哈，这个就机智多了，同源策略是浏览器搞的，那我们不让浏览器去找目标服务端不就好了。那找的人一定得是浏览器允许的。<br><img src="./images/cross-domain/proxy-solve.png" style="border:none;width:80%;"></p>
 <p>基本就是上面一个流程，可以利用一个能跨域的服务器或者nginx配置反向代理也行，按照这个套路，去实现跨域请求。具体代码就不在这占篇幅了，可以点上面的链接去看。<br>这个方法就是通过同源策略不会对服务端请求做限制实现的。</p>
 <h1 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h1><p><strong>WebSocket</strong>是一种通信协议，在网络通信协议那一篇讲过，它的目的是实现浏览器和服务端的双全工通信，作为一项还算新的技术，它还有一个特点就是可以跨域。这一点，服务端的代码编写应该有这个意识去做校验。看一个简单的例子：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前端代码</span></span><br><span class="line"><span class="keyword">const</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://localhost:8888'</span>);</span><br><span class="line">socket.onopen = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  socket.send(<span class="string">'Hi server'</span>);</span><br><span class="line">&#125; </span><br><span class="line">socket.onmessage = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(e.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -611,7 +615,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

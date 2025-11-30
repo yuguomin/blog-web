@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,28 +73,28 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是CSS布局相关的学习，从传统的布局方式再到flex布局的使用，以及CSS常见的居中方式。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-padding-margin.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-1.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-2.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-3.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-4.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-error.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/fly-layout-ok.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-x-y.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-direction.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-wrap.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-justify-content.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-align-items.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-align-content.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-order.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-grow.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/flex-shrink.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/align-self.png">
+<meta property="og:image" content="./images/CSS-restore/CSS-padding-margin.png">
+<meta property="og:image" content="./images/CSS-restore/grail-layout-1.png">
+<meta property="og:image" content="./images/CSS-restore/grail-layout-2.png">
+<meta property="og:image" content="./images/CSS-restore/grail-layout-3.png">
+<meta property="og:image" content="./images/CSS-restore/grail-layout-4.png">
+<meta property="og:image" content="./images/CSS-restore/grail-layout-error.png">
+<meta property="og:image" content="./images/CSS-restore/fly-layout-ok.png">
+<meta property="og:image" content="./images/CSS-restore/flex-x-y.png">
+<meta property="og:image" content="./images/CSS-restore/flex-direction.png">
+<meta property="og:image" content="./images/CSS-restore/flex-wrap.png">
+<meta property="og:image" content="./images/CSS-restore/flex-justify-content.png">
+<meta property="og:image" content="./images/CSS-restore/flex-align-items.png">
+<meta property="og:image" content="./images/CSS-restore/flex-align-content.png">
+<meta property="og:image" content="./images/CSS-restore/flex-order.png">
+<meta property="og:image" content="./images/CSS-restore/flex-grow.png">
+<meta property="og:image" content="./images/CSS-restore/flex-shrink.png">
+<meta property="og:image" content="./images/CSS-restore/align-self.png">
 <meta property="og:updated_time" content="2020-02-11T07:50:07.987Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS重塑(3)——CSS布局">
 <meta name="twitter:description" content="前言 本篇内容主要是CSS布局相关的学习，从传统的布局方式再到flex布局的使用，以及CSS常见的居中方式。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-padding-margin.png">
+<meta name="twitter:image" content="./images/CSS-restore/CSS-padding-margin.png">
 
 
 
@@ -285,7 +289,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -447,7 +451,7 @@
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">clear</span>: both;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="number">9999px</span>;</span><br><span class="line">  <span class="attribute">margin-bottom</span>: -<span class="number">9999px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.needless</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>按照这个案例自行配合一些文字内容和颜色，可以看到一个效果<br><img src="https://cdn.yuguomin.com/images/CSS-restore/CSS-padding-margin.png" style="border:none;width:80%;"></p>
+<p>按照这个案例自行配合一些文字内容和颜色，可以看到一个效果<br><img src="./images/CSS-restore/CSS-padding-margin.png" style="border:none;width:80%;"></p>
 <p>这里去掉了<code>overflow: hidden</code>只做清除浮动，可以看到<code>.needless</code>元素被提升了上来，但是<code>padding</code>仍然存在。</p>
 <h2 id="两列自适应布局"><a href="#两列自适应布局" class="headerlink" title="两列自适应布局"></a>两列自适应布局</h2><p>两列自适应使用场景也挺多的，比如后台系统经常左边导航右边内容，或者有的页面左边或右边广告剩下的主题。它的要求是<strong>一边固定宽或不固定，而另一边占据剩下的部分达到自适应。</strong>我们来看几种实现方法：</p>
 <ol>
@@ -488,39 +492,39 @@
 
 </li>
 </ol>
-<p>实现到这一步可以看到一个结果：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-1.png" style="width:80%;"></p>
+<p>实现到这一步可以看到一个结果：<br><img src="./images/CSS-restore/grail-layout-1.png" style="width:80%;"></p>
 <ol start="3">
-<li>接着，我们想要把<code>left</code>和<code>right</code>到对应的左右边去，这里要明白，为什么他们俩会掉下来，根据<code>float</code>元素的定位方式，这里三个元素都会往左边靠，直到遇到父元素或者浮动元素，而根据文档结构，<code>.center</code>元素在第一个，并且宽度是<code>100%</code>，所以其它浮动元素只能再起一行。那么我们使用<code>margin</code>属性来把这两个元素给“提”上去。<br>为左边的盒子添加一个<code>margin-left: -100%;</code>，<code>margin-left</code>负值和<code>margin-top</code>负值，<strong>是会移动自身元素来控制和其它元素的间距</strong>，这个<code>-100%</code>，就相当于往前移动来整个<code>.center</code>元素的距离，那么就跑到上一层最左边去了。<br>同理，左边盒子上去后，右边的盒子就在第二行的最左边了，我们只需要为它<code>margin-left: 负自身的宽度</code>也可以提升的效果，跑到最右边去了。为了节省篇幅，这几个添加的代码就不展示了，看下结果。<img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-2.png" style="width:80%;">
+<li>接着，我们想要把<code>left</code>和<code>right</code>到对应的左右边去，这里要明白，为什么他们俩会掉下来，根据<code>float</code>元素的定位方式，这里三个元素都会往左边靠，直到遇到父元素或者浮动元素，而根据文档结构，<code>.center</code>元素在第一个，并且宽度是<code>100%</code>，所以其它浮动元素只能再起一行。那么我们使用<code>margin</code>属性来把这两个元素给“提”上去。<br>为左边的盒子添加一个<code>margin-left: -100%;</code>，<code>margin-left</code>负值和<code>margin-top</code>负值，<strong>是会移动自身元素来控制和其它元素的间距</strong>，这个<code>-100%</code>，就相当于往前移动来整个<code>.center</code>元素的距离，那么就跑到上一层最左边去了。<br>同理，左边盒子上去后，右边的盒子就在第二行的最左边了，我们只需要为它<code>margin-left: 负自身的宽度</code>也可以提升的效果，跑到最右边去了。为了节省篇幅，这几个添加的代码就不展示了，看下结果。<img src="./images/CSS-restore/grail-layout-2.png" style="width:80%;">
 
 </li>
 </ol>
 <p>目的是实现了，可是我们发现<code>.center</code>的内容被<code>.left</code>给盖住了。</p>
 <ol start="4">
 <li><p>中间的内容被盖住了可不行，我们得把这个问题解决掉，左右两边的位置都正确了，那问题出现在哪里，我们的<code>.center</code>太宽了，如果它的宽度刚好是<strong>父元素 - 左边元素宽度 - 右边元素宽度</strong>那不就可以了，简单，<code>100%</code>宽度继承的是内容宽度，那我们把父元素来两个<code>padding</code>，左边<code>padding</code>是左元素宽度，右边<code>padding</code>是右元素宽度就ok啦。</p>
-<img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-3.png" style="width:80%;">
+<img src="./images/CSS-restore/grail-layout-3.png" style="width:80%;">
 </li>
 <li><p>中间的内容是变小了，可由于父元素的内容宽度变化导致左右元素的靠边位置也变化了，我们这个时候只需要把左右元素移动一下，占据父元素<code>padding</code>的位置就大公告成了。这里使用<code>relative</code>定位，然后左边元素<code>left: 负自身的宽度</code>，右边元素<code>left: 自身的宽度</code>。最终的样式代码长这个样:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.outer</span> &#123;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">120px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: peachpuff;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">left</span>: -<span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">110px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: skyblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">left</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
-<img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-4.png" style="width:80%;">
+<img src="./images/CSS-restore/grail-layout-4.png" style="width:80%;">
 
 <p>圣杯布局就实现了，它即可以优先渲染主要区域，又可以保证固定两列的高度高于中间时高度不丢失，但是记得为父元素清除浮动哦。</p>
-<p>但是，圣杯布局有一个问题，当页面缩小，中间元素小于两边元素的时候，就崩了：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/grail-layout-error.png" style="width:80%;"><br>是时候派出解决方案双飞翼布局了。</p>
+<p>但是，圣杯布局有一个问题，当页面缩小，中间元素小于两边元素的时候，就崩了：<br><img src="./images/CSS-restore/grail-layout-error.png" style="width:80%;"><br>是时候派出解决方案双飞翼布局了。</p>
 <h3 id="双飞翼布局"><a href="#双飞翼布局" class="headerlink" title="双飞翼布局"></a>双飞翼布局</h3><p>双飞燕布局，哦不双飞翼布局，源于淘宝的UED，可以解决圣杯布局遇到的问题，它的大体思路都相同，区别也是解决方法是，他不在需要父元素添加<code>padding</code>来缩小自适应元素，而是给中间自适应部分添加了一个子元素作为内容面板，并且为它添加<code>margin</code>来控制自己的显示范围，从而解决文字覆盖问题。直接上代码：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"outer"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"center-content"</span>&gt;</span>center<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .outer &#123;</span></span><br><span class="line"><span class="comment">  padding-left: 100px;</span></span><br><span class="line"><span class="comment">  padding-right: 120px;</span></span><br><span class="line"><span class="comment">&#125; */</span></span><br><span class="line"><span class="selector-class">.center</span> &#123;</span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: peachpuff;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.center-content</span> &#123;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">100px</span>;  <span class="comment">/* + */</span></span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">120px</span>;   <span class="comment">/* + */</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span> &#123;</span><br><span class="line">  <span class="comment">/* position: relative; */</span></span><br><span class="line">  <span class="comment">/* left: -100px; */</span></span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">110px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: skyblue;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span> &#123;</span><br><span class="line">  <span class="comment">/* position: relative; */</span></span><br><span class="line">  <span class="comment">/* left: 120px; */</span></span><br><span class="line">  <span class="attribute">float</span>: left;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">120px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: pink;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>和圣杯布局CSS代码区别，注释的样式是去掉的，<code>+</code>部分是添加的。完美解决。<br><img src="https://cdn.yuguomin.com/images/CSS-restore/fly-layout-ok.png" style="width:80%;"></p>
+<p>和圣杯布局CSS代码区别，注释的样式是去掉的，<code>+</code>部分是添加的。完美解决。<br><img src="./images/CSS-restore/fly-layout-ok.png" style="width:80%;"></p>
 <p>在实际上使用中，这几种布局一般都会给外部盒子一个最小宽度(<code>min-width</code>)，也能避免这些问题。</p>
 <p>总的来说，这几种布局都需要把规则理解清楚，<code>margin</code>负值的妙用，<strong>BFC</strong>的特性，<code>inline-block</code>带来的空白等等。看起来后面的两种布局方式很复杂，其实搞明白了，也就几个步骤。不过，还是挺麻烦的，下面就接着看一下<code>flex</code>布局模式。</p>
 <h1 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h1><p>在开始探讨<code>flex</code>布局之前，我们看一下之前的传统布局方式，可以看到他们想要实现两列三列包括没有说到的居中是挺麻烦的，因为传统的布局就是为了文档结构而生的，只是随着业务需要，有很多“改变盒的大小，使得它们的结构保持固定”的要求，才研究出了<code>margin</code>负值等这些黑科技搭配，但仍然不好理解也会有一些副作用。在这种情况下，<code>Flex</code>布局被随着<strong>CSS3</strong>一起提出来解决这种问题。下面很多概念内容引用自<a href="https://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">阮一峰-Flex布局</a>。</p>
 <p>使用一个<code>flex</code>布局的方法是设置元素的<code>display</code>属性为<code>flex</code>或者<code>inline-flex</code>，<strong>Webkit</strong>内核的浏览器，必须加上<code>-webkit-</code>前缀。</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.webkit-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-flex;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="flex基本概念"><a href="#flex基本概念" class="headerlink" title="flex基本概念"></a>flex基本概念</h2><p><code>flex</code>布局是什么，我们一般称作“弹性布局”，任何一个容器都可以指定为<code>Flex</code>布局，而这个容器我们称作<code>flex</code>容器，它的所有子元素自动成为容器成员，称为<code>flex</code>项目。<br><img src="https://cdn.yuguomin.com/images/CSS-restore/flex-x-y.png" style="border:none;width:80%;"><br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做<strong>main start</strong>，结束位置叫做<strong>main end</strong>；交叉轴的开始位置叫做<strong>cross start</strong>，结束位置叫做<strong>cross end</strong>。</p>
+<h2 id="flex基本概念"><a href="#flex基本概念" class="headerlink" title="flex基本概念"></a>flex基本概念</h2><p><code>flex</code>布局是什么，我们一般称作“弹性布局”，任何一个容器都可以指定为<code>Flex</code>布局，而这个容器我们称作<code>flex</code>容器，它的所有子元素自动成为容器成员，称为<code>flex</code>项目。<br><img src="./images/CSS-restore/flex-x-y.png" style="border:none;width:80%;"><br>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做<strong>main start</strong>，结束位置叫做<strong>main end</strong>；交叉轴的开始位置叫做<strong>cross start</strong>，结束位置叫做<strong>cross end</strong>。</p>
 <p>项目默认沿主轴排列。单个项目占据的主轴空间叫做<strong>main size</strong>，占据的交叉轴空间叫做<strong>cross size</strong>。</p>
 <h2 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h2><p>在<code>flex</code>容器上有6个属性</p>
 <ul>
@@ -536,13 +540,13 @@
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">flex-direction</span>: row;                <span class="comment">/* 默认值，主轴为水平方向，起点在左端。*/</span></span><br><span class="line">  <span class="attribute">flex-direction</span>: row-reverse;        <span class="comment">/* 主轴为水平方向，起点在右端。*/</span></span><br><span class="line">  <span class="attribute">flex-direction</span>: column;             <span class="comment">/* 主轴为垂直方向，起点在上。*/</span></span><br><span class="line">  <span class="attribute">flex-direction</span>: column-reverse;     <span class="comment">/* 主轴为垂直方向，起点在下。*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>flex容器的主轴默认情况下是横轴，但是可以通过这个属性修改为纵轴，那么对应交叉轴就变为横轴。同时flex容器也有默认方向，从左到右或者从上到下，可以通过这个属性修改为从右到左或者从下往上。下面是一个有1-4的4个项目的flex容器，展示上面的效果图：<br><img src="https://cdn.yuguomin.com/images/CSS-restore/flex-direction.png" style="border:none;width:80%;"></p>
+<p>flex容器的主轴默认情况下是横轴，但是可以通过这个属性修改为纵轴，那么对应交叉轴就变为横轴。同时flex容器也有默认方向，从左到右或者从上到下，可以通过这个属性修改为从右到左或者从下往上。下面是一个有1-4的4个项目的flex容器，展示上面的效果图：<br><img src="./images/CSS-restore/flex-direction.png" style="border:none;width:80%;"></p>
 <ol start="2">
 <li><code>flex-wrap</code>属性决定项目如果在一条轴线排不下时，如何换行。默认情况下项目都排在一条线（又称”轴线”）上。</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: nowrap;            <span class="comment">/* 默认 不换行 */</span></span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;              <span class="comment">/* 换行，第一行在上方 */</span></span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap-reverse;      <span class="comment">/* 换行，第一行在下方 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/CSS-restore/flex-wrap.png" style="border:none;width:80%;">
+<img src="./images/CSS-restore/flex-wrap.png" style="border:none;width:80%;">
 
 <ol start="3">
 <li><code>flex-flow</code>属性是<code>flex-direction</code>和<code>flex-wrap</code>属性的简写，默认值是<code>row nowrap</code>。语法是：</li>
@@ -554,21 +558,21 @@
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">justify-content</span>: flex-start;              <span class="comment">/* 默认，左对齐 */</span></span><br><span class="line">  <span class="attribute">justify-content</span>: flex-end;                <span class="comment">/* 右对齐 */</span></span><br><span class="line">  <span class="attribute">justify-content</span>: center;                  <span class="comment">/* 居中 */</span></span><br><span class="line">  <span class="attribute">justify-content</span>: space-between;           <span class="comment">/* 两端对齐，项目之间的间隔都相等。 */</span></span><br><span class="line">  <span class="attribute">justify-content</span>: space-around;            <span class="comment">/* 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与容器边框的间隔大一倍。 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/CSS-restore/flex-justify-content.png" style="border:none;width:80%;">
+<img src="./images/CSS-restore/flex-justify-content.png" style="border:none;width:80%;">
 
 <ol start="5">
 <li><code>align-items</code>属性定义项目在交叉轴上如何对齐。具体的<strong>对齐方式与交叉轴的方向有关</strong>，下面假设交叉轴从上到下。</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">align-items</span>: stretch;               <span class="comment">/* 默认，如果项目未设置高度或设为auto，将占满整个容器的高度。 */</span></span><br><span class="line">  <span class="attribute">align-items</span>: flex-start;            <span class="comment">/* 交叉轴的起点 */</span></span><br><span class="line">  <span class="attribute">align-items</span>: flex-end;              <span class="comment">/* 交叉轴的终点 */</span></span><br><span class="line">  <span class="attribute">align-items</span>: center;                <span class="comment">/* 交叉轴的终点中点对齐 */</span></span><br><span class="line">  <span class="attribute">align-items</span>: baseline;              <span class="comment">/* 项目第一行文字的基线对齐 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/CSS-restore/flex-align-items.png" style="border:none;width:80%;">
+<img src="./images/CSS-restore/flex-align-items.png" style="border:none;width:80%;">
 
 <ol start="6">
 <li><code>align-content</code>属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。值和<code>justify-content</code>有些相似。</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="attribute">align-content</span>: stretch;               <span class="comment">/* 默认，轴线占满整个交叉轴 */</span></span><br><span class="line">  <span class="attribute">align-content</span>: flex-start;            <span class="comment">/* 以交叉轴的起点对齐 */</span></span><br><span class="line">  <span class="attribute">align-content</span>: flex-end;              <span class="comment">/* 以交叉轴的终点对齐 */</span></span><br><span class="line">  <span class="attribute">align-content</span>: center;                <span class="comment">/* 以交叉轴的中点对齐 */</span></span><br><span class="line">  <span class="attribute">align-content</span>: space-between;         <span class="comment">/* 与交叉轴两端对齐，轴线之间的间隔平均分布。 */</span></span><br><span class="line">  <span class="attribute">align-content</span>: space-around;          <span class="comment">/* 每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/CSS-restore/flex-align-content.png" style="border:none;width:80%;">
+<img src="./images/CSS-restore/flex-align-content.png" style="border:none;width:80%;">
 
 <h2 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h2><p>项目也有六个属性：</p>
 <ul>
@@ -584,17 +588,17 @@
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  order: &lt;integer&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>下面的例子是<code>text</code>值表示文档流顺序，order值为<code>order</code>属性。<br><img src="https://cdn.yuguomin.com/images/CSS-restore/flex-order.png" style="border:none;width:80%;"></p>
+<p>下面的例子是<code>text</code>值表示文档流顺序，order值为<code>order</code>属性。<br><img src="./images/CSS-restore/flex-order.png" style="border:none;width:80%;"></p>
 <ol start="2">
 <li><p><code>flex-grow</code>属性定义项目的伸缩比例。按照该比例给项目分配空间。<br>这种规则是把容器的主轴等分然后按对应比例分配给项目，比如所有项目的flex-grow属性都为1，则它们将等分剩余空间。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。默认为0，即如果存在剩余空间，也不放大。</p>
-<img src="https://cdn.yuguomin.com/images/CSS-restore/flex-grow.png" style="border:none;width:80%;">
+<img src="./images/CSS-restore/flex-grow.png" style="border:none;width:80%;">
 </li>
 <li><p><code>flex-shrink</code>定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。<br>这个规则在所有项目的<code>flex-shrink</code>属性都为1，当空间不足时，都将等比例缩小。如果一个项目的<code>flex-shrink</code>属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
 </li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item &#123;</span><br><span class="line">  flex-shrink: &lt;number&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/CSS-restore/flex-shrink.png" style="border:none;width:70%;">
+<img src="./images/CSS-restore/flex-shrink.png" style="border:none;width:70%;">
 
 <ol start="4">
 <li><code>flex-basis</code>属性定义了项目在不伸缩情况下的原始尺寸，主轴为横向时代表宽度，主轴为纵向时代表高度。默认值为<code>auto</code>，即项目的本来大小。</li>
@@ -613,7 +617,7 @@
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span>&#123;</span><br><span class="line">    <span class="attribute">align-self</span>: auto;             <span class="comment">/* 继承父元素的 align-items 属性 */</span></span><br><span class="line">    <span class="attribute">align-self</span>: stretch;          <span class="comment">/* 默认，如果项目未设置高度或设为auto，将占满整个容器的高度。 */</span></span><br><span class="line">    <span class="attribute">align-self</span>: flex-start;       <span class="comment">/* 交叉轴的起点对齐。 */</span></span><br><span class="line">    <span class="attribute">align-self</span>: flex-end;         <span class="comment">/* 交叉轴的终点对齐。 */</span></span><br><span class="line">    <span class="attribute">align-self</span>: center;           <span class="comment">/* 交叉轴的中点对齐。 */</span></span><br><span class="line">    <span class="attribute">align-self</span>: baseline;         <span class="comment">/* 项目的第一行文字的基线对齐。 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/CSS-restore/align-self.png" style="border:none;width:70%;">
+<img src="./images/CSS-restore/align-self.png" style="border:none;width:70%;">
 
 <p>flex的使用属性就是这些了，通过容器属性和项目属性相互搭配，可以实现很多的功能。</p>
 <h2 id="flex应用"><a href="#flex应用" class="headerlink" title="flex应用"></a>flex应用</h2><p>这里我们用<code>flex</code>来实现之前的等分，等高布局，两列和三列自适应。</p>
@@ -822,7 +826,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

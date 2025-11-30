@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png">
+<meta property="og:image" content="./images/CSS-restore/CSS-study-xml.png">
 <meta property="og:updated_time" content="2020-02-11T07:50:01.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS重塑(1)——历史与大纲">
 <meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png">
+<meta name="twitter:image" content="./images/CSS-restore/CSS-study-xml.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -405,7 +409,7 @@
 <p>从形式上来说，CSS3 标准自身已经不存在了。每个模块都被独立的标准化，现在标准 CSS 包括了修订后的 CSS2.1 以及完整模块对它的扩充，模块的 level（级别）数并不一致。</p>
 <p>CSS不断的强大，需求也在不断的提高，浏览器对标准的实现不同，逐渐为我们带来新的功能时也增加了工作的难度。</p>
 <h1 id="CSS学习大纲"><a href="#CSS学习大纲" class="headerlink" title="CSS学习大纲"></a>CSS学习大纲</h1><p>CSS的学习是按照功能和语言进行，语言主要是它的语法结构，比如 @rule、选择器、单位等等。功能大致可以分为布局、绘制和交互类。</p>
-<p>在布局类我们介绍两个最常用的布局：正常流和弹性布局。绘制类则分成图形相关的和文字相关的绘制。最后还有动画和其它交互。<br><img src="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png" style="border:none;width:80%;"></p>
+<p>在布局类我们介绍两个最常用的布局：正常流和弹性布局。绘制类则分成图形相关的和文字相关的绘制。最后还有动画和其它交互。<br><img src="./images/CSS-restore/CSS-study-xml.png" style="border:none;width:80%;"></p>
 <p>参考相关文章链接：<br><a href="https://zh.wikipedia.org/wiki/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8" target="_blank" rel="noopener">层叠样式表 wiki</a><br><a href="https://www.w3.org/Style/CSS20/history.html" target="_blank" rel="noopener">A brief history of CSS until 2016</a><br><a href="https://css-tricks.com/look-back-history-css/" target="_blank" rel="noopener">A Look Back at the History of CSS</a><br><a href="https://time.geekbang.org/column/article/77804" target="_blank" rel="noopener">重学前端-winter</a></p>
 
       
@@ -558,7 +562,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,13 +73,13 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇学习编译技术的第三篇上半部分，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png">
+<meta property="og:image" content="./images/compile-study-third/var-sta-img.png">
+<meta property="og:image" content="./images/compile-study-third/cal-ast-test.png">
 <meta property="og:updated_time" content="2020-02-11T07:46:14.249Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第三章 语法分析（一）">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第三篇上半部分，主要讲述编译器前端技术第二步 语法分析 的过程，以及简单的代码实现。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png">
+<meta name="twitter:image" content="./images/compile-study-third/var-sta-img.png">
 
 
 
@@ -270,7 +274,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -402,7 +406,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A : &#123; ε, a, aa, aaa...&#125;</span><br><span class="line">S : &#123; b, ab, aab, aaab, aaaab...&#125;</span><br></pre></td></tr></table></figure>
 
 <p>上下文无关文法的之所以为上下文无关，就是S无论在任何形式下都可以被Ab所替换，而不用考虑所在的上下文，它是与上下文无关的。<br>刚才产生式规则使用<a href="https://zh.wikipedia.org/wiki/%E5%B7%B4%E7%A7%91%E6%96%AF%E8%8C%83%E5%BC%8F" target="_blank" rel="noopener">巴科斯范式</a>，接下来的书写会用<code>:</code>代替<code>::=</code>来简化，意义是相同的。</p>
-<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1><p>刚才介绍了文法的相关概念，下面介绍的是如何具体的实现对文法的推导过程，从而生成出AST。这里使用的是自顶向下算法中的递归下降算法。从 <code>var age = 45</code> 来入手理解，该语句语法分析的流程图<br><img src="https://cdn.yuguomin.com/images/compile-study-third/var-sta-img.png" style="margin:0;border:none;"></p>
+<h1 id="递归下降算法"><a href="#递归下降算法" class="headerlink" title="递归下降算法"></a>递归下降算法</h1><p>刚才介绍了文法的相关概念，下面介绍的是如何具体的实现对文法的推导过程，从而生成出AST。这里使用的是自顶向下算法中的递归下降算法。从 <code>var age = 45</code> 来入手理解，该语句语法分析的流程图<br><img src="./images/compile-study-third/var-sta-img.png" style="margin:0;border:none;"></p>
 <p>这是当我们在语法分析该语句的时候的一个处理过程，那么如果用上下文无关文法来进行形式化表达</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variableDeclare: Var Identifier (&apos;=&apos; additiveExpression)?;</span><br></pre></td></tr></table></figure>
 
@@ -438,7 +442,7 @@
 <p>我们把这两种规则分为两级，<strong>把乘法规则作为加法规则的子规则</strong>。通过文法的推导，那么最终生成的AST，乘法节点就会是加法节点的子节点，从而优先计算。由此得出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">additiveExpression</span><br><span class="line">    :   multiplicativeExpression</span><br><span class="line">    |   additiveExpression Plus multiplicativeExpression</span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">multiplicativeExpression</span><br><span class="line">    :   number</span><br><span class="line">    |   multiplicativeExpression Star number</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
 
-<p>使用这样的产生式规则，我们在解析<code>2 + 3 * 5</code>的时候会生成这样的AST<br><img src="https://cdn.yuguomin.com/images/compile-study-third/cal-ast-test.png" style="border:none;"></p>
+<p>使用这样的产生式规则，我们在解析<code>2 + 3 * 5</code>的时候会生成这样的AST<br><img src="./images/compile-study-third/cal-ast-test.png" style="border:none;"></p>
 <p>当我们需要求得整个表达式的值时，只需要通过<strong>递归求值</strong>，从最下级节点往上计算即可。所以会先完成<code>3 * 5</code>，再计算<code>2 + 15</code>。这种通过文法的嵌套便处理了算术表达式的<strong>优先级</strong>问题。<br>我们根据产生式规则写出推导过程</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2 + 3 * 5</span><br><span class="line">-&gt; multiplicativeExpression // 不符合</span><br><span class="line">-&gt; additiveExpression + multiplicativeExpression</span><br><span class="line">-&gt; multiplicativeExpression + multiplicativeExpression</span><br><span class="line">-&gt; number + multiplicativeExpression</span><br><span class="line">-&gt; number + number // 不符合</span><br><span class="line">-&gt; number + multiplicativeExpression * number</span><br><span class="line">-&gt; number + number * number</span><br></pre></td></tr></table></figure>
 
@@ -645,7 +649,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

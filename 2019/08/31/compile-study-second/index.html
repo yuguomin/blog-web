@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,13 +73,13 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 词法分析 的过程，以及实现。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/compile-study-second/keyword-error.png">
+<meta property="og:image" content="./images/compile-study-second/status-machine-simulate.png">
+<meta property="og:image" content="./images/compile-study-second/keyword-error.png">
 <meta property="og:updated_time" content="2020-02-11T07:46:05.244Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译技术学习：第二章 词法分析">
 <meta name="twitter:description" content="前言 本篇学习编译技术的第二篇，主要讲述编译器前端技术第一步 词法分析 的过程，以及实现。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png">
+<meta name="twitter:image" content="./images/compile-study-second/status-machine-simulate.png">
 
 
 
@@ -270,7 +274,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -396,7 +400,7 @@
 <li>比较操作符：为<code>&gt;=</code>或<code>&gt;</code>（这里对比示例先只考虑这两种）。</li>
 <li>数字字面量：全部为数字（只考虑整数）。</li>
 </ul>
-<p>图形说明状态的迁移关系<br><img src="https://cdn.yuguomin.com/images/compile-study-second/status-machine-simulate.png" style="margin:0;border:none;"></p>
+<p>图形说明状态的迁移关系<br><img src="./images/compile-study-second/status-machine-simulate.png" style="margin:0;border:none;"></p>
 <p>文字描述这个状态的迁移<br><strong>1. 初始状态：</strong>刚开始启动词法分析的时候，程序所处的状态。</p>
 <p><strong>2. 标识符状态：</strong>在初始化状态时，当第一个字符为字母、下划线、$符号，进入标识符状态，后面的字符是字母、下划线、$符号及数字则继续扫描，保留在该状态，当不符时，将读取的内容保存为一个token，退出该状态回到初始化状态。</p>
 <p><strong>3. 大于操作符状态：</strong>在初始化状态时，匹配到第一个字符时 <code>&gt;</code> 时，进入该状态，但该状态有一个延展可能，继续匹配是否符合状态4规则。</p>
@@ -423,7 +427,7 @@
 <p>这里判断ID我将整个表达式分成了两部分去处理，正则表达式可以使用一个完成。<br>通过以上的代码就可以完善有限状态自动机在迁移时的各个匹配规则，当需要其他状态时，再添加新的匹配规则。完善整个词法分析。</p>
 <h1 id="处理标识符与关键字保留字冲突问题"><a href="#处理标识符与关键字保留字冲突问题" class="headerlink" title="处理标识符与关键字保留字冲突问题"></a>处理标识符与关键字保留字冲突问题</h1><p>关键字，语言设计中定义的一些本身具有特殊作用的词汇，例如 <code>var if else null</code>。<br>保留字，和关键字一样，但是目前未在语言中用到，将来可能用到的词汇，如<code>enum export long double</code>。</p>
 <p>在上面的正则表达式表示出每一种迁移规则后，我们再代入变量声明和初始化语句 <code>var age = 45</code>，对于这一段代码，我们需要添加出处理 <code>=</code> 赋值操作符，也需要处理 <code>var</code>这个变量声明的关键字。这个时候规则就出现冲突了：<br><code>var</code>这个变量声明关键字固定匹配的’var’字符串完全符合标识符的匹配规则，以字母开头，后续字符也是字母。但是在我们的语言中，关键字的优先级肯定要比标识符要高，是不允许标识符与关键字重名的。那么我们需要做的就是在标识符规则中 独立出变量声明关键字规则。</p>
-<p>将有限状态自动机处理的规则修改一下<br><img src="https://cdn.yuguomin.com/images/compile-study-second/keyword-error.png" style="margin:0; border: none;"></p>
+<p>将有限状态自动机处理的规则修改一下<br><img src="./images/compile-study-second/keyword-error.png" style="margin:0; border: none;"></p>
 <p>解读一下这张图的意思：</p>
 <p id="div-border-left-green">
 在初始化状态下，如果第一个字符是v，那么进入特殊处理状态。在这个状态下，如果后续分别是a、r那么进入状态4 关键字var状态。那么继续判断后面的字符如果仍属于标示符规则，那么则进入标识符状态，反之保存 关键字`var`token。这里的状态4后的处理是防止出现`varNn`等类似的标识符，这种以关键字为开头但又不重叠的词汇不会产生冲突。
@@ -605,7 +609,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

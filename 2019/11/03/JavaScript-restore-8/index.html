@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
+<meta property="og:image" content="./images/JavaScript-restore/EC-base-call.png">
 <meta property="og:updated_time" content="2020-02-17T09:10:40.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(8)——执行上下文">
 <meta name="twitter:description" content="前言 重塑JavaScript的第八篇，本篇内容在JavaScript运行时的基础上，细化知识点，研究代码执行时所做的事情及包含的信息，去理解我们平时讲的一些作用域、闭包、this等概念。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png">
+<meta name="twitter:image" content="./images/JavaScript-restore/EC-base-call.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -404,7 +408,7 @@
 <li>执行<code>console.log(4)</code>，完成后，代码全部执行完毕。</li>
 </ol>
 <p>嗯，这个流程大家肯定都知道，<code>console.log()</code>其实也是一个执行上下文就不细说了。这样细节的描述可以理清楚一点：<br>代码执行会先进入一个全局环境，而其中会发生很多调用，进入一些函数环境，而函数环境又可能会调用其它函数甚至是递归，生成更多函数环境，以此可能产生无限多个上下文环境。而当某一个函数环境执行完成后就会返回继续执行之前调用它的环境。这种一层层的调用实现的方式就是“栈”了。表现就是在事件循环那一篇讲的“调用栈”。</p>
-<img src="https://cdn.yuguomin.com/images/JavaScript-restore/EC-base-call.png" style="border:none;width:80%;">
+<img src="./images/JavaScript-restore/EC-base-call.png" style="border:none;width:80%;">
 
 <p>那么说了半天，什么是执行上下文呢？上面所关注的点好像也都是代码的执行。其实，执行上下文就可以理解为<strong>执行对应栈所需要的信息</strong>。<br>我们把执行上下文先抽象的理解为一个<code>object</code>，也就是键值对集合，那么每一个执行上下文都会保存一些属性来追踪关联代码的执行进度。<br>按照ES6的分类方式它主要包括三种主要信息：</p>
 <ul>
@@ -683,7 +687,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

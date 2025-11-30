@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容延续上一篇，添加类组件和函数组件，完成之后，基本上React 15版本前的基本功能均已实现。在看本篇内容之前最好对前一篇的内容能够掌握。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/create-my-own-react/class-component-instance.png">
+<meta property="og:image" content="./images/create-my-own-react/class-component-instance.png">
 <meta property="og:updated_time" content="2020-02-11T07:53:08.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简易React实现(2)——类组件和函数组件">
 <meta name="twitter:description" content="前言 本篇内容延续上一篇，添加类组件和函数组件，完成之后，基本上React 15版本前的基本功能均已实现。在看本篇内容之前最好对前一篇的内容能够掌握。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/create-my-own-react/class-component-instance.png">
+<meta name="twitter:image" content="./images/create-my-own-react/class-component-instance.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -463,7 +467,7 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> instantiate = <span class="function">(<span class="params">element: IFishtailElement</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; <span class="keyword">type</span>, props &#125; = element;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">type</span> === <span class="string">'string'</span>) &#123;</span><br><span class="line">    <span class="comment">// 省略不变...</span></span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> instance = &#123;&#125;;</span><br><span class="line">    <span class="keyword">const</span> publicInstance = <span class="keyword">new</span> <span class="keyword">type</span>(props);</span><br><span class="line">    publicInstance.__internalInstance = instance; <span class="comment">// 帮想要访问的 instance 挂载组件实例上</span></span><br><span class="line">    <span class="keyword">const</span> childElement = publicInstance.render();</span><br><span class="line">    <span class="keyword">const</span> childInstance = instantiate(childElement);</span><br><span class="line">    <span class="keyword">const</span> &#123; dom &#125; = childInstance;</span><br><span class="line">    <span class="comment">// 把组件的实例再挂载在 instance 上</span></span><br><span class="line">    <span class="built_in">Object</span>.assign(instance, &#123; dom, element, childInstance, publicInstance &#125;);</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 <p>再次修改了实例化<code>instantiate</code>方法，在之前为了能让在组件实例<code>setState</code>里能访问到<code>instance</code>，我们把<code>instance</code>挂载在了组件实例上作为内部实例，这次，为了能让<code>reconcile</code>中通过这个内部实例能访问到组件实例，我们再把这个组件实例挂载在<code>instance</code>上，和组件的内部实例引用相同，那我们就可以在内部实例上再访问到组件实例了。</p>
-<p>目的是这个，但是看起来确实有点乱，我抛离这些方法，单纯从引用关系来看是这样一个情况：<br>有一个组件<code>class</code>，在实例化的时候生成了一些相关的数据，这些数据为了使实例能够在其内部访问，就把这些数据挂载在实例上。<br>而在这个实例中有些场景，会把这个数据当作参数传递到外部，在外面又想通过这些数据访问到实例，所以我们把这个实例再挂载到数据上。<br>最终会有个引用关系是：<br><img src="https://cdn.yuguomin.com/images/create-my-own-react/class-component-instance.png" style="border:none;"></p>
+<p>目的是这个，但是看起来确实有点乱，我抛离这些方法，单纯从引用关系来看是这样一个情况：<br>有一个组件<code>class</code>，在实例化的时候生成了一些相关的数据，这些数据为了使实例能够在其内部访问，就把这些数据挂载在实例上。<br>而在这个实例中有些场景，会把这个数据当作参数传递到外部，在外面又想通过这些数据访问到实例，所以我们把这个实例再挂载到数据上。<br>最终会有个引用关系是：<br><img src="./images/create-my-own-react/class-component-instance.png" style="border:none;"></p>
 <p>接着，修改<code>reconcile</code>的判断和添加组件复用代码：</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> reconcile = <span class="function">(<span class="params">parentDom, instance, element</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (instance === <span class="literal">null</span> || instance === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="comment">// 做添加，不变</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (element === <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="comment">// 做删除，不变</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (instance.element.type !== element.type) &#123;</span><br><span class="line">      <span class="comment">// 做替换，原来的replace操作</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> element.type === <span class="string">'string'</span>) &#123;</span><br><span class="line">      <span class="comment">// 原来的处理 DOM 复用逻辑不变</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 处理组件复用</span></span><br><span class="line">      <span class="comment">// 拿到复用组件的最新 props</span></span><br><span class="line">      instance.publicInstance.props = element.props;</span><br><span class="line">      <span class="comment">// 获取最新的 element</span></span><br><span class="line">      <span class="keyword">const</span> childElement = instance.publicInstance.render();</span><br><span class="line">      <span class="comment">// 拿到之前的 DOM树实例</span></span><br><span class="line">      <span class="keyword">const</span> oldChildInstance = instance.childInstance;</span><br><span class="line">      <span class="comment">// 递归拿到最新的 DOM 树实例，最终会执行到 DOM节点 的协调上</span></span><br><span class="line">      <span class="keyword">const</span> childInstance = reconcile(parentDom, oldChildInstance, childElement);</span><br><span class="line">      <span class="keyword">const</span> instance = &#123;</span><br><span class="line">        dom: childInstance.dom,</span><br><span class="line">        childInstance,</span><br><span class="line">        element: childInstance.element</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> childInstance;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
@@ -654,7 +658,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言前段时间公司运营要求把一个客户端的主站页面支持SEO，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现SSR场景开发工具，并且对原本的CSR的业务代码做微量修改即可支持。本篇内容讲述整体SSR项目的架构和总结实现过程的难点及优化。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/create-ssr-framework/base-framework.png">
+<meta property="og:image" content="./images/create-ssr-framework/base-framework.png">
 <meta property="og:updated_time" content="2020-02-19T13:10:57.356Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSR同构框架搭建笔记">
 <meta name="twitter:description" content="前言前段时间公司运营要求把一个客户端的主站页面支持SEO，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现SSR场景开发工具，并且对原本的CSR的业务代码做微量修改即可支持。本篇内容讲述整体SSR项目的架构和总结实现过程的难点及优化。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/create-ssr-framework/base-framework.png">
+<meta name="twitter:image" content="./images/create-ssr-framework/base-framework.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -393,7 +397,7 @@
 <p><strong>SSR</strong>有利于<strong>SEO</strong>的优化，大部分搜索引擎，对于<strong>SEO</strong>都是对服务端返回的<strong>HTML</strong>结构内容进行捕捉，而通常的<strong>CSR</strong>直接返回的是基本骨架结构和所需<strong>JS</strong>的引入路径，需要被搜索引擎拿到的东西都被打包在了<strong>JS</strong>里；而通过<strong>SSR</strong>，返回包含了网页的所有内容，更利于爬取。</p>
 </li>
 </ol>
-<h1 id="建立整体架构"><a href="#建立整体架构" class="headerlink" title="建立整体架构"></a>建立整体架构</h1><p>我们的<strong>SSR</strong>最终决定在service上分离出web层和render层，并且都采用node环境编写，它们整体的关系是这样：<br><img src="https://cdn.yuguomin.com/images/create-ssr-framework/base-framework.png" style="border:none;width:80%;"></p>
+<h1 id="建立整体架构"><a href="#建立整体架构" class="headerlink" title="建立整体架构"></a>建立整体架构</h1><p>我们的<strong>SSR</strong>最终决定在service上分离出web层和render层，并且都采用node环境编写，它们整体的关系是这样：<br><img src="./images/create-ssr-framework/base-framework.png" style="border:none;width:80%;"></p>
 <p>整套框架的大体运作流程：</p>
 <ol>
 <li>用户通过浏览器请求页面数据信息，发送请求到<strong>service web</strong>端；</li>
@@ -638,7 +642,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

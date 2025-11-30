@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,41 +73,41 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。 目的：完成博客站环境的搭建，访问，部署。记录一下在搭建这个博客站点的过程以及遇到的一些问题。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-start.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-done.jpg">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-set.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-rep-new.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-rep-form.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-rep-init.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-cmd.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-page.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post-web.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-list.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-reset.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-safe.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-safe.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-input.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-domain.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-add.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-record.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/nginx-default-page.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-btn.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-add.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-input.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-err.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-server-start.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-test.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-download-start.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-download-done.jpg">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-ssh-snow.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-ssh-set.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-ssh-add.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-ssh-new.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-ssh-input.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-rep-new.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-rep-form.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-rep-init.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hexo-server-cmd.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hexo-server-page.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hexo-new-post.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hexo-new-post-web.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-list.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-reset.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-safe.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-safe.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-input.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-domain.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-add.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/ali-server-record.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/git-ssh-snow.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/nginx-default-page.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hook-set-btn.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hook-set-add.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hook-set-input.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hook-set-err.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hook-server-start.png">
+<meta property="og:image" content="./images/Build-blog-hexp-base/hook-set-test.png">
 <meta property="og:updated_time" content="2019-12-18T07:29:12.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速使用Hexo搭建个人博客-环境篇">
 <meta name="twitter:description" content="前言 搭建前提：gitHub账号，域名，服务器（这里我用到的服务器和域名是在阿里云上购买的）。 目的：完成博客站环境的搭建，访问，部署。记录一下在搭建这个博客站点的过程以及遇到的一些问题。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-start.png">
+<meta name="twitter:image" content="./images/Build-blog-hexp-base/git-download-start.png">
 
 
 
@@ -298,7 +302,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -479,17 +483,17 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br></pre></td></tr></table></figure>
 
 <p>如果未安装git会提示，阅读并同意协议，安装即可使用。已安装会提示版本信息。</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>在该地址<a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git官方下载地址</a>下载git<br>下载完成后打开文件进行安装即可。<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-start.png" width="60%" style="margin:0;"><br>完成<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-download-done.jpg" width="60%" style="margin:0;"><br>再次使用 git –version 进行确认</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>在该地址<a href="https://git-scm.com/download/mac" target="_blank" rel="noopener">git官方下载地址</a>下载git<br>下载完成后打开文件进行安装即可。<br><img src="./images/Build-blog-hexp-base/git-download-start.png" width="60%" style="margin:0;"><br>完成<br><img src="./images/Build-blog-hexp-base/git-download-done.jpg" width="60%" style="margin:0;"><br>再次使用 git –version 进行确认</p>
 <h3 id="配置git-ssh"><a href="#配置git-ssh" class="headerlink" title="配置git ssh"></a>配置git ssh</h3><p>做好ssh的配置目的是为了之后部署好代码，上传时不需要每次都输入用户名密码。<a href="https://help.github.com/cn/articles/connecting-to-github-with-ssh" target="_blank" rel="noopener">官方文档</a><br>第一次需要配置你的user name和email</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name "xxxxxx" # 自行替换</span><br><span class="line">git config --global user.email "xxxxxx@xx.com" # 自行替换</span><br></pre></td></tr></table></figure>
 
 <p>执行生成密钥命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C "your_email@example.com" # 替需要换为你的 GitHub 电子邮件地址</span><br></pre></td></tr></table></figure>
 
-<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png" width="50%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
+<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="./images/Build-blog-hexp-base/git-ssh-snow.png" width="50%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbcopy &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
 
-<p><font id="config-git"><strong>拿到生成号的公钥，现在需要进入git官网对账户进行设置，这一步在之后服务端配置git也会用到</strong></font><br>下一步打开github账号，点击右上角小头像，选择setting入口<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-set.png" width="40%" style="margin:0;"><br>点击左侧边栏的SSH and GPG keys（SSH 和 GPG 密钥）选项<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-add.png" width="40%" style="margin:0;"><br>然后点击New SSH key（新 SSH 密钥）或 Add SSH key（添加 SSH 密钥）<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-new.png" width="60%" style="margin:0;"><br>“Title” 标题中写入一个标示，提示下你这个ssh的用处，然后把刚才复制的内容粘贴到 “Key”（密钥）中<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-input.png" width="60%" style="margin:0;"><br>完成后点击下面的 Add SSH key（添加 SSH 密钥）按钮，如有提示输入密码按要求输入即可<br>测试下是否配置成功</p>
+<p><font id="config-git"><strong>拿到生成号的公钥，现在需要进入git官网对账户进行设置，这一步在之后服务端配置git也会用到</strong></font><br>下一步打开github账号，点击右上角小头像，选择setting入口<br><img src="./images/Build-blog-hexp-base/git-ssh-set.png" width="40%" style="margin:0;"><br>点击左侧边栏的SSH and GPG keys（SSH 和 GPG 密钥）选项<br><img src="./images/Build-blog-hexp-base/git-ssh-add.png" width="40%" style="margin:0;"><br>然后点击New SSH key（新 SSH 密钥）或 Add SSH key（添加 SSH 密钥）<br><img src="./images/Build-blog-hexp-base/git-ssh-new.png" width="60%" style="margin:0;"><br>“Title” 标题中写入一个标示，提示下你这个ssh的用处，然后把刚才复制的内容粘贴到 “Key”（密钥）中<br><img src="./images/Build-blog-hexp-base/git-ssh-input.png" width="60%" style="margin:0;"><br>完成后点击下面的 Add SSH key（添加 SSH 密钥）按钮，如有提示输入密码按要求输入即可<br>测试下是否配置成功</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
 <p>将会看到</p>
@@ -499,7 +503,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi xxxxxx! You&apos;ve successfully authenticated, but GitHub does not provide bash access.</span><br></pre></td></tr></table></figure>
 
 <p>完成配置～</p>
-<h3 id="新建一个git仓库"><a href="#新建一个git仓库" class="headerlink" title="新建一个git仓库"></a>新建一个git仓库</h3><p>git账号和本地ssh配对完成，那么就新建一个仓库，用于之后保存博客站的代码。<br>同样 点击刚才设置时的小头像，选择<strong>your repositories</strong> 然后选择点击 New按钮<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-rep-new.png" width="60%" style="margin:0;"><br>点击之后会看到一个仓库详情填写<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-rep-form.png" width="70%" style="margin:0;"><br>Repository name（仓库名）填对应的你想要的仓库名<br>Description（描述）是对于项目的描述<br>Public和Private一般使用默认Public就可以了<br>Initialize this repository with a README（是否需要初始化一个README文件？）这里可以初始化也可以不初始化，我一般不初始化，仓库上传时会写一个<br>然后点击底部 create repository 按钮即可完成创建<br><img id="ssh-url" src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-rep-init.png" width="70%" style="margin:0;"><br><font color="red" size="3"><strong>这里的ssh地址在之后配置hexo的发布时是需要用到的</strong></font><br>完成创建</p>
+<h3 id="新建一个git仓库"><a href="#新建一个git仓库" class="headerlink" title="新建一个git仓库"></a>新建一个git仓库</h3><p>git账号和本地ssh配对完成，那么就新建一个仓库，用于之后保存博客站的代码。<br>同样 点击刚才设置时的小头像，选择<strong>your repositories</strong> 然后选择点击 New按钮<br><img src="./images/Build-blog-hexp-base/git-rep-new.png" width="60%" style="margin:0;"><br>点击之后会看到一个仓库详情填写<br><img src="./images/Build-blog-hexp-base/git-rep-form.png" width="70%" style="margin:0;"><br>Repository name（仓库名）填对应的你想要的仓库名<br>Description（描述）是对于项目的描述<br>Public和Private一般使用默认Public就可以了<br>Initialize this repository with a README（是否需要初始化一个README文件？）这里可以初始化也可以不初始化，我一般不初始化，仓库上传时会写一个<br>然后点击底部 create repository 按钮即可完成创建<br><img id="ssh-url" src="./images/Build-blog-hexp-base/git-rep-init.png" width="70%" style="margin:0;"><br><font color="red" size="3"><strong>这里的ssh地址在之后配置hexo的发布时是需要用到的</strong></font><br>完成创建</p>
 <h2 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h2><p>Hexo是一个博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章生成静态网页。并且有方便的发布系统和各种插件。<br>这里主要是安装hexo-cli及如何生成博客的基本模版，<font color="red" size="3"><strong>确保安装Hexo时已经安装node和git</strong></font></p>
 <h3 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h3><p>这里使用npm在全局安装hexo-cli</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
@@ -516,13 +520,13 @@
 <p>安装成功之后，就可以执行命令本地启动预览页面效果了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate # 也可以简写hexo g，效果相同，生成public文件夹下的静态文件</span><br><span class="line">hexo server # 也可以简写hexo s，效果相同，在本地启动一个访问服务</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-cmd.png" width="60%" style="margin:0;">
+<img src="./images/Build-blog-hexp-base/hexo-server-cmd.png" width="60%" style="margin:0;">
 点击 http://localhost:4000 打开页面，可以看到一个hexo的模版效果
-<img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-server-page.png" width="60%" style="margin:0;">
+<img src="./images/Build-blog-hexp-base/hexo-server-page.png" width="60%" style="margin:0;">
 回到命令行使用命令
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new post &quot;first blog&quot; # 注意标题中有空格需要用双引号包起来</span><br></pre></td></tr></table></figure>
 
-<p>此时会在source/_post路径下创建一个first-blog.md文件，有对应的标题和生成时间。<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post.png" width="60%" style="margin:0;"><br>再刷新一下刚才本地服务启动打开的页面，可以看到一篇新的文章已经生成<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hexo-new-post-web.png" width="60%" style="margin:0;"><br>通过对md文件进行修改就可以编写博客啦～<br>上面在创建新文章的命令，使用的是new post代表新建文章,也可以new page代表新建页面，new draft代表草稿。</p>
+<p>此时会在source/_post路径下创建一个first-blog.md文件，有对应的标题和生成时间。<br><img src="./images/Build-blog-hexp-base/hexo-new-post.png" width="60%" style="margin:0;"><br>再刷新一下刚才本地服务启动打开的页面，可以看到一篇新的文章已经生成<br><img src="./images/Build-blog-hexp-base/hexo-new-post-web.png" width="60%" style="margin:0;"><br>通过对md文件进行修改就可以编写博客啦～<br>上面在创建新文章的命令，使用的是new post代表新建文章,也可以new page代表新建页面，new draft代表草稿。</p>
 <h3 id="配置hexo的发布"><a href="#配置hexo的发布" class="headerlink" title="配置hexo的发布"></a>配置hexo的发布</h3><p>每一次hexo g之后生成的public代码，我们需要把它同步到git上，然后再通过git webhooks同步到服务器<br>此时需要先安装hexo的git部署插件，在我们的hexo项目打开终端，输入</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
 
@@ -535,8 +539,8 @@
 <p>这个时候就会完成代码往git库的master分支的代码上传，只会上传public文件夹下的内容，刷新一下对应git代码仓库页面，就看到了最新上传内容。<br><strong>hexo的一些主题配置和一些其他使用方法将在之后的博客中写，本篇只讲环境配置快速搭建</strong></p>
 <h1 id="服务器环境配置"><a href="#服务器环境配置" class="headerlink" title="服务器环境配置"></a>服务器环境配置</h1><p>配置流程: 阿里云相关配置 =&gt; 链接服务器环境配置 =&gt; 配置git-webhooks</p>
 <h2 id="阿里云配置"><a href="#阿里云配置" class="headerlink" title="阿里云配置"></a>阿里云配置</h2><p>这里我使用的是阿里云的域名(<a href="https://beian.aliyun.com/?spm=a2c4g.11186623.s_lxkr2z.18.2cf97bfeZ2bIPx" target="_blank" rel="noopener">需要备案</a>)和服务器(CentOS7)，域名后面可以免费申请ssl证书(配置https),这里先用http</p>
-<h3 id="阿里云的服务器配置"><a href="#阿里云的服务器配置" class="headerlink" title="阿里云的服务器配置"></a>阿里云的服务器配置</h3><p>进入阿里云官网控制台，选择左边导航的 云服务器 ECS，找不到就搜索一下, 然后点击实例查看你的服务器列表<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-list.png" width="60%" style="margin:0;"><br>选择对应的服务器后面的更多选项 =&gt; 密码/密钥 =&gt; 重置实例密码 =&gt; <strong>输入你想设置的实例登录密码</strong> =&gt; 提交<br><img id="ali-reset" src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-reset.png" width="60%" style="margin:0;"><br>记住这里的服务器ip一栏下的公网ip =&gt; 选择左侧导航安全组 =&gt; 点击对应服务器的安全组的配置规则<br><img id="ali-set-safe" src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-safe.png" width="60%" style="margin:0;"><br>点击添加安全组规则<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-safe.png" width="60%" style="margin:0;"><br>这里填写端口范围 80/80，即开放的端口，80端口如果在列表里有就不用加，授权对象 0.0.0.0/0 即允许任意公网IP地址连接实例，描述可以写一点备注信息 =&gt; 确定<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-input.png" width="60%" style="margin:0;"><br>然后按照刚才的流程，把 9001/9001，443/443，也加进去，授权对象仍是 0.0.0.0/0<br>这里完成里之后登陆访问服务器，以及端口暴露，仅在服务器内部处理防火墙是不够的，阿里云服务器安全组这里也要允许</p>
-<h3 id="阿里云的域名配置"><a href="#阿里云的域名配置" class="headerlink" title="阿里云的域名配置"></a>阿里云的域名配置</h3><p>点击左边导航栏，前往域名区域 =&gt; 找到对应域名 =&gt; 点击解析<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-domain.png" width="60%" style="margin:0;"><br>选择域名的解析设置<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-add.png" width="60%" style="margin:0;"><br>选择添加记录 =&gt; 修改主机记录 添加www =&gt; 修改记录值为刚才的服务器公网ip =&gt; 确定<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/ali-server-record.png" width="60%" style="margin:0;"><br>这一步，相当于把 www.(你的域名) 解析到里你的服务器，除了www你还可以配置其他，这里建议不要随便把记录值写成别的非阿里云或非中国大陆及香港服务器，不然小心备案被取消需要重新备案～</p>
+<h3 id="阿里云的服务器配置"><a href="#阿里云的服务器配置" class="headerlink" title="阿里云的服务器配置"></a>阿里云的服务器配置</h3><p>进入阿里云官网控制台，选择左边导航的 云服务器 ECS，找不到就搜索一下, 然后点击实例查看你的服务器列表<br><img src="./images/Build-blog-hexp-base/ali-server-list.png" width="60%" style="margin:0;"><br>选择对应的服务器后面的更多选项 =&gt; 密码/密钥 =&gt; 重置实例密码 =&gt; <strong>输入你想设置的实例登录密码</strong> =&gt; 提交<br><img id="ali-reset" src="./images/Build-blog-hexp-base/ali-server-reset.png" width="60%" style="margin:0;"><br>记住这里的服务器ip一栏下的公网ip =&gt; 选择左侧导航安全组 =&gt; 点击对应服务器的安全组的配置规则<br><img id="ali-set-safe" src="./images/Build-blog-hexp-base/ali-server-safe.png" width="60%" style="margin:0;"><br>点击添加安全组规则<br><img src="./images/Build-blog-hexp-base/ali-server-safe.png" width="60%" style="margin:0;"><br>这里填写端口范围 80/80，即开放的端口，80端口如果在列表里有就不用加，授权对象 0.0.0.0/0 即允许任意公网IP地址连接实例，描述可以写一点备注信息 =&gt; 确定<br><img src="./images/Build-blog-hexp-base/ali-server-input.png" width="60%" style="margin:0;"><br>然后按照刚才的流程，把 9001/9001，443/443，也加进去，授权对象仍是 0.0.0.0/0<br>这里完成里之后登陆访问服务器，以及端口暴露，仅在服务器内部处理防火墙是不够的，阿里云服务器安全组这里也要允许</p>
+<h3 id="阿里云的域名配置"><a href="#阿里云的域名配置" class="headerlink" title="阿里云的域名配置"></a>阿里云的域名配置</h3><p>点击左边导航栏，前往域名区域 =&gt; 找到对应域名 =&gt; 点击解析<br><img src="./images/Build-blog-hexp-base/ali-server-domain.png" width="60%" style="margin:0;"><br>选择域名的解析设置<br><img src="./images/Build-blog-hexp-base/ali-server-add.png" width="60%" style="margin:0;"><br>选择添加记录 =&gt; 修改主机记录 添加www =&gt; 修改记录值为刚才的服务器公网ip =&gt; 确定<br><img src="./images/Build-blog-hexp-base/ali-server-record.png" width="60%" style="margin:0;"><br>这一步，相当于把 www.(你的域名) 解析到里你的服务器，除了www你还可以配置其他，这里建议不要随便把记录值写成别的非阿里云或非中国大陆及香港服务器，不然小心备案被取消需要重新备案～</p>
 <h2 id="服务端环境配置"><a href="#服务端环境配置" class="headerlink" title="服务端环境配置"></a>服务端环境配置</h2><p>这里是<strong>CentOS7</strong><br>流程：安装及配置相关环境，Nginx、node、PM2、git<br>打开终端 输入ssh 命令链接 </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@实例的(弹性)公网IP # 替换为网站的公网ip</span><br></pre></td></tr></table></figure>
 
@@ -554,7 +558,7 @@
 <p>执行生成密钥命令</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -b 4096 -C "your_email@example.com" # 替需要换为你的 GitHub 电子邮件地址</span><br></pre></td></tr></table></figure>
 
-<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/git-ssh-snow.png" width="50%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
+<p>然后一路默认Enter即可，直到出来下面的雪花图<br><img src="./images/Build-blog-hexp-base/git-ssh-snow.png" width="50%" style="margin:0;"><br>此时~/.ssh文件夹下就会生成id_rsa（私有秘钥）和id_rsa.pub（公有密钥），将公钥复制带粘贴板</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh</span><br><span class="line">cat id_rsa.pub</span><br></pre></td></tr></table></figure>
 
 <p>把文件内容复制，之后将这端ssh配置到你的git账户，<a href="#config-git">流程与在本地配置时相同。</a></p>
@@ -571,7 +575,7 @@
 <p>接下来在服务器上安装Nginx存储库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install nginx</span><br></pre></td></tr></table></figure>
 
-<p>问题回答 y，Nginx将在虚拟专用服务器（VPS）上完成安装。<br>安装完毕需要启动Nginx<br>sudo systemctl start nginx<br>刚买的服务器默认是没有开启防火墙的，所以这一块不用处理<br>这个时候在浏览器中输入你的公网ip打开就可以看到nginx的默认页面<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/nginx-default-page.png" width="50%" style="margin:0;"><br>这是启动nginx后按照它的默认配置导向了预制好的一个静态页面，看到这个页面说明Nginx的安装已经没问题。<br>这个时候设置一下系统启用自动启用nginx</p>
+<p>问题回答 y，Nginx将在虚拟专用服务器（VPS）上完成安装。<br>安装完毕需要启动Nginx<br>sudo systemctl start nginx<br>刚买的服务器默认是没有开启防火墙的，所以这一块不用处理<br>这个时候在浏览器中输入你的公网ip打开就可以看到nginx的默认页面<br><img src="./images/Build-blog-hexp-base/nginx-default-page.png" width="50%" style="margin:0;"><br>这是启动nginx后按照它的默认配置导向了预制好的一个静态页面，看到这个页面说明Nginx的安装已经没问题。<br>这个时候设置一下系统启用自动启用nginx</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable nginx</span><br></pre></td></tr></table></figure>
 
 <p>nginx安装已经ok，并且打开了默认的ngxin页面，但是我们最终的目的是通过我们配置的<a href="#阿里云的域名配置">阿里云域名</a>直接访问到部署的<a href="#config-rep-server">博客站的代码</a>，那么我们需要去配置一下ngxin，找到我们默认的nginx配置文件，默认地址是’/etc/nginx/nginx.conf’，也可以通过命令查看文件路径</p>
@@ -599,7 +603,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pm2 start &lt;path&gt; # 执行对应路径脚本</span><br><span class="line">pm2 list # 查看看起的进程列表</span><br><span class="line">pm2 restart &lt;name|id&gt; # 重启对应进程</span><br><span class="line">pm2 delete &lt;name|id|'all'&gt; # 删除对应的进程 all是全部</span><br><span class="line">pm2 logs # 查看进程打印日志</span><br><span class="line">pm2 monit # 监控每个 node 进程的 cpu 和内存使用情况</span><br></pre></td></tr></table></figure>
 
 <h1 id="配置webhooks"><a href="#配置webhooks" class="headerlink" title="配置webhooks"></a>配置webhooks</h1><p><a href="https://developer.github.com/webhooks/" target="_blank" rel="noopener">git webhooks</a>是可以设置通过git仓库的各种触发事件，通过post请求到对应的服务,通过对这个服务的监听可以做一些拉取代码等操作。<br>这里我们需要配置的功能是每一次当我们将博客站代码推送到git，git会通过webhooks请求服务端的接口，触发代码的更新，保证服务端代码对git的同步。即每次我们上传代码到git，服务端自动去拉取代码，浏览器访问时就是最新的代码。</p>
-<h2 id="配置仓库的webhook"><a href="#配置仓库的webhook" class="headerlink" title="配置仓库的webhook"></a>配置仓库的webhook</h2><p>打开在git上的代码库页面，点击setting<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-btn.png" width="60%" style="margin:0;"><br>点击左边选项的WebHooks，然后点击Add webhook<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-add.png" width="60%" style="margin:0;"><br>这里需要设置一下webhook<br>Payload URL 写入 公网ip + 9001端口， 这里的作用是当触发这个webhook的时候会往这个地址发送一个post请求，这里是将这个请求服务放在了9001端口上。<br>Content type 改为application/json<br>Secert 设置一段密码，一会会用到<br>Which events would you like to trigger this webhook? 默认的 Just the push event. 就可以，仅push代码时触发。<br>Active 勾选起来<br>然后点击Add webhook<br><img id="input-hook" src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-input.png" width="60%" style="margin:0;"><br>这个时候我们可以看到Webhooks列表中多了一条，点击后面的Edit(编辑)<br>拉到底部，这个时候看到一个报错，点击报错后面三个点<br><img id="hook-edit" src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-err.png" width="60%" style="margin:0;"><br>报错是服务器超时，因为我们并没有设置在服务器端的监听</p>
+<h2 id="配置仓库的webhook"><a href="#配置仓库的webhook" class="headerlink" title="配置仓库的webhook"></a>配置仓库的webhook</h2><p>打开在git上的代码库页面，点击setting<br><img src="./images/Build-blog-hexp-base/hook-set-btn.png" width="60%" style="margin:0;"><br>点击左边选项的WebHooks，然后点击Add webhook<br><img src="./images/Build-blog-hexp-base/hook-set-add.png" width="60%" style="margin:0;"><br>这里需要设置一下webhook<br>Payload URL 写入 公网ip + 9001端口， 这里的作用是当触发这个webhook的时候会往这个地址发送一个post请求，这里是将这个请求服务放在了9001端口上。<br>Content type 改为application/json<br>Secert 设置一段密码，一会会用到<br>Which events would you like to trigger this webhook? 默认的 Just the push event. 就可以，仅push代码时触发。<br>Active 勾选起来<br>然后点击Add webhook<br><img id="input-hook" src="./images/Build-blog-hexp-base/hook-set-input.png" width="60%" style="margin:0;"><br>这个时候我们可以看到Webhooks列表中多了一条，点击后面的Edit(编辑)<br>拉到底部，这个时候看到一个报错，点击报错后面三个点<br><img id="hook-edit" src="./images/Build-blog-hexp-base/hook-set-err.png" width="60%" style="margin:0;"><br>报错是服务器超时，因为我们并没有设置在服务器端的监听</p>
 <h2 id="服务器端的端口监听"><a href="#服务器端的端口监听" class="headerlink" title="服务器端的端口监听"></a>服务器端的端口监听</h2><p>ssh链接登陆服务器，创建一个用于存放webhooks的文件夹</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd ~</span><br><span class="line">mkdir NodeWebhooks</span><br><span class="line">vi webhook.js # 写入服务</span><br></pre></td></tr></table></figure>
 
@@ -621,11 +625,11 @@
 <p>完成了脚本，那么使用pm2开启这个服务</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pm2 start ./webhook.js</span><br><span class="line">pm2 list # 查看开启的进程列表</span><br></pre></td></tr></table></figure>
 
-<img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-server-start.png" width="60%" style="margin:0;">
+<img src="./images/Build-blog-hexp-base/hook-server-start.png" width="60%" style="margin:0;">
 可以看到刚才开启的进程已经出现在列表中，如果没有其他进程，这个时候的id是0，可以通过一些常用pm2命令进行操作
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pm2 restart 0 # 重启这个id为0的服务</span><br><span class="line">pm2 logs 0 # 查看这个id为0的服务打印日志</span><br><span class="line">pm2 delete 0 # 删除这个服务</span><br></pre></td></tr></table></figure>
 
-<h2 id="测试webhooks"><a href="#测试webhooks" class="headerlink" title="测试webhooks"></a>测试webhooks</h2><p>在博客站的git代码库，<a href="#hook-edit">编辑对应的webhook</a>，点击三个点后，点击 Redeliver<br><img src="https://cdn.yuguomin.com/images/Build-blog-hexp-base/hook-set-test.png" width="60%" style="margin:0;"><br>再次发送请求，确认要发送请求，将看到成功的响应200 OK。<br>这个时候整个webhooks配置完毕。</p>
+<h2 id="测试webhooks"><a href="#测试webhooks" class="headerlink" title="测试webhooks"></a>测试webhooks</h2><p>在博客站的git代码库，<a href="#hook-edit">编辑对应的webhook</a>，点击三个点后，点击 Redeliver<br><img src="./images/Build-blog-hexp-base/hook-set-test.png" width="60%" style="margin:0;"><br>再次发送请求，确认要发送请求，将看到成功的响应200 OK。<br>这个时候整个webhooks配置完毕。</p>
 <h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><p>完成了之前的配置，我们现在整体有一个效果</p>
 <ul>
 <li>通过本地的hexo开发写入博客内容，利用hexo的发布将代码发布到git</li>
@@ -787,7 +791,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

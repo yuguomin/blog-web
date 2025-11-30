@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,13 +73,13 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/JavaScript-study-line.png">
+<meta property="og:image" content="./images/JavaScript-restore/Netscape-browser.png">
+<meta property="og:image" content="./images/JavaScript-restore/JavaScript-study-line.png">
 <meta property="og:updated_time" content="2020-02-17T09:11:34.857Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(1)——历史与大纲">
 <meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑JavaScript内容做大纲，以及JavaScript的历史发展。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png">
+<meta name="twitter:image" content="./images/JavaScript-restore/Netscape-browser.png">
 
 
 
@@ -270,7 +274,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -421,7 +425,7 @@
 <li>关注知识点的历史背景，如何产生，经历了怎么样的变化。关注提出者的思想。</li>
 </ul>
 <h1 id="JavaScript发展史"><a href="#JavaScript发展史" class="headerlink" title="JavaScript发展史"></a>JavaScript发展史</h1><p>根据追本溯源，在重塑学习JavaScript这门语言时，先理清楚这门语言的由来。</p>
-<p>1.<br>在1994年的时候，网景公司（Netscape）发布了Navigator浏览器0.9版。这是历史上第一个比较成熟的网络浏览器，但是他的交互只能通过服务端的处理，比如说当用户在输入一个表单信息的时候，只能发送到服务器进行验证操作，判断是否没有填写某个必填项，是否输入了无效值，对于当时的网络速度之慢，每一次交互即增加了服务端的压力，并可能最后等待已久，返回的只是某一项的未填写而导致使用者的体验极差。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/Netscape-browser.png" style="border:none;width:60%;"></p>
+<p>1.<br>在1994年的时候，网景公司（Netscape）发布了Navigator浏览器0.9版。这是历史上第一个比较成熟的网络浏览器，但是他的交互只能通过服务端的处理，比如说当用户在输入一个表单信息的时候，只能发送到服务器进行验证操作，判断是否没有填写某个必填项，是否输入了无效值，对于当时的网络速度之慢，每一次交互即增加了服务端的压力，并可能最后等待已久，返回的只是某一项的未填写而导致使用者的体验极差。<br><img src="./images/JavaScript-restore/Netscape-browser.png" style="border:none;width:60%;"></p>
 <p>2.<br>这个时候网景公司急需一种网页脚本语言，使得浏览器可以与网页互动。网景公司当时有两个选择：一个是采用现有的语言，比如Perl、Python、Tcl、Scheme等等，允许它们直接嵌入网页；另一个是发明一种全新的语言。</p>
 <p>这两个选择各有利弊。第一个选择，有利于充分利用现有代码和程序员资源，推广起来比较容易；第二个选择，开发出完全适用的语言，实现起来比较容易。</p>
 <p>到底采用哪一个选择，网景公司内部争执不下，管理层一时难以下定决心。</p>
@@ -444,7 +448,7 @@
 <p>6.<br>JavaScript推出后在浏览器上大获成功，微软公司在不久后就为Internet Explorer 3浏览器推出了<strong>JScript</strong>，微软公司进入后，意味着有<strong>3</strong>种不同的<strong>JavaScript</strong>版本同时存在：Netscape Navigator 3.0 中的 <code>JavaScript</code>、IE 中的 <code>JScript</code> 以及 CEnvi 中的 <code>ScriptEase</code>。这样的JavaScript多版本在浏览器端共存意味着标准化的缺失，使不少网页使用非微软平台及浏览器无法正常显示。成为网络上普及使用JavaScript的阻碍。</p>
 <p>7.<br>1996年11月，网景公司将<strong>JavaScript 1.1</strong>作为一个草案提交给<strong>ECMA（欧洲计算机制造商协会）</strong>。该协会指定<strong>39号技术委员会（TC39）</strong>负责“标准化一个通用、跨平台、中立于厂商的脚本语言的语法和语义”。由来自 Netscape、Sun、微软、Borland 和其他一些对脚本编程感兴趣的公司的程序员组成的 TC39 锤炼出了 <code>ECMA-262</code>，该标准定义了名为 <code>ECMAScript</code> 的全新脚本语言。</p>
 <p>第二年，国际标准化组织及国际电工委员会（ISO/IEC）也采纳 ECMAScript 作为标准（ISO/IEC-16262）。从此，Web 浏览器就开始努力（虽然有着不同的程度的成功和失败）将 ECMAScript 作为 JavaScript 实现的基础。</p>
-<h1 id="JavaScript学习架构"><a href="#JavaScript学习架构" class="headerlink" title="JavaScript学习架构"></a>JavaScript学习架构</h1><p>按照winter老师总结的JavaScript学习架构图如下：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/JavaScript-study-line.png" style="border:none;width:80%;"></p>
+<h1 id="JavaScript学习架构"><a href="#JavaScript学习架构" class="headerlink" title="JavaScript学习架构"></a>JavaScript学习架构</h1><p>按照winter老师总结的JavaScript学习架构图如下：<br><img src="./images/JavaScript-restore/JavaScript-study-line.png" style="border:none;width:80%;"></p>
 <p>在JavaScript的模块中，首先可以按照文法、语义和运行时进行划分。这符合编程语言的一般规律：<strong>用一定的词法和语法，表达一定语义，从而操作运行时</strong>。<br>接下来，对于运行时，可以再划分为数据结构和算法。数据结构包含类型和实例，JS的类型系统就是它的 7 种语言类型和 7 种规范类型；实例是JS的内置对象。而算法，就是JS的执行过程。</p>
 <p>类型中，对象相比于其它类型更为复杂，需要关注它的历史和设计思路。实例部分，JS的内置对象多达150个以上，将从应用和机制的角度，挑选几个进行学习。</p>
 <p>执行过程则需要按照从大结构到小结构的角度学习，从最顶层的程序与模块、事件循环和微任务，到函数、再到语句级的执行。</p>
@@ -602,7 +606,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

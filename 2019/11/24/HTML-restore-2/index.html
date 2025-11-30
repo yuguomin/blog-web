@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
+<meta property="og:image" content="./images/HTML-restore/HTML-mean-markup.png">
 <meta property="og:updated_time" content="2020-02-14T16:27:30.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(2)——语义和元信息标签">
 <meta name="twitter:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
+<meta name="twitter:image" content="./images/HTML-restore/HTML-mean-markup.png">
 
 
 
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -420,7 +424,7 @@
 <li><code>samp</code>标签表示一段用户应该对其没有什么其他解释的文本字符。如计算机程序的示例输出。</li>
 <li><code>code</code>标签用于表示计算机源代码或者其他机器可以阅读的文本内容。</li>
 </ul>
-<p>HTML的标签很多，这些也只是其中一部分，下面借用<code>winter</code>的添加图：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png" style="border:none;width:70%;"></p>
+<p>HTML的标签很多，这些也只是其中一部分，下面借用<code>winter</code>的添加图：<br><img src="./images/HTML-restore/HTML-mean-markup.png" style="border:none;width:70%;"></p>
 <p>HTML的标签使用，不像编程语言一样具有严格的要求，但是我们在使用的时候也是要考虑好场景，在使用对应的语义标签，不要画蛇添足。</p>
 <h1 id="元信息标签"><a href="#元信息标签" class="headerlink" title="元信息标签"></a>元信息标签</h1><p>学习完了语义标签，接着看一下元信息标签，元信息标签也就是<strong>描述自身信息的标签</strong>，元信息多数情况下是给浏览器、搜索引擎等机器阅读的。</p>
 <p>元信息标签一般出现在<code>head</code>标签里面。接下来就从<code>head</code>开始介绍：</p>
@@ -642,7 +646,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>

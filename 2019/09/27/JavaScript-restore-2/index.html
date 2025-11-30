@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -69,17 +73,17 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 重塑JavaScript的第二篇，讲述知识架构运行时的数据结构的JavaScript类型知识点。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/null-type-arrow.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-64.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-nums.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-double.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-up.png">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/type-change-table.png">
+<meta property="og:image" content="./images/JavaScript-restore/null-type-arrow.png">
+<meta property="og:image" content="./images/JavaScript-restore/number-type-64.png">
+<meta property="og:image" content="./images/JavaScript-restore/number-type-nums.png">
+<meta property="og:image" content="./images/JavaScript-restore/number-type-max-double.png">
+<meta property="og:image" content="./images/JavaScript-restore/number-type-max-up.png">
+<meta property="og:image" content="./images/JavaScript-restore/type-change-table.png">
 <meta property="og:updated_time" content="2020-02-17T09:11:30.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript重塑(2)——JavaScript类型">
 <meta name="twitter:description" content="前言 重塑JavaScript的第二篇，讲述知识架构运行时的数据结构的JavaScript类型知识点。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/JavaScript-restore/null-type-arrow.png">
+<meta name="twitter:image" content="./images/JavaScript-restore/null-type-arrow.png">
 
 
 
@@ -274,7 +278,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -440,7 +444,7 @@ The Null type has exactly one value, called null.<br>
 意思是：Null类型只有一个值，即null。
 </p> 
 
-<h2 id="null的本质"><a href="#null的本质" class="headerlink" title="null的本质"></a>null的本质</h2><p>null和undefined不同，它是一个关键字，不可以再被赋值。null表示变量未指向任何对象，也可以把null视作尚未创建的对象。<strong>null在内存里的表示就是，栈中的变量没有指向堆中的内存对象</strong><br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/null-type-arrow.png" style="border:none;width:80%;"><br>所以当一个对象被赋值了null 以后，原来的对象在内存中就处于游离状态，GC(垃圾回收)会择机回收该对象并释放内存。因此，如果需要释放某个对象，就将变量设置为 null，即表示该对象已经被清空，目前无效状态。</p>
+<h2 id="null的本质"><a href="#null的本质" class="headerlink" title="null的本质"></a>null的本质</h2><p>null和undefined不同，它是一个关键字，不可以再被赋值。null表示变量未指向任何对象，也可以把null视作尚未创建的对象。<strong>null在内存里的表示就是，栈中的变量没有指向堆中的内存对象</strong><br><img src="./images/JavaScript-restore/null-type-arrow.png" style="border:none;width:80%;"><br>所以当一个对象被赋值了null 以后，原来的对象在内存中就处于游离状态，GC(垃圾回收)会择机回收该对象并释放内存。因此，如果需要释放某个对象，就将变量设置为 null，即表示该对象已经被清空，目前无效状态。</p>
 <h2 id="null的使用场景"><a href="#null的使用场景" class="headerlink" title="null的使用场景"></a>null的使用场景</h2><p>null通常被用来</p>
 <ul>
 <li><p>作为函数的参数，表示该函数的参数不是对象；</p>
@@ -531,14 +535,14 @@ The Number type has exactly 18437736874454810627 (that is, 2^64-2^53+3) values, 
 Number类型具有18437736874454810627（即2^64-2^53 + 3）值，表示IEEE标准二进制浮点运算中指定的双精度64位格式IEEE 754-2008值，但9007199254740990（也就是说，IEEE标准的2^53-2）在ECMAScript中不一样，它表示为单个特殊的NaN(“Not-a-Number”)值。 （注意，NaN值是由程序表达式NaN产生的。）在某些实现中，外部代码可能能够检测各种Not-a-Number值之间的差异，但这种行为依赖于实现；对于ECMAScript代码，所有NaN值都无法进行区分比较。
 </p> 
 
-<h2 id="Number类型的存储"><a href="#Number类型的存储" class="headerlink" title="Number类型的存储"></a>Number类型的存储</h2><p>JavaScript中的Number类型是双精度浮点数，也就是其他语言的<code>double</code>类型。它使用<strong>64-bit</strong>浮点数来进行存储（所以JS实际上也没有整数，整数也是用浮点数进行存储的），结构图如下：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-64.png" style="border:none;width:70%;"><br>其中：</p>
+<h2 id="Number类型的存储"><a href="#Number类型的存储" class="headerlink" title="Number类型的存储"></a>Number类型的存储</h2><p>JavaScript中的Number类型是双精度浮点数，也就是其他语言的<code>double</code>类型。它使用<strong>64-bit</strong>浮点数来进行存储（所以JS实际上也没有整数，整数也是用浮点数进行存储的），结构图如下：<br><img src="./images/JavaScript-restore/number-type-64.png" style="border:none;width:70%;"><br>其中：</p>
 <ul>
 <li>符号位：占1位，表示正负，1为正，2为负；</li>
 <li>指数位：占11位，用来表示次方数；</li>
 <li>尾数位：占52位，科学计数法后的有效数字（精确度）。</li>
 </ul>
 <p>因此一个Number类型在内存中可以被表示为<code>s * m * 2^e</code>这样的格式。<br>以<code>0.1</code>为例，它的二进制是<code>0.0001100110011001100...</code>；<br>为了节省存储空间，在计算机中它是以科学计数法表示的，也就是<code>1.100110011001100... * 2^-4</code></p>
-<h2 id="Number的数值量"><a href="#Number的数值量" class="headerlink" title="Number的数值量"></a>Number的数值量</h2><p>JavaScript中的Number类型具有<strong>18437736874454810627（即2^64−2^53 + 3）</strong>个值，这个数怎么来的呢？<br>JavaScript中的数字是64-bits的双精度浮点数，因此一共有<code>2^64</code>种数值可能，当指数位<code>e</code>全为<code>1</code>的时候，表示的要么为无穷数、要么是<code>NaN</code>，而<code>e</code>的存储位数是11位，其他的一共53位，因此不是数值的可能性是<code>2^53</code>。同时JavaScript中把<code>+∞</code>和<code>-∞</code>、<code>NaN</code>定义为数值（即后面的 +3）。所以JavaScript数值的总量为：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-nums.png" style="border:none;width:70%;"></p>
+<h2 id="Number的数值量"><a href="#Number的数值量" class="headerlink" title="Number的数值量"></a>Number的数值量</h2><p>JavaScript中的Number类型具有<strong>18437736874454810627（即2^64−2^53 + 3）</strong>个值，这个数怎么来的呢？<br>JavaScript中的数字是64-bits的双精度浮点数，因此一共有<code>2^64</code>种数值可能，当指数位<code>e</code>全为<code>1</code>的时候，表示的要么为无穷数、要么是<code>NaN</code>，而<code>e</code>的存储位数是11位，其他的一共53位，因此不是数值的可能性是<code>2^53</code>。同时JavaScript中把<code>+∞</code>和<code>-∞</code>、<code>NaN</code>定义为数值（即后面的 +3）。所以JavaScript数值的总量为：<br><img src="./images/JavaScript-restore/number-type-nums.png" style="border:none;width:70%;"></p>
 <h2 id="精度丢失"><a href="#精度丢失" class="headerlink" title="精度丢失"></a>精度丢失</h2><p>计算机中所有的数据都是以<strong>二进制</strong>存储的，所以在计算时计算机要把数据<strong>先转换成二进制进行计算，然后在把计算结果转换成十进制</strong>。比较出名的一个案例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0.1</span> + <span class="number">0.2</span> === <span class="number">0.3</span>;</span><br><span class="line"><span class="comment">// 输出 false</span></span><br></pre></td></tr></table></figure>
 
@@ -571,7 +575,7 @@ Number类型具有18437736874454810627（即2^64-2^53 + 3）值，表示IEEE标�
 <h2 id="Number类型的最大和最小安全整数"><a href="#Number类型的最大和最小安全整数" class="headerlink" title="Number类型的最大和最小安全整数"></a>Number类型的最大和最小安全整数</h2><p>最大最小安全数字，即在这个数范围内不会出现精度丢失（小数除外）。在JS中能够表示的最大安全整数的范围是：<strong>-9007199254740991 ~ 9007199254740991</strong>，这一点可以通过<code>Number.MAX_SAFE_INTEGER</code>和<code>Number.MIN_SAFE_INTEGER</code>证实：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.MAX_SAFE_INTEGER</span><br><span class="line"><span class="comment">// 9007199254740991</span></span><br><span class="line"><span class="built_in">Number</span>.MIN_SAFE_INTEGER</span><br><span class="line"><span class="comment">// -9007199254740991</span></span><br></pre></td></tr></table></figure>
 
-<p>那么是为什么呢？<br>最大安全整数<code>9007199254740991</code>对应的二进制数如图：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-double.png" style="border:none;width:80%;"><br>当<code>53</code>个尾数位存储满了之后，如果想要展示更大的值，就需要在指数位上加一，这时候尾数因为没有多余的存储空间，因此只能补<code>0</code>。<br>图中第一列是科学计数法二进制数每次加值1，第一次由于满值，加在了指数上；第二列为转换为不使用科学计数法后补<code>0</code>的二进制数；第三列为转换的对应十进制数。<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/number-type-max-up.png" style="border:none;width:80%;"><br>如图所示，在指数位为53的情况下，最后一位尾数位为<code>0</code>的数字可以被精确表示，而最后一位尾数位为<code>1</code>的数字都不能被精确表示。也就是可以被精确表示和不能被精确表示的比例是<code>1:1</code>。<br>同理，当指数为<code>54</code>的时候，只有最后两位尾数为<code>00</code>的可以被精确表示，也就是可以被精确表示和不能被精确表示的比例是<code>1:3</code>，当有效位数达到<code>x (x&gt;52)</code>的时候，可以被精确表示和不能被精确表示的比例将是<code>1 : 2^(x-52) - 1</code>。那么Number.MAX_SAFE_INTEGER ~ Number.MAX_VALUE之间可以被精确表示的整数可以说是凤毛麟角。</p>
+<p>那么是为什么呢？<br>最大安全整数<code>9007199254740991</code>对应的二进制数如图：<br><img src="./images/JavaScript-restore/number-type-max-double.png" style="border:none;width:80%;"><br>当<code>53</code>个尾数位存储满了之后，如果想要展示更大的值，就需要在指数位上加一，这时候尾数因为没有多余的存储空间，因此只能补<code>0</code>。<br>图中第一列是科学计数法二进制数每次加值1，第一次由于满值，加在了指数上；第二列为转换为不使用科学计数法后补<code>0</code>的二进制数；第三列为转换的对应十进制数。<br><img src="./images/JavaScript-restore/number-type-max-up.png" style="border:none;width:80%;"><br>如图所示，在指数位为53的情况下，最后一位尾数位为<code>0</code>的数字可以被精确表示，而最后一位尾数位为<code>1</code>的数字都不能被精确表示。也就是可以被精确表示和不能被精确表示的比例是<code>1:1</code>。<br>同理，当指数为<code>54</code>的时候，只有最后两位尾数为<code>00</code>的可以被精确表示，也就是可以被精确表示和不能被精确表示的比例是<code>1:3</code>，当有效位数达到<code>x (x&gt;52)</code>的时候，可以被精确表示和不能被精确表示的比例将是<code>1 : 2^(x-52) - 1</code>。那么Number.MAX_SAFE_INTEGER ~ Number.MAX_VALUE之间可以被精确表示的整数可以说是凤毛麟角。</p>
 <p><strong>安全数本质上来说就是由于数字类型在计算机中的存储结构，在尾数位不够补零之后，只要是多余的尾数为1所对应的整数都不能被精确表示。</strong></p>
 <h1 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h1><p><a href="https://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types-symbol-type" target="_blank" rel="noopener">ECAM标准的定义</a>：</p>
 <p id="div-border-left-green">
@@ -640,7 +644,7 @@ An Object is logically a collection of properties. Each property is either a dat
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'x'</span>;</span><br><span class="line">str.serial = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.serial); <span class="comment">// 输出是 undefined</span></span><br></pre></td></tr></table></figure>
 
 <p>在这一段代码中，首先创造了一个原始类型字符串<code>str</code>，值为<code>&#39;x&#39;</code>，代码第二行，想要给原始类型赋值的时候，创建一个包装对象<code>new String(&#39;x&#39;)</code>，然后为其添加属性<code>serial</code>为<code>1</code>，执行完这一行代码之后，该包装对象被销毁。在第三行代码，获取该属性的时候，再次创建了一个新的包装对象，然而没有这个值。所以是<code>undefined</code>。</p>
-<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><p>由于JavaScript是一门弱类型语言，所以类型转换发生非常频繁。很多时候的转换是我们主动的强制类型转换，但更多时候是程序自动进行的隐式类型转换。大部分类型转换规则如下winter老师的准备的图表：<br><img src="https://cdn.yuguomin.com/images/JavaScript-restore/type-change-table.png" style="border:none;width:80%;"><br>较为复杂的部分是 Number 和 String 之间的转换，以及对象跟基本类型之间的转换。我们分别来看一看这几种转换的规则。</p>
+<h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><p>由于JavaScript是一门弱类型语言，所以类型转换发生非常频繁。很多时候的转换是我们主动的强制类型转换，但更多时候是程序自动进行的隐式类型转换。大部分类型转换规则如下winter老师的准备的图表：<br><img src="./images/JavaScript-restore/type-change-table.png" style="border:none;width:80%;"><br>较为复杂的部分是 Number 和 String 之间的转换，以及对象跟基本类型之间的转换。我们分别来看一看这几种转换的规则。</p>
 <h2 id="StringToNumber"><a href="#StringToNumber" class="headerlink" title="StringToNumber"></a>StringToNumber</h2><p>字符串到数字的转换，存在一个语法结构，类型转换支持十进制、二进制、八进制和十六进制，并且支持的字符串语法还包括正负号科学计数法，可以使用大写或者小写的 e 来表示。比如：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>(<span class="string">'30'</span>); <span class="comment">// 30</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'0b111'</span>); <span class="comment">// 7</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'0o13'</span>); <span class="comment">// 11</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'0xFF'</span>); <span class="comment">// 255</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'1e3'</span>); <span class="comment">// 1000</span></span><br><span class="line"><span class="built_in">Number</span>(<span class="string">'-1e-2'</span>); <span class="comment">// -0.01</span></span><br></pre></td></tr></table></figure>
 
@@ -838,7 +842,7 @@ An Object is logically a collection of properties. Each property is either a dat
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
