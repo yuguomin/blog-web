@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,7 +36,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="./lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -40,9 +44,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="./lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+<link href="./css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
   <meta name="keywords" content="CSS,">
@@ -54,7 +58,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico?v=5.1.0">
 
 
 
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png">
+<meta property="og:image" content="./images/CSS-restore/CSS-study-xml.png">
 <meta property="og:updated_time" content="2020-02-11T07:50:01.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS重塑(1)——历史与大纲">
 <meta name="twitter:description" content="前言 本篇内容主要是为接下来一些重塑CSS内容做大纲，以及CSS的历史发展。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png">
+<meta name="twitter:image" content="./images/CSS-restore/CSS-study-xml.png">
 
 
 
@@ -109,7 +113,7 @@
 
 
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<link href=".//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 <style>
     .pace .pace-progress {
         background: #3385ff; /*进度条颜色*/
@@ -169,7 +173,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="./" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">SuperFish's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -197,7 +201,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="./" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
@@ -207,7 +211,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="./categories" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
@@ -217,7 +221,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="./tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
@@ -227,7 +231,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="./archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -323,7 +327,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS-Restore/" itemprop="url" rel="index">
+                  <a href="./categories/CSS-Restore/" itemprop="url" rel="index">
                     <span itemprop="name">CSS Restore</span>
                   </a>
                 </span>
@@ -405,7 +409,7 @@
 <p>从形式上来说，CSS3 标准自身已经不存在了。每个模块都被独立的标准化，现在标准 CSS 包括了修订后的 CSS2.1 以及完整模块对它的扩充，模块的 level（级别）数并不一致。</p>
 <p>CSS不断的强大，需求也在不断的提高，浏览器对标准的实现不同，逐渐为我们带来新的功能时也增加了工作的难度。</p>
 <h1 id="CSS学习大纲"><a href="#CSS学习大纲" class="headerlink" title="CSS学习大纲"></a>CSS学习大纲</h1><p>CSS的学习是按照功能和语言进行，语言主要是它的语法结构，比如 @rule、选择器、单位等等。功能大致可以分为布局、绘制和交互类。</p>
-<p>在布局类我们介绍两个最常用的布局：正常流和弹性布局。绘制类则分成图形相关的和文字相关的绘制。最后还有动画和其它交互。<br><img src="https://cdn.yuguomin.com/images/CSS-restore/CSS-study-xml.png" style="border:none;width:80%;"></p>
+<p>在布局类我们介绍两个最常用的布局：正常流和弹性布局。绘制类则分成图形相关的和文字相关的绘制。最后还有动画和其它交互。<br><img src="./images/CSS-restore/CSS-study-xml.png" style="border:none;width:80%;"></p>
 <p>参考相关文章链接：<br><a href="https://zh.wikipedia.org/wiki/%E5%B1%82%E5%8F%A0%E6%A0%B7%E5%BC%8F%E8%A1%A8" target="_blank" rel="noopener">层叠样式表 wiki</a><br><a href="https://www.w3.org/Style/CSS20/history.html" target="_blank" rel="noopener">A brief history of CSS until 2016</a><br><a href="https://css-tricks.com/look-back-history-css/" target="_blank" rel="noopener">A Look Back at the History of CSS</a><br><a href="https://time.geekbang.org/column/article/77804" target="_blank" rel="noopener">重学前端-winter</a></p>
 
       
@@ -428,7 +432,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/12/07/CSS-restore-1/" title="CSS重塑(1)——历史与大纲">https://www.yuguomin.com/2019/12/07/CSS-restore-1/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="./2019/12/07/CSS-restore-1/" title="CSS重塑(1)——历史与大纲">https://www.yuguomin.com/2019/12/07/CSS-restore-1/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -436,7 +440,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
+            <a href="./tags/CSS/" rel="tag"><i class="fa fa-tag"> CSS</i></a>
           
         </div>
       
@@ -449,7 +453,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/04/HTML-restore-4/" rel="next" title="HTML重塑(4)——语法及扩展">
+              <a href="./2019/12/04/HTML-restore-4/" rel="next" title="HTML重塑(4)——语法及扩展">
                 <i class="fa fa-chevron-left"></i> HTML重塑(4)——语法及扩展
               </a>
             
@@ -459,7 +463,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/12/12/CSS-restore-2/" rel="prev" title="CSS重塑(2)——CSS语言相关">
+              <a href="./2019/12/12/CSS-restore-2/" rel="prev" title="CSS重塑(2)——CSS语言相关">
                 CSS重塑(2)——CSS语言相关 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -509,7 +513,7 @@
     <div class="-mob-share-close">取消</div>
 </div>
 <div class="-mob-share-ui-bg"></div>
-<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<script id="-mob-share" src=""></script>
 <!--MOB SHARE END-->
       
     </div>
@@ -558,7 +562,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -568,7 +572,7 @@
         
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="./archives">
                 <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">posts</span>
               </a>
@@ -577,7 +581,7 @@
 
           
             <div class="site-state-item site-state-categories">
-              <a href="/categories">
+              <a href="./categories">
                 <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">categories</span>
               </a>
@@ -586,7 +590,7 @@
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="./tags">
                 <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
@@ -678,7 +682,7 @@ show_date_time();
 </div>
 
 
-<a href="http://www.beian.miit.gov.cn">
+<a href="">
   鄂ICP备18030280号
 </a>
 
@@ -687,7 +691,7 @@ show_date_time();
 
 <div class="busuanzi-count">
 
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src=""></script>
 
   
     <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
@@ -735,46 +739,46 @@ show_date_time();
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="./lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="./lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="./lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="./lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="./lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
+  <script type="text/javascript" src="./lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="./js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="./js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="./js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="./js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="./js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -810,7 +814,7 @@ show_date_time();
           var j, e = d.getElementsByTagName(s)[0];
           if (typeof LivereTower === 'function') { return; }
           j = d.createElement(s);
-          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.src = '';
           j.async = true;
           e.parentNode.insertBefore(j, e);
         })(document, 'script');
@@ -841,6 +845,6 @@ show_date_time();
 </script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+<script src=""></script><script>Object.values({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
 
 </html>

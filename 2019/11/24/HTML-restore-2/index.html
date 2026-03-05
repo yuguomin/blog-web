@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,7 +36,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="./lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -40,9 +44,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="./lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+<link href="./css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
   <meta name="keywords" content="HTML,">
@@ -54,7 +58,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico?v=5.1.0">
 
 
 
@@ -69,12 +73,12 @@
 <meta property="og:site_name" content="SuperFish&#39;s Blog">
 <meta property="og:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
+<meta property="og:image" content="./images/HTML-restore/HTML-mean-markup.png">
 <meta property="og:updated_time" content="2020-02-14T16:27:30.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTML重塑(2)——语义和元信息标签">
 <meta name="twitter:description" content="前言 本篇内容主要是HTML的功能部分学习，HTML是由标签承载的，功能的学习也就是标签的学习。以下是标签分类的语义和元信息标签相关内容。">
-<meta name="twitter:image" content="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png">
+<meta name="twitter:image" content="./images/HTML-restore/HTML-mean-markup.png">
 
 
 
@@ -109,7 +113,7 @@
 
 
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<link href=".//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 <style>
     .pace .pace-progress {
         background: #3385ff; /*进度条颜色*/
@@ -169,7 +173,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="./" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">SuperFish's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -197,7 +201,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="./" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
@@ -207,7 +211,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="./categories" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
@@ -217,7 +221,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="./tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
@@ -227,7 +231,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="./archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
@@ -269,7 +273,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -323,7 +327,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTML-Restore/" itemprop="url" rel="index">
+                  <a href="./categories/HTML-Restore/" itemprop="url" rel="index">
                     <span itemprop="name">HTML Restore</span>
                   </a>
                 </span>
@@ -420,7 +424,7 @@
 <li><code>samp</code>标签表示一段用户应该对其没有什么其他解释的文本字符。如计算机程序的示例输出。</li>
 <li><code>code</code>标签用于表示计算机源代码或者其他机器可以阅读的文本内容。</li>
 </ul>
-<p>HTML的标签很多，这些也只是其中一部分，下面借用<code>winter</code>的添加图：<br><img src="https://cdn.yuguomin.com/images/HTML-restore/HTML-mean-markup.png" style="border:none;width:70%;"></p>
+<p>HTML的标签很多，这些也只是其中一部分，下面借用<code>winter</code>的添加图：<br><img src="./images/HTML-restore/HTML-mean-markup.png" style="border:none;width:70%;"></p>
 <p>HTML的标签使用，不像编程语言一样具有严格的要求，但是我们在使用的时候也是要考虑好场景，在使用对应的语义标签，不要画蛇添足。</p>
 <h1 id="元信息标签"><a href="#元信息标签" class="headerlink" title="元信息标签"></a>元信息标签</h1><p>学习完了语义标签，接着看一下元信息标签，元信息标签也就是<strong>描述自身信息的标签</strong>，元信息多数情况下是给浏览器、搜索引擎等机器阅读的。</p>
 <p>元信息标签一般出现在<code>head</code>标签里面。接下来就从<code>head</code>开始介绍：</p>
@@ -512,7 +516,7 @@
         <p id="div-border-left-red">
       <b>本文基于<a target="_blank" title="Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)" href="http://creativecommons.org/licenses/by-sa/4.0/"> 知识共享署名-相同方式共享 4.0 </a>国际许可协议发布</b><br>
         <span>
-        <b>本文地址: </b><a href="/2019/11/24/HTML-restore-2/" title="HTML重塑(2)——语义和元信息标签">https://www.yuguomin.com/2019/11/24/HTML-restore-2/</a><br><b>转载请注明出处, 谢谢！</b>
+        <b>本文地址: </b><a href="./2019/11/24/HTML-restore-2/" title="HTML重塑(2)——语义和元信息标签">https://www.yuguomin.com/2019/11/24/HTML-restore-2/</a><br><b>转载请注明出处, 谢谢！</b>
         </span>
         </p>
   </div>
@@ -520,7 +524,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTML/" rel="tag"><i class="fa fa-tag"> HTML</i></a>
+            <a href="./tags/HTML/" rel="tag"><i class="fa fa-tag"> HTML</i></a>
           
         </div>
       
@@ -533,7 +537,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/19/HTML-restore-1/" rel="next" title="HTML重塑(1)——历史与大纲">
+              <a href="./2019/11/19/HTML-restore-1/" rel="next" title="HTML重塑(1)——历史与大纲">
                 <i class="fa fa-chevron-left"></i> HTML重塑(1)——历史与大纲
               </a>
             
@@ -543,7 +547,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/30/HTML-restore-3/" rel="prev" title="HTML重塑(3)——链接和替换标签">
+              <a href="./2019/11/30/HTML-restore-3/" rel="prev" title="HTML重塑(3)——链接和替换标签">
                 HTML重塑(3)——链接和替换标签 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -593,7 +597,7 @@
     <div class="-mob-share-close">取消</div>
 </div>
 <div class="-mob-share-ui-bg"></div>
-<script id="-mob-share" src="https://f1.webshare.mob.com/code/mob-share.js?appkey=2bee37e5c8594"></script>
+<script id="-mob-share" src=""></script>
 <!--MOB SHARE END-->
       
     </div>
@@ -642,7 +646,7 @@
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -652,7 +656,7 @@
         
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="./archives">
                 <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">posts</span>
               </a>
@@ -661,7 +665,7 @@
 
           
             <div class="site-state-item site-state-categories">
-              <a href="/categories">
+              <a href="./categories">
                 <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">categories</span>
               </a>
@@ -670,7 +674,7 @@
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="./tags">
                 <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
@@ -762,7 +766,7 @@ show_date_time();
 </div>
 
 
-<a href="http://www.beian.miit.gov.cn">
+<a href="">
   鄂ICP备18030280号
 </a>
 
@@ -771,7 +775,7 @@ show_date_time();
 
 <div class="busuanzi-count">
 
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src=""></script>
 
   
     <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
@@ -819,46 +823,46 @@ show_date_time();
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="./lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="./lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="./lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="./lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="./lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
+  <script type="text/javascript" src="./lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="./js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="./js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="./js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="./js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="./js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -894,7 +898,7 @@ show_date_time();
           var j, e = d.getElementsByTagName(s)[0];
           if (typeof LivereTower === 'function') { return; }
           j = d.createElement(s);
-          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.src = '';
           j.async = true;
           e.parentNode.insertBefore(j, e);
         })(document, 'script');
@@ -925,6 +929,6 @@ show_date_time();
 </script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+<script src=""></script><script>Object.values({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
 
 </html>

@@ -6,7 +6,11 @@
 
 
 <html class="theme-next muse use-motion" lang>
-<head><meta name="generator" content="Hexo 3.9.0">
+<script>
+  // 自动设置基础路径
+  const basePath = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? '' : '/blog-web';
+  document.write('<base href="' + basePath + '/">');
+</script><head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -32,7 +36,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="./lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -40,9 +44,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="./lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+<link href="./css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
 
 
   <meta name="keywords" content="Hexo, NexT">
@@ -54,7 +58,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="./images/favicon.ico?v=5.1.0">
 
 
 
@@ -102,7 +106,7 @@
 
 
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
-<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<link href=".//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
 <style>
     .pace .pace-progress {
         background: #3385ff; /*进度条颜色*/
@@ -164,7 +168,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="./" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">SuperFish's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -192,7 +196,7 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
+          <a href="./" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
@@ -202,7 +206,7 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
+          <a href="./categories" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
@@ -212,7 +216,7 @@
       
         
         <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
+          <a href="./tags" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
@@ -222,7 +226,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="./archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
@@ -255,158 +259,6 @@
   
 
   
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2020/03/24/data-structure-meaning/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="YGM">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SuperFish's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2020/03/24/data-structure-meaning/" itemprop="url">
-                  数据结构是什么
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-03-24T10:36:53+08:00">
-                2020-03-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/data-structure/" itemprop="url" rel="index">
-                    <span itemprop="name">data structure</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-          <span class="post-time">
-            &nbsp; | &nbsp;
-                  <span class="post-meta-item-icon">
-                    <i class="fa fa-calendar-o"></i>
-                  </span>
-                  <span class="post-meta-item-text">字数统计:</span>
-                  <span class="post-count">112(字)</span>
-                </span>
-            
-              <span class="post-time">
-            &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">阅读时长:</span>
-            <span class="post-count">1(分)</span>
-            
-          </span>
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>接来下的计划，对于计算机学科的基础内容要开始在业余时间重点学习，数据结构作为计算机软件的基础课程，作为非科班出生的我，想要从事这个行业更加久远，是必须掌握的。学习这门学科的计划是通过阅读程杰老师的大话数据结构这本书，展开进行系统化学习。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/03/24/data-structure-meaning/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-    
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
 
 
     
@@ -417,14 +269,14 @@
   
   
   
-
+    
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://www.yuguomin.com/2020/03/14/job-summary-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -441,7 +293,7 @@
             
               
                 
-                <a class="post-title-link" href="/2020/03/14/job-summary-1/" itemprop="url">
+                <a class="post-title-link" href="./2020/03/14/job-summary-1/" itemprop="url">
                   2019工作总结
                 </a>
               
@@ -481,7 +333,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Diary/" itemprop="url" rel="index">
+                  <a href="./categories/Diary/" itemprop="url" rel="index">
                     <span itemprop="name">Diary</span>
                   </a>
                 </span>
@@ -538,7 +390,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近一段时间忙着找新工作，目前面试处理等待结果的状态，刚好在这个空闲时期调整下作息，总结一下关于上一家公司的工作内容以及对未来做一些规划。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/03/14/job-summary-1/#more" rel="contents">
+            <a class="btn" href="./2020/03/14/job-summary-1/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -567,9 +419,6 @@
       
     </footer>
   </article>
-
-
-    
       
 
   
@@ -584,7 +433,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -601,7 +450,7 @@
             
               
                 
-                <a class="post-title-link" href="/2020/02/17/ssr-cluster/" itemprop="url">
+                <a class="post-title-link" href="./2020/02/17/ssr-cluster/" itemprop="url">
                   SSR服务优化之多进程
                 </a>
               
@@ -641,7 +490,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSR/" itemprop="url" rel="index">
+                  <a href="./categories/SSR/" itemprop="url" rel="index">
                     <span itemprop="name">SSR</span>
                   </a>
                 </span>
@@ -698,7 +547,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在上一篇的SSR同构框架中，讲述了对于render服务的优化措施开启多进程处理服务端渲染服务。本篇内容主要是如何使用<strong>node</strong>多进程，以及它的注意项。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/02/17/ssr-cluster/#more" rel="contents">
+            <a class="btn" href="./2020/02/17/ssr-cluster/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -744,7 +593,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -761,7 +610,7 @@
             
               
                 
-                <a class="post-title-link" href="/2020/02/06/create-ssr-framework/" itemprop="url">
+                <a class="post-title-link" href="./2020/02/06/create-ssr-framework/" itemprop="url">
                   SSR同构框架搭建笔记
                 </a>
               
@@ -801,7 +650,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SSR/" itemprop="url" rel="index">
+                  <a href="./categories/SSR/" itemprop="url" rel="index">
                     <span itemprop="name">SSR</span>
                   </a>
                 </span>
@@ -858,7 +707,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前段时间公司运营要求把一个客户端的主站页面支持<strong>SEO</strong>，之前一直采用我们自己的开发框架，并没有接入这方面的功能，还好给的时间充足，基于我们原本的开发模式，实现<strong>SSR</strong>场景开发工具，并且对原本的<strong>CSR</strong>的业务代码做微量修改即可支持。本篇内容讲述整体<strong>SSR</strong>项目的架构和总结实现过程的难点及优化。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/02/06/create-ssr-framework/#more" rel="contents">
+            <a class="btn" href="./2020/02/06/create-ssr-framework/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -904,7 +753,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -921,7 +770,7 @@
             
               
                 
-                <a class="post-title-link" href="/2020/01/29/webpack-js-tool-demo/" itemprop="url">
+                <a class="post-title-link" href="./2020/01/29/webpack-js-tool-demo/" itemprop="url">
                   webpack打包JS工具库简单示例
                 </a>
               
@@ -961,7 +810,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                  <a href="./categories/webpack/" itemprop="url" rel="index">
                     <span itemprop="name">webpack</span>
                   </a>
                 </span>
@@ -1018,7 +867,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇内容是用一个demo说明<strong>webpack</strong>开发一个简单JS工具库的基本配置方式。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/01/29/webpack-js-tool-demo/#more" rel="contents">
+            <a class="btn" href="./2020/01/29/webpack-js-tool-demo/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1064,7 +913,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="YGM">
       <meta itemprop="description" content>
-      <meta itemprop="image" content="https://cdn.yuguomin.com/images/common/test-smile.jpg">
+      <meta itemprop="image" content="./images/common/test-smile.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1081,7 +930,7 @@
             
               
                 
-                <a class="post-title-link" href="/2020/01/23/preload-module-tool/" itemprop="url">
+                <a class="post-title-link" href="./2020/01/23/preload-module-tool/" itemprop="url">
                   开发日记——性能优化之预加载quicklink
                 </a>
               
@@ -1121,7 +970,7 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/performance/" itemprop="url" rel="index">
+                  <a href="./categories/performance/" itemprop="url" rel="index">
                     <span itemprop="name">performance</span>
                   </a>
                 </span>
@@ -1178,7 +1027,7 @@
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇内容是客户端<strong>SPA</strong>项目做的一个预加载性能优化的过程，最终实现是通过在页面对应视口提前加载可能会被打开的页面的资源，使打开对应页面时读取缓存，提高页面加载速度。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/01/23/preload-module-tool/#more" rel="contents">
+            <a class="btn" href="./2020/01/23/preload-module-tool/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1214,7 +1063,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="./page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="./page/6/">6</a><a class="extend next" rel="next" href="./page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1246,7 +1095,7 @@
 
       <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://cdn.yuguomin.com/images/common/test-smile.jpg" alt="YGM">
+          <img class="site-author-image" itemprop="image" src="./images/common/test-smile.jpg" alt="YGM">
           <p class="site-author-name" itemprop="name">YGM</p>
            
               <p class="site-description motion-element" itemprop="description"></p>
@@ -1256,7 +1105,7 @@
         
           
             <div class="site-state-item site-state-posts">
-              <a href="/archives">
+              <a href="./archives">
                 <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">posts</span>
               </a>
@@ -1265,7 +1114,7 @@
 
           
             <div class="site-state-item site-state-categories">
-              <a href="/categories">
+              <a href="./categories">
                 <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">categories</span>
               </a>
@@ -1274,7 +1123,7 @@
 
           
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="./tags">
                 <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
@@ -1350,16 +1199,16 @@ show_date_time();
 </div>
 
 
-<a href="http://www.beian.miit.gov.cn">
+<a href="">
   鄂ICP备18030280号
 </a>
 
 
         
 
-<div class="busuanzi-count">
+<!-- <div class="busuanzi-count">
 
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src=""></script>
 
   
     <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
@@ -1369,7 +1218,7 @@ show_date_time();
     <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
   
   
-</div>
+</div> -->
 
 
 
@@ -1407,42 +1256,42 @@ show_date_time();
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="./lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="./lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="./lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="./lib/velocity/velocity.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="./lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
   
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="./lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+  <script type="text/javascript" src="./js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="./js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="./js/src/bootstrap.js?v=5.1.0"></script>
 
 
 
@@ -1478,7 +1327,7 @@ show_date_time();
           var j, e = d.getElementsByTagName(s)[0];
           if (typeof LivereTower === 'function') { return; }
           j = d.createElement(s);
-          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.src = '';
           j.async = true;
           e.parentNode.insertBefore(j, e);
         })(document, 'script');
@@ -1509,6 +1358,6 @@ show_date_time();
 </script>
 
 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
+<script src=""></script><script>Object.values({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"superSample":2,"width":160,"height":160,"position":"left"},"mobile":{"show":false},"react":{"opacityDefault":0.9,"opacityOnHover":0.5},"log":false});</script></body>
 
 </html>
